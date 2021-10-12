@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package MyVaccination;
-
+import com.formdev.flatlaf.FlatIntelliJLaf;
 /**
  *
  * @author leebe
@@ -16,6 +16,10 @@ public class MyVaccination {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        FlatIntelliJLaf.install();
+       Test2 test = new Test2();
+       test.setVisible(true);
     }
     
 }
