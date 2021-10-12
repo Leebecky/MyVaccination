@@ -5,10 +5,20 @@
  */
 package MyVaccination;
 
+import java.time.*;
+
 /**
  *
  * @author user
  */
-public class People {
-    
+public class People extends User {
+
+    public String name;
+    public LocalDate dateOfBirth;
+    private String identification; //Passport or IC number
+    public String nationality;
+    public String vaccinationStatus;
+    public String address;
+
+   
 }
