@@ -10,5 +10,13 @@ package MyVaccination;
  * @author leebe
  */
 public class User {
-    
+
+    private String userId;
+    public String username;
+    private String password;
+    protected String userType;
+
+    public static void Login() {
+        //Placeholder code for Login process, maybe return User class?
+    }
 }

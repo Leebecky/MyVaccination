@@ -20,6 +20,7 @@ public class MyVaccination {
         FlatIntelliJLaf.install();
        Test2 test = new Test2();
        test.setVisible(true);
+     
     }
     
 }
