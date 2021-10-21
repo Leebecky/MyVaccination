@@ -5,10 +5,6 @@
  */
 package MyVaccination;
 
-import com.github.lgooddatepicker.durationpicker_underconstruction.DurationUnit;
-import java.time.Duration;
-import java.time.Period;
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -20,7 +16,7 @@ public class AstraZeneca extends Vaccine {
     public AstraZeneca() {
         this.manufacturer = "Oxford AstraZeneca";
         this.name = "AstraZeneca";
-        this.waitTime = Period.ofWeeks(12);
+        this.waitTime = 12;
         this.amount = 50;
         this.dosage = 5;
         this.batchNumber = "AZ_" + UUID.randomUUID().toString();

@@ -5,7 +5,6 @@
  */
 package MyVaccination;
 
-import java.time.Period;
 import java.util.UUID;
 
 /**
@@ -17,7 +16,7 @@ public class Pfizer extends Vaccine {
     public Pfizer() {
         this.manufacturer = "Pfizer";
         this.name = "Pfizer";
-        this.waitTime = Period.ofWeeks(3);
+        this.waitTime = 3;
         this.amount = 50;
         this.dosage = 5;
         this.batchNumber = "PF_" + UUID.randomUUID().toString();

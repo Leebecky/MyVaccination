@@ -5,6 +5,7 @@
  */
 package MyVaccination;
 
+import java.time.LocalDate;
 import java.time.Period;
 
 /**
@@ -19,7 +20,11 @@ public class Vaccine {
     protected int dosage;
     protected int amount;
     protected int dosesRequired;
-    protected Period waitTime;
+    protected int waitTime; //in weeks
+
+    public String getBatchNumber() {
+        return batchNumber;
+    }
 
     public String getName() {
         return name;
@@ -28,11 +33,22 @@ public class Vaccine {
     public int getAmount() {
         return amount;
     }
-    
-     public Period getWaitTime() {
+
+    public int getWaitTime() {
         return waitTime;
     }
 
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public int getDosage() {
+        return dosage;
+    }
+
+    public int getDosesRequired() {
+        return dosesRequired;
+    }
 
     //End of class
 }
