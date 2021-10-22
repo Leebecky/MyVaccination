@@ -6,21 +6,15 @@
 package MyVaccination.Classes;
 
 import MyVaccination.Helper_Classes.File_Methods;
-import java.time.LocalDate;
-import java.time.Period;
 
-/**
- *
- * @author leebe
- */
 public class Vaccine implements File_Methods{
 
     protected String name;
     protected String manufacturer;
     protected String batchNumber;
-    protected int dosage;
-    protected int amount;
-    protected int dosesRequired;
+    protected int dosage; // number of doses per vaccine bottle
+    protected int amount; // number of bottles 
+    protected int dosesRequired; // number of shots required for full immunisation
     protected int waitTime; //in weeks
 
     public String getBatchNumber() {
