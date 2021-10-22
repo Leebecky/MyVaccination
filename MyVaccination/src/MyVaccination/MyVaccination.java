@@ -5,7 +5,13 @@
  */
 package MyVaccination;
 
+import MyVaccination.Classes.Pfizer;
+import MyVaccination.Classes.Vaccine;
+import MyVaccination.Classes.AstraZeneca;
+import MyVaccination.Classes.Stock;
+import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Gson.LocalDateAdapter;
+import MyVaccination.Helper_Classes.File_Helper;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,6 +24,7 @@ import com.google.gson.*;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -29,64 +36,47 @@ public class MyVaccination {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
 
         FlatIntelliJLaf.install();
         Test2 test = new Test2();
         test.setVisible(true);
 
+        
+// Sample code for JSON object creation and write to file
+/*
         AstraZeneca az = new AstraZeneca();
         Pfizer pf = new Pfizer();
-//        System.out.println(az.getName());
-//        System.out.println(pf.getName());
 
-        ArrayList<Vaccine> stock = new ArrayList<>();
-        stock.add(pf);
-        stock.add(az);
-//        System.out.println(stock);
-//        stock.forEach(v -> {
-//            System.out.println(v.batchNumber);
-//            System.out.println(v.waitTime);
-//            System.out.println(v.getWaitTime());
-//        }); 
+        List<Stock> stock = new ArrayList<>();
+        stock.add(new Stock(pf));
+        stock.add(new Stock(az));
+        Vaccination_Centre vc = new Vaccination_Centre();
+        vc.setStock(stock);
+        vc.centreId = UUID.randomUUID().toString();
+        vc.name = "Test";
 
-// Sample code for JSON object creation and write to file
+        File_Helper.saveData(vc, "Vaccination_Centre");
 
-        Gson g = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        //registerTypeAdapter so that the JSON can handle LocalDate type
+        String vcData = File_Helper.readFile(vc.getFileName());
+        Vaccination_Centre vcFromFile = File_Helper.gsonWriter.fromJson(vcData, Vaccination_Centre.class);
+        List<Stock> stock2 = vcFromFile.getStock();
+        System.out.println(stock2.get(0).getVaccine().getBatchNumber());
+        List<String> vcDataArray = File_Helper.readFolder("Vaccination_Centre");
+        List<Vaccination_Centre> vcList = new ArrayList();
 
-        try {
-            FileWriter myWriter = new FileWriter("filename.txt");
-            myWriter.write(g.toJson(stock));
-            
-            myWriter.close();
-            System.out.println("Successfully wrote to the file.");
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-        
-        try {
-            File myObj = new File("filename.txt");
-            Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
+        vcDataArray.forEach(fileInFolder -> {
+            vcList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+        });
 
-                List<Vaccine> a = parseGsonArray(data, Vaccine[].class);
-                System.out.println(a.get(0).getDosesRequired());
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
+        vcList.forEach(f -> {
+            f.getStock().forEach(s -> {
+                System.out.println(s.getVaccine().getBatchNumber());
+            });
 
-//Main end
-    }
+        });
+*/
 
-    public static <T> List<T> parseGsonArray(String json, Class<T[]> model) {
-        Gson g = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
-        return Arrays.asList(g.fromJson(json, model));
+        //Main end
     }
 
 //Class end
