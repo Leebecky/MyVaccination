@@ -11,9 +11,9 @@ import java.util.UUID;
  *
  * @author leebe
  */
-public class AstraZeneca extends Vaccine {
+public class Vaccine_AstraZeneca extends Vaccine {
 
-    public AstraZeneca() {
+    public Vaccine_AstraZeneca() {
         this.manufacturer = "Oxford AstraZeneca";
         this.name = "AstraZeneca";
         this.waitTime = 12;

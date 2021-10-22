@@ -11,9 +11,9 @@ import java.util.UUID;
  *
  * @author leebe
  */
-public class Pfizer extends Vaccine {
+public class Vaccine_Pfizer extends Vaccine {
 
-    public Pfizer() {
+    public Vaccine_Pfizer() {
         this.manufacturer = "Pfizer";
         this.name = "Pfizer";
         this.waitTime = 3;

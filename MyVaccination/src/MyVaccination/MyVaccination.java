@@ -5,9 +5,9 @@
  */
 package MyVaccination;
 
-import MyVaccination.Classes.Pfizer;
+import MyVaccination.Classes.Vaccine_Pfizer;
 import MyVaccination.Classes.Vaccine;
-import MyVaccination.Classes.AstraZeneca;
+import MyVaccination.Classes.Vaccine_AstraZeneca;
 import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Gson.LocalDateAdapter;
