@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MyVaccination;
+package MyVaccination.Classes;
 
+import MyVaccination.Helper_Classes.File_Methods;
 import java.time.LocalDate;
 import java.time.Period;
 
@@ -12,7 +13,7 @@ import java.time.Period;
  *
  * @author leebe
  */
-public class Vaccine {
+public class Vaccine implements File_Methods{
 
     protected String name;
     protected String manufacturer;
@@ -51,4 +52,14 @@ public class Vaccine {
     }
 
     //End of class
+
+    @Override
+    public String setFileName() {
+        return batchNumber;
+    }
+
+    @Override
+    public String getFileName() {
+        return "Vaccine/" + batchNumber + ".txt";
+    }
 }
