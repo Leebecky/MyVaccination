@@ -6,14 +6,9 @@
 package MyVaccination.Classes;
 
 import MyVaccination.Helper_Classes.File_Methods;
-import java.time.*;
 import java.util.List;
-import java.util.Map;
 
-/**
- *
- * @author leebe
- */
+
 public class Vaccination_Centre implements File_Methods {
 
     public String centreId;
@@ -21,8 +16,8 @@ public class Vaccination_Centre implements File_Methods {
     public Location location;
     public List<String> servicesId;
     private List<Stock> stock;
-    private int openingTime = 9;
-    private int closingTime = 18;
+    private int openingTime; //24 hour system
+    private int closingTime; //24 hour system
     public String status;
 
 //Some placeholder functions
