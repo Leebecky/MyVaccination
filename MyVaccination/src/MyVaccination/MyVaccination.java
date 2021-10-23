@@ -38,8 +38,11 @@ public class MyVaccination {
     public static void main(String[] args) {
 
         FlatIntelliJLaf.install();
-        Test2 test = new Test2();
-        test.setVisible(true);
+        // Change to Login.java
+        Login login = new Login();
+        login.setVisible(true);
+//        Test2 test = new Test2();
+//        test.setVisible(true);
 
         
 // Sample code for JSON object creation and write to file
