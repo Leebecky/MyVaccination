@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MyVaccination;
+package MyVaccination.Classes;
+
+import MyVaccination.Helper_Classes.File_Methods;
 
 /**
  *
  * @author leebe
  */
-public class User {
+public class User implements File_Methods{
 
     private String userId;
     public String username;
@@ -18,5 +20,15 @@ public class User {
 
     public static void Login() {
         //Placeholder code for Login process, maybe return User class?
+    }
+
+    @Override
+    public String setFileName() {
+        return userId;
+    }
+
+    @Override
+    public String getFileName() {
+     return "User/" +  userId + ".txt";
     }
 }

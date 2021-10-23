@@ -3,23 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MyVaccination;
+package MyVaccination.Classes;
 
-import java.time.LocalDate;
-import java.time.Period;
+import MyVaccination.Helper_Classes.File_Methods;
 
-/**
- *
- * @author leebe
- */
-public class Vaccine {
+public class Vaccine implements File_Methods{
 
     protected String name;
     protected String manufacturer;
     protected String batchNumber;
-    protected int dosage;
-    protected int amount;
-    protected int dosesRequired;
+    protected int dosage; // number of doses per vaccine bottle
+    protected int amount; // number of bottles 
+    protected int dosesRequired; // number of shots required for full immunisation
     protected int waitTime; //in weeks
 
     public String getBatchNumber() {
@@ -51,4 +46,14 @@ public class Vaccine {
     }
 
     //End of class
+
+    @Override
+    public String setFileName() {
+        return batchNumber;
+    }
+
+    @Override
+    public String getFileName() {
+        return "Vaccine/" + batchNumber + ".txt";
+    }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package MyVaccination;
+package MyVaccination.Classes;
 
 import java.util.UUID;
 
@@ -11,9 +11,9 @@ import java.util.UUID;
  *
  * @author leebe
  */
-public class AstraZeneca extends Vaccine {
+public class Vaccine_AstraZeneca extends Vaccine {
 
-    public AstraZeneca() {
+    public Vaccine_AstraZeneca() {
         this.manufacturer = "Oxford AstraZeneca";
         this.name = "AstraZeneca";
         this.waitTime = 12;
