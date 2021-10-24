@@ -6,7 +6,7 @@
 package MyVaccination;
 
 import MyVaccination.Gson.LocalDateAdapter;
-import static MyVaccination.MyVaccination.parseGsonArray;
+import MyVaccination.Helper_Classes.File_Helper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.File;
@@ -282,7 +282,7 @@ public class RegisterAccount extends javax.swing.JFrame {
                 while (myReader.hasNextLine()) {
                     String data = myReader.nextLine();
 
-                    List<User> a = parseGsonArray(data, User[].class);
+                    List<User> a = File_Helper.parseGsonArray(data, User[].class);
                                     
                     for(int i=0; i<a.size(); i++){
                         user.add(a.get(i));

@@ -5,9 +5,9 @@
  */
 package MyVaccination;
 
-import MyVaccination.Classes.Vaccine_Pfizer;
+import MyVaccination.Classes.Pfizer;
 import MyVaccination.Classes.Vaccine;
-import MyVaccination.Classes.Vaccine_AstraZeneca;
+import MyVaccination.Classes.AstraZeneca;
 import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Gson.LocalDateAdapter;
@@ -46,7 +46,7 @@ public class MyVaccination {
 
         
 // Sample code for JSON object creation and write to file
-/*
+
         AstraZeneca az = new AstraZeneca();
         Pfizer pf = new Pfizer();
 
@@ -64,6 +64,7 @@ public class MyVaccination {
         Vaccination_Centre vcFromFile = File_Helper.gsonWriter.fromJson(vcData, Vaccination_Centre.class);
         List<Stock> stock2 = vcFromFile.getStock();
         System.out.println(stock2.get(0).getVaccine().getBatchNumber());
+        
         List<String> vcDataArray = File_Helper.readFolder("Vaccination_Centre");
         List<Vaccination_Centre> vcList = new ArrayList();
 
@@ -77,7 +78,7 @@ public class MyVaccination {
             });
 
         });
-*/
+
 
         //Main end
     }

@@ -1,7 +1,7 @@
 package MyVaccination; 
 
 import MyVaccination.Gson.LocalDateAdapter;
-import static MyVaccination.MyVaccination.parseGsonArray;
+import MyVaccination.Helper_Classes.File_Helper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.File;
@@ -68,7 +68,7 @@ public class Test1 {
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
 
-                List<People> a = parseGsonArray(data, People[].class);
+                List<People> a = File_Helper.parseGsonArray(data, People[].class);
 //                System.out.println(a.get(0).getUsername());
 //                System.out.println("User List : " + a);
                 

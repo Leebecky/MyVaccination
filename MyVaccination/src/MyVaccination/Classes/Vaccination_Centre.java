@@ -45,12 +45,12 @@ public class Vaccination_Centre implements File_Methods {
     //Interface implementation
     @Override
     public String setFileName() {
-        return centreId;
+        return "VC" + centreId;
     }
 
     @Override
     public String getFileName() {
-        return "Vaccination_Centre/" + centreId + ".txt";
+        return "Vaccination_Centre/" +"VC"+ centreId + ".txt";
     }
 
 }

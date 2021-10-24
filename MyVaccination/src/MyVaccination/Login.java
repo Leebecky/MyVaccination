@@ -5,7 +5,8 @@
  */
 package MyVaccination;
 
-import static MyVaccination.MyVaccination.parseGsonArray;
+//import static MyVaccination.MyVaccination.parseGsonArray;
+import MyVaccination.Helper_Classes.File_Helper;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
@@ -58,8 +59,8 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(180, 151, 214));
 
-        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jLabel1.setText("LOGIN");
+        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -79,6 +80,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         txtUsername.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        txtUsername.setAlignmentY(0.0F);
         txtUsername.setName(""); // NOI18N
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -86,25 +88,25 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
         jLabel2.setText("Password :");
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
         jLabel3.setText("Username : ");
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
 
-        btnLogin.setBackground(new java.awt.Color(180, 151, 214));
-        btnLogin.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         btnLogin.setText("Login");
+        btnLogin.setBackground(new java.awt.Color(180, 151, 214));
         btnLogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLogin.setBorderPainted(false);
+        btnLogin.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel4.setText("Don't have an account? ");
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         lblRegister.setText("Register Now!");
         lblRegister.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -190,13 +192,13 @@ public class Login extends javax.swing.JFrame {
         
         if(!username.isEmpty() && !password.isEmpty()){
             try {
-                File myObj = new File("user.txt");
+                File myObj = new File("user"  +".txt");
                 Scanner myReader = new Scanner(myObj);
 
                 while (myReader.hasNextLine()) {
                     String data = myReader.nextLine();
 
-                    List<User> a = parseGsonArray(data, User[].class);
+                    List<User> a = File_Helper.parseGsonArray(data, User[].class);
 
                     for(int i=0; i<a.size(); i++){
                         if(username.equals(a.get(i).getUsername())){

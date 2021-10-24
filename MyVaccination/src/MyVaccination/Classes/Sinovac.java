@@ -11,9 +11,9 @@ import java.util.UUID;
  *
  * @author leebe
  */
-public class Vaccine_Sinovac extends Vaccine {
+public class Sinovac extends Vaccine {
 
-    public Vaccine_Sinovac() {
+    public Sinovac() {
         this.manufacturer = "Sinovac";
         this.name = "Sinovac-CoronaVac";
         this.waitTime = 4;
