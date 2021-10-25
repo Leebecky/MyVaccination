@@ -5,9 +5,9 @@
  */
 package MyVaccination;
 
-import MyVaccination.Classes.Vaccine_Pfizer;
+import MyVaccination.Classes.Pfizer;
 import MyVaccination.Classes.Vaccine;
-import MyVaccination.Classes.Vaccine_AstraZeneca;
+import MyVaccination.Classes.AstraZeneca;
 import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Gson.LocalDateAdapter;
@@ -43,7 +43,7 @@ public class MyVaccination {
 
         
 // Sample code for JSON object creation and write to file
-/*
+
         AstraZeneca az = new AstraZeneca();
         Pfizer pf = new Pfizer();
 
@@ -74,7 +74,7 @@ public class MyVaccination {
             });
 
         });
-*/
+
 
         //Main end
     }

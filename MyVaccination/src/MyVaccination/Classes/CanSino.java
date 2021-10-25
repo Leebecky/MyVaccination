@@ -11,9 +11,9 @@ import java.util.UUID;
  *
  * @author leebe
  */
-public class Vaccine_CanSino extends Vaccine {
+public class CanSino extends Vaccine {
 
-    public Vaccine_CanSino() {
+    public CanSino() {
         this.manufacturer = "CanSino Biologics";
         this.name = "CanSino";
         this.waitTime = 0;
