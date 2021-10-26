@@ -6,6 +6,7 @@
 package MyVaccination.Helper_Classes;
 
 import MyVaccination.Gson.LocalDateAdapter;
+import MyVaccination.Gson.LocalTimeAdapter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.File;
@@ -13,6 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.Scanner;
 final public class File_Helper {
 
     final static private String defaultFilePath = "src/MyVaccination/Database/";
-    final static public Gson gsonWriter = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+    final static public Gson gsonWriter = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).registerTypeAdapter(LocalTime.class, new LocalTimeAdapter()).create();
 
     //Checks if the file path exists, and creates the folders if not
     private static void checkPathExistance(String path) {
@@ -42,7 +44,7 @@ final public class File_Helper {
     }
 
     // To save the given object to textfile
-    public static void saveData(Object obj, String className) {
+    public static boolean saveData(Object obj, String className) {
         //Referenced from W3Schools
 
         try {
@@ -58,14 +60,17 @@ final public class File_Helper {
             try ( FileWriter fileWriter = new FileWriter(fileName)) {
                 fileWriter.write(gsonWriter.toJson(obj));
             }
-            System.out.println("Successfully wrote to the file.");
+
+            return true;
         } catch (IOException e) {
             //TODO proper exception handling implementation needed
             System.out.println("File_Helper, saveData: " + e.getMessage());
         }
+
+        return false;
     }
 
-    //To read from the given file (singluar)
+    //To read from the given file (singular)
     public static String readFile(String filename) {
         try {
             String filePath = defaultFilePath + filename;
@@ -97,7 +102,6 @@ final public class File_Helper {
             String folderPath = defaultFilePath + folderName;
             File folder = new File(folderPath);
             List<String> data = new ArrayList();
-            
             if (!folder.exists() || !folder.isDirectory()) {
                 return null;
             }
@@ -111,7 +115,6 @@ final public class File_Helper {
                     }
                 }
             }
-            
             return data;
         } catch (FileNotFoundException e) {
             //TODO proper exception handling implementation needed
@@ -119,5 +122,19 @@ final public class File_Helper {
         }
         return null;
     }
+
+    //Method for deleting the given file
+    public static boolean deleteFile(String fileName) {
+        //TODO proper exception handling implementation needed
+        String filePath = defaultFilePath + fileName;
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return false;
+        }
+        
+        // Try to delete the file
+        return file.delete();
+    }
+
     //end Save_Helpers
 }

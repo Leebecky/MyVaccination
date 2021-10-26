@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,47 +15,13 @@ public class User implements File_Methods{
 
     private String userId;
     public String username;
-    public String password;
+    private String password;
     protected String userType;
 
     public static void Login() {
         //Placeholder code for Login process, maybe return User class?
     }
 
-    public User(){
-        
-    }
-    
-    public User(String id, String name, String pass, String type){
-        this.userId = id;
-        this.username = name;
-        this.password = pass;
-        this.userType = type;
-    }
-    
-    public void setLogin(String id, String name, String pass, String type){
-        this.userId = "US_" + id;
-        this.username = name;
-        this.password = pass;
-        this.userType = type;
-    }
-    
-    public String getUserId(){
-        return this.userId;
-    }
-    
-    public String getUsername(){
-        return this.username;
-    }
-    
-    public String getPassword(){
-        return this.password;
-    }
-    
-    public String getUserType(){
-        return this.userType;
-    }
-    
     @Override
     public String setFileName() {
         return userId;
@@ -64,7 +29,6 @@ public class User implements File_Methods{
 
     @Override
     public String getFileName() {
-     return "UserAccount/" +  userId + ".txt";
+     return "User/" +  userId + ".txt";
     }
-    
 }
