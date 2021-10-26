@@ -4,9 +4,7 @@
  * and open the template in the editor.
  */
 package MyVaccination;
-
-import javax.swing.ImageIcon;
-
+import MyVaccination.Personnel_ManageVaccinationCentre;
 /**
  *
  * @author leebe
@@ -153,7 +151,9 @@ public class Personnel_Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMngVCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMngVCActionPerformed
-        // TODO add your handling code here:
+            Personnel_ManageVaccinationCentre vc = new Personnel_ManageVaccinationCentre();
+            vc.setVisible(true);
+            this.setVisible(false);
     }//GEN-LAST:event_btnMngVCActionPerformed
 
     private void btnMngUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMngUserActionPerformed
