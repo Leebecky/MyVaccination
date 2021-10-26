@@ -5,12 +5,10 @@
  */
 package MyVaccination;
 
-import Helper_Classes.LGoodTimePicker_TimeVeto;
+import MyVaccination.Helper_Classes.LGoodTimePicker_TimeVeto;
 import MyVaccination.Classes.Vaccination_Centre;
-import com.github.lgooddatepicker.components.TimePicker;
+import MyVaccination.Classes.Location;
 import com.github.lgooddatepicker.components.TimePickerSettings;
-import java.awt.TrayIcon;
-import java.time.LocalTime;
 import javax.swing.JOptionPane;
 
 /**
@@ -59,8 +57,8 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         btnHome = new javax.swing.JButton();
         btnVcSave = new javax.swing.JButton();
         btnVcCancel = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        panelTabbedVc = new javax.swing.JTabbedPane();
+        panelMainDetails = new javax.swing.JLayeredPane();
         cmbVcStatus = new javax.swing.JComboBox<>();
         txtVcName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -70,7 +68,13 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         TimePickerSettings dtVcOpenTimeSettings = new TimePickerSettings();
         dtVcOpeningTime = new com.github.lgooddatepicker.components.TimePicker(dtVcOpenTimeSettings);
-        jTabbedPane2 = new javax.swing.JTabbedPane();
+        panelLocation = new javax.swing.JLayeredPane();
+        cmbVcState = cmbVcState = new javax.swing.JComboBox<>(Location.getStateList());
+        txtVcAddr1 = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtVcAddr2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vaccination Centre");
@@ -159,28 +163,28 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         dtVcOpenTimeSettings.setVetoPolicy(new LGoodTimePicker_TimeVeto());
         dtVcOpeningTime.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLayeredPane1.setLayer(cmbVcStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(txtVcName, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(dtVcClosingTime, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(dtVcOpeningTime, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(cmbVcStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(txtVcName, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(dtVcClosingTime, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(dtVcOpeningTime, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelMainDetailsLayout = new javax.swing.GroupLayout(panelMainDetails);
+        panelMainDetails.setLayout(panelMainDetailsLayout);
+        panelMainDetailsLayout.setHorizontalGroup(
+            panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMainDetailsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cmbVcStatus, javax.swing.GroupLayout.Alignment.TRAILING, 0, 207, Short.MAX_VALUE)
                     .addComponent(dtVcOpeningTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtVcName, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -188,32 +192,92 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLayeredPane1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbVcStatus, dtVcClosingTime});
+        panelMainDetailsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbVcStatus, dtVcClosingTime});
 
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+        panelMainDetailsLayout.setVerticalGroup(
+            panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelMainDetailsLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtVcName, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dtVcOpeningTime, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dtVcClosingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(jLabel3))
-                .addGap(27, 27, 27)
-                .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(21, 21, 21)
+                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbVcStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
                     .addComponent(jLabel4))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Main Details", jLayeredPane1);
-        jTabbedPane1.addTab("Location", jTabbedPane2);
+        panelTabbedVc.addTab("Main Details", panelMainDetails);
+
+        cmbVcState.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        txtVcAddr1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel6.setLabelFor(txtVcAddr2);
+        jLabel6.setText("Address Line 2 :");
+
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel8.setLabelFor(cmbVcState);
+        jLabel8.setText("State :");
+
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel9.setLabelFor(txtVcAddr1);
+        jLabel9.setText("Address Line 1 :");
+
+        txtVcAddr2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        panelLocation.setLayer(cmbVcState, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelLocation.setLayer(txtVcAddr1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelLocation.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelLocation.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelLocation.setLayer(jLabel9, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelLocation.setLayer(txtVcAddr2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout panelLocationLayout = new javax.swing.GroupLayout(panelLocation);
+        panelLocation.setLayout(panelLocationLayout);
+        panelLocationLayout.setHorizontalGroup(
+            panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLocationLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cmbVcState, javax.swing.GroupLayout.Alignment.TRAILING, 0, 207, Short.MAX_VALUE)
+                    .addComponent(txtVcAddr1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtVcAddr2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelLocationLayout.setVerticalGroup(
+            panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelLocationLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtVcAddr1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(txtVcAddr2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbVcState, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)))
+        );
+
+        panelTabbedVc.addTab("Location", panelLocation);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -223,7 +287,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(238, 238, 238)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnVcCancel)
                         .addGap(36, 36, 36)
@@ -235,8 +299,8 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVcCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -255,6 +319,18 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnVcSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcSaveActionPerformed
+        //TODO: Data Validation
+        //Location Data
+        System.out.println(txtVcAddr1.getText());
+//        if (txtVcAddr1.getText() == "" || txtVcAddr1.getText() == null) {
+//            
+//        panelTabbedVc.setSelectedIndex(1);
+//        return;
+//        } else {
+//            JOptionPane.showInputDialog("BAng");
+//            return;
+//        }
+        
         boolean success;
         String message = "";
 
@@ -331,6 +407,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnVcCancel;
     private javax.swing.JButton btnVcSave;
+    private javax.swing.JComboBox<String> cmbVcState;
     private javax.swing.JComboBox<String> cmbVcStatus;
     private com.github.lgooddatepicker.components.TimePicker dtVcClosingTime;
     private com.github.lgooddatepicker.components.TimePicker dtVcOpeningTime;
@@ -339,9 +416,14 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane panelLocation;
+    private javax.swing.JLayeredPane panelMainDetails;
+    private javax.swing.JTabbedPane panelTabbedVc;
+    private javax.swing.JTextField txtVcAddr1;
+    private javax.swing.JTextField txtVcAddr2;
     private javax.swing.JTextField txtVcName;
     // End of variables declaration//GEN-END:variables
 }

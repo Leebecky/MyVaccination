@@ -1,1 +1,0 @@
-{"centreId":"VC_46c14a89-aa47-4caf-848b-fed782f07623","name":"Update 2","openingTime":"00:30","closingTime":"04:00","status":"Inactive"}
