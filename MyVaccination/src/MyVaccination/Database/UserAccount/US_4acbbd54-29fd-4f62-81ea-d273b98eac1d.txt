@@ -1,0 +1,1 @@
+{"userId":"US_4acbbd54-29fd-4f62-81ea-d273b98eac1d","username":"Tan","password":"tan02","userType":"Non-Citizen"}

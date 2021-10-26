@@ -23,21 +23,11 @@ public class User implements File_Methods{
         //Placeholder code for Login process, maybe return User class?
     }
 
-    @Override
-    public String setFileName() {
-        return userId;
-    }
-
-    @Override
-    public String getFileName() {
-     return "User/" +  userId + ".txt";
-    }
-    
-    User(){
+    public User(){
         
     }
     
-    User(String id, String name, String pass, String type){
+    public User(String id, String name, String pass, String type){
         this.userId = id;
         this.username = name;
         this.password = pass;
@@ -45,7 +35,7 @@ public class User implements File_Methods{
     }
     
     public void setLogin(String id, String name, String pass, String type){
-        this.userId = id;
+        this.userId = "US_" + id;
         this.username = name;
         this.password = pass;
         this.userType = type;
@@ -66,4 +56,15 @@ public class User implements File_Methods{
     public String getUserType(){
         return this.userType;
     }
+    
+    @Override
+    public String setFileName() {
+        return userId;
+    }
+
+    @Override
+    public String getFileName() {
+     return "UserAccount/" +  userId + ".txt";
+    }
+    
 }
