@@ -1,0 +1,1 @@
+{"centreId":"VC_2e1c37cf-ff16-476b-9acb-7443fc4e761c","name":"Test","openingTime":"03:30","closingTime":"13:30","status":"Inactive"}

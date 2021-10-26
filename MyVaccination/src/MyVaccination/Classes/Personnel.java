@@ -14,7 +14,7 @@ public class Personnel extends User {
     public String status;
     private String state;
     
-//Some placeholder functions
+    
     public void registerPersonnel() {
     }
 
