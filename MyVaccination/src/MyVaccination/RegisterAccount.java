@@ -5,17 +5,23 @@
  */
 package MyVaccination;
 
+import MyVaccination.Classes.*;
 import MyVaccination.Gson.LocalDateAdapter;
 import MyVaccination.Helper_Classes.File_Helper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.UUID;
 import javax.swing.JOptionPane;
@@ -46,6 +52,7 @@ public class RegisterAccount extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         txtFullName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtIcPassport = new javax.swing.JTextField();
@@ -69,15 +76,26 @@ public class RegisterAccount extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(180, 151, 214));
 
-        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jLabel1.setText("Register Account");
+        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
+
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
+        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblLogoMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblLogoMousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLogo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(256, 256, 256))
         );
@@ -87,63 +105,64 @@ public class RegisterAccount extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         txtFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         txtFullName.setName(""); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel3.setText("Full Name : ");
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
         txtIcPassport.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         txtIcPassport.setName(""); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel4.setText("IC/Passport :");
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel5.setText("Date of Birth :");
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel6.setText("Nationality :");
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel7.setText("Current Location:");
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel8.setText("Password :");
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel9.setText("Gender :");
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel10.setText("Confirm Password :");
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
         dtDoB.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
-        cmbNationality.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Malaysian", "Non Malaysian" }));
+        cmbNationality.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
         txtPassword.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
         txtConfirmPassword.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
-        cmbGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
+        cmbGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
-        btnRegister.setBackground(new java.awt.Color(180, 151, 214));
-        btnRegister.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         btnRegister.setText("Register");
+        btnRegister.setBackground(new java.awt.Color(180, 151, 214));
         btnRegister.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnRegister.setBorderPainted(false);
+        btnRegister.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         btnRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegisterActionPerformed(evt);
             }
         });
 
-        cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selangor", "Kuala Lumpur", "Penang", "Johor", "Kedah", "Pahang" }));
+        cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,7 +283,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         }else if(!password.equals(confirmpassword)){
             JOptionPane.showMessageDialog(null, "Passwords are not same.", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
-            String userId = "US_" + UUID.randomUUID().toString().substring(24, 36);
+//            String userId = "US_" + ic;
             String userType;
             if(nationality.equals("Malaysian")){
                 userType = "Citizen";
@@ -272,49 +291,33 @@ public class RegisterAccount extends javax.swing.JFrame {
                 userType = "Non-Citizen";
             }
             
-            User newUser = new User(userId, ic, password, userType);
-            ArrayList<User> user = new ArrayList<User>();
+            String id = UUID.randomUUID().toString();
             
-            try {
-                File myObj = new File("user.txt");
-                Scanner myReader = new Scanner(myObj);
-
-                while (myReader.hasNextLine()) {
-                    String data = myReader.nextLine();
-
-                    List<User> a = File_Helper.parseGsonArray(data, User[].class);
-                                    
-                    for(int i=0; i<a.size(); i++){
-                        user.add(a.get(i));
-                    }
-                }
-                myReader.close();
-
-            } catch (FileNotFoundException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
-
-            user.add(newUser);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate birthDt = LocalDate.parse(dob, formatter);
             
-            Gson g = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+            People ppl = new People(fullname, birthDt, ic, nationality, "Not Vaccinated", location, gender);
+            ppl.Login(id, ic, password, userType);  
+    
+            File_Helper.saveData(ppl, "User_Account"); 
+            
+            JOptionPane.showMessageDialog(null, "Account Registered!", "Registration Message", JOptionPane.INFORMATION_MESSAGE);
 
-            try {
-                FileWriter myWriter = new FileWriter("user.txt");
-                myWriter.write(g.toJson(user));
-
-                myWriter.close();
-                JOptionPane.showMessageDialog(null, "Account Registered!", "Registration Message", JOptionPane.INFORMATION_MESSAGE);
-                
-                Login login = new Login();
-                login.setVisible(true);
-                this.setVisible(false);
-            } catch (IOException e) {
-                System.out.println("An error occurred.");
-                e.printStackTrace();
-            }
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btnRegisterActionPerformed
+
+    private void lblLogoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseEntered
+        lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_lblLogoMouseEntered
+
+    private void lblLogoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMousePressed
+        Login login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblLogoMousePressed
 
     /**
      * @param args the command line arguments
@@ -367,6 +370,7 @@ public class RegisterAccount extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JPasswordField txtConfirmPassword;
     private javax.swing.JTextField txtFullName;
     private javax.swing.JTextField txtIcPassport;

@@ -1,0 +1,1 @@
+{"name":"Hihi","dateOfBirth":"2010-10-06","identification":"111111001111","nationality":"Non Malaysian","vaccinationStatus":"Not Vaccinated","address":"Penang","gender":"Female","userId":"US_18a6338f-fc2b-4d89-9bd6-6924556b9ac9","username":"111111001111","password":"hihi","userType":"Non-Citizen"}

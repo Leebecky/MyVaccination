@@ -2,7 +2,6 @@ package MyVaccination;
 
 import MyVaccination.Gson.LocalDateAdapter;
 import MyVaccination.Classes.*;
-//import MyVaccination.Classes.User;
 import MyVaccination.Helper_Classes.File_Helper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -23,51 +23,52 @@ public class Test1 {
     User user2 = new User();
     User user3 = new User();
 
-    user1.setLogin(UUID.randomUUID().toString(), "Lee", "lee01", "Citizen");
-    user2.setLogin(UUID.randomUUID().toString(), "Tan", "tan02", "Non-Citizen");
-    user3.setLogin(UUID.randomUUID().toString(), "Lim", "lim03", "Personnel");
-//    user1.getFileName();
-//    user1.getUserType();
+//    user1.Login("010515-07-0390", "Chang", "chang06", "Non-Citizen");
+//    user2.setLogin(UUID.randomUUID().toString(), "Tan", "tan02", "Non-Citizen");
+//    user3.setLogin(UUID.randomUUID().toString(), "Lim", "lim03", "Personnel");
 
-//    ArrayList<User> user = new ArrayList<User>();
-//    user.add(user1);
-//    user.add(user2);
-//    user.add(user3);
+    // Create file
+//    File_Helper.saveData(user1, "User_Account");
+//    File_Helper.saveData(user2, "User_Account");
+//    File_Helper.saveData(user3, "User_Account");
+
+    // Read single file
+//    String objFile = user1.getFileName();
+//    String userData = File_Helper.readFile(user1.getFileName());
+//    User userFromFile = File_Helper.gsonWriter.fromJson(userData, User.class);
+//    System.out.println(userFromFile.getUserId());
+//    System.out.println(userFromFile.getUsername());
+//    System.out.println(userFromFile.getPassword());
+//    System.out.println(userFromFile.getUserType());
+
+    // Read folder
+//    List<String> userDataArray = File_Helper.readFolder("User_Account");
+//    List<User> userList = new ArrayList();
+//
+//    userDataArray.forEach(fileInFolder -> {
+//        userList.add(File_Helper.gsonWriter.fromJson(fileInFolder, User.class));
+//    });
+//
+//    userList.forEach(f ->  {
+//            System.out.println("Record : " + f.getUserId() + ", " + f.getUsername() + ", " + f.getPassword() + ", " + f.getUserType());
+//    });
+
+    // Convert String to LocalDate
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    String date = "2001-01-01";
+    LocalDate localDate = LocalDate.parse(date, formatter);
     
-//    AstraZeneca az = new AstraZeneca();
-//    Pfizer pf = new Pfizer();
-//    List<Stock> stock = new ArrayList<>();
-//    stock.add(new Stock(pf));
-//    stock.add(new Stock(az));
-//    Vaccination_Centre vc = new Vaccination_Centre();
-//    vc.setStock(stock);
-//    vc.centreId = UUID.randomUUID().toString();
-//    vc.name = "Test";
-//    File_Helper.saveData(vc, "Vaccination_Centre");
-
-//    File_Helper.saveData(user1, "UserAccount");
-    File_Helper.saveData(user2, "UserAccount");
-    File_Helper.saveData(user3, "UserAccount");
-
-//    String vcData = File_Helper.readFile(user1.getFileName());
-//    System.out.println("vcData: " + vcData);
-//    MyVaccination.Classes.Vaccination_Centre vcFromFile = File_Helper.gsonWriter.fromJson(vcData, MyVaccination.Classes.Vaccination_Centre.class);
-//    List<Stock> stock2 = vcFromFile.getStock();
-//    System.out.println(stock2.get(0).getVaccine().getBatchNumber());
-//
-//    List<String> vcDataArray = File_Helper.readFolder("Vaccination_Centre");
-//    List<MyVaccination.Classes.Vaccination_Centre> vcList = new ArrayList();
-//
-//    vcDataArray.forEach(fileInFolder -> {
-//        vcList.add(File_Helper.gsonWriter.fromJson(fileInFolder, MyVaccination.Classes.Vaccination_Centre.class));
-//    });
-//
-//    vcList.forEach(f -> {
-//        f.getStock().forEach(s -> {
-//            System.out.println(s.getVaccine().getBatchNumber());
-//        });
-//    });
-        
+    // Test using parent method with child class
+//    People ppl = new People();
+    People ppl = new People("chlide", localDate, "010919-04-1234", "Malaysian", "Not Vaccinated", "KL", "Male");
+    ppl.Login("childeID", "010919-04-1234", "childe123", "Citizen");  
+//    User acc = ppl.getUser();
+    File_Helper.saveData(ppl, "User_Account");    
+    
+//    System.out.println(ppl.getUserId());
+//    System.out.println(ppl.getUsername());
+//    System.out.println(ppl.getName());
+//    System.out.println(ppl.getDob());
 //  ===========================================
         
     // old Gson write file read file 

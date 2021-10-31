@@ -27,17 +27,21 @@ public class User implements File_Methods{
     }
     
     public User(String id, String name, String pass, String type){
-        this.userId = id;
+        this.userId = "US_" + id;
         this.username = name;
         this.password = pass;
         this.userType = type;
     }
     
-    public void setLogin(String id, String name, String pass, String type){
+    public void Login(String id, String name, String pass, String type){
         this.userId = "US_" + id;
         this.username = name;
         this.password = pass;
         this.userType = type;
+    }
+    
+    public User getUser(){
+        return this;
     }
     
     public String getUserId(){
@@ -55,14 +59,14 @@ public class User implements File_Methods{
     public String getUserType(){
         return this.userType;
     }
-
+    
     @Override
-    public String setFileName() {
-        return userId;
-    }
-
+    public String getFileName(){
+        return "User_Account/US_" + username + ".txt";
+    }        
+    
     @Override
-    public String getFileName() {
-        return "UserAccount/" +  userId + ".txt";
+    public String setFileName(){
+        return "US_" + username;
     }
 }

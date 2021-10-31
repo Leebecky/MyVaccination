@@ -20,8 +20,12 @@ public class People extends User {
     public String vaccinationStatus;
     public String address;
     public String gender;
+    
+    public People(){
+        
+    }
    
-    People(String n, LocalDate dob, String id, String nat, String v, String a, String g){
+    public People(String n, LocalDate dob, String id, String nat, String v, String a, String g){
         this.name = n;
         this.dateOfBirth = dob;
         this.identification = id;

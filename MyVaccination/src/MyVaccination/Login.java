@@ -7,11 +7,13 @@ package MyVaccination;
 
 //import static MyVaccination.MyVaccination.parseGsonArray;
 import MyVaccination.Helper_Classes.File_Helper;
+import MyVaccination.Classes.*;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -45,6 +47,7 @@ public class Login extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -62,12 +65,15 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setText("LOGIN");
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
 
+        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLogo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(378, 378, 378))
         );
@@ -77,6 +83,7 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         txtUsername.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
@@ -189,40 +196,33 @@ public class Login extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = String.valueOf(txtPassword.getPassword());
         boolean isValid = false;
+        String accName = "";
         
         if(!username.isEmpty() && !password.isEmpty()){
-            try {
-                File myObj = new File("user"  +".txt");
-                Scanner myReader = new Scanner(myObj);
-
-                while (myReader.hasNextLine()) {
-                    String data = myReader.nextLine();
-
-                    List<User> a = File_Helper.parseGsonArray(data, User[].class);
-
-                    for(int i=0; i<a.size(); i++){
-                        if(username.equals(a.get(i).getUsername())){
-                            if(password.equals(a.get(i).getPassword())){
-                                isValid= true;
-                                JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
-                                
-                                Test2 test = new Test2();
-                                test.setVisible(true);
-                                this.setVisible(false);
-                            }
-                        }
-                    }
-                }
-                myReader.close();
+            String userData = File_Helper.readFile("User_Account/US_" + username + ".txt");
+            
+            if(userData == null){
+                JOptionPane.showMessageDialog(null, "Username incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+                txtUsername.setText("");
+                txtPassword.setText("");  
+            }else{
+                People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
                 
-                if(!isValid){
-                    JOptionPane.showMessageDialog(null, "Wrong username or password.", "Error", JOptionPane.ERROR_MESSAGE);
-                    txtUsername.setText("");
-                    txtPassword.setText(""); 
+                if(password.equals(userFromFile.getPassword())){
+                    isValid =true;
+                    accName = userFromFile.getName();
                 }
-            } catch (FileNotFoundException e) {
-                JOptionPane.showMessageDialog(null, "An error occurred.", "Error", JOptionPane.ERROR_MESSAGE);
-                e.printStackTrace();
+                
+                if(isValid){
+                    JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
+                    User_Home userHome = new User_Home(accName);
+                    userHome.setVisible(true);
+                    this.setVisible(false);
+                }else{
+                   JOptionPane.showMessageDialog(null, "Password incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+                   txtUsername.setText("");
+                   txtPassword.setText("");                
+                }
             }
         }
         else{
@@ -298,6 +298,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblRegister;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;

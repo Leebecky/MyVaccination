@@ -1,0 +1,1 @@
+{"name":"Testing Man","dateOfBirth":"1996-10-09","identification":"000000-00-0000","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Selangor","gender":"Male","userId":"US_a54ce834-c840-49cd-a90c-2aa784e5eaac","username":"000000-00-0000","password":"test","userType":"Citizen"}
