@@ -59,11 +59,12 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
         setBackground(new java.awt.Color(225, 226, 239));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(180, 151, 214));
 
-        jLabel1.setText("LOGIN");
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
+        jLabel1.setText("LOGIN");
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
 
@@ -86,6 +87,8 @@ public class Login extends javax.swing.JFrame {
             .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 875, -1));
+
         txtUsername.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
         txtUsername.setAlignmentY(0.0F);
         txtUsername.setName(""); // NOI18N
@@ -94,30 +97,35 @@ public class Login extends javax.swing.JFrame {
                 txtUsernameActionPerformed(evt);
             }
         });
+        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 174, 325, 41));
 
-        jLabel2.setText("Password :");
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        jLabel2.setText("Password :");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 251, -1, -1));
 
-        jLabel3.setText("Username : ");
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
+        jLabel3.setText("Username : ");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 176, -1, -1));
 
-        btnLogin.setText("Login");
         btnLogin.setBackground(new java.awt.Color(180, 151, 214));
+        btnLogin.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        btnLogin.setText("Login");
         btnLogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLogin.setBorderPainted(false);
-        btnLogin.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
+        getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 327, 120, 50));
 
-        jLabel4.setText("Don't have an account? ");
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel4.setText("Don't have an account? ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(576, 438, -1, -1));
 
-        lblRegister.setText("Register Now!");
         lblRegister.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         lblRegister.setForeground(new java.awt.Color(0, 153, 255));
+        lblRegister.setText("Register Now!");
         lblRegister.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblRegisterMouseEntered(evt);
@@ -129,6 +137,7 @@ public class Login extends javax.swing.JFrame {
                 lblRegisterMousePressed(evt);
             }
         });
+        getContentPane().add(lblRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(761, 438, -1, -1));
 
         txtPassword.setFont(new java.awt.Font("Calibri", 0, 30)); // NOI18N
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
@@ -136,54 +145,7 @@ public class Login extends javax.swing.JFrame {
                 txtPasswordActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(204, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblRegister)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(28, 28, 28))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(179, 179, 179))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(104, 104, 104)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(lblRegister))
-                .addContainerGap())
-        );
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 244, 325, 45));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -215,7 +177,7 @@ public class Login extends javax.swing.JFrame {
                 
                 if(isValid){
                     JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
-                    User_Home userHome = new User_Home(accName);
+                    User_Home userHome = new User_Home(accName,username);
                     userHome.setVisible(true);
                     this.setVisible(false);
                 }else{

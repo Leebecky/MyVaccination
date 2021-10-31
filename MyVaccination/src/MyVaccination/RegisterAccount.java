@@ -73,6 +73,7 @@ public class RegisterAccount extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(180, 151, 214));
 
@@ -108,47 +109,64 @@ public class RegisterAccount extends javax.swing.JFrame {
             .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 875, -1));
+
         txtFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         txtFullName.setName(""); // NOI18N
+        getContentPane().add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 134, 218, 30));
 
         jLabel3.setText("Full Name : ");
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 137, -1, -1));
 
         txtIcPassport.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         txtIcPassport.setName(""); // NOI18N
+        getContentPane().add(txtIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 192, 218, 30));
 
         jLabel4.setText("IC/Passport :");
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 195, -1, -1));
 
         jLabel5.setText("Date of Birth :");
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 251, -1, -1));
 
         jLabel6.setText("Nationality :");
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(501, 134, -1, -1));
 
         jLabel7.setText("Current Location:");
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 195, -1, -1));
 
         jLabel8.setText("Password :");
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 251, -1, -1));
 
         jLabel9.setText("Gender :");
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 316, -1, -1));
 
         jLabel10.setText("Confirm Password :");
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(441, 319, -1, -1));
 
         dtDoB.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(dtDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 251, 218, 30));
 
         cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Malaysian", "Non Malaysian" }));
         cmbNationality.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(cmbNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 134, 218, -1));
 
         txtPassword.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 251, 218, 30));
 
         txtConfirmPassword.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(txtConfirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 314, 218, 30));
 
         cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         cmbGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 313, 218, -1));
 
         btnRegister.setText("Register");
         btnRegister.setBackground(new java.awt.Color(180, 151, 214));
@@ -160,97 +178,11 @@ public class RegisterAccount extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
+        getContentPane().add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 390, 120, 50));
 
         cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selangor", "Kuala Lumpur", "Penang", "Johor", "Kedah", "Pahang" }));
         cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtIcPassport, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel5))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(dtDoB, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cmbGender, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(43, 43, 43)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                    .addComponent(jLabel8)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel10))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cmbNationality, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(18, 18, 18)
-                                .addComponent(cmbLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(39, 39, 39))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(373, 373, 373))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
-                    .addComponent(jLabel6)
-                    .addComponent(cmbNationality))
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtIcPassport, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(cmbLocation)))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel5)
-                        .addComponent(jLabel8)
-                        .addComponent(dtDoB, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
-                        .addComponent(cmbGender))
-                    .addComponent(jLabel10)
-                    .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
-        );
+        getContentPane().add(cmbLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 192, 218, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -295,7 +227,7 @@ public class RegisterAccount extends javax.swing.JFrame {
             
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate birthDt = LocalDate.parse(dob, formatter);
-            
+
             People ppl = new People(fullname, birthDt, ic, nationality, "Not Vaccinated", location, gender);
             ppl.Login(id, ic, password, userType);  
     

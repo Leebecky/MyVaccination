@@ -5,6 +5,8 @@
  */
 package MyVaccination;
 
+import MyVaccination.Classes.*;
+import MyVaccination.Helper_Classes.File_Helper;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
@@ -14,19 +16,16 @@ import java.util.Map;
  *
  * @author user
  */
-public class User_Home extends javax.swing.JFrame {
+public class User_ViewProfile extends javax.swing.JFrame {
 
     /**
-     * Creates new form User_Home
+     * Creates new form User_ViewProfile
      */
-    public User_Home() {
+    public User_ViewProfile() {
         initComponents();
-        
-        lblViewProfile.setVisible(false);
-        lblLogout.setVisible(false);
     }
     
-    public User_Home(String loginUsername,String ic) {
+    public User_ViewProfile(String loginUsername,String ic) {
         initComponents();
         
         lblUsername.setText(loginUsername);
@@ -34,6 +33,16 @@ public class User_Home extends javax.swing.JFrame {
         lblIc.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
+        
+        String userData = File_Helper.readFile("User_Account/US_" + ic + ".txt");
+        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+        
+        lblFullName.setText(userFromFile.getName());
+        lblIcPassport.setText(userFromFile.getId());
+        lblDob.setText(userFromFile.getDob().toString());
+        lblGender.setText(userFromFile.getGender());
+        lblNationality.setText(userFromFile.getNation());
+        lblLocation.setText(userFromFile.getAddress());
     }
 
     /**
@@ -45,35 +54,32 @@ public class User_Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSeparator1 = new javax.swing.JSeparator();
-        btnVacAppoint = new javax.swing.JButton();
-        userlHeader = new javax.swing.JPanel();
+        userHeader = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
-        btnVacStatus = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblLogout = new javax.swing.JLabel();
         lblViewProfile = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        btnEdit = new javax.swing.JButton();
+        lblFullName = new javax.swing.JLabel();
+        lblIcPassport = new javax.swing.JLabel();
+        lblDob = new javax.swing.JLabel();
+        lblGender = new javax.swing.JLabel();
+        lblNationality = new javax.swing.JLabel();
+        lblLocation = new javax.swing.JLabel();
         lblIc = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnVacAppoint.setBackground(new java.awt.Color(204, 153, 255));
-        btnVacAppoint.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnVacAppoint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Vaccine.png"))); // NOI18N
-        btnVacAppoint.setText("Submit Vaccination Appointment");
-        btnVacAppoint.setAlignmentY(0.0F);
-        btnVacAppoint.setIconTextGap(20);
-        btnVacAppoint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVacAppointActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnVacAppoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 175, -1, 73));
-
-        userlHeader.setBackground(new java.awt.Color(204, 153, 255));
+        userHeader.setBackground(new java.awt.Color(204, 153, 255));
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
 
@@ -91,43 +97,30 @@ public class User_Home extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout userlHeaderLayout = new javax.swing.GroupLayout(userlHeader);
-        userlHeader.setLayout(userlHeaderLayout);
-        userlHeaderLayout.setHorizontalGroup(
-            userlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(userlHeaderLayout.createSequentialGroup()
+        javax.swing.GroupLayout userHeaderLayout = new javax.swing.GroupLayout(userHeader);
+        userHeader.setLayout(userHeaderLayout);
+        userHeaderLayout.setHorizontalGroup(
+            userHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(userHeaderLayout.createSequentialGroup()
                 .addComponent(lblLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 569, Short.MAX_VALUE)
                 .addComponent(lblUsername)
                 .addGap(21, 21, 21))
         );
-        userlHeaderLayout.setVerticalGroup(
-            userlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        userHeaderLayout.setVerticalGroup(
+            userHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userlHeaderLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userHeaderLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        getContentPane().add(userlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
-
-        btnVacStatus.setBackground(new java.awt.Color(204, 153, 255));
-        btnVacStatus.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnVacStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Search.png"))); // NOI18N
-        btnVacStatus.setText("View Vaccination Status");
-        btnVacStatus.setAlignmentY(0.0F);
-        btnVacStatus.setIconTextGap(20);
-        btnVacStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVacStatusActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnVacStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 314, 331, 73));
+        getContentPane().add(userHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
 
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("welcome to MYvaccination!");
+        jLabel1.setText("MY PROFILE");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 540, -1));
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
@@ -162,11 +155,62 @@ public class User_Home extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblViewProfileMouseExited(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblViewProfileMousePressed(evt);
-            }
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
+
+        jLabel3.setText("Full Name : ");
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
+
+        jLabel4.setText("IC/Passport :");
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
+
+        jLabel5.setText("Date of Birth :");
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
+
+        jLabel6.setText("Nationality :");
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel7.setText("Current Location :");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, -1, -1));
+
+        jLabel9.setText("Gender :");
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, -1, -1));
+
+        btnEdit.setBackground(new java.awt.Color(204, 153, 255));
+        btnEdit.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        btnEdit.setText("Edit");
+        btnEdit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEdit.setBorderPainted(false);
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 390, 120, 50));
+
+        lblFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 220, 30));
+
+        lblIcPassport.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 220, 30));
+
+        lblDob.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 220, 30));
+
+        lblGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 210, 30));
+
+        lblNationality.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 210, 30));
+
+        lblLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 210, 30));
 
         lblIc.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblIc.setForeground(new java.awt.Color(240, 240, 240));
@@ -175,18 +219,6 @@ public class User_Home extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnVacAppointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVacAppointActionPerformed
-//        Personnel_ManageUsers mngUser = new Personnel_ManageUsers();
-//        mngUser.setVisible(true);
-//        this.setVisible(false);
-    }//GEN-LAST:event_btnVacAppointActionPerformed
-
-    private void btnVacStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVacStatusActionPerformed
-//        Personnel_ManageVaccinationCentre vc = new Personnel_ManageVaccinationCentre();
-//        vc.setVisible(true);
-//        this.setVisible(false);
-    }//GEN-LAST:event_btnVacStatusActionPerformed
 
     private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered
         lblUsername.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -215,30 +247,14 @@ public class User_Home extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblUsernameMousePressed
 
-    private void lblViewProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseEntered
-        lblViewProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
-        Font font = lblViewProfile.getFont();
-        Map attributes = font.getAttributes();
-        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-        lblViewProfile.setFont(font.deriveFont(attributes));
-    }//GEN-LAST:event_lblViewProfileMouseEntered
-
     private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseEntered
         lblLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        
+
         Font font = lblLogout.getFont();
         Map attributes = font.getAttributes();
         attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         lblLogout.setFont(font.deriveFont(attributes));
     }//GEN-LAST:event_lblLogoutMouseEntered
-
-    private void lblViewProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseExited
-        Font font = lblViewProfile.getFont();
-        Map attributes = font.getAttributes();
-        attributes.put(TextAttribute.UNDERLINE, -1);
-        lblViewProfile.setFont(font.deriveFont(attributes));
-    }//GEN-LAST:event_lblViewProfileMouseExited
 
     private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseExited
         Font font = lblLogout.getFont();
@@ -253,14 +269,30 @@ public class User_Home extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_lblLogoutMousePressed
 
-    private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
+    private void lblViewProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseEntered
+        lblViewProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        Font font = lblViewProfile.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblViewProfile.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblViewProfileMouseEntered
+
+    private void lblViewProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseExited
+        Font font = lblViewProfile.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, -1);
+        lblViewProfile.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblViewProfileMouseExited
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         String username = lblUsername.getText();
         String ic = lblIc.getText();
         
-        User_ViewProfile viewProfile = new User_ViewProfile(username, ic);
-        viewProfile.setVisible(true);
+        User_EditProfile editProfile = new User_EditProfile(username, ic);
+        editProfile.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_lblViewProfileMousePressed
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,34 +311,44 @@ public class User_Home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(User_Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_ViewProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(User_Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_ViewProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(User_Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_ViewProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(User_Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_ViewProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new User_Home().setVisible(true);
+                new User_ViewProfile().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnVacAppoint;
-    private javax.swing.JButton btnVacStatus;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lblDob;
+    private javax.swing.JLabel lblFullName;
+    private javax.swing.JLabel lblGender;
     private javax.swing.JLabel lblIc;
+    private javax.swing.JLabel lblIcPassport;
+    private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogout;
+    private javax.swing.JLabel lblNationality;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblViewProfile;
-    private javax.swing.JPanel userlHeader;
+    private javax.swing.JPanel userHeader;
     // End of variables declaration//GEN-END:variables
 }
