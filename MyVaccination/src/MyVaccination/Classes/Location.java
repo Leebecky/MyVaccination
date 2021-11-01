@@ -14,13 +14,17 @@ import java.util.List;
  */
 public class Location {
 
-    public String address1;
-    public String address2;
-    public String state;
-    public Double longitude;
-    public Double latitude;
+    private String address1;
+    private String address2;
+    private String state;
+    private Double longitude;
+    private Double latitude;
 
     //Constructor
+    public Location() {
+
+    }
+
     public Location(String addr1, String addr2, String state) {
 
         address1 = addr1;
@@ -28,9 +32,25 @@ public class Location {
         this.state = state;
     }
 
+    //List of states available
     public static String[] getStateList() {
         String[] stateList = {"Johor", "Kedah", "Kelantan", "Kuala Lumpur", "Labuan", "Melaka", "Negeri Sembilan", "Pahang", "Penang", "Perak", "Perlis", "Putrajaya", "Sabah", "Sarawak", "Selangor", "Terengganu"};
 
         return stateList;
     }
+
+    //Getters
+    public String getAddress1() {
+        return (this.address1 == null) ? "" : this.address1;
+
+    }
+
+    public String getAddress2() {
+        return (this.address2 == null) ? "" : this.address2;
+    }
+
+    public String getState() {
+        return (this.state == null) ? "" : this.state;
+    }
+
 }

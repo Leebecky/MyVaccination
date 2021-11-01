@@ -1,0 +1,1 @@
+{"centreId":"VC_a76eb9d6-cc4a-413b-beba-b1017f1c25cc","name":"No supply test run","location":{"address1":"asd","address2":"","state":"Johor"},"openingTime":"09:30","closingTime":"11:30","status":"Active"}

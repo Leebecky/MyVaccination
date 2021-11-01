@@ -109,7 +109,9 @@ final public class File_Helper {
 
             // Only 1 line is available within the textfile since its written in JSON
             for (File fileInFolder : folder.listFiles()) {
-
+                if (fileInFolder.isDirectory()) {
+                    continue;
+                }
                 try ( Scanner fileReader = new Scanner(fileInFolder)) {
                     while (fileReader.hasNextLine()) {
                         data.add(fileReader.nextLine());
@@ -133,7 +135,7 @@ final public class File_Helper {
         if (!file.exists()) {
             return false;
         }
-        
+
         // Try to delete the file
         return file.delete();
     }

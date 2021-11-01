@@ -5,11 +5,8 @@
  */
 package MyVaccination;
 
-import MyVaccination.Classes.Personnel;
-import MyVaccination.Helper_Classes.File_Helper;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.IntelliJTheme;
-import javax.swing.LookAndFeel;
+import MyVaccination.Personnel_Home;
 
 /**
  *
@@ -21,9 +18,7 @@ public class MyVaccination {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
         FlatIntelliJLaf.install();
-      
       
         Personnel_Home home = new Personnel_Home();
         home.setVisible(true);

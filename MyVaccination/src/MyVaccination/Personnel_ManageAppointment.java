@@ -9,17 +9,18 @@ package MyVaccination;
  *
  * @author leebe
  */
+import MyVaccination.Classes.Appointment;
 import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Helper_Classes.File_Helper;
 import MyVaccination.Helper_Classes.MyVaccination_GeneralFunctions;
 import javax.swing.JOptionPane;
 
-public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
+public class Personnel_ManageAppointment extends javax.swing.JFrame {
 
     /**
      * Creates new form Personnel_ManageVaccinationCentre
      */
-    public Personnel_ManageVaccinationCentre() {
+    public Personnel_ManageAppointment() {
         initComponents();
     }
 
@@ -35,17 +36,16 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblVc = new javax.swing.JTable();
-        btnAddNewVc = new javax.swing.JButton();
-        btnDeleteVc = new javax.swing.JButton();
-        txtVcSearch = new javax.swing.JTextField();
+        tblApt = new javax.swing.JTable();
+        btnAddNewApt = new javax.swing.JButton();
+        btnDeleteApt = new javax.swing.JButton();
+        txtAptSearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        btnAddEditVc = new javax.swing.JButton();
+        btnAddEditApt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Manage Vaccination Centre");
-        setName("frmMngVc"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(945, 482));
+        setTitle("Manage Appointments");
+        setName("frmMngApt"); // NOI18N
         setSize(getPreferredSize());
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
@@ -80,61 +80,62 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
                 .addComponent(btnHome))
         );
 
-        tblVc.setModel(Vaccination_Centre.getVcTableModel()
+        tblApt.setModel(Appointment.getAptTableModel()
         );
-        tblVc.setRowHeight(30);
-        tblVc.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblVc.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tblVc);
-        tblVc.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        tblVc.removeColumn(tblVc.getColumnModel().getColumn(0));
+        tblApt.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        tblApt.setRowHeight(30);
+        tblApt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblApt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblApt);
+        tblApt.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblApt.removeColumn(tblApt.getColumnModel().getColumn(0));
 
-        btnAddNewVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/New.png"))); // NOI18N
-        btnAddNewVc.setText("New");
-        btnAddNewVc.setAlignmentY(0.0F);
-        btnAddNewVc.setBackground(new java.awt.Color(51, 51, 255));
-        btnAddNewVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnAddNewVc.setForeground(new java.awt.Color(0, 0, 0));
-        btnAddNewVc.setIconTextGap(10);
-        btnAddNewVc.addActionListener(new java.awt.event.ActionListener() {
+        btnAddNewApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/New.png"))); // NOI18N
+        btnAddNewApt.setText("New");
+        btnAddNewApt.setAlignmentY(0.0F);
+        btnAddNewApt.setBackground(new java.awt.Color(51, 51, 255));
+        btnAddNewApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnAddNewApt.setForeground(new java.awt.Color(0, 0, 0));
+        btnAddNewApt.setIconTextGap(10);
+        btnAddNewApt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddNewVcActionPerformed(evt);
+                btnAddNewAptActionPerformed(evt);
             }
         });
 
-        btnDeleteVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
-        btnDeleteVc.setText("Delete");
-        btnDeleteVc.setAlignmentY(0.0F);
-        btnDeleteVc.setBackground(new java.awt.Color(255, 51, 51));
-        btnDeleteVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnDeleteVc.setForeground(new java.awt.Color(0, 0, 0));
-        btnDeleteVc.setIconTextGap(10);
-        btnDeleteVc.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
+        btnDeleteApt.setText("Delete");
+        btnDeleteApt.setAlignmentY(0.0F);
+        btnDeleteApt.setBackground(new java.awt.Color(255, 51, 51));
+        btnDeleteApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnDeleteApt.setForeground(new java.awt.Color(0, 0, 0));
+        btnDeleteApt.setIconTextGap(10);
+        btnDeleteApt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteVcActionPerformed(evt);
+                btnDeleteAptActionPerformed(evt);
             }
         });
 
-        txtVcSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtVcSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtAptSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtAptSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtVcSearchKeyTyped(evt);
+                txtAptSearchKeyTyped(evt);
             }
         });
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Search.png"))); // NOI18N
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        btnAddEditVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Edit.png"))); // NOI18N
-        btnAddEditVc.setText("Edit");
-        btnAddEditVc.setAlignmentY(0.0F);
-        btnAddEditVc.setBackground(new java.awt.Color(255, 153, 51));
-        btnAddEditVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnAddEditVc.setForeground(new java.awt.Color(0, 0, 0));
-        btnAddEditVc.setIconTextGap(10);
-        btnAddEditVc.addActionListener(new java.awt.event.ActionListener() {
+        btnAddEditApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Edit.png"))); // NOI18N
+        btnAddEditApt.setText("Edit");
+        btnAddEditApt.setAlignmentY(0.0F);
+        btnAddEditApt.setBackground(new java.awt.Color(255, 153, 51));
+        btnAddEditApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnAddEditApt.setForeground(new java.awt.Color(0, 0, 0));
+        btnAddEditApt.setIconTextGap(10);
+        btnAddEditApt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddEditVcActionPerformed(evt);
+                btnAddEditAptActionPerformed(evt);
             }
         });
 
@@ -150,34 +151,34 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtVcSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtAptSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAddEditVc)
+                        .addComponent(btnAddEditApt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAddNewVc)
+                        .addComponent(btnAddNewApt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDeleteVc)))
+                        .addComponent(btnDeleteApt)))
                 .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAddNewVc, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDeleteVc, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAddEditVc, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAddNewApt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDeleteApt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddEditApt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtVcSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                        .addComponent(txtAptSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 128, Short.MAX_VALUE))
+                .addGap(0, 41, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddNewVc, txtVcSearch});
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddNewApt, txtAptSearch});
 
         pack();
         setLocationRelativeTo(null);
@@ -190,35 +191,35 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnHomeActionPerformed
 
-    private void btnAddNewVcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewVcActionPerformed
-        Personnel_VaccinationCentreForm vcForm = new Personnel_VaccinationCentreForm();
-        vcForm.setVisible(true);
+    private void btnAddNewAptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewAptActionPerformed
+        Personnel_AppointmentForm aptForm = new Personnel_AppointmentForm();
+        aptForm.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnAddNewVcActionPerformed
+    }//GEN-LAST:event_btnAddNewAptActionPerformed
 
-    private void btnDeleteVcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteVcActionPerformed
+    private void btnDeleteAptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAptActionPerformed
         // Delete record in table
-        int selectedRow = tblVc.getSelectedRow();
+        int selectedRow = tblApt.getSelectedRow();
 
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a vaccination centre!", "Vaccination Centre", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select an appointment!", "Appointment", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        int modelRowIndex = tblVc.convertRowIndexToModel(selectedRow);
-        String vcId = tblVc.getModel().getValueAt(modelRowIndex, 0).toString();
-        Vaccination_Centre vcObject = Vaccination_Centre.getCentre(vcId);
+        int modelRowIndex = tblApt.convertRowIndexToModel(selectedRow);
+        String aptId = tblApt.getModel().getValueAt(modelRowIndex, 0).toString();
+        Appointment tblObject = Appointment.getBatchAppointment(aptId);
 
         //Confirm request to delete data
-        int decision = JOptionPane.showConfirmDialog(this, "Please confirm the deletion of " + vcObject.getName(), "Vaccination Centre", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        int decision = JOptionPane.showConfirmDialog(this, "Please confirm the deletion of " , "Appointment", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (decision == JOptionPane.YES_OPTION) {
 
-            boolean deleteSuccess = File_Helper.deleteFile(vcObject.getFileName());
+            boolean deleteSuccess = File_Helper.deleteFile(tblObject.getFileName());
 
             //If file failed to delete
             if (!deleteSuccess) {
-                JOptionPane.showMessageDialog(this, "Failed to delete record for " + vcObject.getName() + "!", "Vaccination Centre", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Failed to delete record for " + "!", "Appointment", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         } else {
@@ -226,31 +227,31 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         }
 
         //Refresh the table model and hide the id column
-        tblVc.setModel(Vaccination_Centre.getVcTableModel());
-        tblVc.removeColumn(tblVc.getColumnModel().getColumn(0));
-    }//GEN-LAST:event_btnDeleteVcActionPerformed
+        tblApt.setModel(Appointment.getAptTableModel());
+        tblApt.removeColumn(tblApt.getColumnModel().getColumn(0));
+    }//GEN-LAST:event_btnDeleteAptActionPerformed
 
-    private void btnAddEditVcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEditVcActionPerformed
-        // Edit the selected Vaccination Centre
-        int selectedRow = tblVc.getSelectedRow();
+    private void btnAddEditAptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEditAptActionPerformed
+        // Edit the selected Appointment
+        int selectedRow = tblApt.getSelectedRow();
 
         if (selectedRow == -1) {
-            JOptionPane.showMessageDialog(this, "Please select a vaccination centre!", "Vaccination Centre", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please select an appointment!", "Appointment", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        int modelRowIndex = tblVc.convertRowIndexToModel(selectedRow);
-        String vcId = tblVc.getModel().getValueAt(modelRowIndex, 0).toString();
+        int modelRowIndex = tblApt.convertRowIndexToModel(selectedRow);
+        String aptId = tblApt.getModel().getValueAt(modelRowIndex, 0).toString();
 
-        Personnel_VaccinationCentreForm vcForm = new Personnel_VaccinationCentreForm(vcId);
-        vcForm.setVisible(true);
+        Personnel_AppointmentForm form = new Personnel_AppointmentForm(aptId);
+        form.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_btnAddEditVcActionPerformed
+    }//GEN-LAST:event_btnAddEditAptActionPerformed
 
-    private void txtVcSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtVcSearchKeyTyped
+    private void txtAptSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAptSearchKeyTyped
         //Search
-        MyVaccination_GeneralFunctions.searchTable(txtVcSearch, tblVc);
-    }//GEN-LAST:event_txtVcSearchKeyTyped
+        MyVaccination_GeneralFunctions.searchTable(txtAptSearch, tblApt);
+    }//GEN-LAST:event_txtAptSearchKeyTyped
 
     /**
      * @param args the command line arguments
@@ -269,33 +270,34 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Personnel_ManageVaccinationCentre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Personnel_ManageAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Personnel_ManageVaccinationCentre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Personnel_ManageAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Personnel_ManageVaccinationCentre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Personnel_ManageAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Personnel_ManageVaccinationCentre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Personnel_ManageAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Personnel_ManageVaccinationCentre().setVisible(true);
+                new Personnel_ManageAppointment().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddEditVc;
-    private javax.swing.JButton btnAddNewVc;
-    private javax.swing.JButton btnDeleteVc;
+    private javax.swing.JButton btnAddEditApt;
+    private javax.swing.JButton btnAddNewApt;
+    private javax.swing.JButton btnDeleteApt;
     private javax.swing.JButton btnHome;
     private javax.swing.JPanel homePersonnelHeader;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblVc;
-    private javax.swing.JTextField txtVcSearch;
+    private javax.swing.JTable tblApt;
+    private javax.swing.JTextField txtAptSearch;
     // End of variables declaration//GEN-END:variables
 }
