@@ -97,7 +97,7 @@ public class User_Home extends javax.swing.JFrame {
             userlHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userlHeaderLayout.createSequentialGroup()
                 .addComponent(lblLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 569, Short.MAX_VALUE)
                 .addComponent(lblUsername)
                 .addGap(21, 21, 21))
         );
