@@ -174,6 +174,7 @@ public class User_Home extends javax.swing.JFrame {
         getContentPane().add(lblIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVacAppointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVacAppointActionPerformed

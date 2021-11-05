@@ -627,7 +627,8 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
         JFreeChart chart = ChartFactory.createPieChart("Testing", dataset, true, true, true);
         ChartPanel p = new ChartPanel(chart);
-        panelVaccineChart.add(p);
+//        panelVaccineChart.add(p);
+        panelVaccineChart.setComponentAt(0, p);
 //        ChartFrame yourFrame = new ChartFrame("Your title", chart);
 
 //        yourFrame.setSize(600, 600);

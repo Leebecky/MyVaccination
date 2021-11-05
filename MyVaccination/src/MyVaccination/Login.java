@@ -148,6 +148,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 244, 325, 45));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
@@ -174,7 +175,8 @@ public class Login extends javax.swing.JFrame {
                         if(password.equals(userList.get(i).getPassword())){
                             isValid =true;
                             accName = userList.get(i).getName();
-                            userType = userList.get(i).getUserType();
+                            userType = userList.get(i).getUserType();                  
+                            break;
                         }
                     }
                 }

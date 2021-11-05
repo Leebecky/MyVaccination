@@ -107,9 +107,9 @@ public class User_EditProfile extends javax.swing.JFrame {
 
         getContentPane().add(userHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
 
-        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("edit PROFILE");
+        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 540, -1));
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
@@ -224,6 +224,7 @@ public class User_EditProfile extends javax.swing.JFrame {
         getContentPane().add(lblIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered
