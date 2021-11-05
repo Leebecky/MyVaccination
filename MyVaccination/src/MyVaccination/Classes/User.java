@@ -21,14 +21,52 @@ public class User implements File_Methods{
     public static void Login() {
         //Placeholder code for Login process, maybe return User class?
     }
-
-    @Override
-    public String setFileName() {
-        return userId;
+    
+    public User(){
+        
     }
-
+    
+    public User(String id, String name, String pass, String type){
+        this.userId = "US_" + id;
+        this.username = name;
+        this.password = pass;
+        this.userType = type;
+    }
+    
+    public void Login(String id, String name, String pass, String type){
+        this.userId = "US_" + id;
+        this.username = name;
+        this.password = pass;
+        this.userType = type;
+    }
+    
+    public User getUser(){
+        return this;
+    }
+    
+    public String getUserId(){
+        return this.userId;
+    }
+    
+    public String getUsername(){
+        return this.username;
+    }
+    
+    public String getPassword(){
+        return this.password;
+    }
+    
+    public String getUserType(){
+        return this.userType;
+    }
+    
     @Override
-    public String getFileName() {
-     return "User/" +  userId + ".txt";
+    public String getFileName(){
+        return "User_Account/US_" + username + ".txt";
+    }        
+    
+    @Override
+    public String setFileName(){
+        return "US_" + username;
     }
 }

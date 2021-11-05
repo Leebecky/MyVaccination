@@ -102,7 +102,6 @@ final public class File_Helper {
             String folderPath = defaultFilePath + folderName;
             File folder = new File(folderPath);
             List<String> data = new ArrayList();
-
             if (!folder.exists() || !folder.isDirectory()) {
                 return null;
             }
@@ -116,7 +115,6 @@ final public class File_Helper {
                     }
                 }
             }
-
             return data;
         } catch (FileNotFoundException e) {
             //TODO proper exception handling implementation needed

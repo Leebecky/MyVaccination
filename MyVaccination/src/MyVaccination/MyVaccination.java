@@ -5,11 +5,26 @@
  */
 package MyVaccination;
 
-import MyVaccination.Classes.Personnel;
+import MyVaccination.Classes.Pfizer;
+import MyVaccination.Classes.Vaccine;
+import MyVaccination.Classes.AstraZeneca;
+import MyVaccination.Classes.Stock;
+import MyVaccination.Classes.Vaccination_Centre;
+import MyVaccination.Gson.LocalDateAdapter;
 import MyVaccination.Helper_Classes.File_Helper;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.IntelliJTheme;
-import javax.swing.LookAndFeel;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+//import org.json.JSONObject;
+import com.google.gson.*;
+import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -23,12 +38,15 @@ public class MyVaccination {
     public static void main(String[] args) {
 
         FlatIntelliJLaf.install();
-      
-      
-        Personnel_Home home = new Personnel_Home();
-        home.setVisible(true);
+        // Change to Login.java
+        Login login = new Login();
+        login.setVisible(true);
+//        Test2 test = new Test2();
+//        test.setVisible(true);
 
+        
 // Sample code for JSON object creation and write to file
+
 //        AstraZeneca az = new AstraZeneca();
 //        Pfizer pf = new Pfizer();
 //
@@ -46,6 +64,7 @@ public class MyVaccination {
 //        Vaccination_Centre vcFromFile = File_Helper.gsonWriter.fromJson(vcData, Vaccination_Centre.class);
 //        List<Stock> stock2 = vcFromFile.getStock();
 //        System.out.println(stock2.get(0).getVaccine().getBatchNumber());
+//        
 //        List<String> vcDataArray = File_Helper.readFolder("Vaccination_Centre");
 //        List<Vaccination_Centre> vcList = new ArrayList();
 //
@@ -59,6 +78,8 @@ public class MyVaccination {
 //            });
 //
 //        });
+
+
         //Main end
     }
 
