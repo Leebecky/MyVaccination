@@ -1,0 +1,1 @@
+[{"name":"Pfizer","manufacturer":"Pfizer","batchNumber":"PF_0c006d8b-b583-4d75-898a-a9b603c447cf","dosage":5,"amount":50,"dosesRequired":2,"waitTime":3},{"name":"AstraZeneca","manufacturer":"Oxford AstraZeneca","batchNumber":"AZ_c0d0f86f-c773-43cb-922a-73fe1875e18e","dosage":5,"amount":50,"dosesRequired":2,"waitTime":12}]
