@@ -7,7 +7,7 @@ package MyVaccination.Classes;
 
 import MyVaccination.Helper_Classes.File_Methods;
 
-public class Vaccine implements File_Methods{
+public class Vaccine implements File_Methods {
 
     protected String name;
     protected String manufacturer;
@@ -45,8 +45,6 @@ public class Vaccine implements File_Methods{
         return dosesRequired;
     }
 
-    //End of class
-
     @Override
     public String setFileName() {
         return batchNumber;
@@ -56,4 +54,36 @@ public class Vaccine implements File_Methods{
     public String getFileName() {
         return "Vaccine/" + batchNumber + ".txt";
     }
+
+    public static String[] getListOfVaccines() {
+        String[] vaccineList = {"AstraZeneca", "CanSino", "Pfizer", "Sinovac"};
+        return vaccineList;
+    }
+
+    //Generate a Vaccine object based on the given vaccine type
+    public static Vaccine generateVaccine(String vaccineBrand) {
+        Vaccine vaccine;
+        switch (vaccineBrand) {
+            case "AstraZeneca":
+                vaccine = new AstraZeneca();
+                break;
+
+            case "CanSino":
+                vaccine = new CanSino();
+                break;
+            case "Pfizer":
+                vaccine = new Pfizer();
+                break;
+            case "Sinovac":
+                vaccine = new Sinovac();
+                break;
+            default:
+                vaccine = new Vaccine();
+                break;
+        }
+
+        return vaccine;
+    }
+
+    //End of class
 }

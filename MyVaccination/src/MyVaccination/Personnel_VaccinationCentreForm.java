@@ -8,8 +8,19 @@ package MyVaccination;
 import MyVaccination.Helper_Classes.LGoodTimePicker_TimeVeto;
 import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Classes.Location;
+import MyVaccination.Classes.Stock;
+import MyVaccination.Classes.Vaccine;
 import com.github.lgooddatepicker.components.TimePickerSettings;
+import java.awt.BorderLayout;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -21,9 +32,11 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
      * Creates new form Personnel_VaccinationCentreForm
      */
     String id = "";
+    Vaccination_Centre vc;
 
     public Personnel_VaccinationCentreForm() {
         initComponents();
+        vc = new Vaccination_Centre();
     }
 
     //For edit mode
@@ -31,7 +44,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         this.id = id;
         initComponents();
 
-        Vaccination_Centre vc = Vaccination_Centre.getCentre(id);
+        vc = Vaccination_Centre.getCentre(id);
         txtVcName.setText(vc.getName());
         dtVcOpeningTime.setTime(vc.getOpeningTime());
         dtVcClosingTime.setTime(vc.getClosingTime());
@@ -41,7 +54,12 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         } else {
             cmbVcStatus.setSelectedIndex(1);
         }
- 
+
+        //Location
+        txtVcAddr1.setText(vc.getLocation().getAddress1());
+        txtVcAddr2.setText(vc.getLocation().getAddress2());
+        List<String> stateList = Arrays.asList(Location.getStateList());
+        cmbVcState.setSelectedIndex(stateList.indexOf(vc.getLocation().getState()));
     }
 
     /**
@@ -53,6 +71,13 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        diaResupply = new javax.swing.JDialog();
+        btnResupplyCancel = new javax.swing.JButton();
+        btnResupplySave = new javax.swing.JButton();
+        cmbResupplyVaccine =  new javax.swing.JComboBox<>(Vaccine.getListOfVaccines());
+        spinResupply = new javax.swing.JSpinner();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         btnVcSave = new javax.swing.JButton();
@@ -75,11 +100,101 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         txtVcAddr2 = new javax.swing.JTextField();
+        panelSupply = new javax.swing.JPanel();
+        panelVaccineChart = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblVcSupply = new javax.swing.JTable();
+        btnVcSupply = new javax.swing.JButton();
+
+        diaResupply.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        diaResupply.setAlwaysOnTop(true);
+        diaResupply.setMinimumSize(new java.awt.Dimension(403, 288));
+
+        btnResupplyCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
+        btnResupplyCancel.setText("Cancel");
+        btnResupplyCancel.setBackground(new java.awt.Color(204, 51, 0));
+        btnResupplyCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnResupplyCancel.setForeground(new java.awt.Color(0, 0, 0));
+        btnResupplyCancel.setIconTextGap(10);
+        btnResupplyCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResupplyCancelActionPerformed(evt);
+            }
+        });
+
+        btnResupplySave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Save.png"))); // NOI18N
+        btnResupplySave.setText("Confirm");
+        btnResupplySave.setBackground(new java.awt.Color(0, 204, 51));
+        btnResupplySave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnResupplySave.setForeground(new java.awt.Color(0, 0, 0));
+        btnResupplySave.setIconTextGap(10);
+        btnResupplySave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResupplySaveActionPerformed(evt);
+            }
+        });
+
+        cmbResupplyVaccine.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        spinResupply.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel5.setText("Vaccine Brand");
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel7.setText("Amount");
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout diaResupplyLayout = new javax.swing.GroupLayout(diaResupply.getContentPane());
+        diaResupply.getContentPane().setLayout(diaResupplyLayout);
+        diaResupplyLayout.setHorizontalGroup(
+            diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diaResupplyLayout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(spinResupply, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbResupplyVaccine, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(diaResupplyLayout.createSequentialGroup()
+                        .addComponent(btnResupplyCancel)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnResupplySave))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(75, Short.MAX_VALUE))
+        );
+
+        diaResupplyLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbResupplyVaccine, spinResupply});
+
+        diaResupplyLayout.setVerticalGroup(
+            diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diaResupplyLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cmbResupplyVaccine, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spinResupply, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnResupplySave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnResupplyCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26))
+        );
+
+        diaResupplyLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbResupplyVaccine, spinResupply});
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Vaccination Centre");
         setName("frmVc"); // NOI18N
         setSize(getPreferredSize());
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -184,20 +299,20 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbVcStatus, javax.swing.GroupLayout.Alignment.TRAILING, 0, 207, Short.MAX_VALUE)
-                    .addComponent(dtVcOpeningTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtVcName, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dtVcClosingTime, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtVcName)
+                    .addComponent(cmbVcStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtVcClosingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                    .addComponent(dtVcOpeningTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(16, 16, 16))
         );
 
-        panelMainDetailsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbVcStatus, dtVcClosingTime});
+        panelMainDetailsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbVcStatus, dtVcClosingTime, dtVcOpeningTime, txtVcName});
 
         panelMainDetailsLayout.setVerticalGroup(
             panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMainDetailsLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(24, 24, 24)
                 .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtVcName, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -207,32 +322,35 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dtVcClosingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(dtVcClosingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(21, 21, 21)
                 .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbVcStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
+                    .addComponent(cmbVcStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap())
+                .addContainerGap(30, Short.MAX_VALUE))
         );
+
+        panelMainDetailsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbVcStatus, dtVcClosingTime, dtVcOpeningTime, txtVcName});
 
         panelTabbedVc.addTab("Main Details", panelMainDetails);
 
+        cmbVcState.setMaximumRowCount(10);
         cmbVcState.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtVcAddr1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setLabelFor(txtVcAddr2);
         jLabel6.setText("Address Line 2 :");
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setLabelFor(cmbVcState);
         jLabel8.setText("State :");
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setLabelFor(txtVcAddr1);
         jLabel9.setText("Address Line 1 :");
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtVcAddr2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -254,18 +372,22 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cmbVcState, javax.swing.GroupLayout.Alignment.TRAILING, 0, 207, Short.MAX_VALUE)
-                    .addComponent(txtVcAddr1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtVcAddr2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtVcAddr1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+                        .addComponent(txtVcAddr2))
+                    .addComponent(cmbVcState, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        panelLocationLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbVcState, txtVcAddr1, txtVcAddr2});
+
         panelLocationLayout.setVerticalGroup(
             panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelLocationLayout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(43, 43, 43)
                 .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtVcAddr1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtVcAddr1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
                 .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -274,10 +396,78 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbVcState, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8)))
+                    .addComponent(jLabel8))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
+        panelLocationLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbVcState, txtVcAddr1, txtVcAddr2});
+
         panelTabbedVc.addTab("Location", panelLocation);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 521, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 128, Short.MAX_VALUE)
+        );
+
+        panelVaccineChart.addTab("Chart", jPanel1);
+
+        tblVcSupply.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblVcSupply);
+
+        panelVaccineChart.addTab("Table", jScrollPane1);
+
+        btnVcSupply.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/supply_48.png"))); // NOI18N
+        btnVcSupply.setText("Resupply");
+        btnVcSupply.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnVcSupply.setIconTextGap(20);
+        btnVcSupply.setPreferredSize(new java.awt.Dimension(111, 30));
+        btnVcSupply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVcSupplyActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelSupplyLayout = new javax.swing.GroupLayout(panelSupply);
+        panelSupply.setLayout(panelSupplyLayout);
+        panelSupplyLayout.setHorizontalGroup(
+            panelSupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSupplyLayout.createSequentialGroup()
+                .addGroup(panelSupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSupplyLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(panelVaccineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelSupplyLayout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+        panelSupplyLayout.setVerticalGroup(
+            panelSupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSupplyLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(panelVaccineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+        );
+
+        panelTabbedVc.addTab("Vaccine Supply", panelSupply);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -285,13 +475,14 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(homePersonnelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(238, 238, 238)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnVcCancel)
-                        .addGap(36, 36, 36)
-                        .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(417, 417, 417)
+                .addComponent(btnVcCancel)
+                .addGap(36, 36, 36)
+                .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -299,8 +490,8 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
-                .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVcCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -312,35 +503,48 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        Personnel_Home home = new Personnel_Home();
-        home.setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+        int decision = JOptionPane.showConfirmDialog(this, "Warning, no unsaved changes will be saved!", "Cancel Vaccination Centre Registration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        // Return to Manage Vaccination Centre page
+        if (decision == JOptionPane.OK_OPTION) {
+            Personnel_Home home = new Personnel_Home();
+            home.setVisible(true);
+            this.setVisible(false);
+            this.dispose();
+        } else {
+            return;
+        }
     }//GEN-LAST:event_btnHomeActionPerformed
 
     private void btnVcSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcSaveActionPerformed
         //TODO: Data Validation
         //Location Data
-        System.out.println(txtVcAddr1.getText());
-//        if (txtVcAddr1.getText() == "" || txtVcAddr1.getText() == null) {
-//            
-//        panelTabbedVc.setSelectedIndex(1);
-//        return;
-//        } else {
-//            JOptionPane.showInputDialog("BAng");
-//            return;
-//        }
-        
+        String vcState = cmbVcState.getModel().getSelectedItem().toString();
+        Location vcLocation = new Location(txtVcAddr1.getText(), txtVcAddr2.getText(), vcState);
+
+        if (txtVcAddr1.getText().length() == 0 || txtVcAddr1.getText() == null) {
+
+            panelTabbedVc.setSelectedIndex(1);
+            return;
+        }
+
+        //Set values
+        vc.setClosingTime(dtVcClosingTime.getTime());
+        vc.setOpeningTime(dtVcOpeningTime.getTime());
+        vc.setName(txtVcName.getText());
+        vc.setStatus(cmbVcStatus.getItemAt(cmbVcStatus.getSelectedIndex()));
+        vc.setLocation(vcLocation);
+
         boolean success;
         String message = "";
 
+        success = Vaccination_Centre.updateCentre(vc);
+
         if (id != "") {
             //Edit
-            success = Vaccination_Centre.updateCentre(id, txtVcName.getText(), dtVcOpeningTime.getTime(), dtVcClosingTime.getTime(), cmbVcStatus.getItemAt(cmbVcStatus.getSelectedIndex()));
-            message = "Failed to update record for "+ txtVcName.getText() +"!";
+            message = "Failed to update record for " + txtVcName.getText() + "!";
         } else {
             //New
-            success = Vaccination_Centre.registerCentre(txtVcName.getText(), dtVcOpeningTime.getTime(), dtVcClosingTime.getTime(), cmbVcStatus.getItemAt(cmbVcStatus.getSelectedIndex()));
             message = "Failed to register new vaccination centre!";
         }
 
@@ -359,14 +563,78 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     private void btnVcCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcCancelActionPerformed
 
         //Check if user is certain
-        JOptionPane.showConfirmDialog(this, "Warning, no unsaved changes will be saved!", "Cancel Vaccination Centre Registration", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        int decision = JOptionPane.showConfirmDialog(this, "Warning, no unsaved changes will be saved!", "Cancel Vaccination Centre Registration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 
         // Return to Manage Vaccination Centre page
-        this.setVisible(false);
-        this.dispose();
-        Personnel_ManageVaccinationCentre vc = new Personnel_ManageVaccinationCentre();
-        vc.setVisible(true);
+        if (decision == JOptionPane.OK_OPTION) {
+
+            this.setVisible(false);
+            this.dispose();
+            Personnel_ManageVaccinationCentre vc = new Personnel_ManageVaccinationCentre();
+            vc.setVisible(true);
+        } else {
+            return;
+        }
     }//GEN-LAST:event_btnVcCancelActionPerformed
+
+    private void btnVcSupplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcSupplyActionPerformed
+        // TODO add your handling code here:
+        diaResupply.setLocationRelativeTo(this);
+        diaResupply.setVisible(true);
+    }//GEN-LAST:event_btnVcSupplyActionPerformed
+
+    private void btnResupplyCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResupplyCancelActionPerformed
+
+        //Check if user is certain
+        int decision = JOptionPane.showConfirmDialog(diaResupply, "Warning, no unsaved changes will be saved!", "Cancel Vaccination Centre Resupply", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        // Close the popup window
+        if (decision == JOptionPane.OK_OPTION) {
+
+            diaResupply.setVisible(false);
+            diaResupply.dispose();
+        } else {
+            return;
+        }
+    }//GEN-LAST:event_btnResupplyCancelActionPerformed
+
+    private void btnResupplySaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResupplySaveActionPerformed
+        // Add vaccine supply
+        
+        String vaccineBrand = cmbResupplyVaccine.getModel().getSelectedItem().toString();
+        Vaccine resupply = Vaccine.generateVaccine(vaccineBrand); 
+        vc.resupply(new Stock(resupply));
+        
+        spinResupply.setValue(0);
+
+        //Close the window
+        diaResupply.setVisible(false);
+        diaResupply.dispose();
+    }//GEN-LAST:event_btnResupplySaveActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        //        //Testing chart generation
+        DefaultPieDataset dataset = new DefaultPieDataset();
+
+        dataset.setValue("Value 1", 10);
+
+        dataset.setValue("Value 2", 20);
+
+        dataset.setValue("Value 3", 30);
+
+        dataset.setValue("Value 4", 40);
+
+        JFreeChart chart = ChartFactory.createPieChart("Testing", dataset, true, true, true);
+        ChartPanel p = new ChartPanel(chart);
+//        panelVaccineChart.add(p);
+        panelVaccineChart.setComponentAt(0, p);
+//        ChartFrame yourFrame = new ChartFrame("Your title", chart);
+
+//        yourFrame.setSize(600, 600);
+
+//        yourFrame.setVisible(true);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -405,10 +673,15 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnResupplyCancel;
+    private javax.swing.JButton btnResupplySave;
     private javax.swing.JButton btnVcCancel;
     private javax.swing.JButton btnVcSave;
+    private javax.swing.JButton btnVcSupply;
+    private javax.swing.JComboBox<String> cmbResupplyVaccine;
     private javax.swing.JComboBox<String> cmbVcState;
     private javax.swing.JComboBox<String> cmbVcStatus;
+    private javax.swing.JDialog diaResupply;
     private com.github.lgooddatepicker.components.TimePicker dtVcClosingTime;
     private com.github.lgooddatepicker.components.TimePicker dtVcOpeningTime;
     private javax.swing.JPanel homePersonnelHeader;
@@ -416,12 +689,20 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLayeredPane panelLocation;
     private javax.swing.JLayeredPane panelMainDetails;
+    private javax.swing.JPanel panelSupply;
     private javax.swing.JTabbedPane panelTabbedVc;
+    private javax.swing.JTabbedPane panelVaccineChart;
+    private javax.swing.JSpinner spinResupply;
+    private javax.swing.JTable tblVcSupply;
     private javax.swing.JTextField txtVcAddr1;
     private javax.swing.JTextField txtVcAddr2;
     private javax.swing.JTextField txtVcName;

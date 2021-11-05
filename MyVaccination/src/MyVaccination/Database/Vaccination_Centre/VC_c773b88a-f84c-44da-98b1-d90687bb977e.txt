@@ -1,0 +1,1 @@
+{"centreId":"VC_c773b88a-f84c-44da-98b1-d90687bb977e","name":"Test NEw","location":{"address1":"a","address2":"","state":"Johor"},"openingTime":"09:00","closingTime":"02:30","status":"Inactive"}

@@ -36,7 +36,6 @@ public class MyVaccination {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
         FlatIntelliJLaf.install();
         // Change to Login.java
         Login login = new Login();

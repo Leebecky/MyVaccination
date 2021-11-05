@@ -218,6 +218,7 @@ public class User_ViewProfile extends javax.swing.JFrame {
         getContentPane().add(lblIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered

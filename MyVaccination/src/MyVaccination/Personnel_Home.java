@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package MyVaccination;
-import MyVaccination.Personnel_ManageVaccinationCentre;
 /**
  *
  * @author leebe
@@ -163,11 +162,17 @@ public class Personnel_Home extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMngUserActionPerformed
 
     private void btnMngAptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMngAptActionPerformed
-        // TODO add your handling code here:
+        // Redirect to Manage Appointment
+        Personnel_ManageAppointment apt = new Personnel_ManageAppointment();
+        apt.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnMngAptActionPerformed
 
     private void btnMngSupplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMngSupplyActionPerformed
-        // TODO add your handling code here:
+        // Navigate to manage Vaccine supply
+         Personnel_ManageVaccineSupply mngForm = new Personnel_ManageVaccineSupply();
+        mngForm.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnMngSupplyActionPerformed
 
     /**

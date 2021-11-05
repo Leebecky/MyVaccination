@@ -5,19 +5,26 @@
  */
 package MyVaccination.Classes;
 
+import java.time.LocalDate;
+
 public class Stock {
 
     private Vaccine vaccine;
     private int quantity;
+    private LocalDate supplyDate;
 
     public Stock(Vaccine vac) {
         vaccine = vac;
         quantity = vac.getAmount() * vac.getDosage();
-
+        supplyDate = LocalDate.now();
     }
-
+    
     public Vaccine getVaccine() {
         return vaccine;
+    }
+    
+    public int getQuantity() {
+        return quantity;
     }
 
     //end Stock class
