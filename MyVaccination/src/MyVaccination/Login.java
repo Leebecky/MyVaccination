@@ -74,7 +74,7 @@ public class Login extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(lblLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(378, 378, 378))
         );
@@ -159,33 +159,43 @@ public class Login extends javax.swing.JFrame {
         String password = String.valueOf(txtPassword.getPassword());
         boolean isValid = false;
         String accName = "";
+        String userType = "";
         
         if(!username.isEmpty() && !password.isEmpty()){
-            String userData = File_Helper.readFile("User_Account/US_" + username + ".txt");
-            
-            if(userData == null){
-                JOptionPane.showMessageDialog(null, "Username incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
-                txtUsername.setText("");
-                txtPassword.setText("");  
-            }else{
-                People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-                
-                if(password.equals(userFromFile.getPassword())){
-                    isValid =true;
-                    accName = userFromFile.getName();
+            List<String> userDataArray = File_Helper.readFolder("User_Account");
+                List<People> userList = new ArrayList();
+
+                userDataArray.forEach(fileInFolder -> {
+                    userList.add(File_Helper.gsonWriter.fromJson(fileInFolder, People.class));
+                });
+
+                for(int i = 0; i < userList.size(); i++){
+                    if(username.equals(userList.get(i).getUsername())){
+                        if(password.equals(userList.get(i).getPassword())){
+                            isValid =true;
+                            accName = userList.get(i).getName();
+                            userType = userList.get(i).getUserType();
+                        }
+                    }
                 }
                 
                 if(isValid){
-                    JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
-                    User_Home userHome = new User_Home(accName,username);
-                    userHome.setVisible(true);
-                    this.setVisible(false);
+                    if(userType.equals("Personnel")){
+                        JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
+                        Personnel_Home home = new Personnel_Home();
+                        home.setVisible(true);
+                        this.setVisible(false);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
+                        User_Home home = new User_Home(accName,username);
+                        home.setVisible(true);
+                        this.setVisible(false);
+                    }
                 }else{
-                   JOptionPane.showMessageDialog(null, "Password incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+                   JOptionPane.showMessageDialog(null, "Login information incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
                    txtUsername.setText("");
                    txtPassword.setText("");                
                 }
-            }
         }
         else{
             JOptionPane.showMessageDialog(null, "Please input both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
