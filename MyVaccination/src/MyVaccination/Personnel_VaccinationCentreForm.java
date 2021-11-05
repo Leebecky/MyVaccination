@@ -60,26 +60,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         txtVcAddr2.setText(vc.getLocation().getAddress2());
         List<String> stateList = Arrays.asList(Location.getStateList());
         cmbVcState.setSelectedIndex(stateList.indexOf(vc.getLocation().getState()));
-
-//        //Testing chart generation
-//        DefaultPieDataset dataset = new DefaultPieDataset();
-//
-//        dataset.setValue("Value 1", 10);
-//
-//        dataset.setValue("Value 2", 20);
-//
-//        dataset.setValue("Value 3", 30);
-//
-//        dataset.setValue("Value 4", 40);
-//
-//        JFreeChart chart = ChartFactory.createPieChart("Your title", dataset, true, true, true);
-//        ChartPanel p = new ChartPanel(chart);
-//        panelTabbedVc.add(p);
-//        ChartFrame yourFrame = new ChartFrame("Your title", chart);
-//
-//        yourFrame.setSize(600, 600);
-//
-//        yourFrame.setVisible(true);
     }
 
     /**
@@ -121,7 +101,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         txtVcAddr2 = new javax.swing.JTextField();
         panelSupply = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        panelVaccineChart = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVcSupply = new javax.swing.JTable();
@@ -159,11 +139,11 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
         spinResupply.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Vaccine Brand");
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("Amount");
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout diaResupplyLayout = new javax.swing.GroupLayout(diaResupply.getContentPane());
         diaResupply.getContentPane().setLayout(diaResupplyLayout);
@@ -210,6 +190,11 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         setTitle("Vaccination Centre");
         setName("frmVc"); // NOI18N
         setSize(getPreferredSize());
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -430,7 +415,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             .addGap(0, 128, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Chart", jPanel1);
+        panelVaccineChart.addTab("Chart", jPanel1);
 
         tblVcSupply.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -445,7 +430,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblVcSupply);
 
-        jTabbedPane1.addTab("Table", jScrollPane1);
+        panelVaccineChart.addTab("Table", jScrollPane1);
 
         btnVcSupply.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/supply_48.png"))); // NOI18N
         btnVcSupply.setText("Resupply");
@@ -466,7 +451,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                 .addGroup(panelSupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSupplyLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(panelVaccineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelSupplyLayout.createSequentialGroup()
                         .addGap(163, 163, 163)
                         .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -476,7 +461,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             panelSupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSupplyLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelVaccineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -617,7 +602,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         // Add vaccine supply
         
         String vaccineBrand = cmbResupplyVaccine.getModel().getSelectedItem().toString();
-        Vaccine resupply = Vaccine.generateVaccine(vaccineBrand);
+        Vaccine resupply = Vaccine.generateVaccine(vaccineBrand); 
         vc.resupply(new Stock(resupply));
         
         spinResupply.setValue(0);
@@ -626,6 +611,29 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         diaResupply.setVisible(false);
         diaResupply.dispose();
     }//GEN-LAST:event_btnResupplySaveActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        //        //Testing chart generation
+        DefaultPieDataset dataset = new DefaultPieDataset();
+
+        dataset.setValue("Value 1", 10);
+
+        dataset.setValue("Value 2", 20);
+
+        dataset.setValue("Value 3", 30);
+
+        dataset.setValue("Value 4", 40);
+
+        JFreeChart chart = ChartFactory.createPieChart("Testing", dataset, true, true, true);
+        ChartPanel p = new ChartPanel(chart);
+        panelVaccineChart.add(p);
+//        ChartFrame yourFrame = new ChartFrame("Your title", chart);
+
+//        yourFrame.setSize(600, 600);
+
+//        yourFrame.setVisible(true);
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -687,11 +695,11 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLayeredPane panelLocation;
     private javax.swing.JLayeredPane panelMainDetails;
     private javax.swing.JPanel panelSupply;
     private javax.swing.JTabbedPane panelTabbedVc;
+    private javax.swing.JTabbedPane panelVaccineChart;
     private javax.swing.JSpinner spinResupply;
     private javax.swing.JTable tblVcSupply;
     private javax.swing.JTextField txtVcAddr1;
