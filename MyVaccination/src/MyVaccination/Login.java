@@ -74,7 +74,7 @@ public class Login extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(lblLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(378, 378, 378))
         );
@@ -161,6 +161,7 @@ public class Login extends javax.swing.JFrame {
         boolean isValid = false;
         String accName = "";
         String userType = "";
+        String userId = "";
         
         if(!username.isEmpty() && !password.isEmpty()){
             List<String> userDataArray = File_Helper.readFolder("User_Account");
@@ -176,6 +177,7 @@ public class Login extends javax.swing.JFrame {
                             isValid =true;
                             accName = userList.get(i).getName();
                             userType = userList.get(i).getUserType();                  
+                            userId = userList.get(i).getUserId();                  
                             break;
                         }
                     }
@@ -189,7 +191,7 @@ public class Login extends javax.swing.JFrame {
                         this.setVisible(false);
                     }else{
                         JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
-                        User_Home home = new User_Home(accName,username);
+                        User_Home home = new User_Home(userId);
                         home.setVisible(true);
                         this.setVisible(false);
                     }

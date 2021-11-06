@@ -25,17 +25,17 @@ public class User_ViewProfile extends javax.swing.JFrame {
         initComponents();
     }
     
-    public User_ViewProfile(String loginUsername,String ic) {
+    public User_ViewProfile(String id) {
         initComponents();
         
-        lblUsername.setText(loginUsername);
-        lblIc.setText(ic);
-        lblIc.setVisible(false);
+        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+        
+        lblUsername.setText(userFromFile.getName());
+        lblId.setText(id);
+        lblId.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
-        
-        String userData = File_Helper.readFile("User_Account/US_" + ic + ".txt");
-        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
         
         lblFullName.setText(userFromFile.getName());
         lblIcPassport.setText(userFromFile.getId());
@@ -73,7 +73,7 @@ public class User_ViewProfile extends javax.swing.JFrame {
         lblGender = new javax.swing.JLabel();
         lblNationality = new javax.swing.JLabel();
         lblLocation = new javax.swing.JLabel();
-        lblIc = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
@@ -82,6 +82,14 @@ public class User_ViewProfile extends javax.swing.JFrame {
         userHeader.setBackground(new java.awt.Color(204, 153, 255));
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
+        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblLogoMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblLogoMousePressed(evt);
+            }
+        });
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         lblUsername.setText("User Name");
@@ -155,6 +163,9 @@ public class User_ViewProfile extends javax.swing.JFrame {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblViewProfileMouseExited(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblViewProfileMousePressed(evt);
+            }
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
 
@@ -212,10 +223,10 @@ public class User_ViewProfile extends javax.swing.JFrame {
         lblLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         getContentPane().add(lblLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 210, 30));
 
-        lblIc.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblIc.setForeground(new java.awt.Color(240, 240, 240));
-        lblIc.setText("userIc");
-        getContentPane().add(lblIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
+        lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblId.setForeground(new java.awt.Color(240, 240, 240));
+        lblId.setText("userIc");
+        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
 
         pack();
         setLocationRelativeTo(null);
@@ -287,13 +298,32 @@ public class User_ViewProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_lblViewProfileMouseExited
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        String username = lblUsername.getText();
-        String ic = lblIc.getText();
+        String id = lblId.getText();
         
-        User_EditProfile editProfile = new User_EditProfile(username, ic);
+        User_EditProfile editProfile = new User_EditProfile(id);
         editProfile.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
+        String id = lblId.getText();
+        
+        User_ViewProfile viewProfile = new User_ViewProfile(id);
+        viewProfile.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblViewProfileMousePressed
+
+    private void lblLogoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMousePressed
+        String id = lblId.getText();
+        
+        User_Home userHome = new User_Home(id);
+        userHome.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblLogoMousePressed
+
+    private void lblLogoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseEntered
+        lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_lblLogoMouseEntered
 
     /**
      * @param args the command line arguments
@@ -342,8 +372,8 @@ public class User_ViewProfile extends javax.swing.JFrame {
     private javax.swing.JLabel lblDob;
     private javax.swing.JLabel lblFullName;
     private javax.swing.JLabel lblGender;
-    private javax.swing.JLabel lblIc;
     private javax.swing.JLabel lblIcPassport;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogout;

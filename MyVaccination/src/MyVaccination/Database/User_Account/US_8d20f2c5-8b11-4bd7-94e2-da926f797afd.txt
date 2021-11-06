@@ -1,0 +1,1 @@
+{"name":"Migrant","dateOfBirth":"2010-06-10","identification":"001122079876","nationality":"Non Malaysian","vaccinationStatus":"Not Vaccinated","address":"Johor","gender":"Female","userId":"US_8d20f2c5-8b11-4bd7-94e2-da926f797afd","username":"001122079876","password":"nonM","userType":"Non-Citizen"}

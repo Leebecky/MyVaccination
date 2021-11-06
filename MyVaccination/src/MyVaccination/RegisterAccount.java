@@ -39,6 +39,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         initComponents();
         
         dtDoB.setDateToToday();
+        txtIcPassport.setToolTipText("Do not include symbol -  ");
     }
 
     /**
@@ -70,6 +71,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         cmbGender = new javax.swing.JComboBox<>();
         btnRegister = new javax.swing.JButton();
         cmbLocation = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
@@ -113,60 +115,60 @@ public class RegisterAccount extends javax.swing.JFrame {
 
         txtFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         txtFullName.setName(""); // NOI18N
-        getContentPane().add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 134, 218, 30));
+        getContentPane().add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 218, 30));
 
         jLabel3.setText("Full Name : ");
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(73, 137, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
 
         txtIcPassport.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         txtIcPassport.setName(""); // NOI18N
-        getContentPane().add(txtIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 192, 218, 30));
+        getContentPane().add(txtIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 218, 30));
 
         jLabel4.setText("IC/Passport :");
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 195, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
         jLabel5.setText("Date of Birth :");
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(48, 251, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, -1, -1));
 
         jLabel6.setText("Nationality :");
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(501, 134, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, -1, -1));
 
         jLabel7.setText("Current Location:");
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(458, 195, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, -1, -1));
 
         jLabel8.setText("Password :");
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 251, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, -1, -1));
 
         jLabel9.setText("Gender :");
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(92, 316, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
 
         jLabel10.setText("Confirm Password :");
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(441, 319, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 310, -1, -1));
 
         dtDoB.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(dtDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 251, 218, 30));
+        getContentPane().add(dtDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 218, 30));
 
         cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Malaysian", "Non Malaysian" }));
         cmbNationality.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 134, 218, -1));
+        getContentPane().add(cmbNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 218, -1));
 
         txtPassword.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 251, 218, 30));
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 218, 30));
 
         txtConfirmPassword.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(txtConfirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 314, 218, 30));
+        getContentPane().add(txtConfirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, 218, 30));
 
         cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         cmbGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 313, 218, -1));
+        getContentPane().add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 218, -1));
 
         btnRegister.setText("Register");
         btnRegister.setBackground(new java.awt.Color(180, 151, 214));
@@ -178,13 +180,19 @@ public class RegisterAccount extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 390, 120, 50));
+        getContentPane().add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 380, 120, 50));
 
         cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selangor", "Kuala Lumpur", "Penang", "Johor", "Kedah", "Pahang" }));
         cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(618, 192, 218, -1));
+        getContentPane().add(cmbLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 180, 218, -1));
+
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
+        jLabel2.setText("**This will be your  login username");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, -1, 20));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
@@ -294,6 +302,7 @@ public class RegisterAccount extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.DatePicker dtDoB;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

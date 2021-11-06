@@ -5,6 +5,8 @@
  */
 package MyVaccination;
 
+import MyVaccination.Classes.*;
+import MyVaccination.Helper_Classes.File_Helper;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
@@ -26,12 +28,15 @@ public class User_Home extends javax.swing.JFrame {
         lblLogout.setVisible(false);
     }
     
-    public User_Home(String loginUsername,String ic) {
+    public User_Home(String id) {
         initComponents();
         
-        lblUsername.setText(loginUsername);
-        lblIc.setText(ic);
-        lblIc.setVisible(false);
+        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+        
+        lblUsername.setText(userFromFile.getName());
+        lblId.setText(id);
+        lblId.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
     }
@@ -54,7 +59,7 @@ public class User_Home extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblLogout = new javax.swing.JLabel();
         lblViewProfile = new javax.swing.JLabel();
-        lblIc = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
@@ -168,10 +173,10 @@ public class User_Home extends javax.swing.JFrame {
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
 
-        lblIc.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblIc.setForeground(new java.awt.Color(240, 240, 240));
-        lblIc.setText("userIc");
-        getContentPane().add(lblIc, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
+        lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        lblId.setForeground(new java.awt.Color(240, 240, 240));
+        lblId.setText("userIc");
+        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
 
         pack();
         setLocationRelativeTo(null);
@@ -255,10 +260,9 @@ public class User_Home extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMousePressed
 
     private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
-        String username = lblUsername.getText();
-        String ic = lblIc.getText();
+        String id = lblId.getText();
         
-        User_ViewProfile viewProfile = new User_ViewProfile(username, ic);
+        User_ViewProfile viewProfile = new User_ViewProfile(id);
         viewProfile.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblViewProfileMousePressed
@@ -303,7 +307,7 @@ public class User_Home extends javax.swing.JFrame {
     private javax.swing.JButton btnVacStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblIc;
+    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblUsername;

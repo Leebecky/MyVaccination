@@ -63,4 +63,31 @@ public class People extends User {
         return this.gender;
     }
    
+    public void setName(String n){
+        this.name = n;
+    }
+    
+    public void setDob(LocalDate dob){
+        this.dateOfBirth = dob;
+    }
+    
+    public void setId(String id){
+        this.identification = id;
+    }
+    
+    public void setNation(String nat){
+        this.nationality = nat;
+    }
+    
+    public void setStatus(String v){
+        this.vaccinationStatus = v;
+    }
+    
+    public void setAddress(String a){
+        this.address = a;
+    }
+    
+    public void setGender(String g){
+        this.gender = g;
+    }
 }

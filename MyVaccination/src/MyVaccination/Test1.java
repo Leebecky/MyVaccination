@@ -54,16 +54,18 @@ public class Test1 {
 //    });
 
     // Convert String to LocalDate
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd Month yyyy");
     String date = "2001-01-01";
     LocalDate localDate = LocalDate.parse(date, formatter);
+    System.out.println(localDate.toString());
     
     // Test using parent method with child class
 //    People ppl = new People();
-    People ppl = new People("chlide", localDate, "010919-04-1234", "Malaysian", "Not Vaccinated", "KL", "Male");
-    ppl.Login("childeID", "010919-04-1234", "childe123", "Citizen");  
-//    User acc = ppl.getUser();
-    File_Helper.saveData(ppl, "User_Account");    
+//    People ppl = new People("chlide", localDate, "010919-04-1234", "Malaysian", "Not Vaccinated", "KL", "Male");
+//    ppl.Login("childeID", "010919-04-1234", "childe123", "Citizen");  
+////    User acc = ppl.getUser();
+//    File_Helper.saveData(ppl, "User_Account");    
     
 //    System.out.println(ppl.getUserId());
 //    System.out.println(ppl.getUsername());
