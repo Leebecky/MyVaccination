@@ -183,15 +183,19 @@ public class User_Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVacAppointActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVacAppointActionPerformed
-//        Personnel_ManageUsers mngUser = new Personnel_ManageUsers();
-//        mngUser.setVisible(true);
-//        this.setVisible(false);
+        String id = lblId.getText();
+        
+        User_SubmitAppointment sa = new User_SubmitAppointment(id);
+        sa.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnVacAppointActionPerformed
 
     private void btnVacStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVacStatusActionPerformed
-//        Personnel_ManageVaccinationCentre vc = new Personnel_ManageVaccinationCentre();
-//        vc.setVisible(true);
-//        this.setVisible(false);
+        String id = lblId.getText();
+        
+        User_ViewVaccinationStatus vs = new User_ViewVaccinationStatus(id);
+        vs.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnVacStatusActionPerformed
 
     private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered
