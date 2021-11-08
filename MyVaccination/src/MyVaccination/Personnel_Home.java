@@ -44,7 +44,6 @@ public class Personnel_Home extends javax.swing.JFrame {
         btnMngVC.setForeground(new java.awt.Color(0, 0, 0));
         btnMngVC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Vaccination_Centre_32.png"))); // NOI18N
         btnMngVC.setText("Manage Vaccination Centres");
-        btnMngVC.setActionCommand("Manage Vaccination Centres");
         btnMngVC.setAlignmentY(0.0F);
         btnMngVC.setIconTextGap(20);
         btnMngVC.addActionListener(new java.awt.event.ActionListener() {

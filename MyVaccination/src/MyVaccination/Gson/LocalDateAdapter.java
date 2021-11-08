@@ -11,11 +11,12 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 
- public class LocalDateAdapter extends TypeAdapter<LocalDate> {
+public class LocalDateAdapter extends TypeAdapter<LocalDate> {
 
     @Override
     public void write(final JsonWriter jsonWriter, final LocalDate localDate) throws IOException {
-        jsonWriter.value(localDate.toString());
+        String date = (localDate == null) ? "" : localDate.toString();
+        jsonWriter.value(date);
     }
 
     @Override

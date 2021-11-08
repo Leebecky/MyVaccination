@@ -5,8 +5,23 @@
  */
 package MyVaccination;
 
+import MyVaccination.Classes.Stock;
+import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Classes.Vaccine;
+import java.awt.BorderLayout;
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollBar;
+import javax.swing.SwingConstants;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.category.SlidingCategoryDataset;
 
 /**
  *
@@ -33,7 +48,9 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         diaResupply = new javax.swing.JDialog();
         btnResupplyCancel = new javax.swing.JButton();
         btnResupplySave = new javax.swing.JButton();
-        cmbResupplyVc =  new javax.swing.JComboBox<>(Vaccine.getListOfVaccines());
+        List<String> vcNameList = new ArrayList<>();
+        List<Vaccination_Centre> vcList = Vaccination_Centre.getVcFolderData();
+        cmbResupplyVc =  new javax.swing.JComboBox<>(vcList.toArray(new Vaccination_Centre[vcList.size()]));
         spinResupply = new javax.swing.JSpinner();
         cmbResupplyVaccine =  new javax.swing.JComboBox<>(Vaccine.getListOfVaccines());
         jLabel1 = new javax.swing.JLabel();
@@ -41,15 +58,20 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        panelSupply = new javax.swing.JTabbedPane();
+        panelChart = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSupply = new javax.swing.JTable();
         btnVcSupply = new javax.swing.JButton();
+        int vcSize = Vaccination_Centre.getVcFolderData().size();
+        sliderChart = new javax.swing.JSlider();
 
         diaResupply.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        diaResupply.setAlwaysOnTop(true);
-        diaResupply.setMinimumSize(new java.awt.Dimension(403, 288));
+        diaResupply.setTitle("Vaccination Centre");
+        diaResupply.setMinimumSize(new java.awt.Dimension(403, 382));
+        diaResupply.setPreferredSize(new java.awt.Dimension(403, 382));
+        diaResupply.setResizable(false);
+        diaResupply.setSize(diaResupply.getPreferredSize());
 
         btnResupplyCancel.setBackground(new java.awt.Color(204, 51, 0));
         btnResupplyCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -76,8 +98,14 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         });
 
         cmbResupplyVc.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cmbResupplyVc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbResupplyVcItemStateChanged(evt);
+            }
+        });
 
         spinResupply.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        spinResupply.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         cmbResupplyVaccine.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -92,31 +120,31 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         diaResupplyLayout.setHorizontalGroup(
             diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(diaResupplyLayout.createSequentialGroup()
-                .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(diaResupplyLayout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btnResupplyCancel)
-                        .addGap(36, 36, 36)
-                        .addComponent(btnResupplySave))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diaResupplyLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(spinResupply, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addComponent(btnResupplyCancel)
+                .addGap(36, 36, 36)
+                .addComponent(btnResupplySave)
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diaResupplyLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(66, 66, 66)
                 .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbResupplyVc, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(spinResupply, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbResupplyVc, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(66, 66, 66))
             .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(diaResupplyLayout.createSequentialGroup()
                     .addGap(69, 69, 69)
-                    .addComponent(cmbResupplyVaccine, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGap(65, 65, 65)))
+                    .addComponent(cmbResupplyVaccine, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        diaResupplyLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbResupplyVaccine, cmbResupplyVc, spinResupply});
+
         diaResupplyLayout.setVerticalGroup(
             diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diaResupplyLayout.createSequentialGroup()
@@ -126,25 +154,32 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
                 .addComponent(cmbResupplyVc, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addGap(66, 66, 66)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spinResupply, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56)
+                .addGap(45, 45, 45)
                 .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnResupplySave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnResupplyCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                .addGap(40, 40, 40))
             .addGroup(diaResupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(diaResupplyLayout.createSequentialGroup()
                     .addGap(116, 116, 116)
                     .addComponent(cmbResupplyVaccine, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(203, Short.MAX_VALUE)))
+                    .addContainerGap(226, Short.MAX_VALUE)))
         );
+
+        diaResupplyLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbResupplyVaccine, cmbResupplyVc, spinResupply});
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(962, 504));
         setSize(getPreferredSize());
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -178,33 +213,30 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
                 .addComponent(btnHome))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelSupply.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                panelSupplyStateChanged(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
+        panelChart.setLayout(panelChartLayout);
+        panelChartLayout.setHorizontalGroup(
+            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 675, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 240, Short.MAX_VALUE)
+        panelChartLayout.setVerticalGroup(
+            panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 266, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Chart", jPanel1);
+        panelSupply.addTab("Chart", panelChart);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        tblSupply.setModel(Vaccination_Centre.getVcSupplyTableModel(null, null));
+        tblSupply.setRowHeight(30);
+        jScrollPane1.setViewportView(tblSupply);
 
-        jTabbedPane1.addTab("Table", jScrollPane1);
+        panelSupply.addTab("Table", jScrollPane1);
 
         btnVcSupply.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnVcSupply.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/supply_48.png"))); // NOI18N
@@ -217,30 +249,46 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
             }
         });
 
+        sliderChart.setMaximum(vcSize);
+        sliderChart.setMinorTickSpacing(3);
+        sliderChart.setPaintLabels(true);
+        sliderChart.setPaintTicks(true);
+        sliderChart.setSnapToTicks(true);
+        sliderChart.setValue(0);
+        sliderChart.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderChartStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(homePersonnelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(142, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(352, 352, 352))))
+                        .addGap(347, 347, 347))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(sliderChart, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(127, 127, 127))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
+                .addComponent(panelSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(sliderChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 52, Short.MAX_VALUE))
+                .addGap(26, 26, 26))
         );
 
         pack();
@@ -271,22 +319,103 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
 
     private void btnResupplySaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResupplySaveActionPerformed
         // Add vaccine supply
+        Vaccination_Centre selectedVc = (Vaccination_Centre) cmbResupplyVc.getModel().getSelectedItem();
 
-        String vaccineBrand = cmbResupplyVc.getModel().getSelectedItem().toString();
-//        Vaccine resupply = Vaccine.generateVaccine(vaccineBrand);
-//        vc.resupply(new Stock(resupply));
+        String vaccineBrand = cmbResupplyVaccine.getSelectedItem().toString();
+        for (int i = 1; i <= (int) spinResupply.getValue(); i++) {
+            Vaccine resupplyItem = Vaccine.generateVaccine(vaccineBrand);
+            selectedVc.resupply(new Stock(resupplyItem));
+        }
 
-        spinResupply.setValue(0);
+        Vaccination_Centre.updateCentre(selectedVc);
+
+        spinResupply.setValue(1);
 
         //Close the window
         diaResupply.setVisible(false);
         diaResupply.dispose();
+
+        //Refresh Dataset
+        CategoryDataset ds = (Vaccination_Centre.supplyDatasetAll() == null) ? new DefaultCategoryDataset() : Vaccination_Centre.supplyDatasetAll();
+
+        JFreeChart barChart = ChartFactory.createStackedBarChart(
+                "Vaccination Centre Supply",
+                "Vaccination Centre",
+                "Quantity",
+                new SlidingCategoryDataset(ds, 0, 3),
+                PlotOrientation.VERTICAL,
+                true, true, false);
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
+//        JScrollBar chartScroll = new JScrollBar(SwingConstants.HORIZONTAL, 0, 10, 0, 50);
+//        chartPanel.setLayout(new BorderLayout());
+//        chartPanel.add(chartScroll, BorderLayout.PAGE_END);
+        panelSupply.setComponentAt(0, chartPanel);
+
+        //Reload the table
+        tblSupply.setModel(Vaccination_Centre.getVcSupplyTableModel(null, null));
     }//GEN-LAST:event_btnResupplySaveActionPerformed
 
     private void btnVcSupplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcSupplyActionPerformed
-        // TODO add your handling code here:
-        
+        // open resupply menu
+        diaResupply.setLocationRelativeTo(this);
+        diaResupply.setVisible(true);
+
     }//GEN-LAST:event_btnVcSupplyActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        //Generate supply chart
+        CategoryDataset ds = (Vaccination_Centre.supplyDatasetAll() == null) ? new DefaultCategoryDataset() : Vaccination_Centre.supplyDatasetAll();
+
+        JFreeChart barChart = ChartFactory.createStackedBarChart(
+                "Vaccination Centre Supply",
+                "Vaccination Centre",
+                "Quantity",
+                new SlidingCategoryDataset(ds, 0, 3),
+                PlotOrientation.VERTICAL,
+                true, true, false);
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        panelSupply.setComponentAt(0, chartPanel);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void cmbResupplyVcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbResupplyVcItemStateChanged
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_cmbResupplyVcItemStateChanged
+
+    private void panelSupplyStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_panelSupplyStateChanged
+        // Tab Change
+
+        //if table, hide slider
+        if (panelSupply.getSelectedIndex() == 1) {
+            sliderChart.setVisible(false);
+        }
+
+        //if chart, show slider
+        if (panelSupply.getSelectedIndex() == 0) {
+            sliderChart.setVisible(true);
+        }
+
+    }//GEN-LAST:event_panelSupplyStateChanged
+
+    private void sliderChartStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderChartStateChanged
+        // To adjust the chart size
+        
+        CategoryDataset ds = (Vaccination_Centre.supplyDatasetAll() == null) ? new DefaultCategoryDataset() : Vaccination_Centre.supplyDatasetAll();
+
+        JFreeChart barChart = ChartFactory.createStackedBarChart(
+                "Vaccination Centre Supply",
+                "Vaccination Centre",
+                "Quantity",
+                new SlidingCategoryDataset(ds, sliderChart.getValue(), sliderChart.getValue() + 3),
+                PlotOrientation.VERTICAL,
+                true, true, false);
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        panelSupply.setComponentAt(0, chartPanel);
+    }//GEN-LAST:event_sliderChartStateChanged
 
     /**
      * @param args the command line arguments
@@ -329,16 +458,17 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
     private javax.swing.JButton btnResupplySave;
     private javax.swing.JButton btnVcSupply;
     private javax.swing.JComboBox<String> cmbResupplyVaccine;
-    private javax.swing.JComboBox<String> cmbResupplyVc;
+    private javax.swing.JComboBox<Vaccination_Centre> cmbResupplyVc;
     private javax.swing.JDialog diaResupply;
     private javax.swing.JPanel homePersonnelHeader;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel panelChart;
+    private javax.swing.JTabbedPane panelSupply;
+    private javax.swing.JSlider sliderChart;
     private javax.swing.JSpinner spinResupply;
+    private javax.swing.JTable tblSupply;
     // End of variables declaration//GEN-END:variables
 }

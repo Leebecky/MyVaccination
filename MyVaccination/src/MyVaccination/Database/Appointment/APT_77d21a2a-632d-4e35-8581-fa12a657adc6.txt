@@ -1,0 +1,1 @@
+{"appointmentId":"APT_77d21a2a-632d-4e35-8581-fa12a657adc6","centreId":"VC_6d631d35-9ead-4fa3-843a-2193dfb4845b","vaccineBatchNumber":"AstraZeneca","appointmentDate":"2021-11-27","appointmentTime":"02:30","appointmentType":"Private","vaccineBrand":"AstraZeneca"}

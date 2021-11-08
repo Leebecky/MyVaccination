@@ -11,15 +11,15 @@ import MyVaccination.Classes.Location;
 import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccine;
 import com.github.lgooddatepicker.components.TimePickerSettings;
-import java.awt.BorderLayout;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
 /**
@@ -48,6 +48,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         txtVcName.setText(vc.getName());
         dtVcOpeningTime.setTime(vc.getOpeningTime());
         dtVcClosingTime.setTime(vc.getClosingTime());
+        spinVcCapacity.setValue(vc.getCapacity());
 
         if (vc.getStatus().equals("Active")) {
             cmbVcStatus.setSelectedIndex(0);
@@ -93,6 +94,8 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         TimePickerSettings dtVcOpenTimeSettings = new TimePickerSettings();
         dtVcOpeningTime = new com.github.lgooddatepicker.components.TimePicker(dtVcOpenTimeSettings);
+        jLabel10 = new javax.swing.JLabel();
+        spinVcCapacity = new javax.swing.JSpinner();
         panelLocation = new javax.swing.JLayeredPane();
         cmbVcState = cmbVcState = new javax.swing.JComboBox<>(Location.getStateList());
         txtVcAddr1 = new javax.swing.JTextField();
@@ -108,7 +111,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         btnVcSupply = new javax.swing.JButton();
 
         diaResupply.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        diaResupply.setAlwaysOnTop(true);
         diaResupply.setMinimumSize(new java.awt.Dimension(403, 288));
 
         btnResupplyCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
@@ -137,6 +139,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
         cmbResupplyVaccine.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
+        spinResupply.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         spinResupply.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         jLabel5.setText("Vaccine Brand");
@@ -278,6 +281,12 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         dtVcOpenTimeSettings.setVetoPolicy(new LGoodTimePicker_TimeVeto());
         dtVcOpeningTime.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
+        jLabel10.setLabelFor(dtVcClosingTime);
+        jLabel10.setText("Capacity :");
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        spinVcCapacity.setModel(new javax.swing.SpinnerNumberModel(10, 10, null, 5));
+
         panelMainDetails.setLayer(cmbVcStatus, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelMainDetails.setLayer(txtVcName, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelMainDetails.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -286,6 +295,8 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         panelMainDetails.setLayer(dtVcClosingTime, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelMainDetails.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         panelMainDetails.setLayer(dtVcOpeningTime, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(jLabel10, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelMainDetails.setLayer(spinVcCapacity, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout panelMainDetailsLayout = new javax.swing.GroupLayout(panelMainDetails);
         panelMainDetails.setLayout(panelMainDetailsLayout);
@@ -297,41 +308,47 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
-                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtVcName)
-                    .addComponent(cmbVcStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbVcStatus, 0, 342, Short.MAX_VALUE)
                     .addComponent(dtVcClosingTime, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
-                    .addComponent(dtVcOpeningTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(dtVcOpeningTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(spinVcCapacity))
                 .addGap(16, 16, 16))
         );
 
-        panelMainDetailsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbVcStatus, dtVcClosingTime, dtVcOpeningTime, txtVcName});
+        panelMainDetailsLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbVcStatus, dtVcClosingTime, dtVcOpeningTime, spinVcCapacity, txtVcName});
 
         panelMainDetailsLayout.setVerticalGroup(
             panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMainDetailsLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtVcName, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtVcName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dtVcOpeningTime, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtVcOpeningTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dtVcClosingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dtVcClosingTime, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(21, 21, 21)
+                .addGap(18, 18, 18)
                 .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbVcStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(spinVcCapacity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelMainDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbVcStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
-        panelMainDetailsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbVcStatus, dtVcClosingTime, dtVcOpeningTime, txtVcName});
+        panelMainDetailsLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbVcStatus, dtVcClosingTime, dtVcOpeningTime, spinVcCapacity, txtVcName});
 
         panelTabbedVc.addTab("Main Details", panelMainDetails);
 
@@ -397,7 +414,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                 .addGroup(panelLocationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbVcState, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
 
         panelLocationLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbVcState, txtVcAddr1, txtVcAddr2});
@@ -412,22 +429,13 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 128, Short.MAX_VALUE)
+            .addGap(0, 149, Short.MAX_VALUE)
         );
 
         panelVaccineChart.addTab("Chart", jPanel1);
 
-        tblVcSupply.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
+        tblVcSupply.setModel(Vaccination_Centre.getVcSupplyTableModel(id, null));
+        tblVcSupply.setRowHeight(30);
         jScrollPane1.setViewportView(tblVcSupply);
 
         panelVaccineChart.addTab("Table", jScrollPane1);
@@ -453,7 +461,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(panelVaccineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelSupplyLayout.createSequentialGroup()
-                        .addGap(163, 163, 163)
+                        .addGap(170, 170, 170)
                         .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
@@ -461,10 +469,10 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             panelSupplyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSupplyLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(panelVaccineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addComponent(panelVaccineChart, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
 
         panelTabbedVc.addTab("Vaccine Supply", panelSupply);
@@ -475,23 +483,24 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(homePersonnelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(417, 417, 417)
-                .addComponent(btnVcCancel)
-                .addGap(36, 36, 36)
-                .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(417, 417, 417)
+                        .addComponent(btnVcCancel)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(panelTabbedVc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVcCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -534,6 +543,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         vc.setName(txtVcName.getText());
         vc.setStatus(cmbVcStatus.getItemAt(cmbVcStatus.getSelectedIndex()));
         vc.setLocation(vcLocation);
+        vc.setCapacity((Integer) spinVcCapacity.getValue());
 
         boolean success;
         String message = "";
@@ -600,40 +610,50 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
     private void btnResupplySaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResupplySaveActionPerformed
         // Add vaccine supply
-        
+       
         String vaccineBrand = cmbResupplyVaccine.getModel().getSelectedItem().toString();
-        Vaccine resupply = Vaccine.generateVaccine(vaccineBrand); 
-        vc.resupply(new Stock(resupply));
-        
-        spinResupply.setValue(0);
+        for (int i = 1; i <= (int) spinResupply.getValue(); i++) {
+            Vaccine newSupply = Vaccine.generateVaccine(vaccineBrand);
+            vc.resupply(new Stock(newSupply));
+        }
+
+        spinResupply.setValue(1);
 
         //Close the window
         diaResupply.setVisible(false);
         diaResupply.dispose();
+
+        //Regenerate the chart
+        JFreeChart barChart = ChartFactory.createBarChart(
+                txtVcName.getText() + " Supply",
+                "Vaccines",
+                "Quantity",
+                vc.supplyDataset(),
+                PlotOrientation.VERTICAL,
+                true, true, false);
+
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        panelVaccineChart.setComponentAt(0, chartPanel);
+
+        //Reload the table
+        tblVcSupply.setModel(Vaccination_Centre.getVcSupplyTableModel("", vc));
     }//GEN-LAST:event_btnResupplySaveActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        //        //Testing chart generation
-        DefaultPieDataset dataset = new DefaultPieDataset();
+        //Generate supply chart
+        String chartTitle = (vc.getName() == null) ? "Vaccination Centre" : vc.getName();
+        CategoryDataset ds = (id != "") ? vc.supplyDataset() : new DefaultCategoryDataset();
 
-        dataset.setValue("Value 1", 10);
+        JFreeChart barChart = ChartFactory.createBarChart(
+                chartTitle + " Supply",
+                "Vaccines",
+                "Quantity",
+                ds,
+                PlotOrientation.VERTICAL,
+                true, true, false);
 
-        dataset.setValue("Value 2", 20);
-
-        dataset.setValue("Value 3", 30);
-
-        dataset.setValue("Value 4", 40);
-
-        JFreeChart chart = ChartFactory.createPieChart("Testing", dataset, true, true, true);
-        ChartPanel p = new ChartPanel(chart);
-//        panelVaccineChart.add(p);
-        panelVaccineChart.setComponentAt(0, p);
-//        ChartFrame yourFrame = new ChartFrame("Your title", chart);
-
-//        yourFrame.setSize(600, 600);
-
-//        yourFrame.setVisible(true);
+        ChartPanel chartPanel = new ChartPanel(barChart);
+        panelVaccineChart.setComponentAt(0, chartPanel);
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -686,6 +706,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     private com.github.lgooddatepicker.components.TimePicker dtVcOpeningTime;
     private javax.swing.JPanel homePersonnelHeader;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -702,6 +723,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     private javax.swing.JTabbedPane panelTabbedVc;
     private javax.swing.JTabbedPane panelVaccineChart;
     private javax.swing.JSpinner spinResupply;
+    private javax.swing.JSpinner spinVcCapacity;
     private javax.swing.JTable tblVcSupply;
     private javax.swing.JTextField txtVcAddr1;
     private javax.swing.JTextField txtVcAddr2;
