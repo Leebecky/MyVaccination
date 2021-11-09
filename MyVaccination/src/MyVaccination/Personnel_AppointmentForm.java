@@ -2,14 +2,19 @@
 * To change this license header, choose License Headers in Project Properties.
 * To change this template file, choose Tools | Templates
 * and open the template in the editor.
-*/
+ */
 package MyVaccination;
 
 import MyVaccination.Classes.Appointment;
+import MyVaccination.Classes.Candidate;
+import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccination_Centre;
-import MyVaccination.Classes.Vaccine;
+import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,30 +22,41 @@ import javax.swing.JOptionPane;
  * @author leebe
  */
 public class Personnel_AppointmentForm extends javax.swing.JFrame {
-    
+
     String id = "";
-    Appointment apt = new Appointment();
-    
+    Appointment apt;
+
     /**
      * Creates new form Personnel_AppointmentForm
      */
     public Personnel_AppointmentForm() {
+        apt = new Appointment();
         initComponents();
     }
-    
+
     public Personnel_AppointmentForm(String id) { //Edit mode
-        initComponents();
-        
         this.id = id;
-        
-        apt = Appointment.getBatchAppointment(id);
+        apt = Appointment.getAppointmentDetails(id);
+
+        initComponents();
+
         Vaccination_Centre selectedVc = Vaccination_Centre.getCentre(apt.getCentreId());
-        cmbAptVaccine.setSelectedItem(apt.getVaccineBatchNumber());
-        cmbAptVc.setSelectedItem(selectedVc);
+        cmbAptVc.getModel().setSelectedItem(selectedVc);
+        cmbAptType.setSelectedItem(apt.getAppointmentType());
         dtAptDateTime.getDatePicker().setDate(apt.getAppointmentDate());
         dtAptDateTime.getTimePicker().setTime(apt.getAppointmentTime());
+
+        List<String> vaccineListModel = new ArrayList<>();
+        selectedVc.checkVcSupply().forEach((str, i) -> {
+            if (!(i <= 0 || i < selectedVc.getCapacity())) {
+                vaccineListModel.add(str);
+            }
+        });
+        DefaultComboBoxModel cmbModel = new DefaultComboBoxModel(vaccineListModel.toArray());
+        cmbAptVaccine.setModel(cmbModel);
+        cmbAptVaccine.getModel().setSelectedItem(apt.getVaccineBrand());
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,22 +66,71 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        diaCandidate = new javax.swing.JDialog();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblCandidate = new javax.swing.JTable();
+        btnAddCandidate = new javax.swing.JButton();
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         btnVcSave = new javax.swing.JButton();
         btnVcCancel = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         List<String> vcNameList = new ArrayList<>();
         List<Vaccination_Centre> vcList = Vaccination_Centre.getVcFolderData();
-        vcList.forEach(vc -> {
-            vcNameList.add(vc.getName());
-        });
         cmbAptVc = new javax.swing.JComboBox<Vaccination_Centre>(vcList.toArray(new Vaccination_Centre[vcList.size()]));
         jLabel2 = new javax.swing.JLabel();
-        cmbAptVaccine = cmbAptVaccine = new javax.swing.JComboBox<>(Vaccine.getListOfVaccines());
+        cmbAptVaccine = new javax.swing.JComboBox<>();
         dtAptDateTime = new com.github.lgooddatepicker.components.DateTimePicker();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        cmbAptType = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
+        btnCandidates = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblAptCandidate = new javax.swing.JTable();
+        btnRemoveCandidate = new javax.swing.JButton();
+
+        diaCandidate.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        diaCandidate.setTitle("Appointment Potential Candidates");
+        diaCandidate.setMinimumSize(new java.awt.Dimension(691, 346));
+        diaCandidate.setSize(diaCandidate.getPreferredSize());
+
+        tblCandidate.setModel(Appointment.getAptCandidateTableModel("Potential", apt));
+        tblCandidate.setRowHeight(30);
+        jScrollPane3.setViewportView(tblCandidate);
+        tblCandidate.removeColumn(tblCandidate.getColumnModel().getColumn(0));
+
+        btnAddCandidate.setText("Add Candidate");
+        btnAddCandidate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddCandidateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout diaCandidateLayout = new javax.swing.GroupLayout(diaCandidate.getContentPane());
+        diaCandidate.getContentPane().setLayout(diaCandidateLayout);
+        diaCandidateLayout.setHorizontalGroup(
+            diaCandidateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diaCandidateLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(diaCandidateLayout.createSequentialGroup()
+                .addGap(287, 287, 287)
+                .addComponent(btnAddCandidate)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        diaCandidateLayout.setVerticalGroup(
+            diaCandidateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diaCandidateLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(btnAddCandidate, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(945, 502));
@@ -131,21 +196,35 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         cmbAptVc.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cmbAptVc.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbAptVcItemStateChanged(evt);
+            }
+        });
 
         jLabel2.setText("Vaccine Brand :");
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
+        cmbAptVaccine.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please select a Vaccination Centre" }));
+        cmbAptVaccine.setEnabled(false);
         cmbAptVaccine.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cmbAptVaccine.setToolTipText("");
 
         jLabel3.setText("Appointment Date & Time :");
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel4.setText("Appointment Type:");
+
+        cmbAptType.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cmbAptType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Public", "Private" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,12 +234,21 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbAptVaccine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbAptVc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
-                        .addComponent(dtAptDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cmbAptType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dtAptDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(30, 30, 30))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbAptType, dtAptDateTime});
+
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -176,8 +264,66 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dtAptDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(cmbAptType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbAptType, cmbAptVaccine, dtAptDateTime});
+
+        jTabbedPane1.addTab("Main Details", jPanel1);
+
+        btnCandidates.setText("View Potential Candidates");
+        btnCandidates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCandidatesActionPerformed(evt);
+            }
+        });
+
+        tblAptCandidate.setModel(Appointment.getAptCandidateTableModel(null, apt));
+        tblAptCandidate.setRowHeight(30);
+        jScrollPane4.setViewportView(tblAptCandidate);
+        tblAptCandidate.removeColumn(tblAptCandidate.getColumnModel().getColumn(0));
+
+        btnRemoveCandidate.setText("Remove Candidate");
+        btnRemoveCandidate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveCandidateActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(254, 254, 254)
+                .addComponent(btnCandidates)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRemoveCandidate)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnRemoveCandidate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCandidates, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
+        );
+
+        jTabbedPane1.addTab("Candidates", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,27 +331,28 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(homePersonnelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnVcCancel)
-                .addGap(36, 36, 36)
-                .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(320, 320, 320))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(191, 191, 191)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnVcCancel)
+                        .addGap(36, 36, 36)
+                        .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(322, 322, 322))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(141, 141, 141))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVcCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,7 +361,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         int decision = JOptionPane.showConfirmDialog(this, "Warning, no unsaved changes will be saved!", "Cancel Appointment Registration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-        
+
         // Return to Manage Vaccination Centre page
         if (decision == JOptionPane.OK_OPTION) {
             Personnel_Home home = new Personnel_Home();
@@ -228,31 +375,40 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
     private void btnVcSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcSaveActionPerformed
         //TODO: Data Validation
-        
+        String vaccineBrand = cmbAptVaccine.getSelectedItem().toString();
+
         //Set values
         apt.setAppointmentDate(dtAptDateTime.getDatePicker().getDate());
         apt.setAppointmentTime(dtAptDateTime.getTimePicker().getTime());
-        
-        //TODO: Need to process vaccine type for batch number
-        apt.setVaccineBatchNumber(cmbAptVaccine.getSelectedItem().toString());
-        
-        //TODO: Need to return centre id, not centre name.
-        Vaccination_Centre selectedVc = (Vaccination_Centre)cmbAptVc.getSelectedItem();
+        apt.setAppointmentType(cmbAptType.getSelectedItem().toString());
+
+        Vaccination_Centre selectedVc = (Vaccination_Centre) cmbAptVc.getSelectedItem();
         apt.setCentreId(selectedVc.getCentreId());
-        
+
+        //TODO: Need to process vaccine type for batch number
+        apt.setVaccineBrand(vaccineBrand);
+
+        List<Stock> selectedVcStock = selectedVc.getStock();
+        List<Stock> vcFilteredStock = selectedVcStock.stream().filter(s -> s.getVaccine().getName().equals(vaccineBrand)).map(s -> (Stock) s).toList();
+
+        for (var v : vcFilteredStock) {
+            System.out.println(v.getVaccine().getName());
+            System.out.println(v.getQuantity());
+        }
+
         boolean success;
         String message = "";
-        
-        success = Appointment.registerAppointment(apt);
-        
+
+        success = Appointment.updateAppointment(apt);
+
         if (id != "") {
             //Edit
-            message = "Failed to update record for "  + "!";
+            message = "Failed to update record for " + "!";
         } else {
             //New
             message = "Failed to register new vaccination centre!";
         }
-        
+
         //Verify success of registration
         if (!success) {
             JOptionPane.showMessageDialog(this, message, "Appointment", JOptionPane.ERROR_MESSAGE);
@@ -265,13 +421,13 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVcSaveActionPerformed
 
     private void btnVcCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcCancelActionPerformed
-        
+
         //Check if user is certain
         int decision = JOptionPane.showConfirmDialog(this, "Warning, no unsaved changes will be saved!", "Cancel Appointment Registration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
-        
+
         // Return to Manage Vaccination Centre page
         if (decision == JOptionPane.OK_OPTION) {
-            
+
             this.setVisible(false);
             this.dispose();
             Personnel_ManageAppointment aptHome = new Personnel_ManageAppointment();
@@ -280,7 +436,73 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
             return;
         }
     }//GEN-LAST:event_btnVcCancelActionPerformed
-    
+
+    private void cmbAptVcItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbAptVcItemStateChanged
+        // Retrieving vaccine based on vaccination centre
+
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            Vaccination_Centre selectedVc = (Vaccination_Centre) cmbAptVc.getSelectedItem();
+            HashMap<String, Integer> vcSupplyList = selectedVc.checkVcSupply();
+            Object[] vaccineList = vcSupplyList.keySet().toArray();
+            Arrays.sort(vaccineList);
+            List<String> vaccineListModel = new ArrayList<>();
+
+            for (int i = 0; i < vaccineList.length; i++) {
+                int quantity = vcSupplyList.get(vaccineList[i].toString());
+                if (quantity == 0 || quantity < selectedVc.getCapacity()) {
+                    continue;
+                }
+
+                vaccineListModel.add(vaccineList[i].toString());
+
+            }
+
+            DefaultComboBoxModel cmbModel = new DefaultComboBoxModel(vaccineListModel.toArray());
+            cmbAptVaccine.setModel(cmbModel);
+            cmbAptVaccine.setEnabled(true);
+        }
+    }//GEN-LAST:event_cmbAptVcItemStateChanged
+
+    private void btnCandidatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCandidatesActionPerformed
+        // Open Potential Candidate dialog
+        diaCandidate.setLocationRelativeTo(this);
+        diaCandidate.setVisible(true);
+    }//GEN-LAST:event_btnCandidatesActionPerformed
+
+    private void btnAddCandidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCandidateActionPerformed
+        // Add selected candidates to appointment candidate list
+        int[] selectedRows = tblCandidate.getSelectedRows();
+
+        for (int i : selectedRows) {
+            Candidate aptCandidate = new Candidate(tblCandidate.getModel().getValueAt(i, 0).toString());
+            apt.updateAptCandidate(aptCandidate, "Add");
+        }
+
+        diaCandidate.setVisible(false);
+        diaCandidate.dispose();
+        tblAptCandidate.setModel(Appointment.getAptCandidateTableModel(null, apt));
+        tblAptCandidate.removeColumn(tblAptCandidate.getColumnModel().getColumn(0));
+        tblCandidate.setModel(Appointment.getAptCandidateTableModel("Potential", apt));
+        tblCandidate.removeColumn(tblCandidate.getColumnModel().getColumn(0));
+    }//GEN-LAST:event_btnAddCandidateActionPerformed
+
+    private void btnRemoveCandidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveCandidateActionPerformed
+        // Remove Candidates
+        int[] selectedRows = tblAptCandidate.getSelectedRows();
+
+        for (int i : selectedRows) {
+            Candidate aptCandidate = new Candidate(tblAptCandidate.getModel().getValueAt(i, 0).toString());
+            apt.updateAptCandidate(aptCandidate, "Remove");
+        }
+
+        //Refresh Table Models
+        tblAptCandidate.setModel(Appointment.getAptCandidateTableModel(null, apt));
+        tblAptCandidate.removeColumn(tblAptCandidate.getColumnModel().getColumn(0));
+
+        tblCandidate.setModel(Appointment.getAptCandidateTableModel("Potential", apt));
+        tblCandidate.removeColumn(tblCandidate.getColumnModel().getColumn(0));
+    }//GEN-LAST:event_btnRemoveCandidateActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -289,7 +511,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-        */
+         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -307,7 +529,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Personnel_AppointmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -317,16 +539,28 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddCandidate;
+    private javax.swing.JButton btnCandidates;
     private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnRemoveCandidate;
     private javax.swing.JButton btnVcCancel;
     private javax.swing.JButton btnVcSave;
+    private javax.swing.JComboBox<String> cmbAptType;
     private javax.swing.JComboBox<String> cmbAptVaccine;
     private javax.swing.JComboBox<Vaccination_Centre> cmbAptVc;
+    private javax.swing.JDialog diaCandidate;
     private com.github.lgooddatepicker.components.DateTimePicker dtAptDateTime;
     private javax.swing.JPanel homePersonnelHeader;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable tblAptCandidate;
+    private javax.swing.JTable tblCandidate;
     // End of variables declaration//GEN-END:variables
 }

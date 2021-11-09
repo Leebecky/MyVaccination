@@ -9,16 +9,14 @@ import MyVaccination.Helper_Classes.File_Helper;
 import MyVaccination.Helper_Classes.File_Methods;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.RowFilter;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.table.TableRowSorter;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Vaccination_Centre implements File_Methods {
 
@@ -30,28 +28,31 @@ public class Vaccination_Centre implements File_Methods {
     private LocalTime openingTime; //24 hour system
     private LocalTime closingTime; //24 hour system
     private String status;
+    private int capacity; //number of people per appointment
 
     //Constructor
     public Vaccination_Centre() {
         centreId = "VC_" + UUID.randomUUID();
     }
 
-    public Vaccination_Centre(String name, LocalTime openingTime, LocalTime closingTime, String status, Location location) {
+    public Vaccination_Centre(String name, LocalTime openingTime, LocalTime closingTime, String status, Location location, int capacity) {
         centreId = "VC_" + UUID.randomUUID();
         this.name = name;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
         this.status = status;
         this.location = location;
+        this.capacity = capacity;
     }
 
-    public Vaccination_Centre(String centreId, String name, LocalTime openingTime, LocalTime closingTime, String status, Location location) {
+    public Vaccination_Centre(String centreId, String name, LocalTime openingTime, LocalTime closingTime, String status, Location location, int capacity) {
         this.centreId = centreId;
         this.name = name;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
         this.status = status;
         this.location = location;
+        this.capacity = capacity;
     }
 
     public Vaccination_Centre(String centreId) {
@@ -87,6 +88,10 @@ public class Vaccination_Centre implements File_Methods {
         return (this.location == null) ? new Location() : this.location;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -109,6 +114,10 @@ public class Vaccination_Centre implements File_Methods {
 
     public void setStock(List<Stock> stockList) {
         stock = stockList;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public void resupply(Stock stockItem) {
@@ -154,6 +163,75 @@ public class Vaccination_Centre implements File_Methods {
         return new VaccinationCentre_TableModel();
     }
 
+    // Get Vaccination Centre Supply Table Model
+    public static TableModel getVcSupplyTableModel(String vcId, Vaccination_Centre vc) {
+        if (vc != null) {
+            return new VaccinationCentreSupply_TableModel(vc);
+        }
+
+        return (vcId == null)
+                ? new VaccinationCentreSupply_TableModel() : new VaccinationCentreSupply_TableModel(vcId);
+    }
+
+    // Generate dataset for vaccination centre supply chart (Individual)
+    public CategoryDataset supplyDataset() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        HashMap<String, Integer> supplyList = this.checkVcSupply();
+
+        Object[] vaccine = supplyList.keySet().toArray();
+        Arrays.sort(vaccine);
+
+        for (int i = 0; i < supplyList.size(); i++) {
+            dataset.addValue(supplyList.get(vaccine[i].toString()), vaccine[i].toString(), "Quantity");
+        }
+
+        return dataset;
+    }
+
+    // Generate dataset for vaccination centre supply chart (All)
+    public static CategoryDataset supplyDatasetAll() {
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
+        List<Vaccination_Centre> vcList = Vaccination_Centre.getVcFolderData();
+        for (Vaccination_Centre vc : vcList) {
+
+            HashMap<String, Integer> supplyList = vc.checkVcSupply();
+            Object[] vaccine = supplyList.keySet().toArray();
+
+            Arrays.sort(vaccine);
+
+            for (int i = 0; i < supplyList.size(); i++) {
+                dataset.addValue(supplyList.get(vaccine[i].toString()), vaccine[i].toString(), vc.getName());
+            }
+
+        }
+
+        return dataset;
+    }
+
+    // Vaccination Centre Stock
+    public HashMap<String, Integer> checkVcSupply() {
+
+        HashMap<String, Integer> supply = new HashMap<>();
+        String[] vaccineList = Vaccine.getListOfVaccines();
+
+        for (String vaccineName : vaccineList) {
+            int stockQuantity = 0;
+
+            if (stock != null) {
+                for (Stock item : stock) {
+                    if (item.getVaccine().getName().equals(vaccineName)) {
+                        stockQuantity = stockQuantity + item.getQuantity();
+                    }
+                }
+            }
+
+            supply.put(vaccineName, stockQuantity);
+        }
+
+        return supply;
+    }
+
     //Interface implementation
     @Override
     public String setFileName() {
@@ -175,7 +253,7 @@ public class Vaccination_Centre implements File_Methods {
 class VaccinationCentre_TableModel extends AbstractTableModel {
 
     private final List<Vaccination_Centre> vcList = Vaccination_Centre.getVcFolderData();
-    private final String[] vcColumnList = {"CentreId", "Name", "Opening Time", "Closing Time", "Status"};
+    private final String[] vcColumnList = {"CentreId", "Name", "Capacity", "Opening Time", "Closing Time", "Status"};
 
     @Override
     public int getRowCount() {
@@ -198,16 +276,118 @@ class VaccinationCentre_TableModel extends AbstractTableModel {
                 temp = vcObj.getCentreId();
             case 1 -> //Name
                 temp = vcObj.getName();
-            case 2 -> //Opening Time
+            case 2 -> //Capacity
+                temp = vcObj.getCapacity();
+            case 3 -> //Opening Time
                 temp = vcObj.getOpeningTime();
-            case 3 -> //Closing Time
+            case 4 -> //Closing Time
                 temp = vcObj.getClosingTime();
-            case 4 -> //Status
+            case 5 -> //Status
                 temp = vcObj.getStatus();
             default ->
                 temp = null;
         }
 
+        return temp;
+    }
+
+    @Override
+    public String getColumnName(int colIndex) {
+        return vcColumnList[colIndex];
+    }
+
+    @Override
+    public Class getColumnClass(int c) {
+        return getValueAt(0, c).getClass();
+    }
+
+}
+
+//VC Supply Table
+class VaccinationCentreSupply_TableModel extends AbstractTableModel {
+
+    private final List<Vaccination_Centre> vcList = Vaccination_Centre.getVcFolderData();
+    private Vaccination_Centre vc;
+    private String[] vcColumnList;
+    private String modelType;
+
+    public VaccinationCentreSupply_TableModel() {
+        vcColumnList = new String[]{"Vaccination Centre", "AstraZeneca", "CanSino", "Pfizer", "Sinovac"};
+        modelType = "All";
+    }
+
+    public VaccinationCentreSupply_TableModel(String vcId) {
+        vcColumnList = new String[]{"Vaccine", "Quantity"};
+
+        if (vcId != "") {
+            vc = Vaccination_Centre.getCentre(vcId);
+        } else {
+            vc = new Vaccination_Centre();
+        }
+        modelType = "Individual";
+    }
+
+    public VaccinationCentreSupply_TableModel(Vaccination_Centre vc) {
+        vcColumnList = new String[]{"Vaccine", "Quantity"};
+
+        if (vc != null) {
+            this.vc = vc;
+        }
+        modelType = "Individual";
+    }
+
+    @Override
+    public int getRowCount() {
+
+        if (modelType == "All") {
+            return vcList.size();
+        } else {
+            return vc.checkVcSupply().size();
+        }
+    }
+
+    @Override
+    public int getColumnCount() {
+        return vcColumnList.length;
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int colIndex) {
+        Object temp = null;
+
+        if (modelType == "All") {
+            Vaccination_Centre vcObj = vcList.get(rowIndex);
+            switch (colIndex) {
+
+                case 0 -> //Name
+                    temp = vcObj.getName();
+                case 1 -> //AstraZeneca
+                    temp = vcObj.checkVcSupply().get("AstraZeneca");
+                case 2 -> //CanSino
+                    temp = vcObj.checkVcSupply().get("CanSino");
+                case 3 -> //Pfizer
+                    temp = vcObj.checkVcSupply().get("Pfizer");
+                case 4 -> //Sinovac
+                    temp = vcObj.checkVcSupply().get("Sinovac");
+
+                default ->
+                    temp = null;
+            }
+        } else {
+            HashMap<String, Integer> supplyList = vc.checkVcSupply();
+            Object[] vaccine = supplyList.keySet().toArray();
+            Arrays.sort(vaccine);
+
+            switch (colIndex) {
+
+                case 0 -> //Vaccine
+                    temp = vaccine[rowIndex];
+                case 1 -> //Quantity
+                    temp = supplyList.get(vaccine[rowIndex].toString());
+                default ->
+                    temp = null;
+            }
+        }
         return temp;
     }
 

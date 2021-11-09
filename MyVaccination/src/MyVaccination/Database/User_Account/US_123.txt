@@ -1,0 +1,1 @@
+{"name":"Test","dateOfBirth":"2021-11-03","identification":"123","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Selangor","gender":"Male","userId":"US_056f272a-a221-4033-98ec-1348ddc64114","username":"123","password":"123","userType":"Citizen"}

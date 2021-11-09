@@ -15,11 +15,13 @@ import java.time.LocalTime;
 
     @Override
     public void write(final JsonWriter jsonWriter, final LocalTime LocalTime) throws IOException {
-        jsonWriter.value(LocalTime.toString());
+        String time = (LocalTime == null) ? "" : LocalTime.toString();
+        jsonWriter.value(time);
     }
 
     @Override
     public LocalTime read(final JsonReader jsonReader) throws IOException {
+     
         return LocalTime.parse(jsonReader.nextString());
     }
 }
