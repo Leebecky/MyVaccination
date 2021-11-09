@@ -7,31 +7,27 @@ package MyVaccination;
 
 import MyVaccination.Classes.*;
 import MyVaccination.Helper_Classes.File_Helper;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author user
  */
-public class User_EditProfile extends javax.swing.JFrame {
+public class User_SubmitAppointment extends javax.swing.JFrame {
 
     /**
-     * Creates new form User_EditProfile
+     * Creates new form User_SubmitAppointment
      */
-    public User_EditProfile() {
+    public User_SubmitAppointment() {
         initComponents();
     }
     
-    public User_EditProfile(String id) {
-        initComponents();
-        
+    public User_SubmitAppointment(String id) {
+        initComponents();    
+    
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
         
@@ -40,13 +36,6 @@ public class User_EditProfile extends javax.swing.JFrame {
         lblId.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
-        
-        txtFullName.setText(userFromFile.getName());
-        txtIcPassport.setText(userFromFile.getId());
-        dtDoB.setDate(userFromFile.getDob());
-        cmbGender.setSelectedItem(userFromFile.getGender());
-        cmbNationality.setSelectedItem(userFromFile.getNation());
-        cmbLocation.setSelectedItem(userFromFile.getAddress());
     }
 
     /**
@@ -64,25 +53,29 @@ public class User_EditProfile extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblLogout = new javax.swing.JLabel();
         lblViewProfile = new javax.swing.JLabel();
-        txtFullName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        txtIcPassport = new javax.swing.JTextField();
+        cmbVaccine = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        btnSubmit = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        cmbCentre = new javax.swing.JComboBox<>();
+        cmbTime = new javax.swing.JComboBox<>();
+        dtAppoint = new com.github.lgooddatepicker.components.DatePicker();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDateAvailable = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDose = new javax.swing.JTextArea();
         jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        dtDoB = new com.github.lgooddatepicker.components.DatePicker();
-        cmbNationality = new javax.swing.JComboBox<>();
-        cmbGender = new javax.swing.JComboBox<>();
-        cmbLocation = new javax.swing.JComboBox<>();
-        btnCancel = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        txtVaccineList = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        btnSearch = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("MyVaccination");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         userHeader.setBackground(new java.awt.Color(204, 153, 255));
@@ -133,7 +126,7 @@ public class User_EditProfile extends javax.swing.JFrame {
         getContentPane().add(userHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("edit PROFILE");
+        jLabel1.setText("Submit Appointment");
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 540, -1));
 
@@ -175,90 +168,160 @@ public class User_EditProfile extends javax.swing.JFrame {
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
 
-        txtFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtFullName.setName(""); // NOI18N
-        getContentPane().add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 218, 30));
+        cmbVaccine.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cmbVaccine.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(cmbVaccine, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 200, -1));
 
-        jLabel3.setText("Full Name : ");
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel2.setText("Vaccine Type :");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, 30));
 
-        txtIcPassport.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtIcPassport.setName(""); // NOI18N
-        getContentPane().add(txtIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 218, 30));
-
-        jLabel4.setText("IC/Passport :");
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
-
-        jLabel5.setText("Date of Birth :");
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, 30));
-
-        jLabel6.setText("Nationality :");
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel7.setText("Current Location :");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 310, -1, 30));
-
-        jLabel9.setText("Gender :");
-        jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, -1, -1));
-
-        dtDoB.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(dtDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, 218, 30));
-
-        cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Malaysian", "Non Malaysian" }));
-        cmbNationality.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 218, -1));
-
-        cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
-        cmbGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 218, -1));
-
-        cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selangor", "Kuala Lumpur", "Penang", "Johor", "Kedah", "Pahang" }));
-        cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, 218, 40));
-
-        btnCancel.setBackground(new java.awt.Color(204, 153, 255));
-        btnCancel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        btnCancel.setText("Cancel");
-        btnCancel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnCancel.setBorderPainted(false);
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+        btnSubmit.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
+                btnSubmitActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 120, 50));
+        getContentPane().add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 90, 30));
 
-        btnSave.setText("Save");
-        btnSave.setBackground(new java.awt.Color(204, 153, 255));
-        btnSave.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnSave.setBorderPainted(false);
-        btnSave.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 390, 120, 50));
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel4.setText("Appointment Date : ");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, 30));
+
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel5.setText("Appointment Time : ");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, 30));
+
+        cmbCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cmbCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(cmbCentre, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 200, -1));
+
+        cmbTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        cmbTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(cmbTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 200, -1));
+
+        dtAppoint.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(dtAppoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 200, 30));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 153, 255), 2, true));
+
+        jLabel3.setText("Centre : XXX Hospital");
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setBorder(null);
+
+        txtDateAvailable.setColumns(20);
+        txtDateAvailable.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtDateAvailable.setRows(5);
+        txtDateAvailable.setText("1111-11-11, 1111-11-11,\n1111-11-11, 1111-11-11,\n1111-11-11, 1111-11-11,\n1111-11-11, 1111-11-11,");
+        jScrollPane1.setViewportView(txtDateAvailable);
+
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane2.setBorder(null);
+
+        txtDose.setColumns(20);
+        txtDose.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtDose.setRows(5);
+        txtDose.setText("123 dose\n0 dose\n50 dose");
+        jScrollPane2.setViewportView(txtDose);
+
+        jLabel7.setText("Vaccine Available:");
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane3.setBorder(null);
+
+        txtVaccineList.setColumns(20);
+        txtVaccineList.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtVaccineList.setRows(5);
+        txtVaccineList.setText("Pfizer\nSinovac\nAZ");
+        jScrollPane3.setViewportView(txtVaccineList);
+
+        jLabel8.setText("Date Available:");
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jLabel7)))))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 400, 160));
 
         lblId.setText("userIc");
         lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblId.setForeground(new java.awt.Color(240, 240, 240));
         getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setText("**This will be your  login username");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, -1, 20));
+        btnSearch.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 90, 30));
+
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel6.setText("Vaccination Centre : ");
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, 30));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblLogoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseEntered
+        lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_lblLogoMouseEntered
+
+    private void lblLogoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMousePressed
+        String id = lblId.getText();
+
+        User_Home userHome = new User_Home(id);
+        userHome.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblLogoMousePressed
 
     private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered
         lblUsername.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -325,72 +388,21 @@ public class User_EditProfile extends javax.swing.JFrame {
         lblViewProfile.setFont(font.deriveFont(attributes));
     }//GEN-LAST:event_lblViewProfileMouseExited
 
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        String id = lblId.getText();
-        
-        User_ViewProfile viewProfile = new User_ViewProfile(id);
-        viewProfile.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_btnCancelActionPerformed
-
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String fullname = txtFullName.getText();
-        String ic = txtIcPassport.getText();
-        LocalDate dob = dtDoB.getDate();
-        String gender = String.valueOf(cmbGender.getSelectedItem());
-        String nationality = String.valueOf(cmbNationality.getSelectedItem());
-        String location = String.valueOf(cmbLocation.getSelectedItem());
-        String id = lblId.getText();
-        
-        boolean isBlank = false;
-        String todaydt = java.time.LocalDate.now().toString();
-        if(fullname.equals("") || ic.equals("")){
-            isBlank = true;
-        }
-        
-        if(isBlank){
-            JOptionPane.showMessageDialog(null, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
-            String userData = File_Helper.readFile("User_Account/" + id + ".txt");
-            People userInfo = File_Helper.gsonWriter.fromJson(userData, People.class);
-            
-            userInfo.setName(fullname);
-            userInfo.setId(ic);
-            userInfo.setUsername(ic);
-            userInfo.setDob(dob);
-            userInfo.setGender(gender);
-            userInfo.setNation(nationality);
-            userInfo.setAddress(location);
-            
-            File_Helper.saveData(userInfo, "User_Account");
-            
-            JOptionPane.showMessageDialog(null, "Info Updated!", "Registration Message", JOptionPane.INFORMATION_MESSAGE);
-            
-            User_ViewProfile viewProfile = new User_ViewProfile(id);
-            viewProfile.setVisible(true);
-            this.setVisible(false);
-        }
-    }//GEN-LAST:event_btnSaveActionPerformed
-
     private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
         String id = lblId.getText();
-        
+
         User_ViewProfile viewProfile = new User_ViewProfile(id);
         viewProfile.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblViewProfileMousePressed
 
-    private void lblLogoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMousePressed
-        String id = lblId.getText();
-        
-        User_Home userHome = new User_Home(id);
-        userHome.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_lblLogoMousePressed
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
-    private void lblLogoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseEntered
-        lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_lblLogoMouseEntered
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -409,31 +421,31 @@ public class User_EditProfile extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(User_EditProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_SubmitAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(User_EditProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_SubmitAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(User_EditProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_SubmitAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(User_EditProfile.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(User_SubmitAppointment.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new User_EditProfile().setVisible(true);
+                new User_SubmitAppointment().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnSave;
-    private javax.swing.JComboBox<String> cmbGender;
-    private javax.swing.JComboBox<String> cmbLocation;
-    private javax.swing.JComboBox<String> cmbNationality;
-    private com.github.lgooddatepicker.components.DatePicker dtDoB;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JComboBox<String> cmbCentre;
+    private javax.swing.JComboBox<String> cmbTime;
+    private javax.swing.JComboBox<String> cmbVaccine;
+    private com.github.lgooddatepicker.components.DatePicker dtAppoint;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -441,14 +453,19 @@ public class User_EditProfile extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblViewProfile;
-    private javax.swing.JTextField txtFullName;
-    private javax.swing.JTextField txtIcPassport;
+    private javax.swing.JTextArea txtDateAvailable;
+    private javax.swing.JTextArea txtDose;
+    private javax.swing.JTextArea txtVaccineList;
     private javax.swing.JPanel userHeader;
     // End of variables declaration//GEN-END:variables
 }

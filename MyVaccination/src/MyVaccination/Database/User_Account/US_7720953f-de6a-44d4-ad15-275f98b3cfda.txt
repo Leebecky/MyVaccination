@@ -1,1 +1,0 @@
-{"userId":"US_7720953f-de6a-44d4-ad15-275f98b3cfda","username":"Lee","password":"lee01","userType":"Citizen"}

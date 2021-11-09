@@ -1,1 +1,0 @@
-{"userId":"US_53322c1f-0e38-4458-ac7e-632e089bccac","username":"Ng","password":"ng04","userType":"Citizen"}

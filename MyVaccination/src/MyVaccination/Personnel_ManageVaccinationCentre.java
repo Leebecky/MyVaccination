@@ -45,13 +45,12 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manage Vaccination Centre");
         setName("frmMngVc"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(945, 482));
         setSize(getPreferredSize());
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
-        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBackground(new java.awt.Color(204, 153, 255));
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBorder(null);
         btnHome.setBorderPainted(false);
         btnHome.setContentAreaFilled(false);
@@ -89,12 +88,11 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         tblVc.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblVc.removeColumn(tblVc.getColumnModel().getColumn(0));
 
+        btnAddNewVc.setBackground(new java.awt.Color(51, 51, 255));
+        btnAddNewVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnAddNewVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/New.png"))); // NOI18N
         btnAddNewVc.setText("New");
         btnAddNewVc.setAlignmentY(0.0F);
-        btnAddNewVc.setBackground(new java.awt.Color(51, 51, 255));
-        btnAddNewVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnAddNewVc.setForeground(new java.awt.Color(0, 0, 0));
         btnAddNewVc.setIconTextGap(10);
         btnAddNewVc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,12 +100,11 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
             }
         });
 
+        btnDeleteVc.setBackground(new java.awt.Color(255, 51, 51));
+        btnDeleteVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnDeleteVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
         btnDeleteVc.setText("Delete");
         btnDeleteVc.setAlignmentY(0.0F);
-        btnDeleteVc.setBackground(new java.awt.Color(255, 51, 51));
-        btnDeleteVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnDeleteVc.setForeground(new java.awt.Color(0, 0, 0));
         btnDeleteVc.setIconTextGap(10);
         btnDeleteVc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,15 +119,14 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Search.png"))); // NOI18N
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Search.png"))); // NOI18N
 
+        btnAddEditVc.setBackground(new java.awt.Color(255, 153, 51));
+        btnAddEditVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnAddEditVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Edit.png"))); // NOI18N
         btnAddEditVc.setText("Edit");
         btnAddEditVc.setAlignmentY(0.0F);
-        btnAddEditVc.setBackground(new java.awt.Color(255, 153, 51));
-        btnAddEditVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnAddEditVc.setForeground(new java.awt.Color(0, 0, 0));
         btnAddEditVc.setIconTextGap(10);
         btnAddEditVc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

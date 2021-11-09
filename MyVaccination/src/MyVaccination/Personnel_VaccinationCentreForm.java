@@ -115,7 +115,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         btnResupplyCancel.setText("Cancel");
         btnResupplyCancel.setBackground(new java.awt.Color(204, 51, 0));
         btnResupplyCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnResupplyCancel.setForeground(new java.awt.Color(0, 0, 0));
         btnResupplyCancel.setIconTextGap(10);
         btnResupplyCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +126,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         btnResupplySave.setText("Confirm");
         btnResupplySave.setBackground(new java.awt.Color(0, 204, 51));
         btnResupplySave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnResupplySave.setForeground(new java.awt.Color(0, 0, 0));
         btnResupplySave.setIconTextGap(10);
         btnResupplySave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,7 +230,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         btnVcSave.setText("Save");
         btnVcSave.setBackground(new java.awt.Color(0, 204, 51));
         btnVcSave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnVcSave.setForeground(new java.awt.Color(0, 0, 0));
         btnVcSave.setIconTextGap(10);
         btnVcSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -244,7 +241,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         btnVcCancel.setText("Cancel");
         btnVcCancel.setBackground(new java.awt.Color(204, 51, 0));
         btnVcCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnVcCancel.setForeground(new java.awt.Color(0, 0, 0));
         btnVcCancel.setIconTextGap(10);
         btnVcCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -377,7 +373,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                         .addComponent(txtVcAddr1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
                         .addComponent(txtVcAddr2))
                     .addComponent(cmbVcState, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelLocationLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbVcState, txtVcAddr1, txtVcAddr2});
