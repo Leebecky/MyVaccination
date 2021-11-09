@@ -25,32 +25,20 @@ public class Appointment implements File_Methods {
     private String centreId;
     private String candidateId;
     private List<Candidate> candidateList;
-    private String vaccineBatchNumber;
+    private String[] vaccineBatchNumber;
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
     private String status;
     private String appointmentType;
+    private String vaccineBrand;
 
     //Constructors
     public Appointment() {
         appointmentId = "APT_" + UUID.randomUUID().toString();
     }
 
-    public Appointment(String appointmentId, String appointmentType) {
+    public Appointment(String appointmentId) {
         this.appointmentId = appointmentId;
-        this.appointmentType = appointmentType;
-    }
-
-    //User appointment 
-    public Appointment(Appointment apt, String candidateId) {
-        appointmentId = apt.appointmentId;
-        this.candidateId = candidateId;
-        vaccineBatchNumber = apt.vaccineBatchNumber;
-        appointmentDate = apt.appointmentDate;
-        appointmentTime = apt.appointmentTime;
-        status = apt.status;
-        appointmentType = "Individual";
-
     }
 
     //Getters
@@ -67,10 +55,11 @@ public class Appointment implements File_Methods {
     }
 
     public List<Candidate> getCandidateList() {
-        return candidateList;
+        return (candidateList == null) ? new ArrayList<>() : candidateList;
+//        return candidateList;
     }
 
-    public String getVaccineBatchNumber() {
+    public String[] getVaccineBatchNumber() {
         return vaccineBatchNumber;
     }
 
@@ -84,6 +73,14 @@ public class Appointment implements File_Methods {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getVaccineBrand() {
+        return vaccineBrand;
+    }
+
+    public String getAppointmentType() {
+        return appointmentType;
     }
 
     //Setters
@@ -107,7 +104,7 @@ public class Appointment implements File_Methods {
         this.appointmentTime = appointmentTime;
     }
 
-    public void setVaccineBatchNumber(String vaccineBatchNumber) {
+    public void setVaccineBatchNumber(String[] vaccineBatchNumber) {
         this.vaccineBatchNumber = vaccineBatchNumber;
     }
 
@@ -115,53 +112,30 @@ public class Appointment implements File_Methods {
         this.candidateId = candidateId;
     }
 
+    public void setVaccineBrand(String vaccineBrand) {
+        this.vaccineBrand = vaccineBrand;
+    }
+
+    public void setAppointmentType(String appointmentType) {
+        this.appointmentType = appointmentType;
+    }
+
     // Create new batch of appointments
-    public static boolean registerAppointment(Appointment apt) {
-        //Save batch
-        apt.appointmentType = "Batch";
+    public static boolean updateAppointment(Appointment apt) {
+        //Save appointment
         boolean saveSuccess = File_Helper.saveData(apt, "Appointment");
 
-        //Testing candidate list
-        List<Candidate> testList = new ArrayList<>();
-        testList.add(new Candidate("123"));
-        apt.candidateList = testList;
-        
-        //Check if batch save successful
+        //Check if save successful
         if (saveSuccess != true) {
             return saveSuccess;
-        }
-
-        if (apt.candidateList != null) {
-
-            //Save user appointment details
-            for (Candidate candidate : apt.candidateList) {
-
-                //TODO: should be passing in candidate id not name
-                People candTest = candidate.getCandidate();
-                candTest.name = "123";
-                
-                Appointment userAppointment = new Appointment(apt, candTest.name);
-//                Appointment userAppointment = new Appointment(apt, candidate.getCandidate().name);
-
-                saveSuccess = File_Helper.saveData(userAppointment, "Appointment");
-
-                //Check if individual save successful
-                if (saveSuccess != true) {
-                    return saveSuccess;
-                }
-            }
         }
 
         return saveSuccess;
     }
 
-    // Update details of existing appointment
-    public static void updateAppointment() {
-    }
-
     // Retrieve existing appointment details
-    public static Appointment getBatchAppointment(String aptId) {
-        Appointment vc = new Appointment(aptId, "Batch");
+    public static Appointment getAppointmentDetails(String aptId) {
+        Appointment vc = new Appointment(aptId);
         String aptData = File_Helper.readFile(vc.getFileName());
         return File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
     }
@@ -181,28 +155,86 @@ public class Appointment implements File_Methods {
         return aptList;
     }
 
-    // Get Vaccination Centre Table Model
+    //Update candidate list
+    public void updateAptCandidate(Candidate candidate, String action) {
+
+        if (this.candidateList == null) {
+            this.candidateList = new ArrayList<>();
+        }
+
+        if (action.equals("Add")) {
+            candidateList.add(candidate);
+
+        } else if (action.equals("Remove")) {
+            int remove = -1;
+            for (int i = 0; i < candidateList.size(); i++) {
+                if (candidateList.get(i).getCandidate().getUserId().equals(candidate.getCandidate().getUserId())) {
+                    remove = i;
+                }
+            }
+
+            if (remove != -1) {
+                candidateList.remove(remove);
+            }
+        }
+    }
+
+    //Load candidate 
+    public static List<People> getAptCandidateList(Appointment appointment) {
+
+        Appointment apt = (appointment != null)
+                ? appointment : new Appointment();
+
+        List<Candidate> candidateList = apt.getCandidateList();
+        List<People> peopleList = People.getuserFolderData();
+        List<People> potentialCandidateList = new ArrayList<>();
+        List<People> removalList = new ArrayList<>();
+
+        for (People user : peopleList) {
+            if (!user.getStatus().equals("Fully Vaccinated")) {
+                potentialCandidateList.add(user);
+            }
+        }
+
+        potentialCandidateList.forEach(c -> {
+            for (Candidate cd : candidateList) {
+                if (c.getUserId().equals(cd.getCandidate().getUserId())) {
+                    removalList.add(c);
+                }
+            }
+        });
+
+        potentialCandidateList.removeAll(removalList);
+        return potentialCandidateList;
+    }
+
+    // Get Appointment Table Model
     public static TableModel getAptTableModel() {
         return new Appointment_TableModel();
     }
 
+    // Get Candidate Table Model
+    public static TableModel getAptCandidateTableModel(String candidateType, Appointment apt) {
+        if (candidateType != null) {
+            return new AppointmentCandidate_TableModel(candidateType, apt);
+        }
+
+        if (apt != null) {
+            return new AppointmentCandidate_TableModel(apt);
+        }
+
+        return new AppointmentCandidate_TableModel();
+    }
+
     @Override
     public String setFileName() {
-        if (appointmentType == "Batch") {
-            return appointmentId;
-        } else {
-            return appointmentId + "/" + candidateId;
-        }
+        return appointmentId;
     }
 
     @Override
     public String getFileName() {
 
-        if (appointmentType == "Batch") {
-            return "Appointment/" + appointmentId + ".txt";
-        } else {
-            return "Appointment/" + appointmentId + "/" + candidateId + ".txt";
-        }
+        return "Appointment/" + appointmentId + ".txt";
     }
 
     //end class
@@ -234,19 +266,15 @@ class Appointment_TableModel extends AbstractTableModel {
             case 0 -> //Id
                 temp = aptObj.getAppointmentId();
             case 1 -> //VC Name
-                //PLACEHOLDER ONLY
-//                temp = "VC_c773b88a-f84c-44da-98b1-d90687bb977e";
                 temp = Vaccination_Centre.getCentre(aptObj.getCentreId()).getName();
             case 2 -> //Vaccine Type
-                //TODO get vaccine and return type based on batch number
-                temp = aptObj.getVaccineBatchNumber();
+                temp = aptObj.getVaccineBrand();
             case 3 -> //Opening Time
                 temp = aptObj.getAppointmentDate();
             case 4 -> //Closing Time
                 temp = aptObj.getAppointmentTime();
-            case 5 -> //Status
-                temp = "Active";
-//                temp = aptObj.getStatus();
+            case 5 -> //Type
+                temp = aptObj.getAppointmentType();
             default ->
                 temp = null;
         }
@@ -259,9 +287,99 @@ class Appointment_TableModel extends AbstractTableModel {
         return TblColumnList[colIndex];
     }
 
-//    @Override
-//    public Class getColumnClass(int c) {
-//        return getValueAt(0, c).getClass();
-//    }
+    @Override
+    public Class getColumnClass(int c) {
+        return getValueAt(0, c).getClass();
+    }
+}
 
+//Populate the table with appointment candidates
+class AppointmentCandidate_TableModel extends AbstractTableModel {
+
+    private final List<Appointment> tblDataList = Appointment.getAptFolderData();
+    private List<People> potentialCandidateList;
+    private List<Candidate> candidateList;
+    private final String[] TblColumnList = {"UserId", "Name", "Status"};
+    private String tableType;
+
+    public AppointmentCandidate_TableModel() {
+        potentialCandidateList = Appointment.getAptCandidateList(null);
+        tableType = "Potential";
+    }
+
+    public AppointmentCandidate_TableModel(String candidateType, Appointment apt) {
+        potentialCandidateList = Appointment.getAptCandidateList(apt);
+        tableType = "Potential";
+    }
+
+//    public AppointmentCandidate_TableModel(String appointmentId) {
+//        Appointment apt = (appointmentId.equals("")) ? new Appointment() : Appointment.getAppointmentDetails(appointmentId);
+//        candidateList = apt.getCandidateList();
+//        tableType = "Appointment";
+//    }
+    public AppointmentCandidate_TableModel(Appointment apt) {
+        candidateList = apt.getCandidateList();
+        tableType = "Appointment";
+    }
+
+    @Override
+    public int getRowCount() {
+
+        if (tableType == "Appointment") {
+            return candidateList.size();
+
+        }
+        return potentialCandidateList.size();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return TblColumnList.length;
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int colIndex) {
+        Object temp = null;
+        if (tableType == "Potential") {
+            People obj = potentialCandidateList.get(rowIndex);
+
+            switch (colIndex) {
+
+                case 0 -> //User Id
+                    temp = obj.getId();
+                case 1 -> //Name
+                    temp = obj.getName();
+                case 2 -> //Vaccination Status
+                    temp = obj.getStatus();
+                default ->
+                    temp = null;
+            }
+        } else {
+            Candidate obj = candidateList.get(rowIndex);
+
+            switch (colIndex) {
+
+                case 0 -> //User Id
+                    temp = obj.getCandidate().getId();
+                case 1 -> //Name
+                    temp = obj.getCandidate().getName();
+                case 2 -> //Appointment Status
+                    temp = obj.getApptStatus();
+                default ->
+                    temp = null;
+            }
+        }
+
+        return temp;
+    }
+
+    @Override
+    public String getColumnName(int colIndex) {
+        return TblColumnList[colIndex];
+    }
+
+    @Override
+    public Class getColumnClass(int c) {
+        return getValueAt(0, c).getClass();
+    }
 }

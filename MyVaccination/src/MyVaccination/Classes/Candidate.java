@@ -5,27 +5,35 @@
  */
 package MyVaccination.Classes;
 
+import java.util.List;
+
 /**
  *
  * @author leebe
  */
 public class Candidate {
+
     private People candidate;
     private String apptStatus;
-    
+
     //Constructor
-    public Candidate(String userId){
+    public Candidate(String userId) {
         //retrieve people by user id
-        candidate = new People();
+        List<People> peopleList = People.getuserFolderData();
+        peopleList.forEach(p -> {
+            if (p.getId().equals(userId)) {
+                candidate = p;
+            }
+        });
+                
         apptStatus = "Pending";
-        
     }
-    
+
     //Getter
-    public People getCandidate(){
+    public People getCandidate() {
         return candidate;
     }
-    
+
     public String getApptStatus() {
         return apptStatus;
     }

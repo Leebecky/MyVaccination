@@ -50,8 +50,8 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
-        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBackground(new java.awt.Color(204, 153, 255));
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBorder(null);
         btnHome.setBorderPainted(false);
         btnHome.setContentAreaFilled(false);
@@ -80,9 +80,9 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
                 .addComponent(btnHome))
         );
 
+        tblApt.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         tblApt.setModel(Appointment.getAptTableModel()
         );
-        tblApt.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         tblApt.setRowHeight(30);
         tblApt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblApt.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -90,12 +90,12 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
         tblApt.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblApt.removeColumn(tblApt.getColumnModel().getColumn(0));
 
-        btnAddNewApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/New.png"))); // NOI18N
-        btnAddNewApt.setText("New");
-        btnAddNewApt.setAlignmentY(0.0F);
         btnAddNewApt.setBackground(new java.awt.Color(51, 51, 255));
         btnAddNewApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnAddNewApt.setForeground(new java.awt.Color(0, 0, 0));
+        btnAddNewApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/New.png"))); // NOI18N
+        btnAddNewApt.setText("New");
+        btnAddNewApt.setAlignmentY(0.0F);
         btnAddNewApt.setIconTextGap(10);
         btnAddNewApt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,12 +103,12 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
             }
         });
 
-        btnDeleteApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
-        btnDeleteApt.setText("Delete");
-        btnDeleteApt.setAlignmentY(0.0F);
         btnDeleteApt.setBackground(new java.awt.Color(255, 51, 51));
         btnDeleteApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnDeleteApt.setForeground(new java.awt.Color(0, 0, 0));
+        btnDeleteApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
+        btnDeleteApt.setText("Delete");
+        btnDeleteApt.setAlignmentY(0.0F);
         btnDeleteApt.setIconTextGap(10);
         btnDeleteApt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -123,15 +123,15 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Search.png"))); // NOI18N
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Search.png"))); // NOI18N
 
-        btnAddEditApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Edit.png"))); // NOI18N
-        btnAddEditApt.setText("Edit");
-        btnAddEditApt.setAlignmentY(0.0F);
         btnAddEditApt.setBackground(new java.awt.Color(255, 153, 51));
         btnAddEditApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnAddEditApt.setForeground(new java.awt.Color(0, 0, 0));
+        btnAddEditApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Edit.png"))); // NOI18N
+        btnAddEditApt.setText("Edit");
+        btnAddEditApt.setAlignmentY(0.0F);
         btnAddEditApt.setIconTextGap(10);
         btnAddEditApt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,7 +208,7 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
 
         int modelRowIndex = tblApt.convertRowIndexToModel(selectedRow);
         String aptId = tblApt.getModel().getValueAt(modelRowIndex, 0).toString();
-        Appointment tblObject = Appointment.getBatchAppointment(aptId);
+        Appointment tblObject = Appointment.getAppointmentDetails(aptId);
 
         //Confirm request to delete data
         int decision = JOptionPane.showConfirmDialog(this, "Please confirm the deletion of " , "Appointment", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);

@@ -20,7 +20,6 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.data.general.DefaultPieDataset;
 
 /**
  *
@@ -606,7 +605,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
     private void btnResupplySaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResupplySaveActionPerformed
         // Add vaccine supply
-       
+
         String vaccineBrand = cmbResupplyVaccine.getModel().getSelectedItem().toString();
         for (int i = 1; i <= (int) spinResupply.getValue(); i++) {
             Vaccine newSupply = Vaccine.generateVaccine(vaccineBrand);

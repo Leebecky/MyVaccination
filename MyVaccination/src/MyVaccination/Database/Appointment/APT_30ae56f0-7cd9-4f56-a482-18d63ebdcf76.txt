@@ -1,1 +1,1 @@
-{"appointmentId":"APT_30ae56f0-7cd9-4f56-a482-18d63ebdcf76","centreId":"VC_c773b88a-f84c-44da-98b1-d90687bb977e","vaccineBatchNumber":"Sinovac","appointmentDate":"2021-11-11","appointmentTime":"01:00","appointmentType":"Private","vaccineBrand":"Sinovac"}
+{"appointmentId":"APT_30ae56f0-7cd9-4f56-a482-18d63ebdcf76","centreId":"VC_c773b88a-f84c-44da-98b1-d90687bb977e","appointmentDate":"2021-11-11","appointmentTime":"01:00","appointmentType":"Private","vaccineBrand":"Sinovac"}
