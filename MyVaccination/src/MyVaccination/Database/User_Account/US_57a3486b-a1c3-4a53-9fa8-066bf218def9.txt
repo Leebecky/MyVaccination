@@ -1,0 +1,1 @@
+{"name":"becky","dateOfBirth":"2010-11-03","identification":"010101075678","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Selangor","gender":"Female","userId":"US_57a3486b-a1c3-4a53-9fa8-066bf218def9","username":"010101075678","password":"becky","userType":"Citizen"}
