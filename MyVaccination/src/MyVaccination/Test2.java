@@ -5,6 +5,9 @@
  */
 package MyVaccination;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  *
  * @author leebe
@@ -16,6 +19,13 @@ public class Test2 extends javax.swing.JFrame {
      */
     public Test2() {
         initComponents();
+        
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String date = "2001-01-01";
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        
+        datePicker1.setDate(localDate);
+        
     }
 
     /**
@@ -67,6 +77,7 @@ public class Test2 extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
         String dt = datePicker1.getDate().toString();
         System.out.println(dt);
     }//GEN-LAST:event_jButton1ActionPerformed

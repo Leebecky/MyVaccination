@@ -60,13 +60,29 @@ public class User implements File_Methods{
         return this.userType;
     }
     
+    public void setUserId(String id){
+        this.userId = "US_" + id;
+    }
+    
+    public void setUsername(String name){
+        this.username = name;
+    }
+    
+    public void setPassword(String pass){
+        this.password = pass;
+    }
+    
+    public void setUserType(String type){
+        this.userType = type;
+    }
+    
     @Override
     public String getFileName(){
-        return "User_Account/US_" + username + ".txt";
+        return "User_Account/" + userId + ".txt";
     }        
     
     @Override
     public String setFileName(){
-        return "US_" + username;
+        return "" + userId;
     }
 }

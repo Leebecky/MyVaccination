@@ -45,7 +45,6 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manage Vaccination Centre");
         setName("frmMngVc"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(945, 482));
         setSize(getPreferredSize());
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));

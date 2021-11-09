@@ -1,1 +1,0 @@
-{"userId":"US_010616-04-9876","username":"Chen","password":"chen05","userType":"Non-Citizen"}
