@@ -94,6 +94,10 @@ public class People extends User {
     public void setGender(String g) {
         this.gender = g;
     }
+    
+    public void setVacHistory(List<String> vh) {
+        this.vaccinationHistory = vh;
+    }
 
     // Retrieve all records of People
     public static List<People> getuserFolderData() {

@@ -15,6 +15,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -28,17 +30,15 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     public User_SubmitAppointment() {
         initComponents();
         
-        ((JLabel)cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        ((JLabel)cmbTime.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
-        ((JLabel)cmbVaccine.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        lblId.setVisible(false);
+        lblViewProfile.setVisible(false);
+        lblLogout.setVisible(false);
         
-        dtAppoint.setEnabled(false);
-        cmbTime.removeAllItems();
-        cmbTime.addItem("--- Select Time ---");
-        cmbTime.setEnabled(false);
-        cmbVaccine.removeAllItems();
-        cmbVaccine.addItem("--- Select Vaccine ---");
-        cmbVaccine.setEnabled(false);
+        ((JLabel)cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        tblAppointment.removeColumn(tblAppointment.getColumnModel().getColumn(0));
+        txtVaccineList.setText("");
+        txtDose.setText("");
+        txtDoseStr.setText("");
     }
     
     public User_SubmitAppointment(String id) {
@@ -53,12 +53,11 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
         
-        cmbTime.removeAllItems();
-        cmbTime.addItem("--- Select Time ---");
-        cmbTime.setEnabled(false);
-        cmbVaccine.removeAllItems();
-        cmbVaccine.addItem("--- Select Vaccine Type ---");
-        cmbVaccine.setEnabled(false);
+        ((JLabel)cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        tblAppointment.removeColumn(tblAppointment.getColumnModel().getColumn(0));
+        txtVaccineList.setText("");
+        txtDose.setText("");
+        txtDoseStr.setText("");
     }
 
     /**
@@ -76,27 +75,23 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblLogout = new javax.swing.JLabel();
         lblViewProfile = new javax.swing.JLabel();
-        cmbVaccine = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         cmbCentre = new javax.swing.JComboBox<>();
-        cmbTime = new javax.swing.JComboBox<>();
-        dtAppoint = new com.github.lgooddatepicker.components.DatePicker();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtDateAvailable = new javax.swing.JTextArea();
+        lblCentre = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDose = new javax.swing.JTextArea();
-        jLabel7 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtVaccineList = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtDoseStr = new javax.swing.JTextArea();
         lblId = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblAppointment = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -196,69 +191,33 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
 
-        cmbVaccine.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cmbVaccine.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cmbVaccine, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 200, -1));
-
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel2.setText("Vaccine Type :");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, 30));
-
-        btnSubmit.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSubmit.setText("Submit");
+        btnSubmit.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 90, 30));
+        getContentPane().add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 450, 90, 30));
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel4.setText("Appointment Date : ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, 30));
-
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel5.setText("Appointment Time : ");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, 30));
-
-        cmbCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         getContentPane().add(cmbCentre, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 200, -1));
-
-        cmbTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cmbTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cmbTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 200, -1));
-
-        dtAppoint.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(dtAppoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 200, 30));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 153, 255), 2, true));
 
-        jLabel3.setText("Centre : XXX Hospital");
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setBorder(null);
-
-        txtDateAvailable.setColumns(20);
-        txtDateAvailable.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtDateAvailable.setRows(5);
-        txtDateAvailable.setText("1111-11-11, 1111-11-11,\n1111-11-11, 1111-11-11,\n1111-11-11, 1111-11-11,\n1111-11-11, 1111-11-11,");
-        jScrollPane1.setViewportView(txtDateAvailable);
+        lblCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         jScrollPane2.setBorder(null);
 
         txtDose.setColumns(20);
-        txtDose.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDose.setRows(5);
-        txtDose.setText("123 dose\n0 dose\n50 dose");
+        txtDose.setText("123 \n0 \n50 \n1 ");
+        txtDose.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(txtDose);
-
-        jLabel7.setText("Vaccine Available:");
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -267,63 +226,74 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         txtVaccineList.setColumns(20);
         txtVaccineList.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtVaccineList.setRows(5);
-        txtVaccineList.setText("Pfizer\nSinovac\nAZ");
+        txtVaccineList.setText("Pfizer\nSinovac\nAstraZeneca\n4th");
         jScrollPane3.setViewportView(txtVaccineList);
 
-        jLabel8.setText("Date Available:");
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel8.setText("Vaccine Available:");
+
+        jLabel7.setText("Centre: ");
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+
+        jScrollPane5.setBorder(null);
+        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        txtDoseStr.setColumns(20);
+        txtDoseStr.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtDoseStr.setRows(5);
+        txtDoseStr.setText("dose\ndose\ndose\ndose");
+        jScrollPane5.setViewportView(txtDoseStr);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblCentre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(20, 20, 20))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel7)))))
-                .addContainerGap())
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 400, 160));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, 280, 190));
 
         lblId.setText("userIc");
         lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblId.setForeground(new java.awt.Color(240, 240, 240));
-        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
+        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 420, 80, 40));
 
-        btnSearch.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
@@ -334,6 +304,18 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel6.setText("Vaccination Centre : ");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, 30));
+
+        tblAppointment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Appointment Date", "Appointment Time", "Vaccine Type"
+            }
+        ));
+        jScrollPane4.setViewportView(tblAppointment);
+
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, 190));
 
         pack();
         setLocationRelativeTo(null);
@@ -425,20 +407,54 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_lblViewProfileMousePressed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        // TODO add your handling code here:
+        String id = lblId.getText();
+        int selectedRow = tblAppointment.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select an appointment!", "Appointment", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int selectedRowIndex = tblAppointment.convertRowIndexToModel(selectedRow);
+        String aptId = tblAppointment.getModel().getValueAt(selectedRowIndex, 0).toString();
+        
+        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+        
+        Candidate candidate = new Candidate(userFromFile.getId());
+        
+        String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
+        Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
+        aptFromFile.updateAptCandidate(candidate, "Add");
+        
+        List<String> vacHis = new ArrayList<String>();
+        vacHis.add(aptId);
+        userFromFile.setVacHistory(vacHis);
+        
+        File_Helper.saveData(aptFromFile, "Appointment");
+        File_Helper.saveData(userFromFile, "User_Account");
+        JOptionPane.showMessageDialog(null, "Info Updated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+            
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        dtAppoint.setEnabled(true);
-        cmbTime.setEnabled(true);
-        cmbVaccine.setEnabled(true);
+        DefaultTableModel model = (DefaultTableModel) tblAppointment.getModel();
+        model.setRowCount(0);
         
         String selectedCentre = String.valueOf(cmbCentre.getSelectedItem());
+        
+        if(selectedCentre.equals("--- Select Centre ---")){
+            lblCentre.setText("");
+        }else{
+            lblCentre.setText(selectedCentre);
+        }
         
         // Get centre ID
         List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
         List<Vaccination_Centre> centreList = new ArrayList();
         ArrayList<String> selectedCentreId = new ArrayList<String>();
+//        ArrayList<String> selectedVaccine = new ArrayList<String>();
+//        ArrayList<String> selectedDose = new ArrayList<String>();
 
         centreDataArray.forEach(fileInFolder -> {
             centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
@@ -451,14 +467,10 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             }
         }
         
-        // Show avaiable appointment date
-        
-        // Show avaiable appointment time
+        // Get Appointment that is held in the selected centre
         List<String> appDataArray = File_Helper.readFolder("Appointment");
         List<Appointment> appointmentList = new ArrayList();
-//        ArrayList<String> arrApp = new ArrayList<String>();
-        ArrayList<String> arrTime = new ArrayList<String>();
-        ArrayList<String> arrVaccine = new ArrayList<String>();
+        String[] data = new String[5];
 
         appDataArray.forEach(fileInFolder -> {
             appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
@@ -467,29 +479,14 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         for (String element : selectedCentreId) {
             for (Appointment appointment: appointmentList){
                 if (appointment.getCentreId().equals(element)) {
-                    arrTime.add(appointment.getAppointmentTime().toString());
-                    arrVaccine.add(appointment.getVaccineBrand());
+                    data[0] = appointment.getAppointmentId();  
+                    data[1] = appointment.getAppointmentDate().toString();
+                    data[2] = appointment.getAppointmentTime().toString();
+                    data[3] = appointment.getVaccineBrand();
+                    model.addRow(data);
                 }
             }
         }
-        
-        Collections.sort(arrTime);   
-        for (String time : arrTime) {
-            cmbTime.addItem(time);
-        }
-        
-        // Show avaiable vaccine type
-        for (String element : arrApp) {
-            if (!centreList.contains(element)) {
-                centreList.add(element);
-            }
-        }
-        
-        Collections.sort(arrVaccine);   
-        for (String vaccine : arrVaccine) {
-            cmbVaccine.addItem(vaccine);
-        }
-        
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -537,7 +534,6 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 }
             }
         }
-        
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -579,28 +575,24 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbCentre;
-    private javax.swing.JComboBox<String> cmbTime;
-    private javax.swing.JComboBox<String> cmbVaccine;
-    private com.github.lgooddatepicker.components.DatePicker dtAppoint;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel lblCentre;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblViewProfile;
-    private javax.swing.JTextArea txtDateAvailable;
+    private javax.swing.JTable tblAppointment;
     private javax.swing.JTextArea txtDose;
+    private javax.swing.JTextArea txtDoseStr;
     private javax.swing.JTextArea txtVaccineList;
     private javax.swing.JPanel userHeader;
     // End of variables declaration//GEN-END:variables
