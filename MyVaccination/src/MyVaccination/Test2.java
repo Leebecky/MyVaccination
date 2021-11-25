@@ -5,8 +5,17 @@
  */
 package MyVaccination;
 
+import MyVaccination.Classes.*;
+import MyVaccination.Helper_Classes.File_Helper;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+import javax.swing.AbstractButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -37,8 +46,14 @@ public class Test2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jButton1 = new javax.swing.JButton();
         datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,27 +64,68 @@ public class Test2 extends javax.swing.JFrame {
             }
         });
 
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("First Option");
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setText("Second Option");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Centre", "Date", "Time", "Vaccine Type"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton2.setText("Search");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(255, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(70, 70, 70))
             .addGroup(layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jRadioButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jRadioButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jButton1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(27, 27, 27))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jRadioButton2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(datePicker1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         pack();
@@ -80,7 +136,85 @@ public class Test2 extends javax.swing.JFrame {
         
         String dt = datePicker1.getDate().toString();
         System.out.println(dt);
+        
+        jButton1.setName("btn1");
+        
+        // Test button groups
+        for (Enumeration<AbstractButton> buttons = buttonGroup1.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+            if (button.isSelected()) {
+                    System.out.println(button.getActionCommand());
+            }
+        }
+        
+        // Test jtable
+        List<String> appDataArray = File_Helper.readFolder("Appointment");
+        List<Appointment> appointmentList = new ArrayList();
+        ArrayList<String> arrApp = new ArrayList<String>();
+        String[] data = new String[5];
+
+        appDataArray.forEach(fileInFolder -> {
+            appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+        });
+        
+        List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+        List<Vaccination_Centre> centreNameList = new ArrayList();
+        ArrayList<String> arrCentreName = new ArrayList<String>();
+        ArrayList<String> showCentreName = new ArrayList<String>();
+
+        centreDataArray.forEach(fileInFolder -> {
+            centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+        });
+        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        jTable1.removeColumn(jTable1.getColumnModel().getColumn(0));
+
+//        model.setRowCount(0);
+
+        appointmentList.forEach(f ->  {
+            data[0] = f.getAppointmentId();
+            
+            
+            for (Vaccination_Centre centre: centreNameList){
+                if (centre.getCentreId().equals(f.getCentreId())) {
+                    data[1] = centre.getName();
+                }
+            }
+            
+            data[2] = f.getAppointmentDate().toString();
+            data[3] = f.getAppointmentTime().toString();
+            data[4] = f.getVaccineBrand();
+            model.addRow(data);
+        });
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        int selectedRow = jTable1.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select an appointment!", "Appointment", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int selectedRowIndex = jTable1.convertRowIndexToModel(selectedRow);
+        String aptId = jTable1.getModel().getValueAt(selectedRowIndex, 0).toString();
+        System.out.println(aptId);
+        
+//        DefaultTableModel selectedData = (DefaultTableModel)jTable1.getModel();
+//        tableModel.getDataVector().elementAt(jTable.getSelectedRow());
+//        
+//        TableModel model = jTable1.getModel();
+//        int selectedRowIndex = model.getSelectedRow();
+//        System.out.println(elementAt(jTable1.getSelectedRow()));
+        
+//        for(int i = 0; i < model.getColumnCount(); i++){
+//            if(i > 0){
+//                System.out.println(", ");
+//            }
+//            System.out.println(model.getValueAt(selectedRowIndex, selectedColumnIndex));
+//        }
+//        System.out.println();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -118,7 +252,13 @@ public class Test2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private com.github.lgooddatepicker.components.DatePicker datePicker1;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

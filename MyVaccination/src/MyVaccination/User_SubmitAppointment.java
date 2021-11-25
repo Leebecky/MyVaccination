@@ -10,7 +10,11 @@ import MyVaccination.Helper_Classes.File_Helper;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
+import javax.swing.JLabel;
 
 /**
  *
@@ -23,6 +27,18 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
      */
     public User_SubmitAppointment() {
         initComponents();
+        
+        ((JLabel)cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        ((JLabel)cmbTime.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        ((JLabel)cmbVaccine.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        
+        dtAppoint.setEnabled(false);
+        cmbTime.removeAllItems();
+        cmbTime.addItem("--- Select Time ---");
+        cmbTime.setEnabled(false);
+        cmbVaccine.removeAllItems();
+        cmbVaccine.addItem("--- Select Vaccine ---");
+        cmbVaccine.setEnabled(false);
     }
     
     public User_SubmitAppointment(String id) {
@@ -36,6 +52,13 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         lblId.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
+        
+        cmbTime.removeAllItems();
+        cmbTime.addItem("--- Select Time ---");
+        cmbTime.setEnabled(false);
+        cmbVaccine.removeAllItems();
+        cmbVaccine.addItem("--- Select Vaccine Type ---");
+        cmbVaccine.setEnabled(false);
     }
 
     /**
@@ -76,6 +99,11 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         userHeader.setBackground(new java.awt.Color(204, 153, 255));
@@ -401,8 +429,116 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        dtAppoint.setEnabled(true);
+        cmbTime.setEnabled(true);
+        cmbVaccine.setEnabled(true);
+        
+        String selectedCentre = String.valueOf(cmbCentre.getSelectedItem());
+        
+        // Get centre ID
+        List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+        List<Vaccination_Centre> centreList = new ArrayList();
+        ArrayList<String> selectedCentreId = new ArrayList<String>();
+
+        centreDataArray.forEach(fileInFolder -> {
+            centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+        });
+        
+        for(int i = 0; i < centreList.size(); i++){
+            if(selectedCentre.equals(centreList.get(i).getName())){
+                selectedCentreId.add(centreList.get(i).getCentreId());                
+                break;
+            }
+        }
+        
+        // Show avaiable appointment date
+        
+        // Show avaiable appointment time
+        List<String> appDataArray = File_Helper.readFolder("Appointment");
+        List<Appointment> appointmentList = new ArrayList();
+//        ArrayList<String> arrApp = new ArrayList<String>();
+        ArrayList<String> arrTime = new ArrayList<String>();
+        ArrayList<String> arrVaccine = new ArrayList<String>();
+
+        appDataArray.forEach(fileInFolder -> {
+            appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+        });
+        
+        for (String element : selectedCentreId) {
+            for (Appointment appointment: appointmentList){
+                if (appointment.getCentreId().equals(element)) {
+                    arrTime.add(appointment.getAppointmentTime().toString());
+                    arrVaccine.add(appointment.getVaccineBrand());
+                }
+            }
+        }
+        
+        Collections.sort(arrTime);   
+        for (String time : arrTime) {
+            cmbTime.addItem(time);
+        }
+        
+        // Show avaiable vaccine type
+        for (String element : arrApp) {
+            if (!centreList.contains(element)) {
+                centreList.add(element);
+            }
+        }
+        
+        Collections.sort(arrVaccine);   
+        for (String vaccine : arrVaccine) {
+            cmbVaccine.addItem(vaccine);
+        }
+        
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        cmbCentre.removeAllItems();
+        cmbCentre.addItem("--- Select Centre ---");
+        
+        List<String> appDataArray = File_Helper.readFolder("Appointment");
+        List<Appointment> appointmentList = new ArrayList();
+        ArrayList<String> arrApp = new ArrayList<String>();
+
+        appDataArray.forEach(fileInFolder -> {
+            appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+        });
+
+        // Get centre ID
+        appointmentList.forEach(f ->  {
+            if("Public".equals(f.getAppointmentType())){
+                arrApp.add(f.getCentreId());
+            }
+        });
+        
+        // Remove duplicate centre ID
+        ArrayList<String> centreList = new ArrayList<String>();
+  
+        for (String element : arrApp) {
+            if (!centreList.contains(element)) {
+                centreList.add(element);
+            }
+        }
+        
+        // Get centre Name
+        List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+        List<Vaccination_Centre> centreNameList = new ArrayList();
+        ArrayList<String> arrCentreName = new ArrayList<String>();
+        ArrayList<String> showCentreName = new ArrayList<String>();
+
+        centreDataArray.forEach(fileInFolder -> {
+            centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+        });
+        
+        for (String element : centreList) {
+            for (Vaccination_Centre centre: centreNameList){
+                if (centre.getCentreId().equals(element)) {
+                    cmbCentre.addItem(centre.getName());
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
