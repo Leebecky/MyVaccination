@@ -5,6 +5,7 @@
  */
 package MyVaccination.Classes;
 
+import MyVaccination.Helper_Classes.File_Helper;
 import java.util.List;
 
 /**

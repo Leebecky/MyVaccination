@@ -55,9 +55,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         
         ((JLabel)cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
         tblAppointment.removeColumn(tblAppointment.getColumnModel().getColumn(0));
-        txtVaccineList.setText("");
-        txtDose.setText("");
-        txtDoseStr.setText("");
+        
     }
 
     /**
@@ -431,10 +429,24 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         vacHis.add(aptId);
         userFromFile.setVacHistory(vacHis);
         
+        if(userFromFile.getStatus().equals("Not Vaccinated")){
+            System.out.println("Update dose 1");
+            userFromFile.setStatus("1st Dose Appointment Pending");
+        }else{
+            System.out.println("Update dose 2");
+            userFromFile.setStatus("2nd Dose Appointment Pending");
+        }
+                
+        System.out.println(userFromFile.getStatus());
+        System.out.println(userFromFile.getUserId());
+
         File_Helper.saveData(aptFromFile, "Appointment");
         File_Helper.saveData(userFromFile, "User_Account");
         JOptionPane.showMessageDialog(null, "Info Updated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
-            
+        
+        User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+        viewStatus.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
@@ -490,50 +502,79 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        cmbCentre.removeAllItems();
-        cmbCentre.addItem("--- Select Centre ---");
+        String id = lblId.getText();
+        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
         
-        List<String> appDataArray = File_Helper.readFolder("Appointment");
-        List<Appointment> appointmentList = new ArrayList();
-        ArrayList<String> arrApp = new ArrayList<String>();
+        txtVaccineList.setText("");
+        txtDose.setText("");
+        txtDoseStr.setText("");
+            
+        if(userFromFile.getStatus().equals("Not Vaccinated")){
+            cmbCentre.removeAllItems();
+            cmbCentre.addItem("--- Select Centre ---");
 
-        appDataArray.forEach(fileInFolder -> {
-            appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
-        });
+            List<String> appDataArray = File_Helper.readFolder("Appointment");
+            List<Appointment> appointmentList = new ArrayList();
+            ArrayList<String> arrApp = new ArrayList<String>();
 
-        // Get centre ID
-        appointmentList.forEach(f ->  {
-            if("Public".equals(f.getAppointmentType())){
-                arrApp.add(f.getCentreId());
-            }
-        });
-        
-        // Remove duplicate centre ID
-        ArrayList<String> centreList = new ArrayList<String>();
-  
-        for (String element : arrApp) {
-            if (!centreList.contains(element)) {
-                centreList.add(element);
-            }
-        }
-        
-        // Get centre Name
-        List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
-        List<Vaccination_Centre> centreNameList = new ArrayList();
-        ArrayList<String> arrCentreName = new ArrayList<String>();
-        ArrayList<String> showCentreName = new ArrayList<String>();
+            appDataArray.forEach(fileInFolder -> {
+                appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+            });
 
-        centreDataArray.forEach(fileInFolder -> {
-            centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
-        });
-        
-        for (String element : centreList) {
-            for (Vaccination_Centre centre: centreNameList){
-                if (centre.getCentreId().equals(element)) {
-                    cmbCentre.addItem(centre.getName());
+            // Get centre ID
+            appointmentList.forEach(f ->  {
+                if("Public".equals(f.getAppointmentType())){
+                    arrApp.add(f.getCentreId());
+                }
+            });
+
+            // Remove duplicate centre ID
+            ArrayList<String> centreList = new ArrayList<String>();
+
+            for (String element : arrApp) {
+                if (!centreList.contains(element)) {
+                    centreList.add(element);
                 }
             }
+
+            // Get centre Name
+            List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+            List<Vaccination_Centre> centreNameList = new ArrayList();
+            ArrayList<String> arrCentreName = new ArrayList<String>();
+            ArrayList<String> showCentreName = new ArrayList<String>();
+
+            centreDataArray.forEach(fileInFolder -> {
+                centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+            });
+
+            for (String element : centreList) {
+                for (Vaccination_Centre centre: centreNameList){
+                    if (centre.getCentreId().equals(element)) {
+                        cmbCentre.addItem(centre.getName());
+                    }
+                }
+            }
+        } else if(userFromFile.getStatus().equals("1st Dose Completed")) {
+            cmbCentre.removeAllItems();
+            
+            // See same with Not Vaccinated or not
+            // Can change centre?
+            // Can change vaccine?
+        } else if(userFromFile.getStatus().equals("Fully Vaccinated")){
+            JOptionPane.showMessageDialog(null, "You have fully vaccinated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+            
+            User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+            viewStatus.setVisible(true);
+            this.setVisible(false);
+        } else{
+            JOptionPane.showMessageDialog(null, "You have ongoing appointment!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+            
+            User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+            viewStatus.setVisible(true);
+            this.setVisible(false);
         }
+        
     }//GEN-LAST:event_formWindowOpened
 
     /**

@@ -66,6 +66,10 @@ public class People extends User {
     public String getGender() {
         return this.gender;
     }
+    
+    public List<String> getVacHistory(){
+        return this.vaccinationHistory;
+    }
 
     public void setName(String n) {
         this.name = n;
@@ -97,6 +101,10 @@ public class People extends User {
     
     public void setVacHistory(List<String> vh) {
         this.vaccinationHistory = vh;
+    }
+    
+    public void addVacHistory(String vh) {
+        this.vaccinationHistory.add(vh);
     }
 
     // Retrieve all records of People

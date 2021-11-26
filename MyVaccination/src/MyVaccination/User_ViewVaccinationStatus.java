@@ -7,9 +7,12 @@ package MyVaccination;
 
 import MyVaccination.Classes.*;
 import MyVaccination.Helper_Classes.File_Helper;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,12 +33,90 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+        List<String> vacHistory;
         
         lblUsername.setText(userFromFile.getName());
         lblId.setText(id);
         lblId.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
+        
+        if(userFromFile.getStatus().equals("Not Vaccinated")){
+            lblAppointDesc.setText("No appointment submitted.");
+            lblDose1Centre.setText("");
+            lblDose1Time.setText("");
+            lblDose2Centre.setText("");
+            lblDose2Time.setText("");
+            btnPrint.setText("");
+            btnCompleteDose1.setVisible(false);
+            btnCancelDose1.setVisible(false);
+            btnCompleteDose2.setVisible(false);
+            btnCancelDose2.setVisible(false);
+            
+            jPanel3.setBackground(new Color(78,210,177));
+            jPanel2.setBackground(new Color(240,240,240));
+            jPanel4.setBackground(new Color(240,240,240));
+            jPanel5.setBackground(new Color(240,240,240));
+        }else if(userFromFile.getStatus().equals("1st Dose Appointment Pending")){
+            lblAppointDesc.setText("Appointment submitted.");
+            btnSubmitApp.setVisible(false);
+            btnCompleteDose1.setText("Confirm");
+            lblDose2Centre.setText("");
+            lblDose2Time.setText("");
+            btnCancelDose2.setVisible(false);
+            btnCompleteDose2.setVisible(false);
+            btnPrint.setText("");
+            
+//            if(userFromFile.getVacHistory() != null){
+//                vacHistory = userFromFile.getVacHistory();
+//
+//                if(vacHistory.size() == 1){
+//                    lblDose2Centre.setText("");
+//                    lblDose2Time.setText("");
+//                    btnCancelDose2.setVisible(false);
+//                    btnCompleteDose2.setVisible(false);
+//                    btnPrint.setText("");
+//
+//                    System.out.println(vacHistory.get(0));
+//                    
+//                }else{
+//                    System.out.println(vacHistory.get(0));
+//                    System.out.println(vacHistory.get(1));
+//                }
+//            }
+        }else if(userFromFile.getStatus().equals("1st Dose Appointment Confirmed")){
+            lblAppointDesc.setText("Appointment submitted.");
+            btnSubmitApp.setVisible(false);
+            btnCompleteDose1.setText("Complete");
+            lblDose2Centre.setText("");
+            lblDose2Time.setText("");
+            btnCancelDose2.setVisible(false);
+            btnCompleteDose2.setVisible(false);
+            btnPrint.setText("");
+        }else if(userFromFile.getStatus().equals("1st Dose Completed")){
+            lblAppointDesc.setText("Appointment submitted.");
+            btnSubmitApp.setVisible(false);
+            btnCompleteDose1.setVisible(false);
+            btnCancelDose1.setVisible(false);
+            lblDose1Centre.setText("");
+            lblDose1Time.setText("");
+            btnCancelDose2.setVisible(false);
+            btnCompleteDose2.setText("Submit");
+            btnPrint.setText("");
+        }else if(userFromFile.getStatus().equals("2nd  Dose Appointment Pending")){
+            lblAppointDesc.setText("Appointment submitted.");
+            btnSubmitApp.setVisible(false);
+            btnCompleteDose2.setText("Confirm");
+            btnPrint.setText("");
+        }else if(userFromFile.getStatus().equals("2nd Dose Appointment Confirmed")){
+            lblAppointDesc.setText("Appointment submitted.");
+            btnSubmitApp.setVisible(false);
+            btnCompleteDose1.setText("Complete");
+            btnPrint.setText("");
+        }else{
+            lblAppointDesc.setText("Appointment submitted.");
+            btnSubmitApp.setVisible(false);
+        }
     }
 
     /**
@@ -67,17 +148,17 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        btnAppointment = new javax.swing.JLabel();
+        lblAppointDesc = new javax.swing.JLabel();
         lblDose1Centre = new javax.swing.JLabel();
         lblDose1Time = new javax.swing.JLabel();
-        btnCompleteDose1 = new javax.swing.JLabel();
         lblDose2Centre = new javax.swing.JLabel();
         lblDose2Time = new javax.swing.JLabel();
         btnPrint = new javax.swing.JLabel();
-        btnCompleteDose2 = new javax.swing.JLabel();
-        btnCancelDose2 = new javax.swing.JLabel();
-        btnCancelDose1 = new javax.swing.JLabel();
+        btnSubmitApp = new javax.swing.JButton();
+        btnCompleteDose1 = new javax.swing.JButton();
+        btnCancelDose1 = new javax.swing.JButton();
+        btnCompleteDose2 = new javax.swing.JButton();
+        btnCancelDose2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -172,9 +253,9 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
 
-        lblId.setText("userIc");
         lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblId.setForeground(new java.awt.Color(240, 240, 240));
+        lblId.setText("userIc");
         getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
@@ -223,6 +304,8 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
                 .addComponent(lblAppointDate)
                 .addContainerGap())
         );
+
+        jPanel4.setBackground(new java.awt.Color(255, 102, 102));
 
         lblDose2Date.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblDose2Date.setText("2020-12-12");
@@ -276,20 +359,14 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Calibri", 1, 16)); // NOI18N
         jLabel9.setText("Vaccination Appointment");
 
-        jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel10.setText("No appointment submitted.");
-
-        btnAppointment.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnAppointment.setText("Submit now!");
+        lblAppointDesc.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        lblAppointDesc.setText("No appointment submitted.");
 
         lblDose1Centre.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblDose1Centre.setText("XXX Hospital");
 
         lblDose1Time.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblDose1Time.setText("9.00 a.m.");
-
-        btnCompleteDose1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCompleteDose1.setText("Complete");
 
         lblDose2Centre.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblDose2Centre.setText("XXX Hospital");
@@ -300,14 +377,30 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         btnPrint.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnPrint.setText("Print Certificate");
 
-        btnCompleteDose2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        btnSubmitApp.setText("Submit");
+        btnSubmitApp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitAppActionPerformed(evt);
+            }
+        });
+
+        btnCompleteDose1.setText("Complete");
+        btnCompleteDose1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCompleteDose1ActionPerformed(evt);
+            }
+        });
+
+        btnCancelDose1.setText("Cancel");
+        btnCancelDose1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelDose1ActionPerformed(evt);
+            }
+        });
+
         btnCompleteDose2.setText("Complete");
 
-        btnCancelDose2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         btnCancelDose2.setText("Cancel");
-
-        btnCancelDose1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        btnCancelDose1.setText("Cancel");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -322,19 +415,19 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
+                                .addComponent(lblAppointDesc)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(105, 105, 105)
-                                        .addComponent(btnCancelDose1))
+                                        .addComponent(btnCompleteDose2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                                        .addComponent(btnCancelDose2))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btnCompleteDose2)
-                                            .addComponent(btnCompleteDose1)
-                                            .addComponent(btnAppointment))
-                                        .addGap(31, 31, 31)
-                                        .addComponent(btnCancelDose2))))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(btnSubmitApp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnCompleteDose1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnCancelDose1))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -359,7 +452,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
                                 .addComponent(lblDose2Centre)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblDose2Time)))))
-                .addGap(35, 35, 35))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -392,26 +485,27 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnPrint)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnPrint))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblAppointDesc))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(btnSubmitApp)))
+                        .addGap(40, 40, 40)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(btnAppointment)
-                                    .addGap(124, 124, 124))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCancelDose1)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnCompleteDose1)
-                                        .addGap(44, 44, 44)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(btnCompleteDose2)
-                                            .addComponent(btnCancelDose2))))))
-                        .addContainerGap(89, Short.MAX_VALUE))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnCompleteDose1)
+                                .addComponent(btnCancelDose1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(58, 58, 58)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(btnCompleteDose2)
+                                    .addComponent(btnCancelDose2))))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 540, 290));
@@ -505,6 +599,32 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_lblViewProfileMousePressed
 
+    private void btnSubmitAppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitAppActionPerformed
+        String id = lblId.getText();
+
+        User_SubmitAppointment submitAppointment = new User_SubmitAppointment(id);
+        submitAppointment.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnSubmitAppActionPerformed
+
+    private void btnCompleteDose1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteDose1ActionPerformed
+        String id = lblId.getText();
+        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+        
+        userFromFile.setStatus("1st Dose Completed");
+        File_Helper.saveData(userFromFile, "User_Account");
+    }//GEN-LAST:event_btnCompleteDose1ActionPerformed
+
+    private void btnCancelDose1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelDose1ActionPerformed
+        String id = lblId.getText();
+        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+        
+        userFromFile.setStatus("Not Vaccinated");
+        File_Helper.saveData(userFromFile, "User_Account");
+    }//GEN-LAST:event_btnCancelDose1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -541,14 +661,13 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel btnAppointment;
-    private javax.swing.JLabel btnCancelDose1;
-    private javax.swing.JLabel btnCancelDose2;
-    private javax.swing.JLabel btnCompleteDose1;
-    private javax.swing.JLabel btnCompleteDose2;
+    private javax.swing.JButton btnCancelDose1;
+    private javax.swing.JButton btnCancelDose2;
+    private javax.swing.JButton btnCompleteDose1;
+    private javax.swing.JButton btnCompleteDose2;
     private javax.swing.JLabel btnPrint;
+    private javax.swing.JButton btnSubmitApp;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -559,6 +678,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblAppointDate;
+    private javax.swing.JLabel lblAppointDesc;
     private javax.swing.JLabel lblCertDate;
     private javax.swing.JLabel lblDose1Centre;
     private javax.swing.JLabel lblDose1Date;
