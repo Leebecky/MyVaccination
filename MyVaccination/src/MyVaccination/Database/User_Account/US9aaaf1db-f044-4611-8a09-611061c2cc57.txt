@@ -1,0 +1,1 @@
+{"status":"Inactive","state":"Johor","clearance":"Administrator","userId":"US9aaaf1db-f044-4611-8a09-611061c2cc57","username":"asdasd2","password":"Personnel_cc57","userType":"Personnel"}

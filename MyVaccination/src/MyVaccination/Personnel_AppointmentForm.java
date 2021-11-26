@@ -7,7 +7,6 @@ package MyVaccination;
 
 import MyVaccination.Classes.Appointment;
 import MyVaccination.Classes.Candidate;
-import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccination_Centre;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
@@ -133,8 +132,14 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MyVaccination");
         setMinimumSize(new java.awt.Dimension(945, 502));
         setSize(getPreferredSize());
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -213,11 +218,11 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         jLabel3.setText("Appointment Date & Time :");
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("Appointment Type:");
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        cmbAptType.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cmbAptType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Public", "Private" }));
+        cmbAptType.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -368,8 +373,6 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
             home.setVisible(true);
             this.setVisible(false);
             this.dispose();
-        } else {
-            return;
         }
     }//GEN-LAST:event_btnHomeActionPerformed
 
@@ -388,20 +391,19 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         //TODO: Need to process vaccine type for batch number
         apt.setVaccineBrand(vaccineBrand);
 
-        List<Stock> selectedVcStock = selectedVc.getStock();
-        List<Stock> vcFilteredStock = selectedVcStock.stream().filter(s -> s.getVaccine().getName().equals(vaccineBrand)).map(s -> (Stock) s).toList();
-
-        for (var v : vcFilteredStock) {
-            System.out.println(v.getVaccine().getName());
-            System.out.println(v.getQuantity());
-        }
-
+//        List<Stock> selectedVcStock = selectedVc.getStock();
+//        List<Stock> vcFilteredStock = selectedVcStock.stream().filter(s -> s.getVaccine().getName().equals(vaccineBrand)).map(s -> (Stock) s).toList();
+//        selectedVc.updateVcSupply(vaccineBrand);
+//        for (var v : vcFilteredStock) {
+//            System.out.println(v.getVaccine().getName());
+//            System.out.println(v.getQuantity());
+//        }
         boolean success;
         String message = "";
 
         success = Appointment.updateAppointment(apt);
 
-        if (id != "") {
+        if (!id.equals("")) {
             //Edit
             message = "Failed to update record for " + "!";
         } else {
@@ -474,7 +476,9 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         int[] selectedRows = tblCandidate.getSelectedRows();
 
         for (int i : selectedRows) {
-            Candidate aptCandidate = new Candidate(tblCandidate.getModel().getValueAt(i, 0).toString());
+
+            String userId = tblCandidate.getModel().getValueAt(i, 0).toString();
+            Candidate aptCandidate = new Candidate(userId, "");
             apt.updateAptCandidate(aptCandidate, "Add");
         }
 
@@ -491,7 +495,8 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         int[] selectedRows = tblAptCandidate.getSelectedRows();
 
         for (int i : selectedRows) {
-            Candidate aptCandidate = new Candidate(tblAptCandidate.getModel().getValueAt(i, 0).toString());
+            String userId = tblAptCandidate.getModel().getValueAt(i, 0).toString();
+            Candidate aptCandidate = new Candidate(userId, "");
             apt.updateAptCandidate(aptCandidate, "Remove");
         }
 
@@ -502,6 +507,33 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         tblCandidate.setModel(Appointment.getAptCandidateTableModel("Potential", apt));
         tblCandidate.removeColumn(tblCandidate.getColumnModel().getColumn(0));
     }//GEN-LAST:event_btnRemoveCandidateActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // Initialising the Vaccine Type combo box values
+
+        if (id.equals("")) {
+            Vaccination_Centre selectedVc = (Vaccination_Centre) cmbAptVc.getSelectedItem();
+
+            HashMap<String, Integer> vcSupplyList = selectedVc.checkVcSupply();
+            Object[] vaccineList = vcSupplyList.keySet().toArray();
+            Arrays.sort(vaccineList);
+            List<String> vaccineListModel = new ArrayList<>();
+
+            for (int i = 0; i < vaccineList.length; i++) {
+                int quantity = vcSupplyList.get(vaccineList[i].toString());
+                if (quantity == 0 || quantity < selectedVc.getCapacity()) {
+                    continue;
+                }
+
+                vaccineListModel.add(vaccineList[i].toString());
+
+            }
+
+            DefaultComboBoxModel cmbModel = new DefaultComboBoxModel(vaccineListModel.toArray());
+            cmbAptVaccine.setModel(cmbModel);
+            cmbAptVaccine.setEnabled(true);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

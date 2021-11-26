@@ -8,13 +8,14 @@ package MyVaccination;
 import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Classes.Vaccine;
-import java.awt.BorderLayout;
-import java.awt.event.ItemEvent;
+import MyVaccination.Helper_Classes.Printer;
+import java.awt.HeadlessException;
+import java.awt.print.PageFormat;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollBar;
-import javax.swing.SwingConstants;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -69,7 +70,6 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         diaResupply.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         diaResupply.setTitle("Vaccination Centre");
         diaResupply.setMinimumSize(new java.awt.Dimension(403, 382));
-        diaResupply.setPreferredSize(new java.awt.Dimension(403, 382));
         diaResupply.setResizable(false);
         diaResupply.setSize(diaResupply.getPreferredSize());
 

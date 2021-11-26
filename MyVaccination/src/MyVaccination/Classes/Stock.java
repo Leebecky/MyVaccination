@@ -12,13 +12,16 @@ public class Stock {
     private Vaccine vaccine;
     private int quantity;
     private LocalDate supplyDate;
+    private String status;
 
     public Stock(Vaccine vac) {
         vaccine = vac;
         quantity = vac.getAmount() * vac.getDosage();
         supplyDate = LocalDate.now();
+        status = "Active";
     }
     
+    //Getters
     public Vaccine getVaccine() {
         return vaccine;
     }
@@ -26,6 +29,22 @@ public class Stock {
     public int getQuantity() {
         return quantity;
     }
+    
+      public LocalDate getSupplyDate() {
+        return supplyDate;
+    }
+      public String getSupplyStatus() {
+        return status;
+    }
+      
+     //Setters
+      public void updateQuantity(int amount) {
+          quantity = quantity + amount;
+      }
+      
+      public void setSupplyStatus(String status) {
+          this.status = status;
+      }
 
     //end Stock class
 }

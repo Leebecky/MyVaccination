@@ -10,6 +10,8 @@ import MyVaccination.Helper_Classes.File_Methods;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -230,6 +232,90 @@ public class Vaccination_Centre implements File_Methods {
         }
 
         return supply;
+    }
+
+    // Update Vaccination Stock for Appointment
+    public Appointment updateVcSupply(Appointment objApt) {
+
+        Appointment oriApt = Appointment.getAppointmentDetails(objApt.getAppointmentId());
+        List<Candidate> removedCandidates = oriApt.getCandidateList();
+        List<Candidate> addedCandidates = objApt.getCandidateList();
+
+        removedCandidates.removeAll(objApt.getCandidateList());
+        addedCandidates.removeAll(oriApt.getCandidateList());
+
+        if (!addedCandidates.isEmpty()) {
+
+            List<Stock> vaccinesOfBrand = new ArrayList<>();
+            stock.stream().filter(s -> (s.getVaccine().getName().equals(objApt.getVaccineBrand()))).forEachOrdered(s -> {
+                vaccinesOfBrand.add(s);
+            });
+
+            //Sort according to the supplyDate
+            Collections.sort(vaccinesOfBrand, Comparator.comparing(Stock::getSupplyDate));
+
+            // Update the first found stock with value
+            for (Candidate c : addedCandidates) {
+                String batchNum = "";
+                for (Stock s : vaccinesOfBrand) {
+                    if (!s.getSupplyStatus().equals("Depleted")) {
+                        s.updateQuantity(-1);
+
+                        if (s.getQuantity() == (0)) {
+                            s.setSupplyStatus("Depleted");
+                        }
+                        batchNum = s.getVaccine().getBatchNumber();
+                        break;
+                    }
+                }
+                c.setVaccineBatchNumber(batchNum);
+            }
+        }
+
+        objApt.setCandidateList(addedCandidates);
+        return objApt;
+    }
+
+    // Add back the vaccine supply when candidate cancels/rejects
+    public void refundStock(String vaccineBatchNumber) {
+        List<Stock> myVaccine = (List<Stock>) stock.stream().filter(s -> (s.getVaccine().getBatchNumber().equals(vaccineBatchNumber))).toList();
+        int myStockIndex = stock.indexOf(myVaccine.get(0));
+        Stock myStock = stock.get(myStockIndex);
+
+        if (myStock != null) {
+
+            if (myStock.getSupplyStatus().equals("Depleted")) {
+                myStock.setSupplyStatus("Active");
+            }
+
+            myStock.updateQuantity(1);
+        }
+
+        Vaccination_Centre.updateCentre(this);
+    }
+
+    // Subtract stock when new candidate added
+    public String useStock(String vaccineBrand) {
+
+//        List<Stock> vaccinesOfBrand = new ArrayList<>();
+        List<Stock> vaccineBrandList = (List<Stock>) stock.stream().filter(s -> (s.getVaccine().getName().equals(vaccineBrand))).toList();
+
+        //Find first available stock and update
+        for (Stock s : vaccineBrandList) {
+            if (s.getSupplyStatus().equals("Active")) {
+                s.updateQuantity(-1);
+
+                if (s.getQuantity() == 0) {
+                    s.setSupplyStatus("Depleted");
+                }
+
+                Vaccination_Centre.updateCentre(this);
+
+                return s.getVaccine().getBatchNumber();
+            }
+        }
+        return null;
+
     }
 
     //Interface implementation
