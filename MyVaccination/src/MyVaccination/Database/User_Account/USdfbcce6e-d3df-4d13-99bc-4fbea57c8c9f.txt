@@ -1,0 +1,1 @@
+{"status":"Active","state":"Kedah","clearance":"Staff","userId":"USdfbcce6e-d3df-4d13-99bc-4fbea57c8c9f","username":"asd","password":"Personnel_8c9f","userType":"Personnel"}

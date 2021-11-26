@@ -5,13 +5,15 @@
  */
 package MyVaccination.Classes;
 
+import MyVaccination.Helper_Classes.File_Helper;
 import MyVaccination.Helper_Classes.File_Methods;
+import java.util.UUID;
 
 /**
  *
  * @author leebe
  */
-public class User implements File_Methods{
+public class User implements File_Methods {
 
     private String userId;
     public String username;
@@ -21,69 +23,85 @@ public class User implements File_Methods{
     public static void Login() {
         //Placeholder code for Login process, maybe return User class?
     }
-    
-    public User(){
-        
+
+    public User() {
+
     }
-    
-    public User(String id, String name, String pass, String type){
+
+    //Default user account values
+    public User(String userType, boolean forceOverload) {
+        userId = "US" + UUID.randomUUID().toString();
+        this.userType = userType;
+        this.password = userType + "_" + userId.substring(userId.length() - 4);
+    }
+
+    public User(String userId) {
+        this.userId = userId;
+    }
+
+    public User(String id, String name, String pass, String type) {
         this.userId = "US_" + id;
         this.username = name;
         this.password = pass;
         this.userType = type;
     }
-    
-    public void Login(String id, String name, String pass, String type){
+
+    public void Login(String id, String name, String pass, String type) {
         this.userId = "US_" + id;
         this.username = name;
         this.password = pass;
         this.userType = type;
     }
-    
-    public User getUser(){
+
+    public User getUser() {
         return this;
     }
-    
-    public String getUserId(){
+
+    public String getUserId() {
         return this.userId;
     }
-    
-    public String getUsername(){
+
+    public String getUsername() {
         return this.username;
     }
-    
-    public String getPassword(){
+
+    public String getPassword() {
         return this.password;
     }
-    
-    public String getUserType(){
+
+    public String getUserType() {
         return this.userType;
     }
-    
-    public void setUserId(String id){
+
+    public void setUserId(String id) {
         this.userId = "US_" + id;
     }
-    
-    public void setUsername(String name){
+
+    public void setUsername(String name) {
         this.username = name;
     }
-    
-    public void setPassword(String pass){
+
+    public void setPassword(String pass) {
         this.password = pass;
     }
-    
-    public void setUserType(String type){
+
+    public void setUserType(String type) {
         this.userType = type;
     }
-    
+
+    public static boolean saveUser(User obj) {
+        boolean saveSuccess = File_Helper.saveData(obj, "User_Account");
+        return saveSuccess;
+    }
+
     @Override
-    public String getFileName(){
+    public String getFileName() {
         return "User_Account/" + userId + ".txt";
-    }        
-    
+    }
+
     @Override
-    public String setFileName(){
+    public String setFileName() {
         return "" + userId;
     }
-    
+
 }

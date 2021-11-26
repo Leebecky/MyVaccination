@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
@@ -120,8 +121,55 @@ public class Appointment implements File_Methods {
         this.appointmentType = appointmentType;
     }
 
-    // Create new batch of appointments
+    // Create new batch of appointments/updating appointments
     public static boolean updateAppointment(Appointment apt) {
+        Appointment oriApt = Appointment.getAppointmentDetails(apt.getAppointmentId());
+        List<Candidate> candidateList = apt.getCandidateList();
+        Vaccination_Centre vc = Vaccination_Centre.getCentre(apt.getCentreId());
+
+        if (oriApt != null) { //If existing appointment
+            //Removed Candidates - add stock
+            List<Candidate> currentList = apt.getCandidateList();
+            for (Candidate oriC : oriApt.getCandidateList()) {
+                Optional<Candidate> existingCandidate = currentList.stream().filter(c -> (c.getCandidateId().equals(oriC.getCandidateId()))).findFirst();
+                if (existingCandidate.isEmpty()) {
+                    vc.refundStock(oriC.getVaccineBatchNumber());
+
+                    String vStatus = (oriC.findCandidate().getStatus().contains("2")) ? "1st Dose Appointment Completed" : "Not Vaccinated";
+
+                    oriC.updateCandidateStatus(vStatus, "Removed", apt.getAppointmentId(), "Remove");
+                }
+            }
+
+            //Added Candidates - subtract stock
+            for (Candidate aptC : candidateList) {
+                List<Candidate> oriList = oriApt.getCandidateList();
+                Optional<Candidate> addedCandidate = oriList.stream().filter(c -> (c.getCandidateId().equals(aptC.getCandidateId()))).findFirst();
+
+                if (addedCandidate.isEmpty()) {
+                    String vaccineBatchNum = vc.useStock(apt.getVaccineBrand());
+                    aptC.setVaccineBatchNumber(vaccineBatchNum);
+                    String vStatus = (aptC.findCandidate().getStatus().contains("1")) ? "2nd Dose Appointment Pending" : "1st Dose Appointment Pending";
+
+                    aptC.updateCandidateStatus(vStatus, "Pending", apt.getAppointmentId(), "Add");
+//                    aptC.findCandidate().updateVaccinationHistory(apt.getAppointmentId(), "Add");
+                }
+            }
+        } else { //If new appointment
+            for (Candidate aptC : candidateList) {
+                //Added Candidates - subtract stock
+                String vaccineBatchNum = vc.useStock(apt.getVaccineBrand());
+                aptC.setVaccineBatchNumber(vaccineBatchNum);
+
+                String vStatus = (aptC.findCandidate().getStatus().contains("1")) ? "2nd Dose Appointment Pending" : "1st Dose Appointment Pending";
+
+                aptC.updateCandidateStatus(vStatus, "Pending", apt.getAppointmentId(), "Add");
+//                aptC.findCandidate().updateVaccinationHistory(apt.getAppointmentId(), "Add");
+            }
+        }
+
+        apt.setCandidateList(candidateList);
+
         //Save appointment
         boolean saveSuccess = File_Helper.saveData(apt, "Appointment");
 
@@ -168,7 +216,7 @@ public class Appointment implements File_Methods {
         } else if (action.equals("Remove")) {
             int remove = -1;
             for (int i = 0; i < candidateList.size(); i++) {
-                if (candidateList.get(i).getCandidate().getUserId().equals(candidate.getCandidate().getUserId())) {
+                if (candidateList.get(i).getCandidateId().equals(candidate.getCandidateId())) {
                     remove = i;
                 }
             }
@@ -186,19 +234,19 @@ public class Appointment implements File_Methods {
                 ? appointment : new Appointment();
 
         List<Candidate> candidateList = apt.getCandidateList();
-        List<People> peopleList = People.getuserFolderData();
+        List<People> peopleList = People.getFolderData();
         List<People> potentialCandidateList = new ArrayList<>();
         List<People> removalList = new ArrayList<>();
 
         for (People user : peopleList) {
-            if (!user.getStatus().equals("Fully Vaccinated")) {
+            if (!user.getStatus().equals("Fully Vaccinated") && (!user.getStatus().contains("Pending"))) {
                 potentialCandidateList.add(user);
             }
         }
 
         potentialCandidateList.forEach(c -> {
             for (Candidate cd : candidateList) {
-                if (c.getUserId().equals(cd.getCandidate().getUserId())) {
+                if (c.getUserId().equals(cd.findCandidate().getUserId())) {
                     removalList.add(c);
                 }
             }
@@ -312,11 +360,6 @@ class AppointmentCandidate_TableModel extends AbstractTableModel {
         tableType = "Potential";
     }
 
-//    public AppointmentCandidate_TableModel(String appointmentId) {
-//        Appointment apt = (appointmentId.equals("")) ? new Appointment() : Appointment.getAppointmentDetails(appointmentId);
-//        candidateList = apt.getCandidateList();
-//        tableType = "Appointment";
-//    }
     public AppointmentCandidate_TableModel(Appointment apt) {
         candidateList = apt.getCandidateList();
         tableType = "Appointment";
@@ -325,7 +368,7 @@ class AppointmentCandidate_TableModel extends AbstractTableModel {
     @Override
     public int getRowCount() {
 
-        if (tableType == "Appointment") {
+        if (tableType.equals("Appointment")) {
             return candidateList.size();
 
         }
@@ -340,13 +383,13 @@ class AppointmentCandidate_TableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int colIndex) {
         Object temp = null;
-        if (tableType == "Potential") {
+        if (tableType.equals("Potential")) {
             People obj = potentialCandidateList.get(rowIndex);
 
             switch (colIndex) {
 
                 case 0 -> //User Id
-                    temp = obj.getId();
+                    temp = obj.getUserId();
                 case 1 -> //Name
                     temp = obj.getName();
                 case 2 -> //Vaccination Status
@@ -360,9 +403,9 @@ class AppointmentCandidate_TableModel extends AbstractTableModel {
             switch (colIndex) {
 
                 case 0 -> //User Id
-                    temp = obj.getCandidate().getId();
+                    temp = obj.findCandidate().getUserId();
                 case 1 -> //Name
-                    temp = obj.getCandidate().getName();
+                    temp = obj.findCandidate().getName();
                 case 2 -> //Appointment Status
                     temp = obj.getApptStatus();
                 default ->
