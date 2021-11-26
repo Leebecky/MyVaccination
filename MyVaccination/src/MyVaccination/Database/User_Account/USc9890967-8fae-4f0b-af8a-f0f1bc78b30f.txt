@@ -1,0 +1,1 @@
+{"status":"Active","clearance":"Administrator","userId":"USc9890967-8fae-4f0b-af8a-f0f1bc78b30f","username":"Admin","password":"Personnel_b30f","userType":"Personnel"}

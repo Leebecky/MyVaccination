@@ -5,6 +5,14 @@
  */
 package MyVaccination;
 
+import MyVaccination.Classes.Appointment;
+import MyVaccination.Classes.People;
+import MyVaccination.Classes.Personnel;
+import MyVaccination.Classes.User;
+import MyVaccination.Helper_Classes.File_Helper;
+import MyVaccination.Helper_Classes.MyVaccination_GeneralFunctions;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author leebe
@@ -29,6 +37,16 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
+        btnAddEditApt = new javax.swing.JButton();
+        btnAddNewApt = new javax.swing.JButton();
+        btnDeleteApt = new javax.swing.JButton();
+        panelTables = new javax.swing.JTabbedPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPeople = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblPersonnel = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(945, 482));
@@ -42,9 +60,6 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         btnHome.setContentAreaFilled(false);
         btnHome.setFocusPainted(false);
         btnHome.setFocusable(false);
-        btnHome.setMaximumSize(new java.awt.Dimension(200, 60));
-        btnHome.setMinimumSize(new java.awt.Dimension(200, 60));
-        btnHome.setPreferredSize(new java.awt.Dimension(200, 60));
         btnHome.setRequestFocusEnabled(false);
         btnHome.setRolloverEnabled(false);
         btnHome.addActionListener(new java.awt.event.ActionListener() {
@@ -58,27 +73,124 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         homePersonnelHeaderLayout.setHorizontalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
-                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 734, Short.MAX_VALUE))
+                .addComponent(btnHome)
+                .addGap(0, 745, Short.MAX_VALUE))
         );
         homePersonnelHeaderLayout.setVerticalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePersonnelHeaderLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnHome))
         );
+
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Search.png"))); // NOI18N
+
+        txtSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSearchKeyTyped(evt);
+            }
+        });
+
+        btnAddEditApt.setBackground(new java.awt.Color(255, 153, 51));
+        btnAddEditApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnAddEditApt.setForeground(new java.awt.Color(0, 0, 0));
+        btnAddEditApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Edit.png"))); // NOI18N
+        btnAddEditApt.setText("Edit");
+        btnAddEditApt.setAlignmentY(0.0F);
+        btnAddEditApt.setIconTextGap(10);
+        btnAddEditApt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEditAptActionPerformed(evt);
+            }
+        });
+
+        btnAddNewApt.setBackground(new java.awt.Color(51, 51, 255));
+        btnAddNewApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnAddNewApt.setForeground(new java.awt.Color(0, 0, 0));
+        btnAddNewApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/New.png"))); // NOI18N
+        btnAddNewApt.setText("New");
+        btnAddNewApt.setAlignmentY(0.0F);
+        btnAddNewApt.setIconTextGap(10);
+        btnAddNewApt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddNewAptActionPerformed(evt);
+            }
+        });
+
+        btnDeleteApt.setBackground(new java.awt.Color(255, 51, 51));
+        btnDeleteApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnDeleteApt.setForeground(new java.awt.Color(0, 0, 0));
+        btnDeleteApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
+        btnDeleteApt.setText("Delete");
+        btnDeleteApt.setAlignmentY(0.0F);
+        btnDeleteApt.setIconTextGap(10);
+        btnDeleteApt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteAptActionPerformed(evt);
+            }
+        });
+
+        tblPeople.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        tblPeople.setModel(People.getTableModel()
+        );
+        tblPeople.setRowHeight(30);
+        tblPeople.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblPeople);
+
+        panelTables.addTab("People", jScrollPane1);
+
+        tblPersonnel.setModel(Personnel.getTableModel());
+        tblPersonnel.setRowHeight(30);
+        tblPersonnel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblPersonnel.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(tblPersonnel);
+        tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(0));
+
+        panelTables.addTab("Personnel", jScrollPane2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(homePersonnelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelTables)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
+                        .addComponent(btnAddEditApt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAddNewApt)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnDeleteApt)))
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 406, Short.MAX_VALUE))
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnAddNewApt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnDeleteApt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAddEditApt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(panelTables, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
         );
 
         pack();
@@ -92,6 +204,111 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         this.dispose();
 
     }//GEN-LAST:event_btnHomeActionPerformed
+
+    private void txtSearchKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyTyped
+        //Search
+        if (panelTables.getSelectedIndex() == 0) {
+
+            MyVaccination_GeneralFunctions.searchTable(txtSearch, tblPeople);
+        } else {
+
+            MyVaccination_GeneralFunctions.searchTable(txtSearch, tblPersonnel);
+        }
+    }//GEN-LAST:event_txtSearchKeyTyped
+
+    private void btnAddEditAptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEditAptActionPerformed
+        // Edit the selected Appointment
+        int selectedRow = -1;
+        int currentTab = panelTables.getSelectedIndex();
+
+        if (currentTab == 0) {
+            selectedRow = tblPeople.getSelectedRow();
+        } else {
+            selectedRow = tblPersonnel.getSelectedRow();
+        }
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a user!", "User", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String userId = "";
+        if (currentTab == 0) {
+            int modelRowIndex = tblPeople.convertRowIndexToModel(selectedRow);
+            userId = tblPeople.getModel().getValueAt(modelRowIndex, 0).toString();
+
+        } else {
+            int modelRowIndex = tblPersonnel.convertRowIndexToModel(selectedRow);
+            userId = tblPersonnel.getModel().getValueAt(modelRowIndex, 0).toString();
+
+        }
+        String userType = (currentTab == 0) ? "People" : "Personnel";
+        Personnel_UserRegistration form = new Personnel_UserRegistration(userId, userType);
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAddEditAptActionPerformed
+
+    private void btnAddNewAptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewAptActionPerformed
+        Personnel_UserRegistration form = new Personnel_UserRegistration();
+        form.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAddNewAptActionPerformed
+
+    private void btnDeleteAptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAptActionPerformed
+        // Delete record in table
+        int currentTab = panelTables.getSelectedIndex();
+        int selectedRow = -1;
+        String userId = "";
+        User delObj;
+
+        if (currentTab == 0) {
+            selectedRow = tblPeople.getSelectedRow();
+        } else {
+            selectedRow = tblPersonnel.getSelectedRow();
+        }
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select a user!", "User", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (currentTab == 0) {
+            int modelRowIndex = tblPeople.convertRowIndexToModel(selectedRow);
+            userId = tblPeople.getModel().getValueAt(modelRowIndex, 0).toString();
+            delObj = People.getPeople(userId);
+        } else {
+            int modelRowIndex = tblPersonnel.convertRowIndexToModel(selectedRow);
+            userId = tblPersonnel.getModel().getValueAt(modelRowIndex, 0).toString();
+            delObj = Personnel.getPersonnel(userId);
+        }
+
+        //Confirm request to delete data
+        int decision = JOptionPane.showConfirmDialog(this, "Please confirm the deletion of " + delObj.getUsername(), "User", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (decision == JOptionPane.YES_OPTION) {
+
+            boolean deleteSuccess = File_Helper.deleteFile(delObj.getFileName());
+
+            //If file failed to delete
+            if (!deleteSuccess) {
+                JOptionPane.showMessageDialog(this, "Failed to delete record for " + delObj.getUsername() + "!", "User", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        } else {
+            return;
+        }
+
+        //Refresh the table model and hide the id column
+        if (currentTab == 0) {
+
+            tblPeople.setModel(People.getTableModel());
+            tblPeople.removeColumn(tblPeople.getColumnModel().getColumn(0));
+        } else {
+
+            tblPersonnel.setModel(Personnel.getTableModel());
+            tblPersonnel.removeColumn(tblPersonnel.getColumnModel().getColumn(0));
+        }
+    }//GEN-LAST:event_btnDeleteAptActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,7 +346,17 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddEditApt;
+    private javax.swing.JButton btnAddNewApt;
+    private javax.swing.JButton btnDeleteApt;
     private javax.swing.JButton btnHome;
     private javax.swing.JPanel homePersonnelHeader;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane panelTables;
+    private javax.swing.JTable tblPeople;
+    private javax.swing.JTable tblPersonnel;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }

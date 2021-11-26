@@ -1,0 +1,1 @@
+{"appointmentId":"APT_2972bf96-706c-4e85-9547-894a93962158","centreId":"VC_ed5eeb8f-7a97-46ca-9b14-e4d53b40b473","candidateList":[],"appointmentDate":"2021-11-11","appointmentTime":"04:30","appointmentType":"Public","vaccineBrand":"AstraZeneca"}

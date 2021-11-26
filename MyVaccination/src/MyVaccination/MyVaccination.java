@@ -5,26 +5,7 @@
  */
 package MyVaccination;
 
-import MyVaccination.Classes.Pfizer;
-import MyVaccination.Classes.Vaccine;
-import MyVaccination.Classes.AstraZeneca;
-import MyVaccination.Classes.Stock;
-import MyVaccination.Classes.Vaccination_Centre;
-import MyVaccination.Gson.LocalDateAdapter;
-import MyVaccination.Helper_Classes.File_Helper;
 import com.formdev.flatlaf.FlatIntelliJLaf;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
-//import org.json.JSONObject;
-import com.google.gson.*;
-import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
 
 /**
  *
