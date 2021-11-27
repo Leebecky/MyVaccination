@@ -47,9 +47,12 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         tblPeople = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPersonnel = new javax.swing.JTable();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(945, 482));
+        setTitle("MyVaccination");
+        setPreferredSize(new java.awt.Dimension(944, 539));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -74,7 +77,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addGap(0, 745, Short.MAX_VALUE))
+                .addGap(0, 744, Short.MAX_VALUE))
         );
         homePersonnelHeaderLayout.setVerticalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,8 +86,11 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
                 .addComponent(btnHome))
         );
 
+        getContentPane().add(homePersonnelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Search.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 100, 41, 41));
 
         txtSearch.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -92,6 +98,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
                 txtSearchKeyTyped(evt);
             }
         });
+        getContentPane().add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 105, 322, 33));
 
         btnAddEditApt.setBackground(new java.awt.Color(255, 153, 51));
         btnAddEditApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -105,6 +112,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
                 btnAddEditAptActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAddEditApt, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, -1, 41));
 
         btnAddNewApt.setBackground(new java.awt.Color(51, 51, 255));
         btnAddNewApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -118,6 +126,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
                 btnAddNewAptActionPerformed(evt);
             }
         });
+        getContentPane().add(btnAddNewApt, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, -1, 41));
 
         btnDeleteApt.setBackground(new java.awt.Color(255, 51, 51));
         btnDeleteApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -131,6 +140,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
                 btnDeleteAptActionPerformed(evt);
             }
         });
+        getContentPane().add(btnDeleteApt, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, -1, 41));
 
         tblPeople.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         tblPeople.setModel(People.getTableModel()
@@ -138,6 +148,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         tblPeople.setRowHeight(30);
         tblPeople.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblPeople);
+        tblPeople.removeColumn(tblPeople.getColumnModel().getColumn(0));
 
         panelTables.addTab("People", jScrollPane1);
 
@@ -150,48 +161,23 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
         panelTables.addTab("Personnel", jScrollPane2);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(homePersonnelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelTables)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 213, Short.MAX_VALUE)
-                        .addComponent(btnAddEditApt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAddNewApt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDeleteApt)))
-                .addGap(33, 33, 33))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnAddNewApt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnDeleteApt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnAddEditApt, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(panelTables, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
-        );
+        getContentPane().add(panelTables, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 147, 870, 320));
+
+        btnBack.setBackground(new java.awt.Color(204, 153, 255));
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N
+        btnBack.setBorder(null);
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setFocusPainted(false);
+        btnBack.setFocusable(false);
+        btnBack.setRequestFocusEnabled(false);
+        btnBack.setRolloverEnabled(false);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 66, -1, 28));
 
         pack();
         setLocationRelativeTo(null);
@@ -310,6 +296,14 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnDeleteAptActionPerformed
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // Return to Personnel Home page
+         Personnel_Home home = new Personnel_Home();
+        home.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -348,6 +342,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEditApt;
     private javax.swing.JButton btnAddNewApt;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeleteApt;
     private javax.swing.JButton btnHome;
     private javax.swing.JPanel homePersonnelHeader;

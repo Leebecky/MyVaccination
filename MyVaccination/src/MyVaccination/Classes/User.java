@@ -19,20 +19,15 @@ public class User implements File_Methods {
     public String username;
     private String password;
     protected String userType;
+    private String email;
+    private String contactNumber;
 
-    public static void Login() {
-        //Placeholder code for Login process, maybe return User class?
-    }
-
-    public User() {
-
-    }
-
+//    public User() {
+//
+//    }
     //Default user account values
-    public User(String userType, boolean forceOverload) {
-        userId = "US" + UUID.randomUUID().toString();
-        this.userType = userType;
-        this.password = userType + "_" + userId.substring(userId.length() - 4);
+    public User() {
+        userId = "US_" + UUID.randomUUID().toString();
     }
 
     public User(String userId) {
@@ -72,6 +67,14 @@ public class User implements File_Methods {
     public String getUserType() {
         return this.userType;
     }
+    
+    public String getContactNumber() {
+        return this.contactNumber;
+    }
+    
+    public String getEmail() {
+        return this.email;
+    }
 
     public void setUserId(String id) {
         this.userId = "US_" + id;
@@ -88,10 +91,41 @@ public class User implements File_Methods {
     public void setUserType(String type) {
         this.userType = type;
     }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
 
     public static boolean saveUser(User obj) {
         boolean saveSuccess = File_Helper.saveData(obj, "User_Account");
         return saveSuccess;
+    }
+    
+    public String getDefaultPassword(User obj) {
+         String defaultPassword = "";
+        if (obj.userType.equals("Personnel")) {
+            String username = obj.getUsername().replace(" ", "");
+            defaultPassword = username.concat("_" + obj.getUserId().substring(obj.getUserId().length() - 4));
+        } else {
+            People p = (People) obj;
+            String dob = p.getDob().toString().replace("-", "");
+
+            defaultPassword = p.getId().concat("_" + dob);
+        }
+        return defaultPassword;
+    }
+
+    //Registering new User by Personnel
+    public static boolean registerUser_Personnel(User obj) {
+        String defaultPassword = obj.getDefaultPassword(obj);
+        obj.setPassword(defaultPassword);
+
+        return saveUser(obj);
+
     }
 
     @Override

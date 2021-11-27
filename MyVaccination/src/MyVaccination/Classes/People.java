@@ -28,7 +28,8 @@ public class People extends User {
     private List<String> vaccinationHistory;
 
     public People() {
-        super("People", true);
+        super();
+        this.userType = "People";
         this.vaccinationStatus = "Not Vaccinated";
         
     }
@@ -103,7 +104,7 @@ public class People extends User {
         if (this.vaccinationHistory == null) {
             this.vaccinationHistory = new ArrayList<>();
         }
-
+        
         if (updateType.equals("Add")) {
 
             this.vaccinationHistory.add(aptId);

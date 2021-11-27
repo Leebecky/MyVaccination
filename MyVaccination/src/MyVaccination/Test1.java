@@ -19,9 +19,9 @@ import java.util.UUID;
 public class Test1 {
     public static void main(String[] args) {
     // new FileHelper write read fie
-    User user1 = new User();
-    User user2 = new User();
-    User user3 = new User();
+//    User user1 = new User();
+//    User user2 = new User();
+//    User user3 = new User();
 
 //    user1.Login("010515-07-0390", "Chang", "chang06", "Non-Citizen");
 //    user2.setLogin(UUID.randomUUID().toString(), "Tan", "tan02", "Non-Citizen");

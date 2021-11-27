@@ -41,6 +41,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         txtVcSearch = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnAddEditVc = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manage Vaccination Centre");
@@ -70,7 +71,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addGap(0, 762, Short.MAX_VALUE))
+                .addGap(0, 744, Short.MAX_VALUE))
         );
         homePersonnelHeaderLayout.setVerticalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,8 +93,6 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         btnAddNewVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnAddNewVc.setForeground(new java.awt.Color(0, 0, 0));
         btnAddNewVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/New.png"))); // NOI18N
-        btnAddNewVc.setText("New");
-        btnAddNewVc.setAlignmentY(0.0F);
         btnAddNewVc.setIconTextGap(10);
         btnAddNewVc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -105,8 +104,6 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         btnDeleteVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnDeleteVc.setForeground(new java.awt.Color(0, 0, 0));
         btnDeleteVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
-        btnDeleteVc.setText("Delete");
-        btnDeleteVc.setAlignmentY(0.0F);
         btnDeleteVc.setIconTextGap(10);
         btnDeleteVc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,12 +125,25 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         btnAddEditVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnAddEditVc.setForeground(new java.awt.Color(0, 0, 0));
         btnAddEditVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Edit.png"))); // NOI18N
-        btnAddEditVc.setText("Edit");
-        btnAddEditVc.setAlignmentY(0.0F);
         btnAddEditVc.setIconTextGap(10);
         btnAddEditVc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddEditVcActionPerformed(evt);
+            }
+        });
+
+        btnBack.setBackground(new java.awt.Color(204, 153, 255));
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N
+        btnBack.setBorder(null);
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setFocusPainted(false);
+        btnBack.setFocusable(false);
+        btnBack.setRequestFocusEnabled(false);
+        btnBack.setRolloverEnabled(false);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
             }
         });
 
@@ -156,13 +166,18 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
                         .addComponent(btnAddNewVc)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeleteVc)))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(btnBack)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAddNewVc, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -173,7 +188,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 128, Short.MAX_VALUE))
+                .addGap(0, 83, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAddNewVc, txtVcSearch});
@@ -251,6 +266,14 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         MyVaccination_GeneralFunctions.searchTable(txtVcSearch, tblVc);
     }//GEN-LAST:event_txtVcSearchKeyTyped
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+      // Return to Personnel Home page
+         Personnel_Home home = new Personnel_Home();
+        home.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -289,6 +312,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddEditVc;
     private javax.swing.JButton btnAddNewVc;
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnDeleteVc;
     private javax.swing.JButton btnHome;
     private javax.swing.JPanel homePersonnelHeader;

@@ -132,7 +132,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Vaccination Centre"/>
+    <Property name="title" type="java.lang.String" value="MyVaccination"/>
     <Property name="name" type="java.lang.String" value="frmVc" noResource="true"/>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
       <Connection component="Form" name="preferredSize" type="property"/>

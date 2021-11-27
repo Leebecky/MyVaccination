@@ -187,7 +187,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         diaResupplyLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbResupplyVaccine, spinResupply});
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Vaccination Centre");
+        setTitle("MyVaccination");
         setName("frmVc"); // NOI18N
         setSize(getPreferredSize());
         addWindowListener(new java.awt.event.WindowAdapter() {
