@@ -161,6 +161,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         btnCancelDose2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MyVaccination");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         userHeader.setBackground(new java.awt.Color(204, 153, 255));
@@ -622,7 +623,12 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
         
         userFromFile.setStatus("Not Vaccinated");
+        userFromFile.updateVaccinationHistory(userFromFile.getVacHistory().get(0), "Remove");
         File_Helper.saveData(userFromFile, "User_Account");
+        
+        User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+        viewStatus.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnCancelDose1ActionPerformed
 
     /**

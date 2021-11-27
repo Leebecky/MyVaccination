@@ -44,6 +44,8 @@ public class User_EditProfile extends javax.swing.JFrame {
         txtFullName.setText(userFromFile.getName());
         txtIcPassport.setText(userFromFile.getId());
         dtDoB.setDate(userFromFile.getDob());
+        txtEmail.setText(userFromFile.getEmail());
+        txtPhone.setText(userFromFile.getPhone());
         cmbGender.setSelectedItem(userFromFile.getGender());
         cmbNationality.setSelectedItem(userFromFile.getNation());
         cmbLocation.setSelectedItem(userFromFile.getAddress());
@@ -80,6 +82,10 @@ public class User_EditProfile extends javax.swing.JFrame {
         btnSave = new javax.swing.JButton();
         lblId = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtPhone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
@@ -185,54 +191,54 @@ public class User_EditProfile extends javax.swing.JFrame {
 
         txtIcPassport.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         txtIcPassport.setName(""); // NOI18N
-        getContentPane().add(txtIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 218, 30));
+        getContentPane().add(txtIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 218, 30));
 
         jLabel4.setText("IC/Passport :");
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 220, -1, -1));
 
-        jLabel5.setText("Date of Birth :");
+        jLabel5.setText("Email :");
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, 30));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, 30));
 
         jLabel6.setText("Nationality :");
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 280, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel7.setText("Current Location :");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 310, -1, 30));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 340, -1, 30));
 
-        jLabel9.setText("Gender :");
+        jLabel9.setText("Phone Number :");
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, -1, -1));
 
         dtDoB.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(dtDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, 218, 30));
+        getContentPane().add(dtDoB, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 218, 30));
 
         cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Malaysian", "Non Malaysian" }));
         cmbNationality.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 218, -1));
+        getContentPane().add(cmbNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 218, -1));
 
         cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         cmbGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 218, -1));
+        getContentPane().add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, 218, -1));
 
         cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selangor", "Kuala Lumpur", "Penang", "Johor", "Kedah", "Pahang" }));
         cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 310, 218, 40));
+        getContentPane().add(cmbLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 340, 218, 40));
 
-        btnCancel.setBackground(new java.awt.Color(204, 153, 255));
-        btnCancel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         btnCancel.setText("Cancel");
+        btnCancel.setBackground(new java.awt.Color(204, 153, 255));
         btnCancel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancel.setBorderPainted(false);
+        btnCancel.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 120, 50));
+        getContentPane().add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 400, 120, 50));
 
         btnSave.setText("Save");
         btnSave.setBackground(new java.awt.Color(204, 153, 255));
@@ -244,7 +250,7 @@ public class User_EditProfile extends javax.swing.JFrame {
                 btnSaveActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 390, 120, 50));
+        getContentPane().add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 400, 120, 50));
 
         lblId.setText("userIc");
         lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
@@ -254,7 +260,23 @@ public class User_EditProfile extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
         jLabel2.setText("**This will be your  login username");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, -1, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, -1, 20));
+
+        jLabel8.setText("Date of Birth :");
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, -1, 30));
+
+        txtEmail.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        txtEmail.setName(""); // NOI18N
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 218, 30));
+
+        jLabel10.setText("Gender :");
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, -1, -1));
+
+        txtPhone.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        txtPhone.setName(""); // NOI18N
+        getContentPane().add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 160, 218, 30));
 
         pack();
         setLocationRelativeTo(null);
@@ -337,6 +359,8 @@ public class User_EditProfile extends javax.swing.JFrame {
         String fullname = txtFullName.getText();
         String ic = txtIcPassport.getText();
         LocalDate dob = dtDoB.getDate();
+        String email = txtEmail.getText();
+        String phone = txtPhone.getText();
         String gender = String.valueOf(cmbGender.getSelectedItem());
         String nationality = String.valueOf(cmbNationality.getSelectedItem());
         String location = String.valueOf(cmbLocation.getSelectedItem());
@@ -344,7 +368,7 @@ public class User_EditProfile extends javax.swing.JFrame {
         
         boolean isBlank = false;
         String todaydt = java.time.LocalDate.now().toString();
-        if(fullname.equals("") || ic.equals("")){
+        if(fullname.equals("") || ic.equals("") || email.equals("") || phone.equals("")){
             isBlank = true;
         }
         
@@ -358,6 +382,8 @@ public class User_EditProfile extends javax.swing.JFrame {
             userInfo.setId(ic);
             userInfo.setUsername(ic);
             userInfo.setDob(dob);
+            userInfo.setEmail(email);
+            userInfo.setPhone(phone);
             userInfo.setGender(gender);
             userInfo.setNation(nationality);
             userInfo.setAddress(location);
@@ -435,20 +461,24 @@ public class User_EditProfile extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbNationality;
     private com.github.lgooddatepicker.components.DatePicker dtDoB;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblViewProfile;
+    private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtFullName;
     private javax.swing.JTextField txtIcPassport;
+    private javax.swing.JTextField txtPhone;
     private javax.swing.JPanel userHeader;
     // End of variables declaration//GEN-END:variables
 }

@@ -30,7 +30,7 @@ public class User implements File_Methods {
 
     //Default user account values
     public User(String userType, boolean forceOverload) {
-        userId = "US" + UUID.randomUUID().toString();
+        userId = "US_" + UUID.randomUUID().toString();
         this.userType = userType;
         this.password = userType + "_" + userId.substring(userId.length() - 4);
     }

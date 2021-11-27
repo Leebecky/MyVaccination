@@ -25,6 +25,8 @@ public class People extends User {
     public String vaccinationStatus;
     public String address;
     public String gender;
+    public String email;
+    public String phone;
     private List<String> vaccinationHistory;
 
     public People() {
@@ -33,7 +35,7 @@ public class People extends User {
         
     }
 
-    public People(String n, LocalDate dob, String id, String nat, String v, String a, String g) {
+    public People(String n, LocalDate dob, String id, String nat, String v, String a, String g, String e, String p) {
         this.name = n;
         this.dateOfBirth = dob;
         this.identification = id;
@@ -41,6 +43,8 @@ public class People extends User {
         this.vaccinationStatus = v;
         this.address = a;
         this.gender = g;
+        this.email = e;
+        this.phone = p;
     }
 
     public String getName() {
@@ -69,6 +73,14 @@ public class People extends User {
 
     public String getGender() {
         return this.gender;
+    }
+    
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getPhone() {
+        return this.phone;
     }
     
     public List<String> getVacHistory(){
@@ -101,6 +113,14 @@ public class People extends User {
 
     public void setGender(String g) {
         this.gender = g;
+    }
+    
+    public void setEmail(String e) {
+        this.email = e;
+    }
+
+    public void setPhone(String p) {
+        this.phone = p;
     }
     
     public void setVacHistory(List<String> vh) {
