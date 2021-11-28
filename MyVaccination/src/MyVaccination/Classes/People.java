@@ -34,7 +34,7 @@ public class People extends User {
         
     }
 
-    public People(String n, LocalDate dob, String id, String nat, String v, String a, String g) {
+    public People(String n, LocalDate dob, String id, String nat, String v, String a, String g, String email, String phoneNum) {
         this.name = n;
         this.dateOfBirth = dob;
         this.identification = id;
@@ -42,6 +42,8 @@ public class People extends User {
         this.vaccinationStatus = v;
         this.address = a;
         this.gender = g;
+        this.email = email;
+        this.contactNumber = phoneNum;
     }
 
     public String getName() {
