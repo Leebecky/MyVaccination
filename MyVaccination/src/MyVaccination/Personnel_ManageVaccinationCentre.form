@@ -39,9 +39,9 @@
                       <Component id="txtVcSearch" min="-2" pref="322" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnAddEditVc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnAddNewVc" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btnDeleteVc" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -59,11 +59,11 @@
               <Component id="homePersonnelHeader" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnBack" min="-2" pref="28" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnDeleteVc" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="btnAddNewVc" linkSize="1" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
+                      <Component id="btnDeleteVc" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="btnAddEditVc" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -71,9 +71,9 @@
                       <Component id="jLabel1" alignment="1" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="303" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="84" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,7 +91,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="btnHome" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="735" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="744" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -170,7 +170,6 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/MyVaccination/Images/Icons/New.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="New"/>
         <Property name="iconTextGap" type="int" value="10"/>
       </Properties>
       <Events>
@@ -191,7 +190,6 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/MyVaccination/Images/Icons/Delete.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Delete"/>
         <Property name="iconTextGap" type="int" value="10"/>
       </Properties>
       <Events>
@@ -232,7 +230,6 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/MyVaccination/Images/Icons/Edit.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Edit"/>
         <Property name="iconTextGap" type="int" value="10"/>
       </Properties>
       <Events>

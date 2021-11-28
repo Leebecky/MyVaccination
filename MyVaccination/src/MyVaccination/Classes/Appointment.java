@@ -227,14 +227,11 @@ public class Appointment implements File_Methods {
         }
     }
 
-    //Get potential candidates
+    //Load candidate 
     public static List<People> getAptCandidateList(Appointment appointment) {
 
         Appointment apt = (appointment != null)
                 ? appointment : new Appointment();
-
-        Vaccination_Centre vc = Vaccination_Centre.getCentre(appointment.getCentreId());
-        String state = (vc != null) ? vc.getLocation().getState() : "All";
 
         List<Candidate> candidateList = apt.getCandidateList();
         List<People> peopleList = People.getFolderData();
@@ -248,19 +245,11 @@ public class Appointment implements File_Methods {
         }
 
         potentialCandidateList.forEach(c -> {
-//            for (Candidate cd : candidateList) {
-//                //Only accept candidates from same state as vaccination centre
-////                if (c.getUserId().equals(cd.findCandidate().getUserId())) {
-////                    removalList.add(c);
-////                }
-//            }
-//                People myCandidate = c.findCandidate();
-                if (!state.equals("All")) {
-
-                    if (!c.getAddress().equals(state)) {
-                        removalList.add(c);
-                    }
+            for (Candidate cd : candidateList) {
+                if (c.getUserId().equals(cd.findCandidate().getUserId())) {
+                    removalList.add(c);
                 }
+            }
         });
 
         potentialCandidateList.removeAll(removalList);

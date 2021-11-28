@@ -8,8 +8,6 @@ package MyVaccination;
 //import static MyVaccination.MyVaccination.parseGsonArray;
 import MyVaccination.Helper_Classes.File_Helper;
 import MyVaccination.Classes.*;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
@@ -19,11 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.plaf.IconUIResource;
 
 /**
  *
@@ -49,6 +44,7 @@ public class Login extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         diaChangePassword = new javax.swing.JDialog();
         btnPasswordShow_Old = new javax.swing.JButton();
@@ -56,15 +52,14 @@ public class Login extends javax.swing.JFrame {
         txtChangeUsername = new javax.swing.JTextField();
         txtResetPassword = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
-        txtNewPassword = new javax.swing.JPasswordField();
+        txtConfirmPassword = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         lblResetPassword = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtConfirmPassword = new javax.swing.JPasswordField();
-        btnPasswordShow_New = new javax.swing.JButton();
+        txtConfirmPassword1 = new javax.swing.JPasswordField();
+        btnPasswordShow2 = new javax.swing.JButton();
         btnConfirmChange = new javax.swing.JButton();
         btnCancelChange = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
@@ -80,40 +75,31 @@ public class Login extends javax.swing.JFrame {
 
         diaChangePassword.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         diaChangePassword.setTitle("MyVaccination");
-        diaChangePassword.setMinimumSize(new java.awt.Dimension(690, 370));
-        diaChangePassword.setPreferredSize(new java.awt.Dimension(690, 370));
-        diaChangePassword.setResizable(false);
-        diaChangePassword.setSize(new java.awt.Dimension(690, 370));
-        diaChangePassword.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        diaChangePassword.setMinimumSize(diaChangePassword.getPreferredSize());
+        diaChangePassword.setSize(new java.awt.Dimension(672, 309));
 
         btnPasswordShow_Old.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwOpen.png"))); // NOI18N
+        btnPasswordShow_Old.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwClose.png"))); // NOI18N
         btnPasswordShow_Old.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPasswordShow_OldActionPerformed(evt);
             }
         });
-        diaChangePassword.getContentPane().add(btnPasswordShow_Old, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 83, -1, 24));
 
         jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Username :");
-        diaChangePassword.getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 38, 139, -1));
 
         txtChangeUsername.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        diaChangePassword.getContentPane().add(txtChangeUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 35, 284, -1));
 
         txtResetPassword.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        diaChangePassword.getContentPane().add(txtResetPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 83, 284, -1));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Old Password :");
-        diaChangePassword.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 89, 139, -1));
 
-        txtNewPassword.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        diaChangePassword.getContentPane().add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 125, 284, -1));
+        txtConfirmPassword.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("New Password :");
-        diaChangePassword.getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 128, 139, -1));
 
         lblResetPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblResetPassword.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -129,45 +115,107 @@ public class Login extends javax.swing.JFrame {
                 lblResetPasswordMousePressed(evt);
             }
         });
-        diaChangePassword.getContentPane().add(lblResetPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("Confirm New Password :");
-        diaChangePassword.getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, -1, -1));
 
-        txtConfirmPassword.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        diaChangePassword.getContentPane().add(txtConfirmPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, 284, -1));
+        txtConfirmPassword1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        btnPasswordShow_New.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwOpen.png"))); // NOI18N
-        btnPasswordShow_New.addActionListener(new java.awt.event.ActionListener() {
+        btnPasswordShow2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwOpen.png"))); // NOI18N
+        btnPasswordShow2.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwClose.png"))); // NOI18N
+        btnPasswordShow2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPasswordShow_NewActionPerformed(evt);
+                btnPasswordShow2ActionPerformed(evt);
             }
         });
-        diaChangePassword.getContentPane().add(btnPasswordShow_New, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 125, -1, 24));
 
         btnConfirmChange.setBackground(new java.awt.Color(51, 255, 51));
         btnConfirmChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Save.png"))); // NOI18N
-        btnConfirmChange.setBorder(null);
-        btnConfirmChange.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmChangeActionPerformed(evt);
-            }
-        });
-        diaChangePassword.getContentPane().add(btnConfirmChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 239, 104, 39));
+        btnConfirmChange.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         btnCancelChange.setBackground(new java.awt.Color(255, 0, 0));
         btnCancelChange.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
-        btnCancelChange.setBorder(null);
+        btnCancelChange.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnCancelChange.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelChangeActionPerformed(evt);
             }
         });
-        diaChangePassword.getContentPane().add(btnCancelChange, new org.netbeans.lib.awtextra.AbsoluteConstraints(192, 239, 104, 39));
 
-        jLabel9.setText("Minimum length is 8 characters");
-        diaChangePassword.getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 170, -1));
+        javax.swing.GroupLayout diaChangePasswordLayout = new javax.swing.GroupLayout(diaChangePassword.getContentPane());
+        diaChangePassword.getContentPane().setLayout(diaChangePasswordLayout);
+        diaChangePasswordLayout.setHorizontalGroup(
+            diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diaChangePasswordLayout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addGap(50, 50, 50)
+                .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtChangeUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(diaChangePasswordLayout.createSequentialGroup()
+                        .addComponent(txtResetPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(btnPasswordShow_Old))
+                    .addGroup(diaChangePasswordLayout.createSequentialGroup()
+                        .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPasswordShow2))
+                    .addComponent(txtConfirmPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(132, 132, 132))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diaChangePasswordLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diaChangePasswordLayout.createSequentialGroup()
+                        .addComponent(btnCancelChange, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76)
+                        .addComponent(btnConfirmChange, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(176, 176, 176))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, diaChangePasswordLayout.createSequentialGroup()
+                        .addComponent(lblResetPassword)
+                        .addContainerGap())))
+        );
+
+        diaChangePasswordLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel5, jLabel6, jLabel7, jLabel8});
+
+        diaChangePasswordLayout.setVerticalGroup(
+            diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(diaChangePasswordLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtChangeUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(diaChangePasswordLayout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(jLabel5)))
+                .addGap(18, 18, 18)
+                .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtResetPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnPasswordShow_Old, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnPasswordShow2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel7)))
+                .addGap(18, 18, 18)
+                .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtConfirmPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(48, 48, 48)
+                .addGroup(diaChangePasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCancelChange, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConfirmChange, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(lblResetPassword)
+                .addContainerGap())
+        );
+
+        diaChangePasswordLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel5, jLabel6, jLabel7, jLabel8});
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
@@ -324,7 +372,7 @@ public class Login extends javax.swing.JFrame {
             if (isValid) {
                 if (userType.equals("Personnel")) {
                     JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
-                    Personnel_Home home = new Personnel_Home(userId);
+                    Personnel_Home home = new Personnel_Home();
                     home.setVisible(true);
                     this.setVisible(false);
                 } else {
@@ -397,66 +445,35 @@ public class Login extends javax.swing.JFrame {
         // Hide Password
         if (txtPassword.getEchoChar() == 0) {
             txtPassword.setEchoChar('*');
-            btnPasswordShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwOpen.png")));
 
         } else {
             //Show Password
             txtPassword.setEchoChar((char) 0);
-            btnPasswordShow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwClose.png")));
         }
     }//GEN-LAST:event_btnPasswordShowActionPerformed
 
-    private void btnPasswordShow_NewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasswordShow_NewActionPerformed
+    private void btnPasswordShow2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasswordShow2ActionPerformed
 
         // Hide Password
-        if (txtNewPassword.getEchoChar() == 0) {
-            txtNewPassword.setEchoChar('*');
-            btnPasswordShow_New.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwOpen.png")));
+        if (txtConfirmPassword.getEchoChar() == 0) {
+            txtConfirmPassword.setEchoChar('*');
 
         } else {
             //Show Password
-            txtNewPassword.setEchoChar((char) 0);
-            btnPasswordShow_New.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwClose.png")));
+            txtConfirmPassword.setEchoChar((char) 0);
         }
-    }//GEN-LAST:event_btnPasswordShow_NewActionPerformed
+    }//GEN-LAST:event_btnPasswordShow2ActionPerformed
 
     private void lblResetPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResetPasswordMousePressed
 
         // Reset Password
-        int resetDecision = JOptionPane.showConfirmDialog(this, "Are you sure you wish to reset your password to the default?", "Password Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
-        if (resetDecision == JOptionPane.YES_OPTION) {
-            String username = JOptionPane.showInputDialog(this, "Please enter your username");
-            boolean resetSuccess = false;
-            String config = "";
-//            List<People> peopleList = People.getFolderData();
-//            List<Personnel> personnelList = Personnel.getFolderData();
-//            List<User> userList = new ArrayList<>();
-//            userList.addAll(peopleList);
-//            userList.addAll(personnelList);
-//
-//            for (User u : userList) {
-//                if (u.getUsername().equals(username)) {
-//                    config = (u.getUserType().equals("Personnel")) ? "Username_(last 4 digits of your user id)" : "Username_DateOfBirth";
-//                    resetSuccess = User.registerUser_Personnel(u);
-//                    break;
-//                }
-//            }
-
-            User myUser = User.findUser(username);
-            if (myUser != null) {
-                config = (myUser.getUserType().equals("Personnel")) ? "Username_(last 4 digits of your user id)" : "Username_DateOfBirth";
-                resetSuccess = User.registerUser_Personnel(myUser);
-            }
-
-            if (resetSuccess) {
-                JOptionPane.showMessageDialog(this, "Password has been reset to the default configuration: " + config + ". Please check your email", "Password Reset", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-
-                JOptionPane.showMessageDialog(this, "User not found. Please try again", "Password Reset", JOptionPane.INFORMATION_MESSAGE);
-            }
-
-        }
+     int resetDecision = JOptionPane.showConfirmDialog(this, "Are you sure you wish to reset your password to the default?", "Password Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+     
+     if (resetDecision == JOptionPane.YES_OPTION) {
+         String username = JOptionPane.showInputDialog(this, "Please enter your username");
+         
+         
+     }
     }//GEN-LAST:event_lblResetPasswordMousePressed
 
     private void lblResetPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblResetPasswordMouseExited
@@ -482,12 +499,10 @@ public class Login extends javax.swing.JFrame {
         // Hide Password
         if (txtResetPassword.getEchoChar() == 0) {
             txtResetPassword.setEchoChar('*');
-            btnPasswordShow_Old.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwOpen.png")));
 
         } else {
             //Show Password
             txtResetPassword.setEchoChar((char) 0);
-            btnPasswordShow_Old.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwClose.png")));
         }
     }//GEN-LAST:event_btnPasswordShow_OldActionPerformed
 
@@ -496,49 +511,6 @@ public class Login extends javax.swing.JFrame {
         diaChangePassword.setVisible(false);
         diaChangePassword.dispose();
     }//GEN-LAST:event_btnCancelChangeActionPerformed
-
-    private void btnConfirmChangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmChangeActionPerformed
-        // Change Password
-        String newPassword = txtNewPassword.getText();
-        if (txtChangeUsername.getText().isBlank() || txtResetPassword.getText().isBlank() || newPassword.isBlank() || txtConfirmPassword.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Password Reset", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        User myUser = User.findUser(txtChangeUsername.getText());
-
-        if (myUser == null) {
-            JOptionPane.showMessageDialog(null, "User not found!", "Password Reset", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (!myUser.getPassword().equals(txtResetPassword.getText())) {
-            JOptionPane.showMessageDialog(null, "Password is incorrect!", "Password Reset", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (!newPassword.equals(txtConfirmPassword.getText())) {
-            JOptionPane.showMessageDialog(null, "New passwords do not match!", "Password Reset", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        if (newPassword.length() < 8) {
-            JOptionPane.showMessageDialog(null, "Password is too short!", "Password Reset", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        //If all conditions satisfied
-        myUser.setPassword(newPassword);
-        boolean changeSuccess = User.saveUser(myUser);
-
-        if (changeSuccess) {
-            JOptionPane.showMessageDialog(null, "Password successfully changed!", "Password Reset", JOptionPane.INFORMATION_MESSAGE);
-            diaChangePassword.setVisible(false);
-            diaChangePassword.dispose();
-        } else {
-                 JOptionPane.showMessageDialog(null, "Failed to update password!", "Password Reset", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_btnConfirmChangeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -580,7 +552,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirmChange;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnPasswordShow;
-    private javax.swing.JButton btnPasswordShow_New;
+    private javax.swing.JButton btnPasswordShow2;
     private javax.swing.JButton btnPasswordShow_Old;
     private javax.swing.JDialog diaChangePassword;
     private javax.swing.JLabel jLabel1;
@@ -591,7 +563,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblChangePassword;
     private javax.swing.JLabel lblLogo;
@@ -599,7 +570,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel lblResetPassword;
     private javax.swing.JTextField txtChangeUsername;
     private javax.swing.JPasswordField txtConfirmPassword;
-    private javax.swing.JPasswordField txtNewPassword;
+    private javax.swing.JPasswordField txtConfirmPassword1;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JPasswordField txtResetPassword;
     private javax.swing.JTextField txtUsername;
