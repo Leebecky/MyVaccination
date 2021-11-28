@@ -8,6 +8,7 @@ package MyVaccination.Classes;
 import MyVaccination.Helper_Classes.File_Helper;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
@@ -45,6 +46,7 @@ public class People extends User {
         this.gender = g;
         this.email = e;
         this.phone = p;
+        this.vaccinationHistory = Collections.<String>emptyList();
     }
 
     public String getName() {

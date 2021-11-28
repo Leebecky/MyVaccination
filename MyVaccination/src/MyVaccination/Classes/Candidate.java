@@ -85,4 +85,8 @@ public class Candidate {
     public void setVaccineBatchNumber(String vaccineBatchNumber) {
         this.vaccineBatchNumber = vaccineBatchNumber;
     }
+    
+    public void setApptStatus(String status){
+        this.apptStatus = status;
+    }
 }

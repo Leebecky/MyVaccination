@@ -23,5 +23,13 @@ public class CanSino extends Vaccine {
         this.dosesRequired = 1;
     }
 
-    
+    public CanSino(String batchNumber) {
+        this.manufacturer = "CanSino Biologics";
+        this.name = "CanSino";
+        this.waitTime = 0;
+        this.amount = 60;
+        this.dosage = 3;
+        this.batchNumber = batchNumber;
+        this.dosesRequired = 1;
+    }
 }

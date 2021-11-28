@@ -84,6 +84,32 @@ public class Vaccine implements File_Methods {
 
         return vaccine;
     }
+    
+    // Get Vaccine details
+    public Vaccine getVaccine(String batchNumber){
+        Vaccine vaccine;
+        String batchStart = batchNumber.substring(0, 2);
+        
+        switch(batchStart){
+            case "AZ":
+                vaccine = new AstraZeneca(batchNumber);
+                break;
+            case "CS":
+                vaccine = new CanSino(batchNumber);
+                break;
+            case "SV":
+                vaccine = new Sinovac(batchNumber);
+                break;
+            case "PF":
+                vaccine = new Pfizer(batchNumber);
+                break;
+            default:
+                vaccine = new Vaccine();
+                break;
+        }
+        
+        return vaccine;
+    }
 
     //End of class
 }

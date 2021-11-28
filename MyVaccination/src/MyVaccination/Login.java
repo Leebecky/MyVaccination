@@ -185,10 +185,19 @@ public class Login extends javax.swing.JFrame {
                 
                 if(isValid){
                     if(userType.equals("Personnel")){
-                        JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
-                        Personnel_Home home = new Personnel_Home();
-                        home.setVisible(true);
-                        this.setVisible(false);
+                        String personnelData = File_Helper.readFile("User_Account/" + userId + ".txt");
+                        Personnel personnelFromFile = File_Helper.gsonWriter.fromJson(personnelData, Personnel.class);
+                        
+                        if(personnelFromFile.getStatus().equals("Active")){
+                            JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
+                            Personnel_Home home = new Personnel_Home();
+                            home.setVisible(true);
+                            this.setVisible(false);
+                        }else{
+                            JOptionPane.showMessageDialog(null, "The account is inactive!", "Error", JOptionPane.ERROR_MESSAGE);
+                            txtUsername.setText("");
+                            txtPassword.setText("");  
+                        } 
                     }else{
                         JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
                         User_Home home = new User_Home(userId);

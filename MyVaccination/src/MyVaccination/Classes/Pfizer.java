@@ -23,4 +23,13 @@ public class Pfizer extends Vaccine {
         this.dosesRequired = 2;
     }
 
+    public Pfizer(String batchNumber) {
+        this.manufacturer = "Pfizer";
+        this.name = "Pfizer";
+        this.waitTime = 3;
+        this.amount = 50;
+        this.dosage = 5;
+        this.batchNumber = batchNumber;
+        this.dosesRequired = 2;
+    }
 }

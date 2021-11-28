@@ -72,56 +72,65 @@ public class Test1 {
 //    System.out.println(ppl.getName());
 //    System.out.println(ppl.getDob());
 
-    // Get Vaccination Centre List from Appointment text file
-        // Read folder
-        List<String> appDataArray = File_Helper.readFolder("Appointment");
-        List<Appointment> appointmentList = new ArrayList();
-        ArrayList<String> arrApp = new ArrayList<String>();
+//    // Get Vaccination Centre List from Appointment text file
+//        // Read folder
+//        List<String> appDataArray = File_Helper.readFolder("Appointment");
+//        List<Appointment> appointmentList = new ArrayList();
+//        ArrayList<String> arrApp = new ArrayList<String>();
+//
+//        appDataArray.forEach(fileInFolder -> {
+//            appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+//        });
+//
+//        // Get centre ID
+//        appointmentList.forEach(f ->  {
+//            if("Public".equals(f.getAppointmentType())){
+//                arrApp.add(f.getCentreId());
+//            }
+//        });
+//        
+//        // Remove duplicate centre ID
+//        ArrayList<String> centreList = new ArrayList<String>();
+//  
+//        for (String element : arrApp) {
+//            if (!centreList.contains(element)) {
+//  
+//                centreList.add(element);
+//            }
+//        }
+//        
+//        System.out.println("arrApp: " + arrApp);
+//        System.out.println("centreList: " + centreList);
+//        
+//        // Get centre Name
+//        List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+//        List<Vaccination_Centre> centreNameList = new ArrayList();
+//        ArrayList<String> arrCentreName = new ArrayList<String>();
+//        ArrayList<String> showCentreName = new ArrayList<String>();
+//
+//        centreDataArray.forEach(fileInFolder -> {
+//            centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+//        });
+//        
+//        // Traverse through the first list
+//        for (String element : centreList) {
+//            for (Vaccination_Centre centre: centreNameList){
+//                if (centre.getCentreId().equals(element)) {
+//                    showCentreName.add(centre.getName());
+//                }
+//            }
+//        }
+//        
+//        System.out.println("showCentreName: " + showCentreName);
 
-        appDataArray.forEach(fileInFolder -> {
-            appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
-        });
-
-        // Get centre ID
-        appointmentList.forEach(f ->  {
-            if("Public".equals(f.getAppointmentType())){
-                arrApp.add(f.getCentreId());
-            }
-        });
-        
-        // Remove duplicate centre ID
-        ArrayList<String> centreList = new ArrayList<String>();
-  
-        for (String element : arrApp) {
-            if (!centreList.contains(element)) {
-  
-                centreList.add(element);
-            }
-        }
-        
-        System.out.println("arrApp: " + arrApp);
-        System.out.println("centreList: " + centreList);
-        
-        // Get centre Name
-        List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
-        List<Vaccination_Centre> centreNameList = new ArrayList();
-        ArrayList<String> arrCentreName = new ArrayList<String>();
-        ArrayList<String> showCentreName = new ArrayList<String>();
-
-        centreDataArray.forEach(fileInFolder -> {
-            centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
-        });
-        
-        // Traverse through the first list
-        for (String element : centreList) {
-            for (Vaccination_Centre centre: centreNameList){
-                if (centre.getCentreId().equals(element)) {
-                    showCentreName.add(centre.getName());
-                }
-            }
-        }
-        
-        System.out.println("showCentreName: " + showCentreName);
+    // Get wait time
+    String id = "US_a0c7f37a-9c42-44f5-ad28-8d467c4bb56c";
+    String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+    People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+    List<String> vacHistory = userFromFile.getVacHistory();
+    String apt = userFromFile.getVacHistory().get(0);
+    
+    
 //  ===========================================
         
     // old Gson write file read file 

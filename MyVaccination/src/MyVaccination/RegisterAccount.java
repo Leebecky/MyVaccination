@@ -254,13 +254,7 @@ public class RegisterAccount extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Passwords are not same.", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
 //            String userId = "US_" + ic;
-            String userType;
-            if(nationality.equals("Malaysian")){
-                userType = "Citizen";
-            }else{
-                userType = "Non-Citizen";
-            }
-            
+            String userType = "People";
             String id = UUID.randomUUID().toString();
             
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

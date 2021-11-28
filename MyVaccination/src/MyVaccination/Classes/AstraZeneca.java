@@ -23,4 +23,13 @@ public class AstraZeneca extends Vaccine {
         this.dosesRequired = 2;
     }
 
+    public AstraZeneca(String batchNumber) {
+        this.manufacturer = "Oxford AstraZeneca";
+        this.name = "AstraZeneca";
+        this.waitTime = 12;
+        this.amount = 50;
+        this.dosage = 5;
+        this.batchNumber = batchNumber;
+        this.dosesRequired = 2;
+    }
 }

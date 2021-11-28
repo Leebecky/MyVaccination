@@ -10,6 +10,7 @@ import MyVaccination.Helper_Classes.File_Helper;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -243,7 +244,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         txtDoseStr.setColumns(20);
         txtDoseStr.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDoseStr.setRows(5);
-        txtDoseStr.setText("dose\ndose\ndose\ndose");
+        txtDoseStr.setText("supply\nsupply\nsupply\nsupply");
         jScrollPane5.setViewportView(txtDoseStr);
 
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -298,13 +299,13 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, 280, 220));
 
-        lblId.setText("userIc");
         lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblId.setForeground(new java.awt.Color(240, 240, 240));
-        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 420, 80, 40));
+        lblId.setText("userIc");
+        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 440, 80, 40));
 
-        btnSearch.setText("Search");
         btnSearch.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
@@ -428,41 +429,26 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
         int selectedRowIndex = tblAppointment.convertRowIndexToModel(selectedRow);
         String aptId = tblAppointment.getModel().getValueAt(selectedRowIndex, 0).toString();
-        
-        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
-        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-        
-        Candidate candidate = new Candidate(id);
-        
         String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
         Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
-        aptFromFile.updateAptCandidate(candidate, "Add");
-        
-        List<String> vacHis = new ArrayList<String>();
-        vacHis.add(aptId);
-        userFromFile.setVacHistory(vacHis);
-        
-        if(userFromFile.getStatus().equals("Not Vaccinated")){
-            System.out.println("Update dose 1");
-            userFromFile.setStatus("1st Dose Appointment Pending");
-        }else{
-            System.out.println("Update dose 2");
-            userFromFile.setStatus("2nd Dose Appointment Pending");
-        }
-                
-        System.out.println(userFromFile.getStatus());
-        System.out.println(userFromFile.getUserId());
 
-        File_Helper.saveData(aptFromFile, "Appointment");
-        File_Helper.saveData(userFromFile, "User_Account");
-        JOptionPane.showMessageDialog(null, "Info Updated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
-        
-        User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
-        viewStatus.setVisible(true);
-        this.setVisible(false);
+        Candidate aptCandidate = new Candidate(id, "");
+        aptFromFile.updateAptCandidate(aptCandidate, "Add");
+        boolean success = Appointment.updateAppointment(aptFromFile);
+          
+        if(success){
+            JOptionPane.showMessageDialog(null, "Info Updated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+            
+            User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+            viewStatus.setVisible(true);
+            this.setVisible(false);
+        }else{
+            JOptionPane.showMessageDialog(null, "Appointment submit failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        String id = lblId.getText();
         DefaultTableModel model = (DefaultTableModel) tblAppointment.getModel();
         model.setRowCount(0);
         
@@ -478,8 +464,6 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
         List<Vaccination_Centre> centreList = new ArrayList();
         ArrayList<String> selectedCentreId = new ArrayList<String>();
-//        ArrayList<String> selectedVaccine = new ArrayList<String>();
-//        ArrayList<String> selectedDose = new ArrayList<String>();
 
         centreDataArray.forEach(fileInFolder -> {
             centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
@@ -492,10 +476,26 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             }
         }
         
+        String centreData = File_Helper.readFile("Vaccination_Centre/" + selectedCentreId.get(0) + ".txt");
+        Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
+        Location centreLocation = centreFromFile.getLocation();
+        String centreState = centreLocation.getState();
+        lblLocation.setText(centreState);
+        
+//        List<Stock> stockList = centreFromFile.getStock();
+//        Vaccine vaccine;
+//        for(Stock stock: stockList){
+//            vaccine = new stock.getVaccine();
+//            
+//            System.out.println(vaccine.getName());
+//            System.out.println(stock.getQuantity());
+//        }
+        
         // Get Appointment that is held in the selected centre
         List<String> appDataArray = File_Helper.readFolder("Appointment");
         List<Appointment> appointmentList = new ArrayList();
         String[] data = new String[5];
+        int countReject;
 
         appDataArray.forEach(fileInFolder -> {
             appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
@@ -503,12 +503,25 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         
         for (String element : selectedCentreId) {
             for (Appointment appointment: appointmentList){
-                if (appointment.getCentreId().equals(element)) {
-                    data[0] = appointment.getAppointmentId();  
-                    data[1] = appointment.getAppointmentDate().toString();
-                    data[2] = appointment.getAppointmentTime().toString();
-                    data[3] = appointment.getVaccineBrand();
-                    model.addRow(data);
+                if (appointment.getCentreId().equals(element) && appointment.getAppointmentDate().isAfter(java.time.LocalDate.now())) {
+                    countReject = 0;
+                    if(appointment.getCandidateList().size() > 0){
+                        for(Candidate candidate: appointment.getCandidateList()){
+                            if(candidate.getCandidateId().equals(id)){
+                                if(candidate.getApptStatus().equals("Rejected")){
+                                    countReject++;
+                                }
+                            }
+                        }
+                    }
+                    
+                    if(countReject == 0){
+                        data[0] = appointment.getAppointmentId();  
+                        data[1] = appointment.getAppointmentDate().toString();
+                        data[2] = appointment.getAppointmentTime().toString();
+                        data[3] = appointment.getVaccineBrand();
+                        model.addRow(data);
+                    }
                 }
             }
         }
@@ -516,78 +529,165 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         String id = lblId.getText();
-        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
-        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
         
-        txtVaccineList.setText("");
-        txtDose.setText("");
-        txtDoseStr.setText("");
-            
-        if(userFromFile.getStatus().equals("Not Vaccinated")){
-            cmbCentre.removeAllItems();
-            cmbCentre.addItem("--- Select Centre ---");
+        if(!id.equals("userIc")){
+            String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+            People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
 
-            List<String> appDataArray = File_Helper.readFolder("Appointment");
-            List<Appointment> appointmentList = new ArrayList();
-            ArrayList<String> arrApp = new ArrayList<String>();
+            txtVaccineList.setText("");
+            txtDose.setText("");
+            txtDoseStr.setText("");
 
-            appDataArray.forEach(fileInFolder -> {
-                appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
-            });
+            if(userFromFile.getStatus().equals("Not Vaccinated")){
+                cmbCentre.removeAllItems();
+                cmbCentre.addItem("--- Select Centre ---");
 
-            // Get centre ID
-            appointmentList.forEach(f ->  {
-                if("Public".equals(f.getAppointmentType())){
-                    arrApp.add(f.getCentreId());
-                }
-            });
+                List<String> appDataArray = File_Helper.readFolder("Appointment");
+                List<Appointment> appointmentList = new ArrayList();
+                ArrayList<String> arrApp = new ArrayList<String>();
 
-            // Remove duplicate centre ID
-            ArrayList<String> centreList = new ArrayList<String>();
+                appDataArray.forEach(fileInFolder -> {
+                    appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+                });
 
-            for (String element : arrApp) {
-                if (!centreList.contains(element)) {
-                    centreList.add(element);
-                }
-            }
+                // Get centre ID
+                appointmentList.forEach(f ->  {
+                    if("Public".equals(f.getAppointmentType())){
+                        arrApp.add(f.getCentreId());
+                    }
+                });
 
-            // Get centre Name
-            List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
-            List<Vaccination_Centre> centreNameList = new ArrayList();
-            ArrayList<String> arrCentreName = new ArrayList<String>();
-            ArrayList<String> showCentreName = new ArrayList<String>();
+                // Remove duplicate centre ID
+                ArrayList<String> centreList = new ArrayList<String>();
 
-            centreDataArray.forEach(fileInFolder -> {
-                centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
-            });
-
-            for (String element : centreList) {
-                for (Vaccination_Centre centre: centreNameList){
-                    if (centre.getCentreId().equals(element)) {
-                        cmbCentre.addItem(centre.getName());
+                for (String element : arrApp) {
+                    if (!centreList.contains(element)) {
+                        centreList.add(element);
                     }
                 }
-            }
-        } else if(userFromFile.getStatus().equals("1st Dose Completed")) {
-            cmbCentre.removeAllItems();
-            
-            // See same with Not Vaccinated or not
-            // Can change centre?
-            // Can change vaccine?
-        } else if(userFromFile.getStatus().equals("Fully Vaccinated")){
-            JOptionPane.showMessageDialog(null, "You have fully vaccinated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
-            
-            User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
-            viewStatus.setVisible(true);
-            this.setVisible(false);
-        } else{
-            JOptionPane.showMessageDialog(null, "You have ongoing appointment!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
-            
-            User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
-            viewStatus.setVisible(true);
-            this.setVisible(false);
-        }
+
+                // Get centre Name
+                List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+                List<Vaccination_Centre> centreNameList = new ArrayList();
+                ArrayList<String> arrCentreName = new ArrayList<String>();
+                ArrayList<String> showCentreName = new ArrayList<String>();
+
+                centreDataArray.forEach(fileInFolder -> {
+                    centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+                });
+
+                for (String element : centreList) {
+                    for (Vaccination_Centre centre: centreNameList){
+                        if (centre.getCentreId().equals(element)) {
+                            cmbCentre.addItem(centre.getName());
+                        }
+                    }
+                }
+            } else if(userFromFile.getStatus().equals("1st Dose Completed")) {
+                DefaultTableModel model = (DefaultTableModel) tblAppointment.getModel();
+                model.setRowCount(0);
+                cmbCentre.removeAllItems();
+                cmbCentre.setEnabled(false);
+                btnSearch.setEnabled(false);
+
+                List<String> vacHistory = userFromFile.getVacHistory();
+                String apt = userFromFile.getVacHistory().get(0);
+
+                String aptData = File_Helper.readFile("Appointment/" + apt + ".txt");
+                Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
+                String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
+                Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
+
+                String centreName = centreFromFile.getName();
+                cmbCentre.addItem(centreName);
+                
+                Location centreLocation = centreFromFile.getLocation();
+                String centreState = centreLocation.getState();
+
+                // Get centre ID
+                List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+                List<Vaccination_Centre> centreList = new ArrayList();
+                ArrayList<String> selectedCentreId = new ArrayList<String>();
+
+                centreDataArray.forEach(fileInFolder -> {
+                    centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+                });
+
+                for(int i = 0; i < centreList.size(); i++){
+                    if(centreName.equals(centreList.get(i).getName())){
+                        selectedCentreId.add(centreList.get(i).getCentreId());                
+                        break;
+                    }
+                }
+
+                // Get Appointment that is held in the selected centre
+                List<String> appDataArray = File_Helper.readFolder("Appointment");
+                List<Appointment> appointmentList = new ArrayList();
+                String[] data = new String[5];
+
+                appDataArray.forEach(fileInFolder -> {
+                    appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+                });
+                
+                String aptId = userFromFile.getVacHistory().get(0);
+                List<Candidate> candidateList = aptFromFile.getCandidateList();
+                String batchNumber = "";
+
+                for(Candidate candidate: candidateList){
+                    if(candidate.getCandidateId().equals(id)){
+                        batchNumber = candidate.getVaccineBatchNumber();
+                    }
+                }
+
+                Vaccine aptVaccine = new Vaccine();
+                aptVaccine = aptVaccine.getVaccine(batchNumber);
+                String dose1Vaccine = aptVaccine.getName();
+                int waitTime = aptVaccine.getWaitTime();
+                LocalDate aptDate, earliestDate;
+                String centreId, vaccineBrand;
         
+                for (String element : selectedCentreId) {
+                    for (Appointment appointment: appointmentList){
+                        centreId = appointment.getCentreId();
+                        vaccineBrand = appointment.getVaccineBrand();     
+                        aptDate = appointment.getAppointmentDate();
+                        earliestDate = aptFromFile.getAppointmentDate().plusWeeks(waitTime);
+                        
+                        if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine)) {
+                            data[0] = appointment.getAppointmentId();  
+                            data[1] = appointment.getAppointmentDate().toString();
+                            data[2] = appointment.getAppointmentTime().toString();
+                            data[3] = appointment.getVaccineBrand();
+                            model.addRow(data);
+                        }
+                    }
+                }
+                
+                if(model.getRowCount() == 0){
+                    JOptionPane.showMessageDialog(null, "The centre currently does not open appointment for your dose 2.\nPlease check again after a few days.", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+
+                    User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+                    viewStatus.setVisible(true);
+                    this.setVisible(false);
+                }
+                
+                lblCentre.setText(centreName);
+                lblLocation.setText(centreState);
+                
+            } else if(userFromFile.getStatus().equals("Fully Vaccinated")){
+                JOptionPane.showMessageDialog(null, "You have fully vaccinated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+
+                User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+                viewStatus.setVisible(true);
+                this.setVisible(false);
+            } else{
+                JOptionPane.showMessageDialog(null, "You have ongoing appointment!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+
+                User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+                viewStatus.setVisible(true);
+                this.setVisible(false);
+            }
+        }
     }//GEN-LAST:event_formWindowOpened
 
     /**
