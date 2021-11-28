@@ -21,6 +21,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,8 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         String centreName1 = "";
         String aptTime1 = "";
         String aptDate1 = "";
+        LocalDate aptLocalDate1 = LocalDate.now();;
+        LocalDate aptLocalDate2 = LocalDate.now();;
         String centreName2 = "";
         String aptTime2 = "";
         String aptDate2 = "";
@@ -80,6 +83,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             centreName1 = centreFromFile1.getName();
             aptTime1 = apt1FromFile.getAppointmentTime().toString();
             aptDate1 = apt1FromFile.getAppointmentDate().toString();
+            aptLocalDate1 = apt1FromFile.getAppointmentDate();
             
             if(vacHistory.size() == 2){
                 apt2 = userFromFile.getVacHistory().get(1);
@@ -93,6 +97,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
                 centreName2 = centreFromFile2.getName();
                 aptTime2 = apt2FromFile.getAppointmentTime().toString();
                 aptDate2 = apt2FromFile.getAppointmentDate().toString();
+                aptLocalDate2 = apt2FromFile.getAppointmentDate();
             }
         }
         
@@ -134,6 +139,11 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             lblAppointDesc.setText("Appointment submitted.");
             btnSubmitApp.setVisible(false);
             btnCompleteDose1.setText("Complete");
+            
+            if(LocalDate.now().isBefore(aptLocalDate1)){
+                btnCompleteDose1.setEnabled(false);
+            }
+            
             lblViewDose2.setText("");
             btnCancelDose2.setVisible(false);
             btnCompleteDose2.setVisible(false);
@@ -179,7 +189,11 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             btnSubmitApp.setVisible(false);
             btnCompleteDose1.setVisible(false);
             btnCancelDose1.setVisible(false);
-            btnCompleteDose1.setText("Complete");
+            
+            if(LocalDate.now().isBefore(aptLocalDate2)){
+                btnCompleteDose2.setEnabled(false);
+            }
+            
             btnPrint.setText("");
             lblViewDose1.setText("View Appointment");
             lblViewDose2.setText("View Appointment");
@@ -949,46 +963,46 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSubmitAppActionPerformed
 
     private void btnCancelDose2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelDose2ActionPerformed
-        String id = lblId.getText();
-        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
-        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-        String aptId = userFromFile.getVacHistory().get(1);
-        String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
-        Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
-        String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
-        Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
-        List<Candidate> candidateList = aptFromFile.getCandidateList();
-        String batchNumber = "";
-        
-        for(Candidate candidate: candidateList){
-            if(candidate.getCandidateId().equals(id)){
-                batchNumber = candidate.getVaccineBatchNumber();
+        int decision = JOptionPane.showConfirmDialog(this, "Do you want to cancel this appointment?" , "Appointment", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (decision == JOptionPane.YES_OPTION) {
+            String id = lblId.getText();
+            String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+            People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+            String aptId = userFromFile.getVacHistory().get(1);
+            String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
+            Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
+            String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
+            Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
+            List<Candidate> candidateList = aptFromFile.getCandidateList();
+            String batchNumber = "";
+
+            for(Candidate candidate: candidateList){
+                if(candidate.getCandidateId().equals(id)){
+                    batchNumber = candidate.getVaccineBatchNumber();
+                }
             }
+
+            Candidate aptCandidate = new Candidate(id, "");
+            boolean success;
+
+            success = aptFromFile.updateAptStatus(aptCandidate, "Rejected");
+            centreFromFile.refundStock(batchNumber);
+
+            if(success){
+                userFromFile.setStatus("1st Dose Completed");
+                userFromFile.updateVaccinationHistory(aptId, "Remove");
+                success = File_Helper.saveData(userFromFile, "User_Account");
+            }
+
+            if(!success){
+                JOptionPane.showMessageDialog(null, "Appointment update failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
+            }
+
+            User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+            viewStatus.setVisible(true);
+            this.setVisible(false);
         }
-        
-        Candidate aptCandidate = new Candidate(id, "");
-        boolean success;
-
-        success = aptFromFile.updateAptStatus(aptCandidate, "Rejected");
-        centreFromFile.refundStock(batchNumber);
-
-        if(success){
-            userFromFile.setStatus("1st Dose Completed");
-            userFromFile.updateVaccinationHistory(aptId, "Remove");
-            success = File_Helper.saveData(userFromFile, "User_Account");
-        }
-        
-        if(!success){
-            JOptionPane.showMessageDialog(null, "Appointment update failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
-        }
-
-//        Candidate aptCandidate = new Candidate(id, "");
-//        aptFromFile.updateAptCandidate(aptCandidate, "Remove");
-//        boolean success = Appointment.updateAppointment(aptFromFile);
-
-        User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
-        viewStatus.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_btnCancelDose2ActionPerformed
 
     private void btnCompleteDose2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteDose2ActionPerformed
@@ -1046,43 +1060,47 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCompleteDose2ActionPerformed
 
     private void btnCancelDose1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelDose1ActionPerformed
-        String id = lblId.getText();
-        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
-        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-        String aptId = userFromFile.getVacHistory().get(0);
-        String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
-        Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
-        String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
-        Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
-        List<Candidate> candidateList = aptFromFile.getCandidateList();
-        String batchNumber = "";
-        
-        for(Candidate candidate: candidateList){
-            if(candidate.getCandidateId().equals(id)){
-                batchNumber = candidate.getVaccineBatchNumber();
+        int decision = JOptionPane.showConfirmDialog(this, "Do you want to cancel this appointment?" , "Appointment", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (decision == JOptionPane.YES_OPTION) {
+            String id = lblId.getText();
+            String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+            People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+            String aptId = userFromFile.getVacHistory().get(0);
+            String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
+            Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
+            String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
+            Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
+            List<Candidate> candidateList = aptFromFile.getCandidateList();
+            String batchNumber = "";
+
+            for(Candidate candidate: candidateList){
+                if(candidate.getCandidateId().equals(id)){
+                    batchNumber = candidate.getVaccineBatchNumber();
+                }
             }
+
+            Candidate aptCandidate = new Candidate(id, "");
+            System.out.println(batchNumber);
+            boolean success;
+
+            success = aptFromFile.updateAptStatus(aptCandidate, "Rejected");
+            centreFromFile.refundStock(batchNumber);
+
+            if(success){
+                userFromFile.setStatus("Not Vaccinated");
+                userFromFile.updateVaccinationHistory(aptId, "Remove");
+                success = File_Helper.saveData(userFromFile, "User_Account");
+            }
+
+            if(!success){
+                JOptionPane.showMessageDialog(null, "Appointment update failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
+            }
+
+            User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+            viewStatus.setVisible(true);
+            this.setVisible(false);
         }
-        
-        Candidate aptCandidate = new Candidate(id, "");
-        System.out.println(batchNumber);
-        boolean success;
-
-        success = aptFromFile.updateAptStatus(aptCandidate, "Rejected");
-        centreFromFile.refundStock(batchNumber);
-
-        if(success){
-            userFromFile.setStatus("Not Vaccinated");
-            userFromFile.updateVaccinationHistory(aptId, "Remove");
-            success = File_Helper.saveData(userFromFile, "User_Account");
-        }
-
-        if(!success){
-            JOptionPane.showMessageDialog(null, "Appointment update failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
-        }
-
-        User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
-        viewStatus.setVisible(true);
-        this.setVisible(false);
     }//GEN-LAST:event_btnCancelDose1ActionPerformed
 
     private void btnCompleteDose1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCompleteDose1ActionPerformed

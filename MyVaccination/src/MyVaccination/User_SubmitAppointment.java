@@ -594,9 +594,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
                 // Get centre ID
                 appointmentList.forEach(f -> {
-                    if ("Public".equals(f.getAppointmentType())) {
+//                    if ("Public".equals(f.getAppointmentType())) {
                         arrApp.add(f.getCentreId());
-                    }
+//                    }
                 });
 
                 // Remove duplicate centre ID
