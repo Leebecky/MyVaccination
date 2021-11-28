@@ -160,18 +160,6 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             jPanel2.setBackground(new Color(78,210,177));
             jPanel4.setBackground(new Color(153,204,255));
             jPanel5.setBackground(new Color(240,240,240));
-            
-            
-            if(doseRequired == 1){
-                userFromFile.setStatus("Fully Vaccinated");
-                boolean success = File_Helper.saveData(userFromFile, "User_Account");
-                
-                if(success){
-                    User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
-                    viewStatus.setVisible(true);
-                    this.setVisible(false);
-                }
-            }
         }else if(userFromFile.getStatus().equals("2nd Dose Appointment Pending")){
             lblAppointDesc.setText("Appointment submitted.");
             btnSubmitApp.setVisible(false);
@@ -967,10 +955,36 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         String aptId = userFromFile.getVacHistory().get(1);
         String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
         Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
-
+        String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
+        Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
+        List<Candidate> candidateList = aptFromFile.getCandidateList();
+        String batchNumber = "";
+        
+        for(Candidate candidate: candidateList){
+            if(candidate.getCandidateId().equals(id)){
+                batchNumber = candidate.getVaccineBatchNumber();
+            }
+        }
+        
         Candidate aptCandidate = new Candidate(id, "");
-        aptFromFile.updateAptCandidate(aptCandidate, "Remove");
-        boolean success = Appointment.updateAppointment(aptFromFile);
+        boolean success;
+
+        success = aptFromFile.updateAptStatus(aptCandidate, "Rejected");
+        centreFromFile.refundStock(batchNumber);
+
+        if(success){
+            userFromFile.setStatus("1st Dose Completed");
+            userFromFile.updateVaccinationHistory(aptId, "Remove");
+            success = File_Helper.saveData(userFromFile, "User_Account");
+        }
+        
+        if(!success){
+            JOptionPane.showMessageDialog(null, "Appointment update failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
+        }
+
+//        Candidate aptCandidate = new Candidate(id, "");
+//        aptFromFile.updateAptCandidate(aptCandidate, "Remove");
+//        boolean success = Appointment.updateAppointment(aptFromFile);
 
         User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
         viewStatus.setVisible(true);
@@ -1038,11 +1052,23 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         String aptId = userFromFile.getVacHistory().get(0);
         String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
         Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
+        String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
+        Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
+        List<Candidate> candidateList = aptFromFile.getCandidateList();
+        String batchNumber = "";
+        
+        for(Candidate candidate: candidateList){
+            if(candidate.getCandidateId().equals(id)){
+                batchNumber = candidate.getVaccineBatchNumber();
+            }
+        }
         
         Candidate aptCandidate = new Candidate(id, "");
+        System.out.println(batchNumber);
         boolean success;
 
         success = aptFromFile.updateAptStatus(aptCandidate, "Rejected");
+        centreFromFile.refundStock(batchNumber);
 
         if(success){
             userFromFile.setStatus("Not Vaccinated");
@@ -1053,10 +1079,6 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         if(!success){
             JOptionPane.showMessageDialog(null, "Appointment update failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
         }
-
-//        Candidate aptCandidate = new Candidate(id, "");
-//        aptFromFile.updateAptCandidate(aptCandidate, "Remove");
-//        boolean success = Appointment.updateAppointment(aptFromFile);
 
         User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
         viewStatus.setVisible(true);
@@ -1081,10 +1103,30 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
                 success = File_Helper.saveData(userFromFile, "User_Account");
             }
         }else{
+            String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
+            Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
+            List<Candidate> candidateList = aptFromFile.getCandidateList();
+            String batchNumber = "";
+
+            for(Candidate candidate: candidateList){
+                if(candidate.getCandidateId().equals(id)){
+                    batchNumber = candidate.getVaccineBatchNumber();
+                }
+            }
+            
+            Vaccine aptVaccine = new Vaccine();
+            aptVaccine = aptVaccine.getVaccine(batchNumber);
+            int doseRequired = aptVaccine.getDosesRequired();
+            
             success = aptFromFile.updateAptStatus(aptCandidate, "Completed");
 
             if(success){
-                userFromFile.setStatus("1st Dose Completed");
+                
+                if(doseRequired == 1){
+                    userFromFile.setStatus("Fully Vaccinated");
+                }else{
+                    userFromFile.setStatus("1st Dose Completed");
+                }
                 success = File_Helper.saveData(userFromFile, "User_Account");
             }
         }

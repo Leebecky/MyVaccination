@@ -486,7 +486,6 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         ArrayList<String> vaccineNames = new ArrayList<String>();
         ArrayList<String> vaccineQuantity = new ArrayList<String>();
         
-        System.out.println(stockList.size());
         for(int i = 0; i < stockList.size(); i++) {
             vaccine = stockList.get(i).getVaccine();
 
@@ -640,12 +639,13 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
                 String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
                 Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
-
+                
                 String centreName = centreFromFile.getName();
                 cmbCentre.addItem(centreName);
 
                 Location centreLocation = centreFromFile.getLocation();
                 String centreState = centreLocation.getState();
+                lblLocation.setText(centreState);
 
                 // Get centre ID
                 List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
@@ -661,6 +661,58 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                         selectedCentreId.add(centreList.get(i).getCentreId());
                         break;
                     }
+                }
+                
+                List<Stock> stockList = centreFromFile.getStock();
+                Vaccine vaccine;
+                ArrayList<String> vaccineNames = new ArrayList<String>();
+                ArrayList<String> vaccineQuantity = new ArrayList<String>();
+
+                for(int i = 0; i < stockList.size(); i++) {
+                    vaccine = stockList.get(i).getVaccine();
+
+                    vaccineNames.add(vaccine.getName());
+                    vaccineQuantity.add(String.valueOf(stockList.get(i).getQuantity()));
+                }
+
+                // Remove duplicate vaccine details
+                ArrayList<String> vacName = new ArrayList<String>();
+                ArrayList<String> vacQuantity = new ArrayList<String>();
+
+                for (String element : vaccineNames) {
+                    if (!vacName.contains(element)) {
+
+                        vacName.add(element);
+                    }
+                }
+
+                for (String element : vaccineQuantity) {
+                    if (!vacQuantity.contains(element)) {
+
+                        vacQuantity.add(element);
+                    }
+                }
+
+                int count = 0;
+                for (String element : vacName) {
+                    if(count == 0){
+                        txtVaccineList.setText(element);
+                    }else{
+                        txtVaccineList.setText(txtVaccineList.getText() + "\n" + element);
+                    }
+                    count++;
+                }
+
+                count = 0;
+                for (String element : vacQuantity) {
+                    if(count == 0){
+                        txtDose.setText(element);
+                        txtDoseStr.setText("supply");
+                    }else{
+                        txtDose.setText(txtDose.getText() + "\n" + element);
+                        txtDoseStr.setText(txtDoseStr.getText() + "\nsupply");
+                    }
+                    count++;
                 }
 
                 // Get Appointment that is held in the selected centre
@@ -688,6 +740,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 int waitTime = aptVaccine.getWaitTime();
                 LocalDate aptDate, earliestDate;
                 String centreId, vaccineBrand;
+                int countReject;
+                    
 
                 for (String element : selectedCentreId) {
                     for (Appointment appointment : appointmentList) {
@@ -697,11 +751,24 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                         earliestDate = aptFromFile.getAppointmentDate().plusWeeks(waitTime);
 
                         if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine)) {
-                            data[0] = appointment.getAppointmentId();
-                            data[1] = appointment.getAppointmentDate().toString();
-                            data[2] = appointment.getAppointmentTime().toString();
-                            data[3] = appointment.getVaccineBrand();
-                            model.addRow(data);
+                            countReject = 0;
+                            if (appointment.getCandidateList().size() > 0) {
+                                for (Candidate candidate : appointment.getCandidateList()) {
+                                    if (candidate.getCandidateId().equals(id)) {
+                                        if (candidate.getApptStatus().equals("Rejected")) {
+                                            countReject++;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (countReject == 0) {
+                                data[0] = appointment.getAppointmentId();
+                                data[1] = appointment.getAppointmentDate().toString();
+                                data[2] = appointment.getAppointmentTime().toString();
+                                data[3] = appointment.getVaccineBrand();
+                                model.addRow(data);
+                            }
                         }
                     }
                 }
