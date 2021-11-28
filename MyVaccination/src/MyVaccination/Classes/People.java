@@ -73,6 +73,13 @@ public class People extends User {
     public String getGender() {
         return this.gender;
     }
+    
+    public List<String> getVaccinationHistory() {
+        if (this.vaccinationHistory == null) {
+            this.vaccinationHistory = new ArrayList<>();
+        }
+        return this.vaccinationHistory;
+    }
 
     public void setName(String n) {
         this.name = n;

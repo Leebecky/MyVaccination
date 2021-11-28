@@ -247,7 +247,7 @@ public class Appointment implements File_Methods {
             }
         }
 
-        potentialCandidateList.forEach(c -> {
+        for (People c : potentialCandidateList) {
 //            for (Candidate cd : candidateList) {
 //                //Only accept candidates from same state as vaccination centre
 ////                if (c.getUserId().equals(cd.findCandidate().getUserId())) {
@@ -255,14 +255,30 @@ public class Appointment implements File_Methods {
 ////                }
 //            }
 //                People myCandidate = c.findCandidate();
-                if (!state.equals("All")) {
+            if (!state.equals("All")) {
 
-                    if (!c.getAddress().equals(state)) {
-                        removalList.add(c);
-                    }
+                if (!c.getAddress().equals(state)) {
+                    removalList.add(c);
                 }
-        });
+            }
 
+            // Checking if candidate has waited long enough
+            List<String> vaccinationHistory = c.getVaccinationHistory();
+            if (vaccinationHistory.isEmpty()) {
+                continue;
+            }
+            Appointment apt1 = Appointment.getAppointmentDetails(vaccinationHistory.get(0));
+            LocalDate vaccinationDate = apt1.getAppointmentDate();
+            Vaccination_Centre vc1 = Vaccination_Centre.getCentre(apt1.getCentreId());
+            Vaccine vaccine = Vaccine.generateVaccine(apt1.getVaccineBrand());
+
+            LocalDate current = LocalDate.now();
+            LocalDate apt2 = vaccinationDate.plusWeeks(vaccine.getWaitTime());
+            if (current.isBefore(apt2)) {
+                removalList.add(c);
+
+            }
+        }
         potentialCandidateList.removeAll(removalList);
         return potentialCandidateList;
     }
