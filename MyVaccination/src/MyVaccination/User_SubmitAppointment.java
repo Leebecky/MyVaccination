@@ -30,33 +30,33 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
      */
     public User_SubmitAppointment() {
         initComponents();
-        
+
         lblId.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
-        
-        ((JLabel)cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+
+        ((JLabel) cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
         tblAppointment.removeColumn(tblAppointment.getColumnModel().getColumn(0));
         txtVaccineList.setText("");
         txtDose.setText("");
         txtDoseStr.setText("");
     }
-    
+
     public User_SubmitAppointment(String id) {
-        initComponents();    
-    
+        initComponents();
+
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-        
+
         lblUsername.setText(userFromFile.getName());
         lblId.setText(id);
         lblId.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
-        
-        ((JLabel)cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+
+        ((JLabel) cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
         tblAppointment.removeColumn(tblAppointment.getColumnModel().getColumn(0));
-        
+
     }
 
     /**
@@ -362,11 +362,10 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUsernameMouseExited
 
     private void lblUsernameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMousePressed
-        if(lblLogout.isVisible()){
+        if (lblLogout.isVisible()) {
             lblViewProfile.setVisible(false);
             lblLogout.setVisible(false);
-        }
-        else{
+        } else {
             lblViewProfile.setVisible(true);
             lblLogout.setVisible(true);
         }
@@ -435,14 +434,14 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         Candidate aptCandidate = new Candidate(id, "");
         aptFromFile.updateAptCandidate(aptCandidate, "Add");
         boolean success = Appointment.updateAppointment(aptFromFile);
-          
-        if(success){
+
+        if (success) {
             JOptionPane.showMessageDialog(null, "Info Updated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
-            
+
             User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
             viewStatus.setVisible(true);
             this.setVisible(false);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Appointment submit failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
@@ -451,15 +450,15 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         String id = lblId.getText();
         DefaultTableModel model = (DefaultTableModel) tblAppointment.getModel();
         model.setRowCount(0);
-        
+
         String selectedCentre = String.valueOf(cmbCentre.getSelectedItem());
-        
-        if(selectedCentre.equals("--- Select Centre ---")){
+
+        if (selectedCentre.equals("--- Select Centre ---")) {
             lblCentre.setText("");
-        }else{
+        } else {
             lblCentre.setText(selectedCentre);
         }
-        
+
         // Get centre ID
         List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
         List<Vaccination_Centre> centreList = new ArrayList();
@@ -468,28 +467,72 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         centreDataArray.forEach(fileInFolder -> {
             centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
         });
-        
-        for(int i = 0; i < centreList.size(); i++){
-            if(selectedCentre.equals(centreList.get(i).getName())){
-                selectedCentreId.add(centreList.get(i).getCentreId());                
+
+        for (int i = 0; i < centreList.size(); i++) {
+            if (selectedCentre.equals(centreList.get(i).getName())) {
+                selectedCentreId.add(centreList.get(i).getCentreId());
                 break;
             }
         }
-        
+
         String centreData = File_Helper.readFile("Vaccination_Centre/" + selectedCentreId.get(0) + ".txt");
         Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
         Location centreLocation = centreFromFile.getLocation();
         String centreState = centreLocation.getState();
         lblLocation.setText(centreState);
+
+        List<Stock> stockList = centreFromFile.getStock();
+        Vaccine vaccine;
+        ArrayList<String> vaccineNames = new ArrayList<String>();
+        ArrayList<String> vaccineQuantity = new ArrayList<String>();
         
-//        List<Stock> stockList = centreFromFile.getStock();
-//        Vaccine vaccine;
-//        for(Stock stock: stockList){
-//            vaccine = new stock.getVaccine();
-//            
-//            System.out.println(vaccine.getName());
-//            System.out.println(stock.getQuantity());
-//        }
+        System.out.println(stockList.size());
+        for(int i = 0; i < stockList.size(); i++) {
+            vaccine = stockList.get(i).getVaccine();
+
+            vaccineNames.add(vaccine.getName());
+            vaccineQuantity.add(String.valueOf(stockList.get(i).getQuantity()));
+        }
+        
+        // Remove duplicate vaccine details
+        ArrayList<String> vacName = new ArrayList<String>();
+        ArrayList<String> vacQuantity = new ArrayList<String>();
+
+        for (String element : vaccineNames) {
+            if (!vacName.contains(element)) {
+
+                vacName.add(element);
+            }
+        }
+
+        for (String element : vaccineQuantity) {
+            if (!vacQuantity.contains(element)) {
+
+                vacQuantity.add(element);
+            }
+        }
+        
+        int count = 0;
+        for (String element : vacName) {
+            if(count == 0){
+                txtVaccineList.setText(element);
+            }else{
+                txtVaccineList.setText(txtVaccineList.getText() + "\n" + element);
+            }
+            count++;
+        }
+        
+        count = 0;
+        for (String element : vacQuantity) {
+            if(count == 0){
+                txtDose.setText(element);
+                txtDoseStr.setText("supply");
+            }else{
+                txtDose.setText(txtDose.getText() + "\n" + element);
+                txtDoseStr.setText(txtDoseStr.getText() + "\nsupply");
+            }
+            count++;
+        }
         
         // Get Appointment that is held in the selected centre
         List<String> appDataArray = File_Helper.readFolder("Appointment");
@@ -500,23 +543,23 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         appDataArray.forEach(fileInFolder -> {
             appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
         });
-        
+
         for (String element : selectedCentreId) {
-            for (Appointment appointment: appointmentList){
+            for (Appointment appointment : appointmentList) {
                 if (appointment.getCentreId().equals(element) && appointment.getAppointmentDate().isAfter(java.time.LocalDate.now())) {
                     countReject = 0;
-                    if(appointment.getCandidateList().size() > 0){
-                        for(Candidate candidate: appointment.getCandidateList()){
-                            if(candidate.getCandidateId().equals(id)){
-                                if(candidate.getApptStatus().equals("Rejected")){
+                    if (appointment.getCandidateList().size() > 0) {
+                        for (Candidate candidate : appointment.getCandidateList()) {
+                            if (candidate.getCandidateId().equals(id)) {
+                                if (candidate.getApptStatus().equals("Rejected")) {
                                     countReject++;
                                 }
                             }
                         }
                     }
-                    
-                    if(countReject == 0){
-                        data[0] = appointment.getAppointmentId();  
+
+                    if (countReject == 0) {
+                        data[0] = appointment.getAppointmentId();
                         data[1] = appointment.getAppointmentDate().toString();
                         data[2] = appointment.getAppointmentTime().toString();
                         data[3] = appointment.getVaccineBrand();
@@ -529,8 +572,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         String id = lblId.getText();
-        
-        if(!id.equals("userIc")){
+
+        if (!id.equals("userIc")) {
             String userData = File_Helper.readFile("User_Account/" + id + ".txt");
             People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
 
@@ -538,7 +581,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             txtDose.setText("");
             txtDoseStr.setText("");
 
-            if(userFromFile.getStatus().equals("Not Vaccinated")){
+            if (userFromFile.getStatus().equals("Not Vaccinated")) {
                 cmbCentre.removeAllItems();
                 cmbCentre.addItem("--- Select Centre ---");
 
@@ -551,8 +594,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 });
 
                 // Get centre ID
-                appointmentList.forEach(f ->  {
-                    if("Public".equals(f.getAppointmentType())){
+                appointmentList.forEach(f -> {
+                    if ("Public".equals(f.getAppointmentType())) {
                         arrApp.add(f.getCentreId());
                     }
                 });
@@ -577,13 +620,13 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 });
 
                 for (String element : centreList) {
-                    for (Vaccination_Centre centre: centreNameList){
+                    for (Vaccination_Centre centre : centreNameList) {
                         if (centre.getCentreId().equals(element)) {
                             cmbCentre.addItem(centre.getName());
                         }
                     }
                 }
-            } else if(userFromFile.getStatus().equals("1st Dose Completed")) {
+            } else if (userFromFile.getStatus().equals("1st Dose Completed")) {
                 DefaultTableModel model = (DefaultTableModel) tblAppointment.getModel();
                 model.setRowCount(0);
                 cmbCentre.removeAllItems();
@@ -600,7 +643,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
                 String centreName = centreFromFile.getName();
                 cmbCentre.addItem(centreName);
-                
+
                 Location centreLocation = centreFromFile.getLocation();
                 String centreState = centreLocation.getState();
 
@@ -613,9 +656,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                     centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
                 });
 
-                for(int i = 0; i < centreList.size(); i++){
-                    if(centreName.equals(centreList.get(i).getName())){
-                        selectedCentreId.add(centreList.get(i).getCentreId());                
+                for (int i = 0; i < centreList.size(); i++) {
+                    if (centreName.equals(centreList.get(i).getName())) {
+                        selectedCentreId.add(centreList.get(i).getCentreId());
                         break;
                     }
                 }
@@ -628,13 +671,13 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 appDataArray.forEach(fileInFolder -> {
                     appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
                 });
-                
+
                 String aptId = userFromFile.getVacHistory().get(0);
                 List<Candidate> candidateList = aptFromFile.getCandidateList();
                 String batchNumber = "";
 
-                for(Candidate candidate: candidateList){
-                    if(candidate.getCandidateId().equals(id)){
+                for (Candidate candidate : candidateList) {
+                    if (candidate.getCandidateId().equals(id)) {
                         batchNumber = candidate.getVaccineBatchNumber();
                     }
                 }
@@ -645,16 +688,16 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 int waitTime = aptVaccine.getWaitTime();
                 LocalDate aptDate, earliestDate;
                 String centreId, vaccineBrand;
-        
+
                 for (String element : selectedCentreId) {
-                    for (Appointment appointment: appointmentList){
+                    for (Appointment appointment : appointmentList) {
                         centreId = appointment.getCentreId();
-                        vaccineBrand = appointment.getVaccineBrand();     
+                        vaccineBrand = appointment.getVaccineBrand();
                         aptDate = appointment.getAppointmentDate();
                         earliestDate = aptFromFile.getAppointmentDate().plusWeeks(waitTime);
-                        
+
                         if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine)) {
-                            data[0] = appointment.getAppointmentId();  
+                            data[0] = appointment.getAppointmentId();
                             data[1] = appointment.getAppointmentDate().toString();
                             data[2] = appointment.getAppointmentTime().toString();
                             data[3] = appointment.getVaccineBrand();
@@ -662,25 +705,25 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                         }
                     }
                 }
-                
-                if(model.getRowCount() == 0){
+
+                if (model.getRowCount() == 0) {
                     JOptionPane.showMessageDialog(null, "The centre currently does not open appointment for your dose 2.\nPlease check again after a few days.", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
 
                     User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
                     viewStatus.setVisible(true);
                     this.setVisible(false);
                 }
-                
+
                 lblCentre.setText(centreName);
                 lblLocation.setText(centreState);
-                
-            } else if(userFromFile.getStatus().equals("Fully Vaccinated")){
+
+            } else if (userFromFile.getStatus().equals("Fully Vaccinated")) {
                 JOptionPane.showMessageDialog(null, "You have fully vaccinated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
 
                 User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
                 viewStatus.setVisible(true);
                 this.setVisible(false);
-            } else{
+            } else {
                 JOptionPane.showMessageDialog(null, "You have ongoing appointment!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
 
                 User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
