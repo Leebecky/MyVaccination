@@ -1,0 +1,1 @@
+{"appointmentId":"APT_010070c4-0a0f-4633-91de-68ee534f13ec","centreId":"VC_18ecc546-bd31-4873-bff1-c70bdee3962b","candidateList":[{"candidateId":"US_484df8e4-09d2-49c1-8aa6-0611775936c7","apptStatus":"Completed","vaccineBatchNumber":"SV_3766e4e5-d21b-4001-b3ef-363bc71b9bac"}],"appointmentDate":"2021-11-29","appointmentTime":"11:00","status":"Active","vaccineBrand":"Sinovac"}

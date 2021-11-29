@@ -517,13 +517,16 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             count++;
         }
         
+        // Check centre capacity
+        int centreCapacity = centreFromFile.getCapacity();
+        
         // Get Appointment that is held in the selected centre
         List<String> appDataArray = File_Helper.readFolder("Appointment");
         List<Appointment> appointmentList = new ArrayList();
         String[] data = new String[5];
         String centreId, apptStatus;
         LocalDate aptDate, earliestDate;
-        int countReject;
+        int countReject, candidateNum;
 
         appDataArray.forEach(fileInFolder -> {
             appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
@@ -535,8 +538,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 aptDate = appointment.getAppointmentDate();
                 earliestDate = java.time.LocalDate.now();
                 apptStatus = appointment.getStatus();
+                candidateNum = appointment.getCandidateList().size();
                         
-                if (centreId.equals(element) && aptDate.isAfter(earliestDate) && apptStatus.equals("Active")) {
+                if (centreId.equals(element) && aptDate.isAfter(earliestDate) && apptStatus.equals("Active") && candidateNum < centreCapacity) {
                     countReject = 0;
                     if (appointment.getCandidateList().size() > 0) {
                         for (Candidate candidate : appointment.getCandidateList()) {
@@ -688,7 +692,10 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                     }
                     count++;
                 }
-
+                
+                // Check centre capacity
+                int centreCapacity = centreFromFile.getCapacity();
+                
                 // Get Appointment that is held in the selected centre
                 List<String> appDataArray = File_Helper.readFolder("Appointment");
                 List<Appointment> appointmentList = new ArrayList();
@@ -714,9 +721,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 int waitTime = aptVaccine.getWaitTime();
                 LocalDate aptDate, earliestDate;
                 String centreId, vaccineBrand, apptStatus;
-                int countReject;
+                int countReject, candidateNum;
                     
-
                 for (String element : selectedCentreId) {
                     for (Appointment appointment : appointmentList) {
                         centreId = appointment.getCentreId();
@@ -724,8 +730,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                         aptDate = appointment.getAppointmentDate();
                         earliestDate = aptFromFile.getAppointmentDate().plusWeeks(waitTime);
                         apptStatus = appointment.getStatus();
+                        candidateNum = appointment.getCandidateList().size();
 
-                        if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine) && apptStatus.equals("Active")) {
+                        if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine) && apptStatus.equals("Active") && candidateNum < centreCapacity) {
                             countReject = 0;
                             if (appointment.getCandidateList().size() > 0) {
                                 for (Candidate candidate : appointment.getCandidateList()) {
