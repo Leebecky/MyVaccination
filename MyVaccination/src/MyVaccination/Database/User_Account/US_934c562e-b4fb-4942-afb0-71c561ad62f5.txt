@@ -1,0 +1,1 @@
+{"name":"after merge","dateOfBirth":"2010-11-03","identification":"111222009999","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Johor","gender":"Male","vaccinationHistory":[],"userId":"US_934c562e-b4fb-4942-afb0-71c561ad62f5","username":"111222009999","password":"after","userType":"People","email":"after@mail.com","contactNumber":"011-2323233"}

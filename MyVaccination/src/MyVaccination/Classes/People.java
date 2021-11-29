@@ -26,8 +26,6 @@ public class People extends User {
     public String vaccinationStatus;
     public String address;
     public String gender;
-    public String email;
-    public String phone;
     private List<String> vaccinationHistory;
 
     public People() {
@@ -46,7 +44,7 @@ public class People extends User {
         this.address = a;
         this.gender = g;
         this.email = e;
-        this.phone = p;
+        this.contactNumber = p;
         this.vaccinationHistory = Collections.<String>emptyList();
     }
 
@@ -83,7 +81,7 @@ public class People extends User {
     }
 
     public String getPhone() {
-        return this.phone;
+        return this.contactNumber;
     }
     
     public List<String> getVacHistory(){
@@ -130,7 +128,7 @@ public class People extends User {
     }
 
     public void setPhone(String p) {
-        this.phone = p;
+        this.contactNumber = p;
     }
     
     public void setVacHistory(List<String> vh) {

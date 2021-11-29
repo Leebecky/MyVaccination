@@ -346,7 +346,11 @@ public class Login extends javax.swing.JFrame {
                    txtUsername.setText("");
                    txtPassword.setText("");                
                 }
-            } 
+            } else {
+                JOptionPane.showMessageDialog(null, "Login information incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+                txtUsername.setText("");
+                txtPassword.setText("");
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Please input both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
         }

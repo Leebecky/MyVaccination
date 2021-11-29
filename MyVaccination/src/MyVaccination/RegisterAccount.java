@@ -222,8 +222,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         String location = String.valueOf(cmbLocation.getSelectedItem());
         String password = txtPassword.getText();
         String confirmpassword = txtConfirmPassword.getText();
-        String phoneNum = txtPhoneNum.getText();
-        String email = txtEmail.getText();
+        String phoneNum = txtPhone.getText();
         
         boolean isBlank = false;
         boolean dtInvalid = false;
