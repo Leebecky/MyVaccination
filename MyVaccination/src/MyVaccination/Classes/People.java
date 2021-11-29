@@ -8,6 +8,7 @@ package MyVaccination.Classes;
 import MyVaccination.Helper_Classes.File_Helper;
 import java.time.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
@@ -34,7 +35,7 @@ public class People extends User {
         
     }
 
-    public People(String n, LocalDate dob, String id, String nat, String v, String a, String g, String email, String phoneNum) {
+    public People(String n, LocalDate dob, String id, String nat, String v, String a, String g, String e, String p) {
         this.name = n;
         this.dateOfBirth = dob;
         this.identification = id;
@@ -42,8 +43,9 @@ public class People extends User {
         this.vaccinationStatus = v;
         this.address = a;
         this.gender = g;
-        this.email = email;
-        this.contactNumber = phoneNum;
+        this.email = e;
+        this.contactNumber = p;
+        this.vaccinationHistory = Collections.<String>emptyList();
     }
 
     public String getName() {
@@ -74,6 +76,18 @@ public class People extends User {
         return this.gender;
     }
     
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getPhone() {
+        return this.contactNumber;
+    }
+    
+    public List<String> getVacHistory(){
+        return this.vaccinationHistory;
+    }
+
     public List<String> getVaccinationHistory() {
         if (this.vaccinationHistory == null) {
             this.vaccinationHistory = new ArrayList<>();
@@ -107,6 +121,22 @@ public class People extends User {
 
     public void setGender(String g) {
         this.gender = g;
+    }
+    
+    public void setEmail(String e) {
+        this.email = e;
+    }
+
+    public void setPhone(String p) {
+        this.contactNumber = p;
+    }
+    
+    public void setVacHistory(List<String> vh) {
+        this.vaccinationHistory = vh;
+    }
+    
+    public void addVacHistory(String vh) {
+        this.vaccinationHistory.add(vh);
     }
 
     public void updateVaccinationHistory(String aptId, String updateType) {

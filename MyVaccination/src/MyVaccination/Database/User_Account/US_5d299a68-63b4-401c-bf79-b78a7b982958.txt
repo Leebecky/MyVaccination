@@ -1,0 +1,1 @@
+{"name":"bj5","dateOfBirth":"2001-09-07","identification":"005005050055","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Kelantan","gender":"Male","vaccinationHistory":[],"userId":"US_5d299a68-63b4-401c-bf79-b78a7b982958","username":"005005050055","password":"bjbj5555","userType":"People","email":"bj5@mail.com","contactNumber":"015-0050055"}

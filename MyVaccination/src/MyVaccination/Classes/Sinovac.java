@@ -23,4 +23,13 @@ public class Sinovac extends Vaccine {
         this.dosesRequired = 2;
     }
 
+    public Sinovac(String batchNumber) {
+        this.manufacturer = "Sinovac-CoronaVac";
+        this.name = "Sinovac";
+        this.waitTime = 4;
+        this.amount = 100;
+        this.dosage = 2;
+        this.batchNumber = batchNumber;
+        this.dosesRequired = 2;
+    }
 }

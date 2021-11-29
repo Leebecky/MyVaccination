@@ -28,6 +28,14 @@ public class RegisterAccount extends javax.swing.JFrame {
         
         dtDoB.setDateToToday();
         txtIcPassport.setToolTipText("Do not include symbol -  ");
+        
+        Location location = new Location();
+        String[] states = location.getStateList();
+        
+        cmbLocation.removeAllItems();
+        for(String state: states){
+            cmbLocation.addItem(state);
+        }
     }
 
     /**
@@ -60,10 +68,10 @@ public class RegisterAccount extends javax.swing.JFrame {
         btnRegister = new javax.swing.JButton();
         cmbLocation = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        txtPhoneNum = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
+        txtEmail = new javax.swing.JTextField();
+        txtPhone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
@@ -137,9 +145,9 @@ public class RegisterAccount extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 310, -1, -1));
 
-        jLabel9.setText("Gender :");
+        jLabel9.setText("Phone Number : ");
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 310, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
 
         jLabel10.setText("Confirm Password :");
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
@@ -160,7 +168,7 @@ public class RegisterAccount extends javax.swing.JFrame {
 
         cmbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female" }));
         cmbGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 218, -1));
+        getContentPane().add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 218, -1));
 
         btnRegister.setText("Register");
         btnRegister.setBackground(new java.awt.Color(180, 151, 214));
@@ -172,7 +180,7 @@ public class RegisterAccount extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 450, 120, 50));
+        getContentPane().add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 440, 120, 50));
 
         cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selangor", "Kuala Lumpur", "Penang", "Johor", "Kedah", "Pahang" }));
         cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
@@ -183,23 +191,21 @@ public class RegisterAccount extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, -1, 20));
 
-        txtEmail.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtEmail.setInputVerifier(new Validator());
-        txtEmail.setName("Email"); // NOI18N
-        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 360, 218, 30));
-
+        jLabel11.setText("Gender :");
         jLabel11.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel11.setText("Email :");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, -1, 30));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, -1, -1));
 
-        txtPhoneNum.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtPhoneNum.setInputVerifier(new Validator());
-        txtPhoneNum.setName("Phone"); // NOI18N
-        getContentPane().add(txtPhoneNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 218, 30));
-
+        jLabel12.setText("Email : ");
         jLabel12.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel12.setText("Phone Number :");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, -1, 30));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
+
+        txtEmail.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        txtEmail.setName(""); // NOI18N
+        getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, 218, 30));
+
+        txtPhone.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        txtPhone.setName(""); // NOI18N
+        getContentPane().add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 218, 30));
 
         pack();
         setLocationRelativeTo(null);
@@ -209,47 +215,44 @@ public class RegisterAccount extends javax.swing.JFrame {
         String fullname = txtFullName.getText();
         String ic = txtIcPassport.getText();
         String dob = dtDoB.getDate().toString();
+        LocalDate localBday = dtDoB.getDate();
+        String email = txtEmail.getText();
+        String phone = txtPhone.getText();
         String gender = String.valueOf(cmbGender.getSelectedItem());
         String nationality = String.valueOf(cmbNationality.getSelectedItem());
         String location = String.valueOf(cmbLocation.getSelectedItem());
         String password = txtPassword.getText();
         String confirmpassword = txtConfirmPassword.getText();
-        String phoneNum = txtPhoneNum.getText();
-        String email = txtEmail.getText();
+        String phoneNum = txtPhone.getText();
         
         boolean isBlank = false;
         boolean dtInvalid = false;
-        String todaydt = java.time.LocalDate.now().toString();
-        if(fullname.equals("") || ic.equals("") || password.equals("") || confirmpassword.equals("")){
+        LocalDate todaydt = java.time.LocalDate.now();
+        if(fullname.equals("") || ic.equals("") || email.equals("") || phone.equals("") || password.equals("") || confirmpassword.equals("")){
             isBlank = true;
         }
         
-        if(dob.equals(todaydt)){
+        if(localBday.isAfter(todaydt.minusYears(18))){
             dtInvalid = true;
         }
         
         if(isBlank){
             JOptionPane.showMessageDialog(null, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(dtInvalid){
-            JOptionPane.showMessageDialog(null, "Date incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "User must be at least 18 years old to register an account.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if(password.length() < 8 || confirmpassword.length() < 8){
+            JOptionPane.showMessageDialog(null, "Passwords must be at least 8 characters.", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(!password.equals(confirmpassword)){
             JOptionPane.showMessageDialog(null, "Passwords are not same.", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
-//            String userId = "US_" + ic;
-//            String userType;
-//            if(nationality.equals("Malaysian")){
-//                userType = "Citizen";
-//            }else{
-//                userType = "Non-Citizen";
-//            }
-            
+            String userType = "People";
             String id = UUID.randomUUID().toString();
             
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             LocalDate birthDt = LocalDate.parse(dob, formatter);
 
-            People ppl = new People(fullname, birthDt, ic, nationality, "Not Vaccinated", location, gender, email, phoneNum);
-            ppl.Login(id, ic, password, "People");  
+            People ppl = new People(fullname, birthDt, ic, nationality, "Not Vaccinated", location, gender, email, phone);
+            ppl.Login(id, ic, password, userType);  
     
             File_Helper.saveData(ppl, "User_Account"); 
             
@@ -331,6 +334,6 @@ public class RegisterAccount extends javax.swing.JFrame {
     private javax.swing.JTextField txtFullName;
     private javax.swing.JTextField txtIcPassport;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtPhoneNum;
+    private javax.swing.JTextField txtPhone;
     // End of variables declaration//GEN-END:variables
 }

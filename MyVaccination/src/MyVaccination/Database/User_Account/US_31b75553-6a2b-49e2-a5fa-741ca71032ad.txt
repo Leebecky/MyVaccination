@@ -1,0 +1,1 @@
+{"name":"bj2","dateOfBirth":"1999-02-10","identification":"002002020022","nationality":"Non Malaysian","vaccinationStatus":"Not Vaccinated","address":"Kedah","gender":"Female","vaccinationHistory":[],"userId":"US_31b75553-6a2b-49e2-a5fa-741ca71032ad","username":"002002020022","password":"bjbj2222","userType":"People","email":"bj2@mail.com","contactNumber":"012-0020022"}

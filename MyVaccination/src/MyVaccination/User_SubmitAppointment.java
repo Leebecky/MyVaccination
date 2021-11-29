@@ -10,7 +10,15 @@ import MyVaccination.Helper_Classes.File_Helper;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -23,19 +31,33 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
      */
     public User_SubmitAppointment() {
         initComponents();
+
+        lblId.setVisible(false);
+        lblViewProfile.setVisible(false);
+        lblLogout.setVisible(false);
+
+        ((JLabel) cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        tblAppointment.removeColumn(tblAppointment.getColumnModel().getColumn(0));
+        txtVaccineList.setText("");
+        txtDose.setText("");
+        txtDoseStr.setText("");
     }
-    
+
     public User_SubmitAppointment(String id) {
-        initComponents();    
-    
+        initComponents();
+
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-        
+
         lblUsername.setText(userFromFile.getName());
         lblId.setText(id);
         lblId.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
+
+        ((JLabel) cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
+        tblAppointment.removeColumn(tblAppointment.getColumnModel().getColumn(0));
+
     }
 
     /**
@@ -53,29 +75,33 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lblLogout = new javax.swing.JLabel();
         lblViewProfile = new javax.swing.JLabel();
-        cmbVaccine = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         cmbCentre = new javax.swing.JComboBox<>();
-        cmbTime = new javax.swing.JComboBox<>();
-        dtAppoint = new com.github.lgooddatepicker.components.DatePicker();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtDateAvailable = new javax.swing.JTextArea();
+        lblCentre = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtDose = new javax.swing.JTextArea();
-        jLabel7 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtVaccineList = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txtDoseStr = new javax.swing.JTextArea();
+        jLabel9 = new javax.swing.JLabel();
+        lblLocation = new javax.swing.JLabel();
         lblId = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblAppointment = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MyVaccination");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         userHeader.setBackground(new java.awt.Color(204, 153, 255));
@@ -90,8 +116,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -168,14 +194,6 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
 
-        cmbVaccine.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cmbVaccine.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cmbVaccine, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 200, -1));
-
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel2.setText("Vaccine Type :");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, -1, 30));
-
         btnSubmit.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSubmit.setText("Submit");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
@@ -183,67 +201,57 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 btnSubmitActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 420, 90, 30));
+        getContentPane().add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 450, 90, 30));
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel4.setText("Appointment Date : ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, -1, 30));
-
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        jLabel5.setText("Appointment Time : ");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, -1, 30));
-
-        cmbCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         cmbCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cmbCentre, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 200, -1));
-
-        cmbTime.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        cmbTime.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(cmbTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 200, -1));
-
-        dtAppoint.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(dtAppoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 200, 30));
+        cmbCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        getContentPane().add(cmbCentre, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 270, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 153, 255), 2, true));
 
-        jLabel3.setText("Centre : XXX Hospital");
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lblCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setBorder(null);
-
-        txtDateAvailable.setColumns(20);
-        txtDateAvailable.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        txtDateAvailable.setRows(5);
-        txtDateAvailable.setText("1111-11-11, 1111-11-11,\n1111-11-11, 1111-11-11,\n1111-11-11, 1111-11-11,\n1111-11-11, 1111-11-11,");
-        jScrollPane1.setViewportView(txtDateAvailable);
-
+        jScrollPane2.setBorder(null);
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane2.setBorder(null);
 
         txtDose.setColumns(20);
         txtDose.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDose.setRows(5);
-        txtDose.setText("123 dose\n0 dose\n50 dose");
+        txtDose.setText("123 \n0 \n50 \n1 ");
         jScrollPane2.setViewportView(txtDose);
 
-        jLabel7.setText("Vaccine Available:");
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-
+        jScrollPane3.setBorder(null);
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane3.setBorder(null);
 
         txtVaccineList.setColumns(20);
         txtVaccineList.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtVaccineList.setRows(5);
-        txtVaccineList.setText("Pfizer\nSinovac\nAZ");
+        txtVaccineList.setText("Pfizer\nSinovac\nAstraZeneca\n4th");
         jScrollPane3.setViewportView(txtVaccineList);
 
-        jLabel8.setText("Date Available:");
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel8.setText("Vaccine Available:");
+
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel7.setText("Centre: ");
+
+        jScrollPane5.setBorder(null);
+        jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        txtDoseStr.setColumns(20);
+        txtDoseStr.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtDoseStr.setRows(5);
+        txtDoseStr.setText("supply\nsupply\nsupply\nsupply");
+        jScrollPane5.setViewportView(txtDoseStr);
+
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel9.setText("Location:");
+
+        lblLocation.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -251,48 +259,51 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(3, 3, 3)
-                                .addComponent(jLabel7)))))
-                .addContainerGap())
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblCentre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblCentre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 69, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 400, 160));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 210, 280, 220));
 
-        lblId.setText("userIc");
         lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblId.setForeground(new java.awt.Color(240, 240, 240));
-        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
+        lblId.setText("userIc");
+        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 440, 80, 40));
 
         btnSearch.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSearch.setText("Search");
@@ -301,11 +312,23 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 btnSearchActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 90, 30));
+        getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, 90, 30));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel6.setText("Vaccination Centre : ");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, 30));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, 30));
+
+        tblAppointment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Appointment Date", "Appointment Time", "Vaccine Type"
+            }
+        ));
+        jScrollPane4.setViewportView(tblAppointment);
+
+        getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 220));
 
         pack();
         setLocationRelativeTo(null);
@@ -340,11 +363,10 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUsernameMouseExited
 
     private void lblUsernameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMousePressed
-        if(lblLogout.isVisible()){
+        if (lblLogout.isVisible()) {
             lblViewProfile.setVisible(false);
             lblLogout.setVisible(false);
-        }
-        else{
+        } else {
             lblViewProfile.setVisible(true);
             lblLogout.setVisible(true);
         }
@@ -397,12 +419,361 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     }//GEN-LAST:event_lblViewProfileMousePressed
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
-        // TODO add your handling code here:
+        String id = lblId.getText();
+        int selectedRow = tblAppointment.getSelectedRow();
+
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select an appointment!", "Appointment", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int selectedRowIndex = tblAppointment.convertRowIndexToModel(selectedRow);
+        String aptId = tblAppointment.getModel().getValueAt(selectedRowIndex, 0).toString();
+        String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
+        Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
+
+        Candidate aptCandidate = new Candidate(id, "");
+        aptFromFile.updateAptCandidate(aptCandidate, "Add");
+        boolean success = Appointment.updateAppointment(aptFromFile);
+
+        if (success) {
+            JOptionPane.showMessageDialog(null, "Info Updated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+
+            User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+            viewStatus.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Appointment submit failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
+        String id = lblId.getText();
+        DefaultTableModel model = (DefaultTableModel) tblAppointment.getModel();
+        model.setRowCount(0);
+
+        String selectedCentre = String.valueOf(cmbCentre.getSelectedItem());
+
+        if (selectedCentre.equals("--- Select Centre ---")) {
+            lblCentre.setText("");
+        } else {
+            lblCentre.setText(selectedCentre);
+        }
+
+        // Get centre ID
+        List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+        List<Vaccination_Centre> centreList = new ArrayList();
+        ArrayList<String> selectedCentreId = new ArrayList<String>();
+
+        centreDataArray.forEach(fileInFolder -> {
+            centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+        });
+
+        for (int i = 0; i < centreList.size(); i++) {
+            if (selectedCentre.equals(centreList.get(i).getName())) {
+                selectedCentreId.add(centreList.get(i).getCentreId());
+                break;
+            }
+        }
+
+        String centreData = File_Helper.readFile("Vaccination_Centre/" + selectedCentreId.get(0) + ".txt");
+        Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
+        Location centreLocation = centreFromFile.getLocation();
+        String centreState = centreLocation.getState();
+        lblLocation.setText(centreState);
+
+        List<Stock> stockList = centreFromFile.getStock();
+        Vaccine vaccine;
+        ArrayList<String> vaccineNames = new ArrayList<String>();
+        LinkedHashMap<String, Integer> vaccineSupply = new LinkedHashMap<String, Integer>();
+        String vacName;
+        
+        for(int i = 0; i < stockList.size(); i++) {
+            vaccine = stockList.get(i).getVaccine();
+            vacName = vaccine.getName();
+
+            if(!vaccineNames.contains(vaccine.getName())){
+                vaccineNames.add(vacName);
+                vaccineSupply.put(vacName, stockList.get(i).getQuantity());
+            }else{
+                vaccineSupply.put(vacName, vaccineSupply.get(vacName) + stockList.get(i).getQuantity());
+            }
+        }
+        
+        int count = 0;
+        for (Map.Entry<String, Integer> supply : vaccineSupply.entrySet()) {
+            String key = supply.getKey();
+            Integer value = supply.getValue();
+  
+            if(count == 0){
+                txtVaccineList.setText(key);
+                txtDose.setText(value.toString());
+                txtDoseStr.setText("supply");
+            }else{
+                txtVaccineList.setText(txtVaccineList.getText() + "\n" + key);
+                txtDose.setText(txtDose.getText() + "\n" + value.toString());
+                txtDoseStr.setText(txtDoseStr.getText() + "\nsupply");
+            }
+            count++;
+        }
+        
+        // Get Appointment that is held in the selected centre
+        List<String> appDataArray = File_Helper.readFolder("Appointment");
+        List<Appointment> appointmentList = new ArrayList();
+        String[] data = new String[5];
+        String centreId, apptStatus;
+        LocalDate aptDate, earliestDate;
+        int countReject;
+
+        appDataArray.forEach(fileInFolder -> {
+            appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+        });
+
+        for (String element : selectedCentreId) {
+            for (Appointment appointment : appointmentList) {
+                centreId = appointment.getCentreId();
+                aptDate = appointment.getAppointmentDate();
+                earliestDate = java.time.LocalDate.now();
+                apptStatus = appointment.getStatus();
+                        
+                if (centreId.equals(element) && aptDate.isAfter(earliestDate) && apptStatus.equals("Active")) {
+                    countReject = 0;
+                    if (appointment.getCandidateList().size() > 0) {
+                        for (Candidate candidate : appointment.getCandidateList()) {
+                            if (candidate.getCandidateId().equals(id)) {
+                                if (candidate.getApptStatus().equals("Rejected")) {
+                                    countReject++;
+                                }
+                            }
+                        }
+                    }
+
+                    if (countReject == 0) {
+                        data[0] = appointment.getAppointmentId();
+                        data[1] = appointment.getAppointmentDate().toString();
+                        data[2] = appointment.getAppointmentTime().toString();
+                        data[3] = appointment.getVaccineBrand();
+                        model.addRow(data);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        String id = lblId.getText();
+
+        if (!id.equals("userIc")) {
+            String userData = File_Helper.readFile("User_Account/" + id + ".txt");
+            People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
+
+            txtVaccineList.setText("");
+            txtDose.setText("");
+            txtDoseStr.setText("");
+
+            if (userFromFile.getStatus().equals("Not Vaccinated")) {
+                cmbCentre.removeAllItems();
+                cmbCentre.addItem("--- Select Centre ---");
+
+                List<String> appDataArray = File_Helper.readFolder("Appointment");
+                List<Appointment> appointmentList = new ArrayList();
+                ArrayList<String> arrApp = new ArrayList<String>();
+
+                appDataArray.forEach(fileInFolder -> {
+                    appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+                });
+
+                // Get centre ID
+                appointmentList.forEach(f -> {
+                    if ("Active".equals(f.getStatus())) {
+                        arrApp.add(f.getCentreId());
+                    }
+                });
+
+                // Remove duplicate centre ID
+                ArrayList<String> centreList = new ArrayList<String>();
+
+                for (String element : arrApp) {
+                    if (!centreList.contains(element)) {
+                        centreList.add(element);
+                    }
+                }
+
+                // Get centre Name
+                List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+                List<Vaccination_Centre> centreNameList = new ArrayList();
+                ArrayList<String> arrCentreName = new ArrayList<String>();
+                ArrayList<String> showCentreName = new ArrayList<String>();
+
+                centreDataArray.forEach(fileInFolder -> {
+                    centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+                });
+
+                for (String element : centreList) {
+                    for (Vaccination_Centre centre : centreNameList) {
+                        if (centre.getCentreId().equals(element)) {
+                            cmbCentre.addItem(centre.getName());
+                        }
+                    }
+                }
+            } else if (userFromFile.getStatus().equals("1st Dose Completed")) {
+                DefaultTableModel model = (DefaultTableModel) tblAppointment.getModel();
+                model.setRowCount(0);
+                cmbCentre.removeAllItems();
+                cmbCentre.setEnabled(false);
+                btnSearch.setEnabled(false);
+
+                List<String> vacHistory = userFromFile.getVacHistory();
+                String apt = userFromFile.getVacHistory().get(0);
+
+                String aptData = File_Helper.readFile("Appointment/" + apt + ".txt");
+                Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
+                String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
+                Vaccination_Centre centreFromFile = File_Helper.gsonWriter.fromJson(centreData, Vaccination_Centre.class);
+                
+                String centreName = centreFromFile.getName();
+                cmbCentre.addItem(centreName);
+
+                Location centreLocation = centreFromFile.getLocation();
+                String centreState = centreLocation.getState();
+                lblLocation.setText(centreState);
+
+                // Get centre ID
+                List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
+                List<Vaccination_Centre> centreList = new ArrayList();
+                ArrayList<String> selectedCentreId = new ArrayList<String>();
+
+                centreDataArray.forEach(fileInFolder -> {
+                    centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
+                });
+
+                for (int i = 0; i < centreList.size(); i++) {
+                    if (centreName.equals(centreList.get(i).getName())) {
+                        selectedCentreId.add(centreList.get(i).getCentreId());
+                        break;
+                    }
+                }
+                
+                List<Stock> stockList = centreFromFile.getStock();
+                Vaccine vaccine;
+                ArrayList<String> vaccineNames = new ArrayList<String>();
+                LinkedHashMap<String, Integer> vaccineSupply = new LinkedHashMap<String, Integer>();
+                String vacName;
+
+                for(int i = 0; i < stockList.size(); i++) {
+                    vaccine = stockList.get(i).getVaccine();
+                    vacName = vaccine.getName();
+
+                    if(!vaccineNames.contains(vaccine.getName())){
+                        vaccineNames.add(vacName);
+                        vaccineSupply.put(vacName, stockList.get(i).getQuantity());
+                    }else{
+                        vaccineSupply.put(vacName, vaccineSupply.get(vacName) + stockList.get(i).getQuantity());
+                    }
+                }
+
+                int count = 0;
+                for (Map.Entry<String, Integer> supply : vaccineSupply.entrySet()) {
+                    String key = supply.getKey();
+                    Integer value = supply.getValue();
+
+                    if(count == 0){
+                        txtVaccineList.setText(key);
+                        txtDose.setText(value.toString());
+                        txtDoseStr.setText("supply");
+                    }else{
+                        txtVaccineList.setText(txtVaccineList.getText() + "\n" + key);
+                        txtDose.setText(txtDose.getText() + "\n" + value.toString());
+                        txtDoseStr.setText(txtDoseStr.getText() + "\nsupply");
+                    }
+                    count++;
+                }
+
+                // Get Appointment that is held in the selected centre
+                List<String> appDataArray = File_Helper.readFolder("Appointment");
+                List<Appointment> appointmentList = new ArrayList();
+                String[] data = new String[5];
+
+                appDataArray.forEach(fileInFolder -> {
+                    appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
+                });
+
+                String aptId = userFromFile.getVacHistory().get(0);
+                List<Candidate> candidateList = aptFromFile.getCandidateList();
+                String batchNumber = "";
+
+                for (Candidate candidate : candidateList) {
+                    if (candidate.getCandidateId().equals(id)) {
+                        batchNumber = candidate.getVaccineBatchNumber();
+                    }
+                }
+
+                Vaccine aptVaccine = new Vaccine();
+                aptVaccine = aptVaccine.getVaccine(batchNumber);
+                String dose1Vaccine = aptVaccine.getName();
+                int waitTime = aptVaccine.getWaitTime();
+                LocalDate aptDate, earliestDate;
+                String centreId, vaccineBrand, apptStatus;
+                int countReject;
+                    
+
+                for (String element : selectedCentreId) {
+                    for (Appointment appointment : appointmentList) {
+                        centreId = appointment.getCentreId();
+                        vaccineBrand = appointment.getVaccineBrand();
+                        aptDate = appointment.getAppointmentDate();
+                        earliestDate = aptFromFile.getAppointmentDate().plusWeeks(waitTime);
+                        apptStatus = appointment.getStatus();
+
+                        if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine) && apptStatus.equals("Active")) {
+                            countReject = 0;
+                            if (appointment.getCandidateList().size() > 0) {
+                                for (Candidate candidate : appointment.getCandidateList()) {
+                                    if (candidate.getCandidateId().equals(id)) {
+                                        if (candidate.getApptStatus().equals("Rejected")) {
+                                            countReject++;
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (countReject == 0) {
+                                data[0] = appointment.getAppointmentId();
+                                data[1] = appointment.getAppointmentDate().toString();
+                                data[2] = appointment.getAppointmentTime().toString();
+                                data[3] = appointment.getVaccineBrand();
+                                model.addRow(data);
+                            }
+                        }
+                    }
+                }
+
+                if (model.getRowCount() == 0) {
+                    JOptionPane.showMessageDialog(null, "The centre currently does not open appointment for your dose 2.\nPlease check again after a few days.", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+
+                    User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+                    viewStatus.setVisible(true);
+                    this.setVisible(false);
+                }
+
+                lblCentre.setText(centreName);
+                lblLocation.setText(centreState);
+
+            } else if (userFromFile.getStatus().equals("Fully Vaccinated")) {
+                JOptionPane.showMessageDialog(null, "You have fully vaccinated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+
+                User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+                viewStatus.setVisible(true);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(null, "You have ongoing appointment!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+
+                User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
+                viewStatus.setVisible(true);
+                this.setVisible(false);
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -443,28 +814,26 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbCentre;
-    private javax.swing.JComboBox<String> cmbTime;
-    private javax.swing.JComboBox<String> cmbVaccine;
-    private com.github.lgooddatepicker.components.DatePicker dtAppoint;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JLabel lblCentre;
     private javax.swing.JLabel lblId;
+    private javax.swing.JLabel lblLocation;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblViewProfile;
-    private javax.swing.JTextArea txtDateAvailable;
+    private javax.swing.JTable tblAppointment;
     private javax.swing.JTextArea txtDose;
+    private javax.swing.JTextArea txtDoseStr;
     private javax.swing.JTextArea txtVaccineList;
     private javax.swing.JPanel userHeader;
     // End of variables declaration//GEN-END:variables

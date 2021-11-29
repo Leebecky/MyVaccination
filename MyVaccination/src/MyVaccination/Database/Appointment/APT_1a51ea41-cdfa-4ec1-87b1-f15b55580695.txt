@@ -1,0 +1,1 @@
+{"appointmentId":"APT_1a51ea41-cdfa-4ec1-87b1-f15b55580695","centreId":"VC_625fc448-1770-492d-97d7-673e98a789bd","candidateList":[{"candidateId":"US_8967e7d1-1831-48f7-b07d-973567f2e6fd","apptStatus":"Rejected","vaccineBatchNumber":"AZ_4ce91367-9f2d-4547-8392-77b04a20ef48"}],"appointmentDate":"2022-05-06","appointmentTime":"11:00","status":"Active","vaccineBrand":"AstraZeneca"}

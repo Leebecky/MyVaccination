@@ -1,1 +1,0 @@
-{"status":"Active","state":"Kuala Lumpur","clearance":"Staff","userId":"US64a7e88c-7710-442f-a4a6-f912c2942749","username":"Personnel","userType":"Personnel","email":"p@mail.com","contactNumber":"012-3211234"}

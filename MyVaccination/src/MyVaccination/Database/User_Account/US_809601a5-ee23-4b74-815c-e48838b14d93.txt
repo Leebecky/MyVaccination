@@ -1,0 +1,1 @@
+{"name":"BJ1","dateOfBirth":"2000-11-09","identification":"001001010011","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Johor","gender":"Male","vaccinationHistory":[],"userId":"US_809601a5-ee23-4b74-815c-e48838b14d93","username":"001001010011","password":"bjbj1111","userType":"People","email":"bj1@mail.com","contactNumber":"011-0010011"}

@@ -137,7 +137,7 @@ public class Appointment implements File_Methods {
                 if (existingCandidate.isEmpty()) {
                     vc.refundStock(oriC.getVaccineBatchNumber());
 
-                    String vStatus = (oriC.findCandidate().getStatus().contains("2")) ? "1st Dose Appointment Completed" : "Not Vaccinated";
+                    String vStatus = (oriC.findCandidate().getStatus().contains("2")) ? "1st Dose Completed" : "Not Vaccinated";
 
                     oriC.updateCandidateStatus(vStatus, "Removed", apt.getAppointmentId(), "Remove");
                 }
@@ -227,6 +227,24 @@ public class Appointment implements File_Methods {
                 candidateList.remove(remove);
             }
         }
+    }
+    
+    // Update appointment status (Pending -> Rejected/Confirmed)
+    public boolean updateAptStatus(Candidate candidate, String status){
+        for (int i = 0; i < candidateList.size(); i++) {
+            if (candidateList.get(i).getCandidateId().equals(candidate.getCandidateId())) {
+                candidateList.get(i).setApptStatus(status);
+            }
+        }
+        
+        boolean saveSuccess = File_Helper.saveData(this, "Appointment");
+
+        //Check if save successful
+        if (saveSuccess != true) {
+            return saveSuccess;
+        }
+
+        return saveSuccess;
     }
 
     //Get potential candidates
