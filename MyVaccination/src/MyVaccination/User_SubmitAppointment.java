@@ -538,7 +538,15 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 aptDate = appointment.getAppointmentDate();
                 earliestDate = java.time.LocalDate.now();
                 apptStatus = appointment.getStatus();
-                candidateNum = appointment.getCandidateList().size();
+                List<Candidate> candidates = appointment.getCandidateList();
+                List<Candidate> pendingCandidate = new ArrayList();
+                pendingCandidate.removeAll(pendingCandidate);
+                for (Candidate candidate : candidates) {
+                    if(candidate.getApptStatus().equals("Pending") || candidate.getApptStatus().equals("Confirmed")){
+                        pendingCandidate.add(candidate);
+                    }
+                }
+                candidateNum = pendingCandidate.size();
                         
                 if (centreId.equals(element) && aptDate.isAfter(earliestDate) && apptStatus.equals("Active") && candidateNum < centreCapacity) {
                     countReject = 0;
@@ -730,7 +738,15 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                         aptDate = appointment.getAppointmentDate();
                         earliestDate = aptFromFile.getAppointmentDate().plusWeeks(waitTime);
                         apptStatus = appointment.getStatus();
-                        candidateNum = appointment.getCandidateList().size();
+                        List<Candidate> candidates = appointment.getCandidateList();
+                        List<Candidate> pendingCandidate = new ArrayList();
+                        pendingCandidate.removeAll(pendingCandidate);
+                        for (Candidate candidate : candidates) {
+                            if(candidate.getApptStatus().equals("Pending") || candidate.getApptStatus().equals("Confirmed")){
+                                pendingCandidate.add(candidate);
+                            }
+                        }
+                        candidateNum = pendingCandidate.size();
 
                         if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine) && apptStatus.equals("Active") && candidateNum < centreCapacity) {
                             countReject = 0;
