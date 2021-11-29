@@ -1,0 +1,1 @@
+{"name":"bj3","dateOfBirth":"2000-09-08","identification":"003003030033","nationality":"Non Malaysian","vaccinationStatus":"Not Vaccinated","address":"Labuan","gender":"Male","vaccinationHistory":[],"userId":"US_7c37b8f5-4986-4da6-86f7-414eb20cdb36","username":"003003030033","password":"bjbj3333","userType":"People","email":"bj3@mail.com","contactNumber":"013-0030033"}

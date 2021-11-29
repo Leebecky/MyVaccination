@@ -221,7 +221,18 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             jPanel2.setBackground(new Color(78,210,177));
             jPanel4.setBackground(new Color(78,210,177));
             jPanel5.setBackground(new Color(153,204,255));
+            
         }
+        
+        if(lblViewDose1.getText().equals("View Appointment")){
+            lblViewDose1.setForeground(new Color(0,153,255));
+        }
+
+        if(lblViewDose2.getText().equals("View Appointment")){
+            lblViewDose2.setForeground(new Color(0,153,255));
+        }
+
+        btnPrint.setForeground(new Color(0,153,255));
     }
 
     /**
@@ -654,6 +665,12 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnPrintMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnPrintMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnPrintMouseExited(evt);
+            }
         });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -678,10 +695,16 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         });
 
         lblViewDose2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lblViewDose2.setText("XXX Hospital");
+        lblViewDose2.setText("View Appointment");
         lblViewDose2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblViewDose2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblViewDose2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblViewDose2MouseExited(evt);
             }
         });
 
@@ -709,10 +732,16 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         });
 
         lblViewDose1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        lblViewDose1.setText("XXX Hospital");
+        lblViewDose1.setText("View Appointment");
         lblViewDose1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblViewDose1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblViewDose1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblViewDose1MouseExited(evt);
             }
         });
 
@@ -1300,6 +1329,62 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             System.err.println(e);
         }
     }//GEN-LAST:event_jFrame1WindowOpened
+
+    private void lblViewDose1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewDose1MouseEntered
+        if(lblViewDose1.getText().equals("View Appointment")){
+            lblViewDose1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+            Font font = lblViewDose1.getFont();
+            Map attributes = font.getAttributes();
+            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+            lblViewDose1.setFont(font.deriveFont(attributes));
+        }
+    }//GEN-LAST:event_lblViewDose1MouseEntered
+
+    private void lblViewDose1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewDose1MouseExited
+        if(lblViewDose1.getText().equals("View Appointment")){
+            Font font = lblViewDose1.getFont();
+            Map attributes = font.getAttributes();
+            attributes.put(TextAttribute.UNDERLINE, -1);
+            lblViewDose1.setFont(font.deriveFont(attributes));
+        }
+    }//GEN-LAST:event_lblViewDose1MouseExited
+
+    private void lblViewDose2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewDose2MouseEntered
+        if(lblViewDose2.getText().equals("View Appointment")){
+            lblViewDose2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+            Font font = lblViewDose2.getFont();
+            Map attributes = font.getAttributes();
+            attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+            lblViewDose2.setFont(font.deriveFont(attributes));
+        }
+    }//GEN-LAST:event_lblViewDose2MouseEntered
+
+    private void lblViewDose2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewDose2MouseExited
+        if(lblViewDose2.getText().equals("View Appointment")){
+            Font font = lblViewDose2.getFont();
+            Map attributes = font.getAttributes();
+            attributes.put(TextAttribute.UNDERLINE, -1);
+            lblViewDose2.setFont(font.deriveFont(attributes));
+        }
+    }//GEN-LAST:event_lblViewDose2MouseExited
+
+    private void btnPrintMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseEntered
+        btnPrint.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        Font font = btnPrint.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        btnPrint.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_btnPrintMouseEntered
+
+    private void btnPrintMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPrintMouseExited
+        Font font = btnPrint.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, -1);
+        btnPrint.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_btnPrintMouseExited
 
     /**
      * @param args the command line arguments

@@ -215,6 +215,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         String fullname = txtFullName.getText();
         String ic = txtIcPassport.getText();
         String dob = dtDoB.getDate().toString();
+        LocalDate localBday = dtDoB.getDate();
         String email = txtEmail.getText();
         String phone = txtPhone.getText();
         String gender = String.valueOf(cmbGender.getSelectedItem());
@@ -226,23 +227,24 @@ public class RegisterAccount extends javax.swing.JFrame {
         
         boolean isBlank = false;
         boolean dtInvalid = false;
-        String todaydt = java.time.LocalDate.now().toString();
+        LocalDate todaydt = java.time.LocalDate.now();
         if(fullname.equals("") || ic.equals("") || email.equals("") || phone.equals("") || password.equals("") || confirmpassword.equals("")){
             isBlank = true;
         }
         
-        if(dob.equals(todaydt)){
+        if(localBday.isAfter(todaydt.minusYears(18))){
             dtInvalid = true;
         }
         
         if(isBlank){
             JOptionPane.showMessageDialog(null, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(dtInvalid){
-            JOptionPane.showMessageDialog(null, "Date incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "User must be at least 18 years old to register an account.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if(password.length() < 8 || confirmpassword.length() < 8){
+            JOptionPane.showMessageDialog(null, "Passwords must be at least 8 characters.", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(!password.equals(confirmpassword)){
             JOptionPane.showMessageDialog(null, "Passwords are not same.", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
-//            String userId = "US_" + ic;
             String userType = "People";
             String id = UUID.randomUUID().toString();
             

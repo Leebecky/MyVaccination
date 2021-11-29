@@ -1,0 +1,1 @@
+{"appointmentId":"APT_0d8eb96d-e7a7-491f-8828-a07cbd2ab0d3","centreId":"VC_18ecc546-bd31-4873-bff1-c70bdee3962b","candidateList":[],"appointmentDate":"2021-11-29","appointmentTime":"11:00","status":"Closed","vaccineBrand":"Sinovac"}

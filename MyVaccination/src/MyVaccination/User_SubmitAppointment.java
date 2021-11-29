@@ -13,6 +13,7 @@ import java.awt.font.TextAttribute;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JLabel;
@@ -204,7 +205,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
         cmbCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        getContentPane().add(cmbCentre, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 150, 200, -1));
+        getContentPane().add(cmbCentre, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 270, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 153, 255), 2, true));
@@ -216,9 +217,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
         txtDose.setColumns(20);
+        txtDose.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         txtDose.setRows(5);
         txtDose.setText("123 \n0 \n50 \n1 ");
-        txtDose.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jScrollPane2.setViewportView(txtDose);
 
         jScrollPane3.setBorder(null);
@@ -269,12 +270,12 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblLocation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lblLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCentre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -311,11 +312,11 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 btnSearchActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 150, 90, 30));
+        getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, 90, 30));
 
         jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         jLabel6.setText("Vaccination Centre : ");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, -1, 30));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, 30));
 
         tblAppointment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -484,50 +485,33 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         List<Stock> stockList = centreFromFile.getStock();
         Vaccine vaccine;
         ArrayList<String> vaccineNames = new ArrayList<String>();
-        ArrayList<String> vaccineQuantity = new ArrayList<String>();
+        LinkedHashMap<String, Integer> vaccineSupply = new LinkedHashMap<String, Integer>();
+        String vacName;
         
         for(int i = 0; i < stockList.size(); i++) {
             vaccine = stockList.get(i).getVaccine();
+            vacName = vaccine.getName();
 
-            vaccineNames.add(vaccine.getName());
-            vaccineQuantity.add(String.valueOf(stockList.get(i).getQuantity()));
-        }
-        
-        // Remove duplicate vaccine details
-        ArrayList<String> vacName = new ArrayList<String>();
-        ArrayList<String> vacQuantity = new ArrayList<String>();
-
-        for (String element : vaccineNames) {
-            if (!vacName.contains(element)) {
-
-                vacName.add(element);
-            }
-        }
-
-        for (String element : vaccineQuantity) {
-            if (!vacQuantity.contains(element)) {
-
-                vacQuantity.add(element);
+            if(!vaccineNames.contains(vaccine.getName())){
+                vaccineNames.add(vacName);
+                vaccineSupply.put(vacName, stockList.get(i).getQuantity());
+            }else{
+                vaccineSupply.put(vacName, vaccineSupply.get(vacName) + stockList.get(i).getQuantity());
             }
         }
         
         int count = 0;
-        for (String element : vacName) {
+        for (Map.Entry<String, Integer> supply : vaccineSupply.entrySet()) {
+            String key = supply.getKey();
+            Integer value = supply.getValue();
+  
             if(count == 0){
-                txtVaccineList.setText(element);
-            }else{
-                txtVaccineList.setText(txtVaccineList.getText() + "\n" + element);
-            }
-            count++;
-        }
-        
-        count = 0;
-        for (String element : vacQuantity) {
-            if(count == 0){
-                txtDose.setText(element);
+                txtVaccineList.setText(key);
+                txtDose.setText(value.toString());
                 txtDoseStr.setText("supply");
             }else{
-                txtDose.setText(txtDose.getText() + "\n" + element);
+                txtVaccineList.setText(txtVaccineList.getText() + "\n" + key);
+                txtDose.setText(txtDose.getText() + "\n" + value.toString());
                 txtDoseStr.setText(txtDoseStr.getText() + "\nsupply");
             }
             count++;
@@ -537,6 +521,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         List<String> appDataArray = File_Helper.readFolder("Appointment");
         List<Appointment> appointmentList = new ArrayList();
         String[] data = new String[5];
+        String centreId, apptStatus;
+        LocalDate aptDate, earliestDate;
         int countReject;
 
         appDataArray.forEach(fileInFolder -> {
@@ -545,7 +531,12 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
         for (String element : selectedCentreId) {
             for (Appointment appointment : appointmentList) {
-                if (appointment.getCentreId().equals(element) && appointment.getAppointmentDate().isAfter(java.time.LocalDate.now())) {
+                centreId = appointment.getCentreId();
+                aptDate = appointment.getAppointmentDate();
+                earliestDate = java.time.LocalDate.now();
+                apptStatus = appointment.getStatus();
+                        
+                if (centreId.equals(element) && aptDate.isAfter(earliestDate) && apptStatus.equals("Active")) {
                     countReject = 0;
                     if (appointment.getCandidateList().size() > 0) {
                         for (Candidate candidate : appointment.getCandidateList()) {
@@ -594,9 +585,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
                 // Get centre ID
                 appointmentList.forEach(f -> {
-//                    if ("Public".equals(f.getAppointmentType())) {
+                    if ("Active".equals(f.getStatus())) {
                         arrApp.add(f.getCentreId());
-//                    }
+                    }
                 });
 
                 // Remove duplicate centre ID
@@ -666,50 +657,33 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 List<Stock> stockList = centreFromFile.getStock();
                 Vaccine vaccine;
                 ArrayList<String> vaccineNames = new ArrayList<String>();
-                ArrayList<String> vaccineQuantity = new ArrayList<String>();
+                LinkedHashMap<String, Integer> vaccineSupply = new LinkedHashMap<String, Integer>();
+                String vacName;
 
                 for(int i = 0; i < stockList.size(); i++) {
                     vaccine = stockList.get(i).getVaccine();
+                    vacName = vaccine.getName();
 
-                    vaccineNames.add(vaccine.getName());
-                    vaccineQuantity.add(String.valueOf(stockList.get(i).getQuantity()));
-                }
-
-                // Remove duplicate vaccine details
-                ArrayList<String> vacName = new ArrayList<String>();
-                ArrayList<String> vacQuantity = new ArrayList<String>();
-
-                for (String element : vaccineNames) {
-                    if (!vacName.contains(element)) {
-
-                        vacName.add(element);
-                    }
-                }
-
-                for (String element : vaccineQuantity) {
-                    if (!vacQuantity.contains(element)) {
-
-                        vacQuantity.add(element);
+                    if(!vaccineNames.contains(vaccine.getName())){
+                        vaccineNames.add(vacName);
+                        vaccineSupply.put(vacName, stockList.get(i).getQuantity());
+                    }else{
+                        vaccineSupply.put(vacName, vaccineSupply.get(vacName) + stockList.get(i).getQuantity());
                     }
                 }
 
                 int count = 0;
-                for (String element : vacName) {
-                    if(count == 0){
-                        txtVaccineList.setText(element);
-                    }else{
-                        txtVaccineList.setText(txtVaccineList.getText() + "\n" + element);
-                    }
-                    count++;
-                }
+                for (Map.Entry<String, Integer> supply : vaccineSupply.entrySet()) {
+                    String key = supply.getKey();
+                    Integer value = supply.getValue();
 
-                count = 0;
-                for (String element : vacQuantity) {
                     if(count == 0){
-                        txtDose.setText(element);
+                        txtVaccineList.setText(key);
+                        txtDose.setText(value.toString());
                         txtDoseStr.setText("supply");
                     }else{
-                        txtDose.setText(txtDose.getText() + "\n" + element);
+                        txtVaccineList.setText(txtVaccineList.getText() + "\n" + key);
+                        txtDose.setText(txtDose.getText() + "\n" + value.toString());
                         txtDoseStr.setText(txtDoseStr.getText() + "\nsupply");
                     }
                     count++;
@@ -739,7 +713,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 String dose1Vaccine = aptVaccine.getName();
                 int waitTime = aptVaccine.getWaitTime();
                 LocalDate aptDate, earliestDate;
-                String centreId, vaccineBrand;
+                String centreId, vaccineBrand, apptStatus;
                 int countReject;
                     
 
@@ -749,8 +723,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                         vaccineBrand = appointment.getVaccineBrand();
                         aptDate = appointment.getAppointmentDate();
                         earliestDate = aptFromFile.getAppointmentDate().plusWeeks(waitTime);
+                        apptStatus = appointment.getStatus();
 
-                        if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine)) {
+                        if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine) && apptStatus.equals("Active")) {
                             countReject = 0;
                             if (appointment.getCandidateList().size() > 0) {
                                 for (Candidate candidate : appointment.getCandidateList()) {

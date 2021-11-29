@@ -1,0 +1,1 @@
+{"appointmentId":"APT_4407a6bd-a8d8-4075-bd74-5d3e166d97e5","centreId":"VC_625fc448-1770-492d-97d7-673e98a789bd","candidateList":[],"appointmentDate":"2022-01-21","appointmentTime":"13:30","status":"Active","vaccineBrand":"CanSino"}

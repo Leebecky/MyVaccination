@@ -35,6 +35,14 @@ public class User_EditProfile extends javax.swing.JFrame {
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
         
+        Location location = new Location();
+        String[] states = location.getStateList();
+        
+        cmbLocation.removeAllItems();
+        for(String state: states){
+            cmbLocation.addItem(state);
+        }
+        
         lblUsername.setText(userFromFile.getName());
         lblId.setText(id);
         lblId.setVisible(false);
