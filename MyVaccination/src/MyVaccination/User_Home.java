@@ -11,6 +11,8 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +25,8 @@ public class User_Home extends javax.swing.JFrame {
      */
     public User_Home() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
         
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
@@ -30,6 +34,8 @@ public class User_Home extends javax.swing.JFrame {
     
     public User_Home(String id) {
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
         
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
@@ -63,10 +69,15 @@ public class User_Home extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnVacAppoint.setBackground(new java.awt.Color(204, 153, 255));
-        btnVacAppoint.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnVacAppoint.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         btnVacAppoint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Vaccine.png"))); // NOI18N
         btnVacAppoint.setText("Submit Vaccination Appointment");
         btnVacAppoint.setAlignmentY(0.0F);
@@ -76,7 +87,7 @@ public class User_Home extends javax.swing.JFrame {
                 btnVacAppointActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVacAppoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 175, -1, 73));
+        getContentPane().add(btnVacAppoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, 360, 73));
 
         userlHeader.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -118,7 +129,7 @@ public class User_Home extends javax.swing.JFrame {
         getContentPane().add(userlHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
 
         btnVacStatus.setBackground(new java.awt.Color(204, 153, 255));
-        btnVacStatus.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnVacStatus.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         btnVacStatus.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Search.png"))); // NOI18N
         btnVacStatus.setText("View Vaccination Status");
         btnVacStatus.setAlignmentY(0.0F);
@@ -128,9 +139,9 @@ public class User_Home extends javax.swing.JFrame {
                 btnVacStatusActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVacStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(277, 314, 331, 73));
+        getContentPane().add(btnVacStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 360, 73));
 
-        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("welcome to MYvaccination!");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 540, -1));
@@ -270,6 +281,15 @@ public class User_Home extends javax.swing.JFrame {
         viewProfile.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblViewProfileMousePressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(lblId.getText().equals("userIc")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

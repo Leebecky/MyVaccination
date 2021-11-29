@@ -12,6 +12,7 @@ import java.awt.Cursor;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,6 +26,8 @@ public class RegisterAccount extends javax.swing.JFrame {
      */
     public RegisterAccount() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
         
         dtDoB.setDateToToday();
         txtIcPassport.setToolTipText("Do not include symbol -  ");
@@ -77,7 +80,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         setTitle("MyVaccination");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(180, 151, 214));
+        jPanel1.setBackground(new java.awt.Color(204, 153, 255));
 
         jLabel1.setText("Register Account");
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
@@ -114,7 +117,8 @@ public class RegisterAccount extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 875, -1));
 
         txtFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtFullName.setName(""); // NOI18N
+        txtFullName.setInputVerifier(new Validator());
+        txtFullName.setName("Name"); // NOI18N
         getContentPane().add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 218, 30));
 
         jLabel3.setText("Full Name : ");
@@ -171,7 +175,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         getContentPane().add(cmbGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 110, 218, -1));
 
         btnRegister.setText("Register");
-        btnRegister.setBackground(new java.awt.Color(180, 151, 214));
+        btnRegister.setBackground(new java.awt.Color(204, 153, 255));
         btnRegister.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnRegister.setBorderPainted(false);
         btnRegister.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
@@ -180,7 +184,7 @@ public class RegisterAccount extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 440, 120, 50));
+        getContentPane().add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 450, 120, 50));
 
         cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selangor", "Kuala Lumpur", "Penang", "Johor", "Kedah", "Pahang" }));
         cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
@@ -200,11 +204,13 @@ public class RegisterAccount extends javax.swing.JFrame {
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
 
         txtEmail.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtEmail.setName(""); // NOI18N
+        txtEmail.setInputVerifier(new Validator());
+        txtEmail.setName("Email"); // NOI18N
         getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, 218, 30));
 
         txtPhone.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtPhone.setName(""); // NOI18N
+        txtPhone.setInputVerifier(new Validator());
+        txtPhone.setName("Phone"); // NOI18N
         getContentPane().add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 218, 30));
 
         pack();

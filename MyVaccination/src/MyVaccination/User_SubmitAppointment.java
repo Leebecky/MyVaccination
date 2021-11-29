@@ -16,6 +16,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -31,6 +32,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
      */
     public User_SubmitAppointment() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
 
         lblId.setVisible(false);
         lblViewProfile.setVisible(false);
@@ -45,6 +48,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
     public User_SubmitAppointment(String id) {
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
 
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
@@ -94,6 +99,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblAppointment = new javax.swing.JTable();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
@@ -151,9 +157,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
         getContentPane().add(userHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
 
+        jLabel1.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Submit Appointment");
-        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 540, -1));
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
@@ -194,8 +200,10 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
 
+        btnSubmit.setBackground(new java.awt.Color(204, 153, 255));
         btnSubmit.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSubmit.setText("Submit");
+        btnSubmit.setBorderPainted(false);
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSubmitActionPerformed(evt);
@@ -203,21 +211,22 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         });
         getContentPane().add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 450, 90, 30));
 
+        cmbCentre.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         cmbCentre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cmbCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        getContentPane().add(cmbCentre, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 270, -1));
+        getContentPane().add(cmbCentre, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 250, -1));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 153, 255), 2, true));
 
-        lblCentre.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lblCentre.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         jScrollPane2.setBorder(null);
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtDose.setColumns(20);
-        txtDose.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtDose.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         txtDose.setRows(5);
         txtDose.setText("123 \n0 \n50 \n1 ");
         jScrollPane2.setViewportView(txtDose);
@@ -225,33 +234,35 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         jScrollPane3.setBorder(null);
         jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtVaccineList.setColumns(20);
-        txtVaccineList.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtVaccineList.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         txtVaccineList.setRows(5);
-        txtVaccineList.setText("Pfizer\nSinovac\nAstraZeneca\n4th");
+        txtVaccineList.setText("Pfizer\nSinovac\nAstraZeneca\nCanSino");
         jScrollPane3.setViewportView(txtVaccineList);
 
-        jLabel8.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel8.setText("Vaccine Available:");
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("Centre: ");
 
         jScrollPane5.setBorder(null);
         jScrollPane5.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane5.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtDoseStr.setColumns(20);
-        txtDoseStr.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        txtDoseStr.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         txtDoseStr.setRows(5);
         txtDoseStr.setText("supply\nsupply\nsupply\nsupply");
         jScrollPane5.setViewportView(txtDoseStr);
 
-        jLabel9.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setText("Location:");
 
-        lblLocation.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        lblLocation.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -270,7 +281,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE))
+                        .addComponent(lblLocation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -305,8 +316,10 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         lblId.setText("userIc");
         getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 440, 80, 40));
 
+        btnSearch.setBackground(new java.awt.Color(204, 153, 255));
         btnSearch.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.setBorderPainted(false);
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);
@@ -314,10 +327,11 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         });
         getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 150, 90, 30));
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabel6.setText("Vaccination Centre : ");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 150, -1, 30));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, -1, 30));
 
+        tblAppointment.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         tblAppointment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -329,6 +343,22 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         jScrollPane4.setViewportView(tblAppointment);
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 220));
+
+        btnBack.setBackground(new java.awt.Color(204, 153, 255));
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N
+        btnBack.setBorder(null);
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setFocusPainted(false);
+        btnBack.setFocusable(false);
+        btnBack.setRequestFocusEnabled(false);
+        btnBack.setRolloverEnabled(false);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 28));
 
         pack();
         setLocationRelativeTo(null);
@@ -517,13 +547,16 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             count++;
         }
         
+        // Check centre capacity
+        int centreCapacity = centreFromFile.getCapacity();
+        
         // Get Appointment that is held in the selected centre
         List<String> appDataArray = File_Helper.readFolder("Appointment");
         List<Appointment> appointmentList = new ArrayList();
         String[] data = new String[5];
         String centreId, apptStatus;
         LocalDate aptDate, earliestDate;
-        int countReject;
+        int countReject, candidateNum;
 
         appDataArray.forEach(fileInFolder -> {
             appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
@@ -535,8 +568,17 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 aptDate = appointment.getAppointmentDate();
                 earliestDate = java.time.LocalDate.now();
                 apptStatus = appointment.getStatus();
+                List<Candidate> candidates = appointment.getCandidateList();
+                List<Candidate> pendingCandidate = new ArrayList();
+                pendingCandidate.removeAll(pendingCandidate);
+                for (Candidate candidate : candidates) {
+                    if(candidate.getApptStatus().equals("Pending") || candidate.getApptStatus().equals("Confirmed")){
+                        pendingCandidate.add(candidate);
+                    }
+                }
+                candidateNum = pendingCandidate.size();
                         
-                if (centreId.equals(element) && aptDate.isAfter(earliestDate) && apptStatus.equals("Active")) {
+                if (centreId.equals(element) && aptDate.isAfter(earliestDate) && apptStatus.equals("Active") && candidateNum < centreCapacity) {
                     countReject = 0;
                     if (appointment.getCandidateList().size() > 0) {
                         for (Candidate candidate : appointment.getCandidateList()) {
@@ -688,7 +730,10 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                     }
                     count++;
                 }
-
+                
+                // Check centre capacity
+                int centreCapacity = centreFromFile.getCapacity();
+                
                 // Get Appointment that is held in the selected centre
                 List<String> appDataArray = File_Helper.readFolder("Appointment");
                 List<Appointment> appointmentList = new ArrayList();
@@ -714,9 +759,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 int waitTime = aptVaccine.getWaitTime();
                 LocalDate aptDate, earliestDate;
                 String centreId, vaccineBrand, apptStatus;
-                int countReject;
+                int countReject, candidateNum;
                     
-
                 for (String element : selectedCentreId) {
                     for (Appointment appointment : appointmentList) {
                         centreId = appointment.getCentreId();
@@ -724,8 +768,17 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                         aptDate = appointment.getAppointmentDate();
                         earliestDate = aptFromFile.getAppointmentDate().plusWeeks(waitTime);
                         apptStatus = appointment.getStatus();
+                        List<Candidate> candidates = appointment.getCandidateList();
+                        List<Candidate> pendingCandidate = new ArrayList();
+                        pendingCandidate.removeAll(pendingCandidate);
+                        for (Candidate candidate : candidates) {
+                            if(candidate.getApptStatus().equals("Pending") || candidate.getApptStatus().equals("Confirmed")){
+                                pendingCandidate.add(candidate);
+                            }
+                        }
+                        candidateNum = pendingCandidate.size();
 
-                        if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine) && apptStatus.equals("Active")) {
+                        if (centreId.equals(element) && aptDate.isAfter(earliestDate) && vaccineBrand.equals(dose1Vaccine) && apptStatus.equals("Active") && candidateNum < centreCapacity) {
                             countReject = 0;
                             if (appointment.getCandidateList().size() > 0) {
                                 for (Candidate candidate : appointment.getCandidateList()) {
@@ -772,8 +825,21 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 viewStatus.setVisible(true);
                 this.setVisible(false);
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        String id = lblId.getText();
+
+        User_Home userHome = new User_Home(id);
+        userHome.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -811,6 +877,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbCentre;

@@ -78,6 +78,11 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(944, 539));
         setName("frmMngApt"); // NOI18N
         setSize(getPreferredSize());
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
@@ -98,7 +103,6 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
         });
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -152,7 +156,6 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
         btnAddNewApt.setAlignmentY(0.0F);
         btnAddNewApt.setBackground(new java.awt.Color(51, 51, 255));
         btnAddNewApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnAddNewApt.setForeground(new java.awt.Color(0, 0, 0));
         btnAddNewApt.setIconTextGap(10);
         btnAddNewApt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +166,6 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
 
         btnDeleteApt.setBackground(new java.awt.Color(255, 51, 51));
         btnDeleteApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnDeleteApt.setForeground(new java.awt.Color(0, 0, 0));
         btnDeleteApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
         btnDeleteApt.setText("Delete");
         btnDeleteApt.setAlignmentY(0.0F);
@@ -187,12 +189,11 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 133, 41, 41));
 
+        btnAddEditApt.setBackground(new java.awt.Color(255, 153, 51));
+        btnAddEditApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnAddEditApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Edit.png"))); // NOI18N
         btnAddEditApt.setText("Edit");
         btnAddEditApt.setAlignmentY(0.0F);
-        btnAddEditApt.setBackground(new java.awt.Color(255, 153, 51));
-        btnAddEditApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnAddEditApt.setForeground(new java.awt.Color(0, 0, 0));
         btnAddEditApt.setIconTextGap(10);
         btnAddEditApt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,7 +220,6 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -239,7 +239,6 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
@@ -420,6 +419,15 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
             lblLogout.setVisible(true);
         }
     }//GEN-LAST:event_lblUsernameMousePressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(userId.equals("")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

@@ -180,8 +180,12 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
         setMinimumSize(new java.awt.Dimension(945, 520));
-        setPreferredSize(new java.awt.Dimension(945, 520));
         setSize(new java.awt.Dimension(945, 520));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cmbUserType.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -216,7 +220,6 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
 
         lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -257,7 +260,6 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         btnVcCancel.setText("Cancel");
         btnVcCancel.setBackground(new java.awt.Color(204, 51, 0));
         btnVcCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnVcCancel.setForeground(new java.awt.Color(0, 0, 0));
         btnVcCancel.setIconTextGap(10);
         btnVcCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,7 +272,6 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         lblViewProfile.setText("View Profile");
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setOpaque(true);
         lblViewProfile.setToolTipText("");
         lblViewProfile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -290,7 +291,6 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         btnVcSave.setText("Save");
         btnVcSave.setBackground(new java.awt.Color(0, 204, 51));
         btnVcSave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnVcSave.setForeground(new java.awt.Color(0, 0, 0));
         btnVcSave.setIconTextGap(10);
         btnVcSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -320,7 +320,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         jLabel4.setText("NRIC/Passport  :");
         jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Malaysian", "Non-Malaysian" }));
+        cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Malaysian", "Non Malaysian" }));
         cmbNationality.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         jLabel5.setText("Nationality :");
@@ -572,7 +572,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             .addGroup(layeredPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layeredPanelLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                    .addComponent(panelPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, 361, Short.MAX_VALUE)
                     .addContainerGap()))
         );
 
@@ -584,7 +584,6 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         lblLogout.setText("Log Out");
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setOpaque(true);
         lblLogout.setToolTipText("");
         lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -807,6 +806,15 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             lblLogout.setVisible(true);
         }
     }//GEN-LAST:event_lblUsernameMousePressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(userId.equals("")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
