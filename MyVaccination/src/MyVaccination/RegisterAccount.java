@@ -6,23 +6,11 @@
 package MyVaccination;
 
 import MyVaccination.Classes.*;
-import MyVaccination.Gson.LocalDateAdapter;
 import MyVaccination.Helper_Classes.File_Helper;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import MyVaccination.Helper_Classes.Validator;
 import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.font.TextAttribute;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 import java.util.UUID;
 import javax.swing.JOptionPane;
 
@@ -198,9 +186,9 @@ public class RegisterAccount extends javax.swing.JFrame {
         cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         getContentPane().add(cmbLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 250, 218, -1));
 
+        jLabel2.setText("**This will be your  login username");
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel2.setText("**This will be your  login username");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, -1, 20));
 
         jLabel11.setText("Gender :");
@@ -234,21 +222,23 @@ public class RegisterAccount extends javax.swing.JFrame {
         String location = String.valueOf(cmbLocation.getSelectedItem());
         String password = txtPassword.getText();
         String confirmpassword = txtConfirmPassword.getText();
+        String phoneNum = txtPhoneNum.getText();
+        String email = txtEmail.getText();
         
         boolean isBlank = false;
-        boolean dtValid = false;
+        boolean dtInvalid = false;
         String todaydt = java.time.LocalDate.now().toString();
         if(fullname.equals("") || ic.equals("") || email.equals("") || phone.equals("") || password.equals("") || confirmpassword.equals("")){
             isBlank = true;
         }
         
         if(dob.equals(todaydt)){
-            dtValid = true;
+            dtInvalid = true;
         }
         
         if(isBlank){
             JOptionPane.showMessageDialog(null, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(dtValid){
+        }else if(dtInvalid){
             JOptionPane.showMessageDialog(null, "Date incorrect.", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(!password.equals(confirmpassword)){
             JOptionPane.showMessageDialog(null, "Passwords are not same.", "Error", JOptionPane.ERROR_MESSAGE);

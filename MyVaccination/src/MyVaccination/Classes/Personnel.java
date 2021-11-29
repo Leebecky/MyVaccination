@@ -22,7 +22,9 @@ public class Personnel extends User {
     private String clearance;
     
     public Personnel () {
-        super("Personnel", true);        
+        super();        
+        this.userType = "Personnel";
+        this.clearance = "Administrator" ;
     }
 
     public String getStatus() {

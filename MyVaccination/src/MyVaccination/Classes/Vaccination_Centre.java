@@ -317,6 +317,21 @@ public class Vaccination_Centre implements File_Methods {
         return null;
 
     }
+    
+    //Find vaccine from stock
+//    public Vaccine findVaccine(String vaccineBatchNumber) {
+//        if (this.stock == null) {
+//            return null;
+//        }
+//        
+//        for (Stock s : this.stock) {
+//            if (s.getVaccine().getBatchNumber().equals(vaccineBatchNumber)) {
+//                return s.getVaccine();
+//            }
+//        }
+//        
+//        return null;
+//    }
 
     //Interface implementation
     @Override

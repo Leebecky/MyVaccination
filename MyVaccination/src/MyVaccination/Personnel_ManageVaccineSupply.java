@@ -5,16 +5,17 @@
  */
 package MyVaccination;
 
+import MyVaccination.Classes.Personnel;
 import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Classes.Vaccine;
-import MyVaccination.Helper_Classes.Printer;
-import java.awt.HeadlessException;
-import java.awt.print.PageFormat;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
+import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -30,11 +31,32 @@ import org.jfree.data.category.SlidingCategoryDataset;
  */
 public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
 
+    String userId = "";
+
     /**
      * Creates new form Personnel_ManageVaccineSupply
      */
     public Personnel_ManageVaccineSupply() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
+
+        lblViewProfile.setVisible(false);
+        lblLogout.setVisible(false);
+    }
+
+    public Personnel_ManageVaccineSupply(String userId) {
+        this.userId = userId;
+        initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
+
+        Personnel user = Personnel.getPersonnel(userId);
+
+        lblUsername.setText(user.getUsername());
+
+        lblViewProfile.setVisible(false);
+        lblLogout.setVisible(false);
     }
 
     /**
@@ -59,6 +81,7 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
         panelSupply = new javax.swing.JTabbedPane();
         panelChart = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -66,6 +89,9 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         btnVcSupply = new javax.swing.JButton();
         int vcSize = Vaccination_Centre.getVcFolderData().size();
         sliderChart = new javax.swing.JSlider();
+        btnBack = new javax.swing.JButton();
+        lblViewProfile = new javax.swing.JLabel();
+        lblLogout = new javax.swing.JLabel();
 
         diaResupply.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         diaResupply.setTitle("Vaccination Centre");
@@ -173,6 +199,7 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         diaResupplyLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbResupplyVaccine, cmbResupplyVc, spinResupply});
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MyVaccination");
         setMinimumSize(new java.awt.Dimension(962, 504));
         setSize(getPreferredSize());
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -180,6 +207,7 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
                 formWindowOpened(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
@@ -198,26 +226,52 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
             }
         });
 
+        lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
+        lblUsername.setText("User Name");
+        lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsernameMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsernameMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblUsernameMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout homePersonnelHeaderLayout = new javax.swing.GroupLayout(homePersonnelHeader);
         homePersonnelHeader.setLayout(homePersonnelHeaderLayout);
         homePersonnelHeaderLayout.setHorizontalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addGap(0, 744, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 631, Short.MAX_VALUE)
+                .addComponent(lblUsername)
+                .addGap(29, 29, 29))
         );
         homePersonnelHeaderLayout.setVerticalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePersonnelHeaderLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnHome))
+            .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(lblUsername)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getContentPane().add(homePersonnelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, -1));
 
         panelSupply.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 panelSupplyStateChanged(evt);
             }
         });
+
+        panelChart.setMinimumSize(new java.awt.Dimension(675, 266));
+        panelChart.setRequestFocusEnabled(false);
 
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
@@ -233,10 +287,14 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         panelSupply.addTab("Chart", panelChart);
 
         tblSupply.setModel(Vaccination_Centre.getVcSupplyTableModel(null, null));
+        tblSupply.setMaximumSize(new java.awt.Dimension(675, 266));
+        tblSupply.setMinimumSize(new java.awt.Dimension(675, 266));
         tblSupply.setRowHeight(30);
         jScrollPane1.setViewportView(tblSupply);
 
         panelSupply.addTab("Table", jScrollPane1);
+
+        getContentPane().add(panelSupply, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 111, 670, 299));
 
         btnVcSupply.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnVcSupply.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/supply_48.png"))); // NOI18N
@@ -248,6 +306,7 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
                 btnVcSupplyActionPerformed(evt);
             }
         });
+        getContentPane().add(btnVcSupply, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 456, 232, 57));
 
         sliderChart.setMaximum(vcSize);
         sliderChart.setMinorTickSpacing(3);
@@ -260,43 +319,70 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
                 sliderChartStateChanged(evt);
             }
         });
+        getContentPane().add(sliderChart, new org.netbeans.lib.awtextra.AbsoluteConstraints(142, 422, 675, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(homePersonnelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(347, 347, 347))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(sliderChart, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 675, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(127, 127, 127))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panelSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(sliderChart, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(btnVcSupply, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-        );
+        btnBack.setBackground(new java.awt.Color(204, 153, 255));
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N
+        btnBack.setBorder(null);
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setFocusPainted(false);
+        btnBack.setFocusable(false);
+        btnBack.setRequestFocusEnabled(false);
+        btnBack.setRolloverEnabled(false);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 66, -1, 28));
+
+        lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
+        lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
+        lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblViewProfile.setText("View Profile");
+        lblViewProfile.setToolTipText("");
+        lblViewProfile.setOpaque(true);
+        lblViewProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblViewProfileMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblViewProfileMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblViewProfileMousePressed(evt);
+            }
+        });
+        getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 60, 150, 40));
+
+        lblLogout.setBackground(new java.awt.Color(204, 153, 255));
+        lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
+        lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogout.setText("Log Out");
+        lblLogout.setToolTipText("");
+        lblLogout.setOpaque(true);
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblLogoutMousePressed(evt);
+            }
+        });
+        getContentPane().add(lblLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 90, 150, 40));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
-        Personnel_Home home = new Personnel_Home();
+        Personnel_Home home = new Personnel_Home(userId);
         home.setVisible(true);
         this.setVisible(false);
         this.dispose();
@@ -402,7 +488,7 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
 
     private void sliderChartStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderChartStateChanged
         // To adjust the chart size
-        
+
         CategoryDataset ds = (Vaccination_Centre.supplyDatasetAll() == null) ? new DefaultCategoryDataset() : Vaccination_Centre.supplyDatasetAll();
 
         JFreeChart barChart = ChartFactory.createStackedBarChart(
@@ -416,6 +502,85 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         ChartPanel chartPanel = new ChartPanel(barChart);
         panelSupply.setComponentAt(0, chartPanel);
     }//GEN-LAST:event_sliderChartStateChanged
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // Return to Personnel Home page
+        Personnel_Home home = new Personnel_Home(userId);
+        home.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered
+        lblUsername.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        Font font = lblUsername.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblUsername.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblUsernameMouseEntered
+
+    private void lblUsernameMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseExited
+        Font font = lblUsername.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, -1);
+        lblUsername.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblUsernameMouseExited
+
+    private void lblUsernameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMousePressed
+        if (lblLogout.isVisible()) {
+            lblViewProfile.setVisible(false);
+            lblLogout.setVisible(false);
+        } else {
+            lblViewProfile.setVisible(true);
+            lblLogout.setVisible(true);
+        }
+    }//GEN-LAST:event_lblUsernameMousePressed
+
+    private void lblViewProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseEntered
+        lblViewProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        Font font = lblViewProfile.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblViewProfile.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblViewProfileMouseEntered
+
+    private void lblViewProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseExited
+        Font font = lblViewProfile.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, -1);
+        lblViewProfile.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblViewProfileMouseExited
+
+    private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
+
+        Personnel_ViewProfile viewProfile = new Personnel_ViewProfile(userId);
+        viewProfile.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblViewProfileMousePressed
+
+    private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseEntered
+        lblLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        Font font = lblLogout.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblLogout.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblLogoutMouseEntered
+
+    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseExited
+        Font font = lblLogout.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, -1);
+        lblLogout.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblLogoutMouseExited
+
+    private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
+        Login login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblLogoutMousePressed
 
     /**
      * @param args the command line arguments
@@ -453,6 +618,7 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnResupplyCancel;
     private javax.swing.JButton btnResupplySave;
@@ -465,6 +631,9 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblLogout;
+    private javax.swing.JLabel lblUsername;
+    private javax.swing.JLabel lblViewProfile;
     private javax.swing.JPanel panelChart;
     private javax.swing.JTabbedPane panelSupply;
     private javax.swing.JSlider sliderChart;
