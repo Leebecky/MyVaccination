@@ -1,0 +1,1 @@
+{"name":"Maya","dateOfBirth":"1994-10-04","identification":"941004040321","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Melaka","gender":"Female","userId":"US_22e8e25e-44ac-4259-b301-47612b04febd","username":"941004040321","password":"941004040321_19941004","userType":"People","email":"maya@alam.my","contactNumber":"012-3213512"}
