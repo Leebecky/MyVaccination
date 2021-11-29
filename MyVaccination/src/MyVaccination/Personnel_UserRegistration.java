@@ -45,17 +45,27 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         lblLogout.setVisible(false);
     }
 
-    public Personnel_UserRegistration(String userId) {
+    public Personnel_UserRegistration(String userId, String userType) {
         this.userId = userId;
         people = new People();
         personnel = new Personnel();
         initComponents();
+        cmbUserType.setSelectedItem(userType);
 
-        panelPersonnel.setVisible(false);
+        if (userType.equals("People")) {
+             panelPeople.setVisible(true);        
+            panelPersonnel.setVisible(false);
+        } else {
+             panelPeople.setVisible(false);        
+            panelPersonnel.setVisible(true);
+            
+        }
 
         ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
         this.setIconImage(img.getImage());
-
+        
+        Personnel user = Personnel.getPersonnel(userId);
+        lblUsername.setText(user.getUsername());
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
     }
@@ -169,7 +179,9 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
-        setSize(getPreferredSize());
+        setMinimumSize(new java.awt.Dimension(945, 520));
+        setPreferredSize(new java.awt.Dimension(945, 520));
+        setSize(new java.awt.Dimension(945, 520));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cmbUserType.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -341,7 +353,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
 
         txtPeopleContactNum.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         txtPeopleContactNum.setInputVerifier(new Validator());
-        txtPeopleContactNum.setName("Contact"); // NOI18N
+        txtPeopleContactNum.setName("Phone"); // NOI18N
 
         javax.swing.GroupLayout panelPeopleLayout = new javax.swing.GroupLayout(panelPeople);
         panelPeople.setLayout(panelPeopleLayout);
@@ -470,6 +482,8 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPersonnelContactNum.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtPersonnelContactNum.setInputVerifier(new Validator());
+        txtPersonnelContactNum.setName("Phone"); // NOI18N
 
         jLabel15.setText("Email :");
         jLabel15.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -618,7 +632,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
 
             } else {
 
-                Personnel_ManageUsers home = new Personnel_ManageUsers();
+                Personnel_ManageUsers home = new Personnel_ManageUsers(userId);
                 home.setVisible(true);
             }
         }
@@ -626,6 +640,9 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
 
     private void btnVcSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcSaveActionPerformed
         String userType = cmbUserType.getSelectedItem().toString();
+        boolean success = false;
+        String message = "";
+        String name = "";
 
         //Data Validation
         if (userType.equals("People")) {
@@ -641,71 +658,68 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
                 return;
             }
 
+            //Save People data
+            String selectedGender = (rdMale.isSelected()) ? "Male" : "Female";
+
+            name = txtPeopleName.getText();
+            //Registration for People
+            people.setName(name);
+            people.setDob(dtDob.getDate());
+            people.setGender(selectedGender);
+            people.setNation(cmbNationality.getSelectedItem().toString());
+            people.setId(txtId.getText());
+            people.setAddress(cmbPeopleState.getSelectedItem().toString());
+            people.setUsername(txtId.getText());
+            people.setEmail(txtPeopleEmail.getText());
+            people.setContactNumber(txtPeopleContactNum.getText());
+
+            success = User.registerUser_Personnel(people);
+
         } else {
             if (txtPersonnelName.getText().isBlank() || txtPersonnelEmail.getText().isBlank() || txtPersonnelContactNum.getText().isBlank()) {
                 JOptionPane.showMessageDialog(this, "Please fill in all fields!", "User Registration", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            boolean success = false;
-            String message = "";
-            String name = "";
+            //Save Personnel Data
+            name = txtPersonnelName.getText();
+            //Registration for Personnel
+            personnel.setUsername(name);
+            personnel.setClearance(cmbPersonnelClearance.getSelectedItem().toString());
+            personnel.setStatus(cmbPersonnelStatus.getSelectedItem().toString());
+            personnel.setState(cmbPersonnelState.getSelectedItem().toString());
+            personnel.setEmail(txtPersonnelEmail.getText());
+            personnel.setContactNumber(txtPersonnelContactNum.getText());
 
-            if (userType.equals("People")) {
-                String selectedGender = (rdMale.isSelected()) ? "Male" : "Female";
-
-                name = txtPeopleName.getText();
-                //Registration for People
-                people.setName(name);
-                people.setDob(dtDob.getDate());
-                people.setGender(selectedGender);
-                people.setNation(cmbNationality.getSelectedItem().toString());
-                people.setId(txtId.getText());
-                people.setAddress(cmbPeopleState.getSelectedItem().toString());
-                people.setUsername(txtId.getText());
-                people.setEmail(txtPeopleEmail.getText());
-                people.setContactNumber(txtPeopleContactNum.getText());
-
-                success = User.registerUser_Personnel(people);
-            } else {
-                name = txtPersonnelName.getText();
-                //Registration for Personnel
-                personnel.setUsername(name);
-                personnel.setClearance(cmbPersonnelClearance.getSelectedItem().toString());
-                personnel.setStatus(cmbPersonnelStatus.getSelectedItem().toString());
-                personnel.setState(cmbPersonnelState.getSelectedItem().toString());
-                personnel.setEmail(txtPersonnelEmail.getText());
-                personnel.setContactNumber(txtPersonnelContactNum.getText());
-
-                success = User.saveUser(personnel);
-            }
-
-            if (!selectedUserId.equals("")) {
-                //Edit
-                message = "Failed to update record for " + name + "!";
-            } else {
-                //New
-                message = "Failed to register new user!";
-            }
-
-            //Verify success of registration
-            if (!success) {
-                JOptionPane.showMessageDialog(this, message, "User", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (userId.equals(selectedUserId)) {
-                Personnel_ViewProfile home = new Personnel_ViewProfile(userId);
-                home.setVisible(true);
-
-            } else {
-
-                Personnel_ManageUsers home = new Personnel_ManageUsers();
-                home.setVisible(true);
-            }
-            this.setVisible(false);
-            this.dispose();
+            success = User.saveUser(personnel);
         }
+
+        if (!selectedUserId.equals("")) {
+            //Edit
+            message = "Failed to update record for " + name + "!";
+        } else {
+            //New
+            message = "Failed to register new user!";
+        }
+
+        //Verify success of registration
+        if (!success) {
+            JOptionPane.showMessageDialog(this, message, "User", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (userId.equals(selectedUserId)) {
+            Personnel_ViewProfile home = new Personnel_ViewProfile(userId);
+            home.setVisible(true);
+
+        } else {
+
+            Personnel_ManageUsers home = new Personnel_ManageUsers(userId);
+            home.setVisible(true);
+        }
+        this.setVisible(false);
+        this.dispose();
+
     }//GEN-LAST:event_btnVcSaveActionPerformed
 
     private void cmbUserTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbUserTypeItemStateChanged

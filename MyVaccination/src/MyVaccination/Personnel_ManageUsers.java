@@ -41,12 +41,11 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
     public Personnel_ManageUsers(String userId) {
         this.userId = userId;
-         user = Personnel.getPersonnel(userId);
+        user = Personnel.getPersonnel(userId);
 
         initComponents();
         ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
         this.setIconImage(img.getImage());
-
 
         lblUsername.setText(user.getUsername());
 
@@ -99,8 +98,8 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
-        btnHome.setBackground(new java.awt.Color(204, 153, 255));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
+        btnHome.setBackground(new java.awt.Color(204, 153, 255));
         btnHome.setBorder(null);
         btnHome.setBorderPainted(false);
         btnHome.setContentAreaFilled(false);
@@ -114,9 +113,9 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
             }
         });
 
+        lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(0, 0, 0));
-        lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -333,7 +332,8 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAddEdiActionPerformed
 
     private void btnAddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewActionPerformed
-        Personnel_UserRegistration form = new Personnel_UserRegistration(userId);
+        String userType = (panelTables.getSelectedIndex() == 0) ? "People" : "Personnel";
+        Personnel_UserRegistration form = new Personnel_UserRegistration(userId, userType);
         form.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAddNewActionPerformed
@@ -420,7 +420,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
     private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
 
-         Personnel_ViewProfile viewProfile = new Personnel_ViewProfile(userId);
+        Personnel_ViewProfile viewProfile = new Personnel_ViewProfile(userId);
         viewProfile.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblViewProfileMousePressed
