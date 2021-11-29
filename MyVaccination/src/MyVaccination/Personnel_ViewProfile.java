@@ -11,6 +11,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -18,31 +19,39 @@ import java.util.Map;
  */
 public class Personnel_ViewProfile extends javax.swing.JFrame {
 
+    String userId = "";
+
     /**
      * Creates new form User_ViewProfile
      */
     public Personnel_ViewProfile() {
         initComponents();
-    }
-    
-    public Personnel_ViewProfile(String id) {
-        initComponents();
-        
-        String userData = File_Helper.readFile("User_Account/" + id + ".txt");
-        People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-        
-        lblUsername.setText(userFromFile.getName());
-        lblId.setText(id);
-        lblId.setVisible(false);
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
+
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
-        
-        lblFullName.setText(userFromFile.getName());
-        lblIcPassport.setText(userFromFile.getId());
-        lblDob.setText(userFromFile.getDob().toString());
-        lblGender.setText(userFromFile.getGender());
-        lblNationality.setText(userFromFile.getNation());
-        lblLocation.setText(userFromFile.getAddress());
+    }
+
+    public Personnel_ViewProfile(String id) {
+        initComponents();
+        this.userId = id;
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
+
+        Personnel user = Personnel.getPersonnel(userId);
+
+        lblUsername.setText(user.getUsername());
+
+        lblViewProfile.setVisible(false);
+        lblLogout.setVisible(false);
+
+        lblFullName.setText(user.getUsername());
+        lblEmail.setText(user.getEmail());
+        lblContactNum.setText(user.getContactNumber());
+        lblClearance.setText(user.getClearance());
+        lblStatus.setText(user.getStatus());
+        lblLocation.setText(user.getState());
     }
 
     /**
@@ -55,41 +64,31 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
     private void initComponents() {
 
         userHeader = new javax.swing.JPanel();
-        lblLogo = new javax.swing.JLabel();
         lblUsername = new javax.swing.JLabel();
+        btnHome = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         lblLogout = new javax.swing.JLabel();
         lblViewProfile = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         lblFullName = new javax.swing.JLabel();
-        lblIcPassport = new javax.swing.JLabel();
-        lblDob = new javax.swing.JLabel();
-        lblGender = new javax.swing.JLabel();
-        lblNationality = new javax.swing.JLabel();
         lblLocation = new javax.swing.JLabel();
-        lblId = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lblEmail = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblContactNum = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        lblClearance = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        lblStatus = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         userHeader.setBackground(new java.awt.Color(204, 153, 255));
-
-        lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
-        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblLogoMouseEntered(evt);
-            }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblLogoMousePressed(evt);
-            }
-        });
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         lblUsername.setText("User Name");
@@ -105,23 +104,40 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
             }
         });
 
+        btnHome.setBackground(new java.awt.Color(204, 153, 255));
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
+        btnHome.setBorder(null);
+        btnHome.setBorderPainted(false);
+        btnHome.setContentAreaFilled(false);
+        btnHome.setFocusPainted(false);
+        btnHome.setFocusable(false);
+        btnHome.setRequestFocusEnabled(false);
+        btnHome.setRolloverEnabled(false);
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHomeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout userHeaderLayout = new javax.swing.GroupLayout(userHeader);
         userHeader.setLayout(userHeaderLayout);
         userHeaderLayout.setHorizontalGroup(
             userHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userHeaderLayout.createSequentialGroup()
-                .addComponent(lblLogo)
+                .addComponent(btnHome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 569, Short.MAX_VALUE)
                 .addComponent(lblUsername)
                 .addGap(21, 21, 21))
         );
         userHeaderLayout.setVerticalGroup(
             userHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblLogo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userHeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(userHeaderLayout.createSequentialGroup()
+                .addComponent(btnHome)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         getContentPane().add(userHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
@@ -169,29 +185,13 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
 
-        jLabel3.setText("Full Name : ");
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel3.setText("Username : ");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
-
-        jLabel4.setText("IC/Passport :");
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
-
-        jLabel5.setText("Date of Birth :");
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, -1, -1));
-
-        jLabel6.setText("Nationality :");
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 230, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel7.setText("Current Location :");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, -1, -1));
-
-        jLabel9.setText("Gender :");
-        jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, -1, -1));
 
         btnEdit.setBackground(new java.awt.Color(204, 153, 255));
         btnEdit.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
@@ -208,25 +208,52 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
         lblFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         getContentPane().add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 220, 30));
 
-        lblIcPassport.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 220, 30));
-
-        lblDob.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 220, 30));
-
-        lblGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 210, 30));
-
-        lblNationality.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 210, 30));
-
         lblLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 210, 30));
+        getContentPane().add(lblLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 210, 30));
 
-        lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        lblId.setForeground(new java.awt.Color(240, 240, 240));
-        lblId.setText("userIc");
-        getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel8.setText("Email :");
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+
+        lblEmail.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 220, 30));
+
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel10.setText("Contact Number :");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
+
+        lblContactNum.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblContactNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, 210, 30));
+
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel9.setText("Clearance: ");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, 20));
+
+        lblClearance.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblClearance, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 220, 30));
+
+        jLabel11.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel11.setText("Status");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, -1, -1));
+
+        lblStatus.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        getContentPane().add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 210, 30));
+
+        btnBack.setBackground(new java.awt.Color(204, 153, 255));
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N
+        btnBack.setBorder(null);
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setFocusPainted(false);
+        btnBack.setFocusable(false);
+        btnBack.setRequestFocusEnabled(false);
+        btnBack.setRolloverEnabled(false);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, 28));
 
         pack();
         setLocationRelativeTo(null);
@@ -249,11 +276,10 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUsernameMouseExited
 
     private void lblUsernameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMousePressed
-        if(lblLogout.isVisible()){
+        if (lblLogout.isVisible()) {
             lblViewProfile.setVisible(false);
             lblLogout.setVisible(false);
-        }
-        else{
+        } else {
             lblViewProfile.setVisible(true);
             lblLogout.setVisible(true);
         }
@@ -298,32 +324,37 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_lblViewProfileMouseExited
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        String id = lblId.getText();
-        
-        User_EditProfile editProfile = new User_EditProfile(id);
+
+        Personnel_UserRegistration editProfile = new Personnel_UserRegistration(userId, "Personnel", userId);
         editProfile.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
-        String id = lblId.getText();
-        
-        Personnel_ViewProfile viewProfile = new Personnel_ViewProfile(id);
+
+        Personnel_ViewProfile viewProfile = new Personnel_ViewProfile(userId);
         viewProfile.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblViewProfileMousePressed
 
-    private void lblLogoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMousePressed
-        String id = lblId.getText();
-        
-        User_Home userHome = new User_Home(id);
-        userHome.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_lblLogoMousePressed
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+       
+        // Return to Home page
+      
+            Personnel_Home home = new Personnel_Home(userId);
+            home.setVisible(true);
+            this.setVisible(false);
+            this.dispose();
+       
+    }//GEN-LAST:event_btnHomeActionPerformed
 
-    private void lblLogoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseEntered
-        lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_lblLogoMouseEntered
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // Return to Personnel Home page
+        Personnel_Home home = new Personnel_Home(userId);
+        home.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,23 +393,23 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHome;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel lblDob;
+    private javax.swing.JLabel lblClearance;
+    private javax.swing.JLabel lblContactNum;
+    private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblFullName;
-    private javax.swing.JLabel lblGender;
-    private javax.swing.JLabel lblIcPassport;
-    private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblLocation;
-    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblLogout;
-    private javax.swing.JLabel lblNationality;
+    private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblUsername;
     private javax.swing.JLabel lblViewProfile;
     private javax.swing.JPanel userHeader;

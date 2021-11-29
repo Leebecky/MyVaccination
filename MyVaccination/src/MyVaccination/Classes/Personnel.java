@@ -24,6 +24,7 @@ public class Personnel extends User {
     public Personnel () {
         super();        
         this.userType = "Personnel";
+        this.clearance = "Administrator" ;
     }
 
     public String getStatus() {

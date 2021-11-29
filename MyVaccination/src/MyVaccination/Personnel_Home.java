@@ -135,6 +135,7 @@ public class Personnel_Home extends javax.swing.JFrame {
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -174,6 +175,7 @@ public class Personnel_Home extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
@@ -193,6 +195,7 @@ public class Personnel_Home extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -215,27 +218,27 @@ public class Personnel_Home extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnMngVCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMngVCActionPerformed
-        Personnel_ManageVaccinationCentre vc = new Personnel_ManageVaccinationCentre();
+        Personnel_ManageVaccinationCentre vc = new Personnel_ManageVaccinationCentre(userId);
         vc.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMngVCActionPerformed
 
     private void btnMngUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMngUserActionPerformed
-        Personnel_ManageUsers mngUser = new Personnel_ManageUsers();
+        Personnel_ManageUsers mngUser = new Personnel_ManageUsers(userId);
         mngUser.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMngUserActionPerformed
 
     private void btnMngAptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMngAptActionPerformed
         // Redirect to Manage Appointment
-        Personnel_ManageAppointment apt = new Personnel_ManageAppointment();
+        Personnel_ManageAppointment apt = new Personnel_ManageAppointment(userId);
         apt.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMngAptActionPerformed
 
     private void btnMngSupplyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMngSupplyActionPerformed
         // Navigate to manage Vaccine supply
-        Personnel_ManageVaccineSupply mngForm = new Personnel_ManageVaccineSupply();
+        Personnel_ManageVaccineSupply mngForm = new Personnel_ManageVaccineSupply(userId);
         mngForm.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnMngSupplyActionPerformed
@@ -280,7 +283,7 @@ public class Personnel_Home extends javax.swing.JFrame {
 
     private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
 
-        Personnel_UserRegistration viewProfile = new Personnel_UserRegistration(userId, "Personnel");
+        Personnel_ViewProfile viewProfile = new Personnel_ViewProfile(userId);
         viewProfile.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblViewProfileMousePressed
