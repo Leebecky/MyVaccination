@@ -75,6 +75,11 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         setTitle("Manage Vaccination Centre");
         setName("frmMngVc"); // NOI18N
         setSize(getPreferredSize());
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
@@ -95,7 +100,6 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         });
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -145,7 +149,6 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         btnAddNewVc.setBackground(new java.awt.Color(51, 51, 255));
         btnAddNewVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnAddNewVc.setForeground(new java.awt.Color(0, 0, 0));
         btnAddNewVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/New.png"))); // NOI18N
         btnAddNewVc.setText("New");
         btnAddNewVc.setIconTextGap(10);
@@ -170,7 +173,6 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         btnAddEditVc.setBackground(new java.awt.Color(255, 153, 51));
         btnAddEditVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnAddEditVc.setForeground(new java.awt.Color(0, 0, 0));
         btnAddEditVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Edit.png"))); // NOI18N
         btnAddEditVc.setText("Edit");
         btnAddEditVc.setIconTextGap(10);
@@ -199,7 +201,6 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -219,7 +220,6 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
@@ -239,7 +239,6 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         btnDeleteVc.setBackground(new java.awt.Color(255, 51, 51));
         btnDeleteVc.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnDeleteVc.setForeground(new java.awt.Color(0, 0, 0));
         btnDeleteVc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
         btnDeleteVc.setText("Delete");
         btnDeleteVc.setIconTextGap(10);
@@ -401,6 +400,15 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblLogoutMousePressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(userId.equals("")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -72,11 +73,15 @@ public class Personnel_Home extends javax.swing.JFrame {
         setForeground(new java.awt.Color(204, 204, 255));
         setMinimumSize(new java.awt.Dimension(945, 482));
         setSize(new java.awt.Dimension(945, 482));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnMngVC.setBackground(new java.awt.Color(204, 153, 255));
         btnMngVC.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnMngVC.setForeground(new java.awt.Color(0, 0, 0));
         btnMngVC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Vaccination_Centre_32.png"))); // NOI18N
         btnMngVC.setText("Manage Vaccination Centres");
         btnMngVC.setAlignmentY(0.0F);
@@ -90,7 +95,6 @@ public class Personnel_Home extends javax.swing.JFrame {
 
         btnMngUser.setBackground(new java.awt.Color(204, 153, 255));
         btnMngUser.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnMngUser.setForeground(new java.awt.Color(0, 0, 0));
         btnMngUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/User.png"))); // NOI18N
         btnMngUser.setText("Manage Users");
         btnMngUser.setAlignmentY(0.0F);
@@ -104,7 +108,6 @@ public class Personnel_Home extends javax.swing.JFrame {
 
         btnMngApt.setBackground(new java.awt.Color(204, 153, 255));
         btnMngApt.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnMngApt.setForeground(new java.awt.Color(0, 0, 0));
         btnMngApt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Appointment2_48.png"))); // NOI18N
         btnMngApt.setText("Manage Appointments");
         btnMngApt.setAlignmentY(0.0F);
@@ -118,7 +121,6 @@ public class Personnel_Home extends javax.swing.JFrame {
 
         btnMngSupply.setBackground(new java.awt.Color(204, 153, 255));
         btnMngSupply.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnMngSupply.setForeground(new java.awt.Color(0, 0, 0));
         btnMngSupply.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Vaccine.png"))); // NOI18N
         btnMngSupply.setText("Manage Vaccine Supply");
         btnMngSupply.setAlignmentY(0.0F);
@@ -135,7 +137,6 @@ public class Personnel_Home extends javax.swing.JFrame {
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -175,7 +176,6 @@ public class Personnel_Home extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
@@ -195,7 +195,6 @@ public class Personnel_Home extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -313,6 +312,15 @@ public class Personnel_Home extends javax.swing.JFrame {
             lblLogout.setVisible(true);
         }
     }//GEN-LAST:event_lblUsernameMousePressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(userId.equals("")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

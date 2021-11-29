@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -36,9 +37,8 @@ public class Login extends javax.swing.JFrame {
      */
     public Login() {
         initComponents();
-
-        // For fullscreen, but components will misalign
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
     }
 
     /**
@@ -81,7 +81,6 @@ public class Login extends javax.swing.JFrame {
         diaChangePassword.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         diaChangePassword.setTitle("MyVaccination");
         diaChangePassword.setMinimumSize(new java.awt.Dimension(690, 370));
-        diaChangePassword.setPreferredSize(new java.awt.Dimension(690, 370));
         diaChangePassword.setResizable(false);
         diaChangePassword.setSize(new java.awt.Dimension(690, 370));
         diaChangePassword.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -174,7 +173,7 @@ public class Login extends javax.swing.JFrame {
         setBackground(new java.awt.Color(225, 226, 239));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(180, 151, 214));
+        jPanel1.setBackground(new java.awt.Color(204, 153, 255));
 
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jLabel1.setText("LOGIN");
@@ -220,7 +219,7 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setText("Username : ");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 176, -1, -1));
 
-        btnLogin.setBackground(new java.awt.Color(180, 151, 214));
+        btnLogin.setBackground(new java.awt.Color(204, 153, 255));
         btnLogin.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         btnLogin.setText("Login");
         btnLogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));

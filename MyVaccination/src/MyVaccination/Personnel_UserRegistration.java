@@ -181,6 +181,11 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         setTitle("MyVaccination");
         setMinimumSize(new java.awt.Dimension(945, 520));
         setSize(new java.awt.Dimension(945, 520));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cmbUserType.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
@@ -801,6 +806,15 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             lblLogout.setVisible(true);
         }
     }//GEN-LAST:event_lblUsernameMousePressed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(userId.equals("")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

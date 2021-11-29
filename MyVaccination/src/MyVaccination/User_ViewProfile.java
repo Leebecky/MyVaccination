@@ -11,6 +11,8 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.Map;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,10 +25,14 @@ public class User_ViewProfile extends javax.swing.JFrame {
      */
     public User_ViewProfile() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
     }
     
     public User_ViewProfile(String id) {
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
         
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
@@ -80,9 +86,15 @@ public class User_ViewProfile extends javax.swing.JFrame {
         lblEmail = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         lblPhone = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         userHeader.setBackground(new java.awt.Color(204, 153, 255));
@@ -97,8 +109,8 @@ public class User_ViewProfile extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         lblUsername.setText("User Name");
+        lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -132,9 +144,9 @@ public class User_ViewProfile extends javax.swing.JFrame {
 
         getContentPane().add(userHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
 
-        jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("MY PROFILE");
+        jLabel1.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 540, -1));
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
@@ -176,58 +188,58 @@ public class User_ViewProfile extends javax.swing.JFrame {
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 66, 150, 40));
 
         jLabel3.setText("Full Name : ");
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, -1, -1));
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, -1, -1));
 
         jLabel4.setText("IC/Passport :");
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, -1, -1));
 
         jLabel5.setText("Email :");
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 330, -1, -1));
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 340, -1, -1));
 
         jLabel6.setText("Nationality :");
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 270, -1, -1));
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel7.setText("Current Location :");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, -1, -1));
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 340, -1, -1));
 
         jLabel9.setText("Phone Number :");
-        jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, -1, -1));
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, -1, -1));
 
-        btnEdit.setBackground(new java.awt.Color(204, 153, 255));
-        btnEdit.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
         btnEdit.setText("Edit");
+        btnEdit.setBackground(new java.awt.Color(204, 153, 255));
         btnEdit.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnEdit.setBorderPainted(false);
+        btnEdit.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 390, 120, 50));
+        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(412, 400, 90, 40));
 
-        lblFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 220, 30));
+        lblFullName.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 190, 40));
 
-        lblIcPassport.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 220, 30));
+        lblIcPassport.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblIcPassport, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 210, 190, 40));
 
-        lblDob.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 220, 30));
+        lblDob.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblDob, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 190, 40));
 
-        lblGender.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 210, 210, 30));
+        lblGender.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblGender, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 210, 40));
 
-        lblNationality.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 270, 210, 30));
+        lblNationality.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblNationality, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, 210, 40));
 
-        lblLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 330, 210, 30));
+        lblLocation.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 210, 40));
 
         lblId.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         lblId.setForeground(new java.awt.Color(240, 240, 240));
@@ -235,18 +247,34 @@ public class User_ViewProfile extends javax.swing.JFrame {
         getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
 
         jLabel8.setText("Date of Birth :");
-        jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 270, -1, -1));
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, -1));
 
-        lblEmail.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 220, 30));
+        lblEmail.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 190, 40));
 
         jLabel10.setText("Gender :");
-        jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, -1, -1));
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, -1, -1));
 
-        lblPhone.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, 210, 30));
+        lblPhone.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 150, 210, 40));
+
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N
+        btnBack.setBackground(new java.awt.Color(204, 153, 255));
+        btnBack.setBorder(null);
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setFocusPainted(false);
+        btnBack.setFocusable(false);
+        btnBack.setRequestFocusEnabled(false);
+        btnBack.setRolloverEnabled(false);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, 28));
 
         pack();
         setLocationRelativeTo(null);
@@ -345,6 +373,23 @@ public class User_ViewProfile extends javax.swing.JFrame {
         lblLogo.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }//GEN-LAST:event_lblLogoMouseEntered
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        String id = lblId.getText();
+        
+        User_Home userHome = new User_Home(id);
+        userHome.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(lblId.getText().equals("userIc")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -381,6 +426,7 @@ public class User_ViewProfile extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

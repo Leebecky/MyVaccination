@@ -36,7 +36,7 @@ public class Validator extends InputVerifier {
                     if (regexMatcher.matches()) {
                         return true;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Invalid format. Please check your input", "Invalid Format", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Invalid format. Please ensure that your input does not have numbers.", "Invalid Format", JOptionPane.ERROR_MESSAGE);
                         return false;
                     }
                 }

@@ -450,7 +450,13 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVcSupplyActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-
+        if(userId.equals("")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
+        
         //Generate supply chart
         CategoryDataset ds = (Vaccination_Centre.supplyDatasetAll() == null) ? new DefaultCategoryDataset() : Vaccination_Centre.supplyDatasetAll();
 

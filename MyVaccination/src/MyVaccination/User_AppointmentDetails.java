@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -117,6 +118,11 @@ public class User_AppointmentDetails extends javax.swing.JFrame {
         lblVaccine = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         userHeader.setBackground(new java.awt.Color(204, 153, 255));
@@ -209,42 +215,42 @@ public class User_AppointmentDetails extends javax.swing.JFrame {
         lblId.setText("userIc");
         getContentPane().add(lblId, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 420, 80, 40));
 
-        lblDoseSeq.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
+        lblDoseSeq.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         lblDoseSeq.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblDoseSeq.setText("dose 1");
-        getContentPane().add(lblDoseSeq, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 80, 160, -1));
+        getContentPane().add(lblDoseSeq, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 100, -1));
 
-        jLabel3.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Appointment status  /");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 460, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 320, -1));
 
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabel4.setText("Centre Name :");
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, -1));
 
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabel5.setText("Centre Location :");
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabel6.setText("Appointment Time:");
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, -1, -1));
 
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabel7.setText("Wait Time :");
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabel8.setText("Vaccine Manufacturer :");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 350, -1, -1));
 
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabel9.setText("Vaccine Brand :");
-        jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, -1, -1));
 
         btnBack.setBackground(new java.awt.Color(204, 153, 255));
-        btnBack.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
+        btnBack.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         btnBack.setText("Back");
         btnBack.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnBack.setBorderPainted(false);
@@ -253,39 +259,39 @@ public class User_AppointmentDetails extends javax.swing.JFrame {
                 btnBackActionPerformed(evt);
             }
         });
-        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 410, 120, 50));
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 410, 100, 40));
 
-        lblName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 220, 30));
+        lblName.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblName, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 200, 40));
 
-        lblLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 230, 220, 30));
+        lblLocation.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 200, 40));
 
-        lblDate.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, 220, 30));
+        lblDate.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 200, 40));
 
-        lblDose.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 210, 30));
+        lblDose.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblDose, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 210, 40));
 
-        lblWaitTime.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblWaitTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 290, 210, 30));
+        lblWaitTime.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblWaitTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 280, 210, 40));
 
-        lblManufacturer.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblManufacturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 350, 210, 30));
+        lblManufacturer.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblManufacturer, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 340, 210, 40));
 
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabel10.setText("Appointment Date :");
-        jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
 
-        lblTime.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 220, 30));
+        lblTime.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblTime, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, 200, 40));
 
+        jLabel11.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
         jLabel11.setText("Dose Required :");
-        jLabel11.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 230, -1, -1));
 
-        lblVaccine.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblVaccine, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 210, 30));
+        lblVaccine.setFont(new java.awt.Font("Calibri", 0, 16)); // NOI18N
+        getContentPane().add(lblVaccine, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 160, 210, 40));
 
         pack();
         setLocationRelativeTo(null);
@@ -383,6 +389,15 @@ public class User_AppointmentDetails extends javax.swing.JFrame {
         viewStatus.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnBackActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(lblId.getText().equals("userIc")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

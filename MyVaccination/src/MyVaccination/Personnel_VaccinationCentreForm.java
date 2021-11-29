@@ -262,7 +262,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
         lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -552,7 +551,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         lblViewProfile.setText("View Profile");
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setOpaque(true);
         lblViewProfile.setToolTipText("");
         lblViewProfile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -572,7 +570,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         lblLogout.setText("Log Out");
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setOpaque(true);
         lblLogout.setToolTipText("");
         lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -729,6 +726,13 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResupplySaveActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        if(userId.equals("")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }        
+
         //Generate supply chart
         String chartTitle = (vc.getName() == null) ? "Vaccination Centre" : vc.getName();
         CategoryDataset ds = (id != "") ? vc.supplyDataset() : new DefaultCategoryDataset();

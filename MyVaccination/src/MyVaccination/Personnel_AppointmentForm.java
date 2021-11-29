@@ -661,6 +661,12 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // Initialising the Vaccine Type combo box values
+        if(userId.equals("")){
+            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            Login login = new Login();
+            login.setVisible(true);
+            this.setVisible(false);
+        }
 
         if (id.equals("")) {
             Vaccination_Centre selectedVc = (Vaccination_Centre) cmbAptVc.getSelectedItem();
