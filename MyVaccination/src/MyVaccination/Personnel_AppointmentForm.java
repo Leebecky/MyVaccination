@@ -605,7 +605,19 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
     private void btnAddCandidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCandidateActionPerformed
         // Add selected candidates to appointment candidate list
+        List<Candidate> candidateList = apt.getCandidateList();              
+         Vaccination_Centre selectedVc = (Vaccination_Centre) cmbAptVc.getSelectedItem();
         int[] selectedRows = tblCandidate.getSelectedRows();
+        
+        candidateList = candidateList.stream().filter(c -> (!(c.getApptStatus().equals("Rejected") || c.getApptStatus().equals("Removed")))).toList();
+        int total = candidateList.size() + selectedRows.length;
+        
+        //Candidates exceed vaccination centre capacity
+        if (total > selectedVc.getCapacity() ) {
+            int difference = selectedVc.getCapacity() - candidateList.size();
+             JOptionPane.showMessageDialog(null, "Maximum number of candidates per appointment exceeded! "+ difference + " candidate(s) allowed to be added.", "Appointment", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         for (int i : selectedRows) {
 
@@ -630,7 +642,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
             String candidateId = tblAptCandidate.getModel().getValueAt(i, 0).toString();
             String candidateStatus = tblAptCandidate.getModel().getValueAt(i, 2).toString();
 
-            if (candidateStatus.equals("Confirmed") || candidateStatus.equals("Completed")) {
+            if (candidateStatus.equals("Confirmed") || candidateStatus.equals("Completed") || candidateStatus.equals("Rejected")) {
                 JOptionPane.showMessageDialog(this, "This candidate cannot be removed!", "Appointment", JOptionPane.ERROR_MESSAGE);
                 return;
             }
