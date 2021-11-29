@@ -318,7 +318,7 @@ public class Login extends javax.swing.JFrame {
                         userId = userList.get(i).getUserId();
                         break;
                     }
-                }
+                }}
                 
                 if(isValid){
                     if(userType.equals("Personnel")){
@@ -327,7 +327,7 @@ public class Login extends javax.swing.JFrame {
                         
                         if(personnelFromFile.getStatus().equals("Active")){
                             JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
-                            Personnel_Home home = new Personnel_Home();
+                            Personnel_Home home = new Personnel_Home(userId);
                             home.setVisible(true);
                             this.setVisible(false);
                         }else{
@@ -346,11 +346,7 @@ public class Login extends javax.swing.JFrame {
                    txtUsername.setText("");
                    txtPassword.setText("");                
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Login information incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
-                txtUsername.setText("");
-                txtPassword.setText("");
-            }
+            
         } else {
             JOptionPane.showMessageDialog(null, "Please input both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
         }
