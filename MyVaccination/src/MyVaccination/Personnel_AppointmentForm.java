@@ -84,6 +84,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         LocalTime openingTime = selectedVc.getOpeningTime();
         LocalTime closingTime = selectedVc.getClosingTime();
         dtAptDateTime.timePicker.getSettings().setVetoPolicy(new LGoodTimePicker_TimeVeto(openingTime.getHour(), openingTime.getMinute(), closingTime.getHour(), closingTime.getMinute()));
+          dtAptDateTime.datePicker.getSettings().setDateRangeLimits(apt.getAppointmentDate(), LocalDate.now().plusYears(1));
 
         List<String> vaccineListModel = new ArrayList<>();
         selectedVc.checkVcSupply().forEach((str, i) -> {
@@ -322,7 +323,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbAptVaccine, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cmbAptVc, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -332,7 +333,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cmbAptType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(dtAptDateTime, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -366,7 +367,9 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbAptType, cmbAptVaccine, dtAptDateTime});
 
         dtAptDateTime.datePicker.setDateToToday();
-        dtDateSettings.setDateRangeLimits(LocalDate.now(), LocalDate.now().plusYears(1));
+        if (id.equals("")) {
+            dtDateSettings.setDateRangeLimits(LocalDate.now(), LocalDate.now().plusYears(1));
+        }
 
         jTabbedPane1.addTab("Main Details", jPanel1);
 

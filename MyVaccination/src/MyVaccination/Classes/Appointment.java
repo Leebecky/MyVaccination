@@ -250,13 +250,11 @@ public class Appointment implements File_Methods {
         }
 
         for (People c : potentialCandidateList) {
-//            for (Candidate cd : candidateList) {
-//                //Only accept candidates from same state as vaccination centre
-////                if (c.getUserId().equals(cd.findCandidate().getUserId())) {
-////                    removalList.add(c);
-////                }
-//            }
-//                People myCandidate = c.findCandidate();
+            for (Candidate cd : candidateList) {
+                if (c.getUserId().equals(cd.findCandidate().getUserId())) {
+                    removalList.add(c);
+                }
+            }
 
             //Vaccination Centre should be in same state as candidate
             if (!state.equals("All")) {

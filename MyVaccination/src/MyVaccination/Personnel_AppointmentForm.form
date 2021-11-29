@@ -275,7 +275,7 @@
                                   <Component id="jLabel2" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
                                   <Component id="jLabel1" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="199" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="cmbAptVaccine" alignment="1" min="-2" pref="262" max="-2" attributes="0"/>
                                   <Component id="cmbAptVc" alignment="1" min="-2" pref="262" max="-2" attributes="0"/>
@@ -289,7 +289,7 @@
                                       <Component id="jLabel4" min="-2" pref="153" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="179" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="cmbAptType" linkSize="1" min="-2" max="-2" attributes="0"/>
                                   <Component id="dtAptDateTime" linkSize="1" min="-2" pref="262" max="-2" attributes="0"/>
@@ -382,9 +382,10 @@
             </Component>
             <Component class="com.github.lgooddatepicker.components.DateTimePicker" name="dtAptDateTime">
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="dtAptDateTime.datePicker.setDateToToday();&#xa; dtDateSettings.setDateRangeLimits(LocalDate.now(), LocalDate.now().plusYears(1));"/>
+                <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="dtAptDateTime.datePicker.setDateToToday();&#xa;if (id.equals(&quot;&quot;)) {&#xa;dtDateSettings.setDateRangeLimits(LocalDate.now(), LocalDate.now().plusYears(1));"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new com.github.lgooddatepicker.components.DateTimePicker(dtDateSettings, dtTimeSettings)"/>
                 <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="TimePickerSettings dtTimeSettings = new TimePickerSettings();&#xa;DatePickerSettings dtDateSettings = new DatePickerSettings();"/>
+                <AuxValue name="JavaCodeGenerator_allCodePost" type="java.lang.String" value="}"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
