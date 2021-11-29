@@ -10,7 +10,13 @@ import MyVaccination.Classes.People;
 import MyVaccination.Classes.Personnel;
 import MyVaccination.Classes.User;
 import MyVaccination.Helper_Classes.Validator;
+import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.event.ItemEvent;
+import java.awt.font.TextAttribute;
+import java.time.LocalDate;
+import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,27 +26,50 @@ import javax.swing.JOptionPane;
 public class Personnel_UserRegistration extends javax.swing.JFrame {
 
     String userId = "";
+    String selectedUserId = "";
     People people;
     Personnel personnel;
 
     public Personnel_UserRegistration() {
+
         people = new People();
         personnel = new Personnel();
         initComponents();
 
         panelPersonnel.setVisible(false);
+
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
+
+        lblViewProfile.setVisible(false);
+        lblLogout.setVisible(false);
     }
 
-    public Personnel_UserRegistration(String userId, String userType) {
+    public Personnel_UserRegistration(String userId) {
         this.userId = userId;
+        people = new People();
+        personnel = new Personnel();
+        initComponents();
 
+        panelPersonnel.setVisible(false);
+
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
+
+        lblViewProfile.setVisible(false);
+        lblLogout.setVisible(false);
+    }
+
+    public Personnel_UserRegistration(String selectedUserId, String userType, String userId) {
+        this.selectedUserId = selectedUserId;
+        this.userId = userId;
         initComponents();
         cmbUserType.setSelectedItem(userType);
         cmbUserType.setEnabled(false);
 
         if (userType.equals("People")) {
             //Set Display panel
-            people = People.getPeople(userId);
+            people = People.getPeople(selectedUserId);
             panelPeople.setVisible(true);
             panelPersonnel.setVisible(false);
 
@@ -50,6 +79,8 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             cmbPeopleState.setSelectedItem(people.getAddress());
             dtDob.setDate(people.getDob());
             cmbNationality.setSelectedItem(people.getNation());
+            txtPeopleContactNum.setText(people.getContactNumber());
+            txtPeopleEmail.setText(people.getEmail());
 
             if (people.getGender().equals("Male")) {
                 rdMale.setSelected(true);
@@ -58,7 +89,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             }
 
         } else {
-            personnel = Personnel.getPersonnel(userId);
+            personnel = Personnel.getPersonnel(selectedUserId);
             //Set Display panel
             panelPersonnel.setVisible(true);
             panelPeople.setVisible(false);
@@ -68,8 +99,19 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             cmbPersonnelState.setSelectedItem(personnel.getState());
             cmbPersonnelClearance.setSelectedItem(personnel.getClearance());
             cmbPersonnelStatus.setSelectedItem(personnel.getStatus());
+            txtPersonnelContactNum.setText(personnel.getContactNumber());
+            txtPersonnelEmail.setText(personnel.getEmail());
 
         }
+
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
+
+        Personnel user = Personnel.getPersonnel(userId);
+        lblUsername.setText(user.getUsername());
+
+        lblViewProfile.setVisible(false);
+        lblLogout.setVisible(false);
     }
 
     /**
@@ -82,13 +124,16 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
     private void initComponents() {
 
         btnGrpGender = new javax.swing.ButtonGroup();
-        homePersonnelHeader = new javax.swing.JPanel();
-        btnHome = new javax.swing.JButton();
         cmbUserType = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        homePersonnelHeader = new javax.swing.JPanel();
+        btnHome = new javax.swing.JButton();
+        lblUsername = new javax.swing.JLabel();
         btnVcCancel = new javax.swing.JButton();
+        lblViewProfile = new javax.swing.JLabel();
         btnVcSave = new javax.swing.JButton();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
+        scrollPanel = new javax.swing.JScrollPane();
+        layeredPanel = new javax.swing.JLayeredPane();
         panelPeople = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtPeopleName = new javax.swing.JTextField();
@@ -103,6 +148,10 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         cmbPeopleState = cmbPeopleState = new javax.swing.JComboBox<>(Location.getStateList());
+        jLabel12 = new javax.swing.JLabel();
+        txtPeopleEmail = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        txtPeopleContactNum = new javax.swing.JTextField();
         panelPersonnel = new javax.swing.JPanel();
         txtPersonnelName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -112,14 +161,34 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         cmbPersonnelClearance = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
         cmbPersonnelState = cmbPersonnelState = new javax.swing.JComboBox<>(Location.getStateList());
+        txtPersonnelEmail = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtPersonnelContactNum = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        lblLogout = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("MyVaccination");
         setSize(getPreferredSize());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        cmbUserType.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        cmbUserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "People", "Personnel" }));
+        cmbUserType.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbUserTypeItemStateChanged(evt);
+            }
+        });
+        getContentPane().add(cmbUserType, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 283, -1));
+
+        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        jLabel1.setText("User Type :");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
-        btnHome.setBackground(new java.awt.Color(204, 153, 255));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
+        btnHome.setBackground(new java.awt.Color(204, 153, 255));
         btnHome.setBorder(null);
         btnHome.setBorderPainted(false);
         btnHome.setContentAreaFilled(false);
@@ -133,13 +202,30 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             }
         });
 
+        lblUsername.setText("User Name");
+        lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
+        lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblUsernameMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblUsernameMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblUsernameMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout homePersonnelHeaderLayout = new javax.swing.GroupLayout(homePersonnelHeader);
         homePersonnelHeader.setLayout(homePersonnelHeaderLayout);
         homePersonnelHeaderLayout.setHorizontalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addGap(0, 745, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 630, Short.MAX_VALUE)
+                .addComponent(lblUsername)
+                .addGap(30, 30, 30))
         );
         homePersonnelHeaderLayout.setVerticalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,65 +233,86 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnHome)
                 .addContainerGap())
+            .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(lblUsername)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cmbUserType.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        cmbUserType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "People", "Personnel" }));
-        cmbUserType.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cmbUserTypeItemStateChanged(evt);
-            }
-        });
+        getContentPane().add(homePersonnelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, -1));
 
-        jLabel1.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        jLabel1.setText("User Type :");
-
+        btnVcCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
+        btnVcCancel.setText("Cancel");
         btnVcCancel.setBackground(new java.awt.Color(204, 51, 0));
         btnVcCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnVcCancel.setForeground(new java.awt.Color(0, 0, 0));
-        btnVcCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
-        btnVcCancel.setText("Cancel");
         btnVcCancel.setIconTextGap(10);
         btnVcCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVcCancelActionPerformed(evt);
             }
         });
+        getContentPane().add(btnVcCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(354, 437, -1, 39));
 
+        lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblViewProfile.setText("View Profile");
+        lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
+        lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
+        lblViewProfile.setOpaque(true);
+        lblViewProfile.setToolTipText("");
+        lblViewProfile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblViewProfileMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblViewProfileMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblViewProfileMousePressed(evt);
+            }
+        });
+        getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 70, 150, 40));
+
+        btnVcSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Save.png"))); // NOI18N
+        btnVcSave.setText("Save");
         btnVcSave.setBackground(new java.awt.Color(0, 204, 51));
         btnVcSave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnVcSave.setForeground(new java.awt.Color(0, 0, 0));
-        btnVcSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Save.png"))); // NOI18N
-        btnVcSave.setText("Save");
         btnVcSave.setIconTextGap(10);
         btnVcSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVcSaveActionPerformed(evt);
             }
         });
+        getContentPane().add(btnVcSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(501, 437, 105, 39));
 
-        panelPeople.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        scrollPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        panelPeople.setMinimumSize(new java.awt.Dimension(659, 344));
+        panelPeople.setName(""); // NOI18N
+
         jLabel2.setText("Name :");
+        jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPeopleName.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         dtDob.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel3.setText("Date of Birth :");
+        jLabel3.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtId.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel4.setText("NRIC/Passport  :");
+        jLabel4.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        cmbNationality.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cmbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Malaysian", "Non-Malaysian" }));
+        cmbNationality.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel5.setText("Nationality :");
+        jLabel5.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         btnGrpGender.add(rdMale);
         rdMale.setText("Male");
@@ -213,44 +320,75 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         btnGrpGender.add(rdFemale);
         rdFemale.setText("Female");
 
-        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel6.setText("Gender :");
+        jLabel6.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         jLabel8.setText("State :");
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        cmbPeopleState.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cmbPeopleState.setMaximumRowCount(10);
+        cmbPeopleState.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel12.setText("Email :");
+        jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        txtPeopleEmail.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtPeopleEmail.setInputVerifier(new Validator());
+        txtPeopleEmail.setName("Email"); // NOI18N
+
+        jLabel13.setText("Contact Number :");
+        jLabel13.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        txtPeopleContactNum.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtPeopleContactNum.setInputVerifier(new Validator());
+        txtPeopleContactNum.setName("Contact"); // NOI18N
 
         javax.swing.GroupLayout panelPeopleLayout = new javax.swing.GroupLayout(panelPeople);
         panelPeople.setLayout(panelPeopleLayout);
         panelPeopleLayout.setHorizontalGroup(
             panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPeopleLayout.createSequentialGroup()
+            .addGroup(panelPeopleLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(panelPeopleLayout.createSequentialGroup()
-                            .addComponent(rdMale)
-                            .addGap(66, 66, 66)
-                            .addComponent(rdFemale))
-                        .addComponent(cmbNationality, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(dtDob, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                        .addComponent(txtPeopleName))
-                    .addComponent(txtId, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbPeopleState, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(90, 90, 90))
+                    .addGroup(panelPeopleLayout.createSequentialGroup()
+                        .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPeopleLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(254, 254, 254))
+                            .addGroup(panelPeopleLayout.createSequentialGroup()
+                                .addGap(254, 254, 254)
+                                .addComponent(rdMale)
+                                .addGap(66, 66, 66)
+                                .addComponent(rdFemale)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(panelPeopleLayout.createSequentialGroup()
+                        .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelPeopleLayout.createSequentialGroup()
+                                .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                                .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cmbNationality, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPeopleEmail, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbPeopleState, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPeopleContactNum, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtPeopleName, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(dtDob, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)))
+                            .addGroup(panelPeopleLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)))
+                        .addGap(90, 90, 90))))
         );
 
-        panelPeopleLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {dtDob, txtId, txtPeopleName});
+        panelPeopleLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbNationality, cmbPeopleState, dtDob, txtId, txtPeopleContactNum, txtPeopleEmail, txtPeopleName});
+
+        panelPeopleLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jLabel12, jLabel13, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6, jLabel8});
 
         panelPeopleLayout.setVerticalGroup(
             panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,18 +397,18 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
                 .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPeopleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dtDob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -278,151 +416,175 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
                         .addComponent(rdMale)
                         .addComponent(rdFemale)))
                 .addGap(18, 18, 18)
+                .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(txtPeopleEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtPeopleContactNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelPeopleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(cmbPeopleState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        panelPeopleLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dtDob, txtId, txtPeopleName});
+        panelPeopleLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbNationality, cmbPeopleState, dtDob, txtId, txtPeopleContactNum, txtPeopleEmail, txtPeopleName});
 
-        panelPersonnel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelPeopleLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel12, jLabel13, jLabel2, jLabel3, jLabel4, jLabel5, jLabel6, jLabel8});
+
+        panelPersonnel.setMinimumSize(new java.awt.Dimension(659, 304));
+        panelPersonnel.setPreferredSize(new java.awt.Dimension(659, 304));
 
         txtPersonnelName.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         txtPersonnelName.setInputVerifier(new Validator());
         txtPersonnelName.setName(""); // NOI18N
 
-        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel7.setText("Name :");
+        jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel9.setText("Personnel Status :");
+        jLabel9.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        cmbPersonnelStatus.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cmbPersonnelStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Inactive" }));
+        cmbPersonnelStatus.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel10.setText("Personnel Clearance :");
+        jLabel10.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        cmbPersonnelClearance.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cmbPersonnelClearance.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Staff" }));
+        cmbPersonnelClearance.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        jLabel11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel11.setText("State :");
+        jLabel11.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        cmbPersonnelState.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         cmbPersonnelState.setMaximumRowCount(10);
+        cmbPersonnelState.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        txtPersonnelEmail.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtPersonnelEmail.setInputVerifier(new Validator());
+        txtPersonnelEmail.setName("Email"); // NOI18N
+
+        jLabel14.setText("Contact Number :");
+        jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        txtPersonnelContactNum.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+
+        jLabel15.setText("Email :");
+        jLabel15.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout panelPersonnelLayout = new javax.swing.GroupLayout(panelPersonnel);
         panelPersonnel.setLayout(panelPersonnelLayout);
         panelPersonnelLayout.setHorizontalGroup(
             panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPersonnelLayout.createSequentialGroup()
-                .addGap(47, 47, 47)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPersonnelLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
                 .addGroup(panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
                     .addComponent(jLabel10)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel7)
                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(cmbPersonnelStatus, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbPersonnelState, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(cmbPersonnelClearance, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPersonnelName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel14))
+                .addGap(73, 73, 73)
+                .addGroup(panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cmbPersonnelClearance, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbPersonnelState, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPersonnelName, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPersonnelContactNum, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPersonnelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbPersonnelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44))
         );
+
+        panelPersonnelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {cmbPersonnelClearance, cmbPersonnelState, cmbPersonnelStatus, txtPersonnelContactNum, txtPersonnelEmail, txtPersonnelName});
+
         panelPersonnelLayout.setVerticalGroup(
             panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPersonnelLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(9, 9, 9)
                 .addGroup(panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtPersonnelName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(cmbPersonnelClearance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                    .addComponent(txtPersonnelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
+                .addGap(18, 18, 18)
+                .addGroup(panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPersonnelContactNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
                 .addGroup(panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbPersonnelState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
+                .addGroup(panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(cmbPersonnelClearance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(panelPersonnelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(cmbPersonnelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42))
+                .addGap(61, 61, 61))
         );
 
-        jLayeredPane1.setLayer(panelPeople, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(panelPersonnel, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        panelPersonnelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {cmbPersonnelClearance, cmbPersonnelState, cmbPersonnelStatus, txtPersonnelContactNum, txtPersonnelEmail, txtPersonnelName});
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelPeople, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panelPeople, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(panelPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
+        layeredPanel.setLayer(panelPeople, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        layeredPanel.setLayer(panelPersonnel, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(homePersonnelHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(236, 236, 236)
-                .addComponent(jLabel1)
-                .addGap(131, 131, 131)
-                .addComponent(cmbUserType, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        javax.swing.GroupLayout layeredPanelLayout = new javax.swing.GroupLayout(layeredPanel);
+        layeredPanel.setLayout(layeredPanelLayout);
+        layeredPanelLayout.setHorizontalGroup(
+            layeredPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layeredPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnVcCancel)
-                        .addGap(36, 36, 36)
-                        .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(339, 339, 339))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(166, 166, 166))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(homePersonnelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbUserType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnVcSave, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVcCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(panelPeople, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layeredPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layeredPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
+        layeredPanelLayout.setVerticalGroup(
+            layeredPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layeredPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelPeople, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layeredPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layeredPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelPersonnel, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        scrollPanel.setViewportView(layeredPanel);
+
+        getContentPane().add(scrollPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(144, 136, -1, 283));
+
+        lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogout.setText("Log Out");
+        lblLogout.setBackground(new java.awt.Color(204, 153, 255));
+        lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
+        lblLogout.setOpaque(true);
+        lblLogout.setToolTipText("");
+        lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblLogoutMouseExited(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblLogoutMousePressed(evt);
+            }
+        });
+        getContentPane().add(lblLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 100, 150, 40));
 
         pack();
         setLocationRelativeTo(null);
@@ -431,9 +593,9 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
     private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
         int decision = JOptionPane.showConfirmDialog(this, "Warning, no unsaved changes will be saved!", "Cancel Personnel Registration", JOptionPane.OK_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 
-        // Return to Manage Vaccination Centre page
+        // Return to Manage Users page
         if (decision == JOptionPane.OK_OPTION) {
-            Personnel_Home home = new Personnel_Home();
+            Personnel_Home home = new Personnel_Home(userId);
             home.setVisible(true);
             this.setVisible(false);
             this.dispose();
@@ -450,62 +612,100 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
 
             this.setVisible(false);
             this.dispose();
-            Personnel_ManageUsers home = new Personnel_ManageUsers();
-            home.setVisible(true);
+            if (userId.equals(selectedUserId)) {
+                Personnel_ViewProfile home = new Personnel_ViewProfile(userId);
+                home.setVisible(true);
+
+            } else {
+
+                Personnel_ManageUsers home = new Personnel_ManageUsers();
+                home.setVisible(true);
+            }
         }
     }//GEN-LAST:event_btnVcCancelActionPerformed
 
     private void btnVcSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcSaveActionPerformed
-        //TODO: Data Validation
         String userType = cmbUserType.getSelectedItem().toString();
-        boolean success = false;
-        String message = "";
-        String name = "";
-        
+
+        //Data Validation
         if (userType.equals("People")) {
-            String selectedGender = (rdMale.isSelected()) ? "Male" : "Female";
-            
-            name = txtPeopleName.getText();
-            //Registration for People
-            people.setName(name);
-            people.setDob(dtDob.getDate());
-            people.setGender(selectedGender);
-            people.setNation(cmbNationality.getSelectedItem().toString());
-            people.setUserType(userType);
-            people.setId(txtId.getText());
-            people.setAddress(cmbPeopleState.getSelectedItem().toString());
-            people.setUsername(name);
+            if (txtId.getText().isBlank() || txtPeopleName.getText().isBlank() || txtPeopleContactNum.getText().isBlank() || txtPeopleEmail.getText().isBlank() || dtDob.getDate() == null || !(rdFemale.isSelected() || rdMale.isSelected())) {
+                JOptionPane.showMessageDialog(this, "Please fill in all fields!", "User Registration", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-            success = User.saveUser(people);
+            int currentYear = LocalDate.now().getYear();
+            int selectedYear = dtDob.getDate().getYear();
+            if (currentYear - selectedYear < 18) {
+                JOptionPane.showMessageDialog(this, "Invalid Date of Birth! User is too young.", "User Registration", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
         } else {
-            name = txtPersonnelName.getText();
-            //Registration for Personnel
-            personnel.setUsername(name);
-            personnel.setClearance(cmbPersonnelClearance.getSelectedItem().toString());
-            personnel.setStatus(cmbPersonnelStatus.getSelectedItem().toString());
-            personnel.setState(cmbPersonnelState.getSelectedItem().toString());
+            if (txtPersonnelName.getText().isBlank() || txtPersonnelEmail.getText().isBlank() || txtPersonnelContactNum.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Please fill in all fields!", "User Registration", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-            success = User.saveUser(personnel);
+            boolean success = false;
+            String message = "";
+            String name = "";
+
+            if (userType.equals("People")) {
+                String selectedGender = (rdMale.isSelected()) ? "Male" : "Female";
+
+                name = txtPeopleName.getText();
+                //Registration for People
+                people.setName(name);
+                people.setDob(dtDob.getDate());
+                people.setGender(selectedGender);
+                people.setNation(cmbNationality.getSelectedItem().toString());
+                people.setId(txtId.getText());
+                people.setAddress(cmbPeopleState.getSelectedItem().toString());
+                people.setUsername(txtId.getText());
+                people.setEmail(txtPeopleEmail.getText());
+                people.setContactNumber(txtPeopleContactNum.getText());
+
+                success = User.registerUser_Personnel(people);
+            } else {
+                name = txtPersonnelName.getText();
+                //Registration for Personnel
+                personnel.setUsername(name);
+                personnel.setClearance(cmbPersonnelClearance.getSelectedItem().toString());
+                personnel.setStatus(cmbPersonnelStatus.getSelectedItem().toString());
+                personnel.setState(cmbPersonnelState.getSelectedItem().toString());
+                personnel.setEmail(txtPersonnelEmail.getText());
+                personnel.setContactNumber(txtPersonnelContactNum.getText());
+
+                success = User.saveUser(personnel);
+            }
+
+            if (!selectedUserId.equals("")) {
+                //Edit
+                message = "Failed to update record for " + name + "!";
+            } else {
+                //New
+                message = "Failed to register new user!";
+            }
+
+            //Verify success of registration
+            if (!success) {
+                JOptionPane.showMessageDialog(this, message, "User", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (userId.equals(selectedUserId)) {
+                Personnel_ViewProfile home = new Personnel_ViewProfile(userId);
+                home.setVisible(true);
+
+            } else {
+
+                Personnel_ManageUsers home = new Personnel_ManageUsers();
+                home.setVisible(true);
+            }
+            this.setVisible(false);
+            this.dispose();
         }
-
-        if (!userId.equals("")) {
-            //Edit
-            message = "Failed to update record for " + name + "!";
-        } else {
-            //New
-            message = "Failed to register new user!";
-        }
-
-        //Verify success of registration
-        if (!success) {
-            JOptionPane.showMessageDialog(this, message, "User", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        Personnel_ManageUsers home = new Personnel_ManageUsers();
-        home.setVisible(true);
-        this.setVisible(false);
-        this.dispose();
     }//GEN-LAST:event_btnVcSaveActionPerformed
 
     private void cmbUserTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbUserTypeItemStateChanged
@@ -522,6 +722,77 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cmbUserTypeItemStateChanged
+
+    private void lblLogoutMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseEntered
+        lblLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        Font font = lblLogout.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblLogout.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblLogoutMouseEntered
+
+    private void lblLogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMouseExited
+        Font font = lblLogout.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, -1);
+        lblLogout.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblLogoutMouseExited
+
+    private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
+        Login login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblLogoutMousePressed
+
+    private void lblViewProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseEntered
+        lblViewProfile.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        Font font = lblViewProfile.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblViewProfile.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblViewProfileMouseEntered
+
+    private void lblViewProfileMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseExited
+        Font font = lblViewProfile.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, -1);
+        lblViewProfile.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblViewProfileMouseExited
+
+    private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
+
+        Personnel_ViewProfile viewProfile = new Personnel_ViewProfile(userId);
+        viewProfile.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblViewProfileMousePressed
+
+    private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered
+        lblUsername.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+        Font font = lblUsername.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+        lblUsername.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblUsernameMouseEntered
+
+    private void lblUsernameMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseExited
+        Font font = lblUsername.getFont();
+        Map attributes = font.getAttributes();
+        attributes.put(TextAttribute.UNDERLINE, -1);
+        lblUsername.setFont(font.deriveFont(attributes));
+    }//GEN-LAST:event_lblUsernameMouseExited
+
+    private void lblUsernameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMousePressed
+        if (lblLogout.isVisible()) {
+            lblViewProfile.setVisible(false);
+            lblLogout.setVisible(false);
+        } else {
+            lblViewProfile.setVisible(true);
+            lblLogout.setVisible(true);
+        }
+    }//GEN-LAST:event_lblUsernameMousePressed
 
     /**
      * @param args the command line arguments
@@ -574,6 +845,10 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -582,13 +857,21 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JLayeredPane layeredPanel;
+    private javax.swing.JLabel lblLogout;
+    private javax.swing.JLabel lblUsername;
+    private javax.swing.JLabel lblViewProfile;
     private javax.swing.JPanel panelPeople;
     private javax.swing.JPanel panelPersonnel;
     private javax.swing.JRadioButton rdFemale;
     private javax.swing.JRadioButton rdMale;
+    private javax.swing.JScrollPane scrollPanel;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtPeopleContactNum;
+    private javax.swing.JTextField txtPeopleEmail;
     private javax.swing.JTextField txtPeopleName;
+    private javax.swing.JTextField txtPersonnelContactNum;
+    private javax.swing.JTextField txtPersonnelEmail;
     private javax.swing.JTextField txtPersonnelName;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,12 +28,13 @@ public class People extends User {
     private List<String> vaccinationHistory;
 
     public People() {
-        super("People", true);
+        super();
+        this.userType = "People";
         this.vaccinationStatus = "Not Vaccinated";
         
     }
 
-    public People(String n, LocalDate dob, String id, String nat, String v, String a, String g) {
+    public People(String n, LocalDate dob, String id, String nat, String v, String a, String g, String email, String phoneNum) {
         this.name = n;
         this.dateOfBirth = dob;
         this.identification = id;
@@ -41,6 +42,8 @@ public class People extends User {
         this.vaccinationStatus = v;
         this.address = a;
         this.gender = g;
+        this.email = email;
+        this.contactNumber = phoneNum;
     }
 
     public String getName() {
@@ -69,6 +72,13 @@ public class People extends User {
 
     public String getGender() {
         return this.gender;
+    }
+    
+    public List<String> getVaccinationHistory() {
+        if (this.vaccinationHistory == null) {
+            this.vaccinationHistory = new ArrayList<>();
+        }
+        return this.vaccinationHistory;
     }
 
     public void setName(String n) {
@@ -103,7 +113,7 @@ public class People extends User {
         if (this.vaccinationHistory == null) {
             this.vaccinationHistory = new ArrayList<>();
         }
-
+        
         if (updateType.equals("Add")) {
 
             this.vaccinationHistory.add(aptId);

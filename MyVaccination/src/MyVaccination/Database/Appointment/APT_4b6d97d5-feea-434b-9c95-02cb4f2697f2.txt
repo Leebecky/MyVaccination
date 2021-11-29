@@ -1,0 +1,1 @@
+{"appointmentId":"APT_4b6d97d5-feea-434b-9c95-02cb4f2697f2","centreId":"VC_f8952546-f334-4e4c-bcf4-ec1b58d4637a","candidateList":[],"appointmentDate":"2021-12-11","appointmentTime":"18:00","status":"Active","vaccineBrand":"Sinovac"}

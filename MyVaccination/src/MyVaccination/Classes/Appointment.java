@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
@@ -24,18 +25,19 @@ public class Appointment implements File_Methods {
 
     private String appointmentId;
     private String centreId;
-    private String candidateId;
+//    private String candidateId;
     private List<Candidate> candidateList;
-    private String[] vaccineBatchNumber;
+//    private String[] vaccineBatchNumber;
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
     private String status;
-    private String appointmentType;
+//    private String appointmentType;
     private String vaccineBrand;
 
     //Constructors
     public Appointment() {
         appointmentId = "APT_" + UUID.randomUUID().toString();
+        status = "Active";
     }
 
     public Appointment(String appointmentId) {
@@ -51,18 +53,18 @@ public class Appointment implements File_Methods {
         return centreId;
     }
 
-    public String getCandidateId() {
-        return candidateId;
-    }
+//    public String getCandidateId() {
+//        return candidateId;
+//    }
 
     public List<Candidate> getCandidateList() {
         return (candidateList == null) ? new ArrayList<>() : candidateList;
 //        return candidateList;
     }
 
-    public String[] getVaccineBatchNumber() {
-        return vaccineBatchNumber;
-    }
+//    public String[] getVaccineBatchNumber() {
+//        return vaccineBatchNumber;
+//    }
 
     public LocalDate getAppointmentDate() {
         return appointmentDate;
@@ -80,9 +82,9 @@ public class Appointment implements File_Methods {
         return vaccineBrand;
     }
 
-    public String getAppointmentType() {
-        return appointmentType;
-    }
+//    public String getAppointmentType() {
+//        return appointmentType;
+//    }
 
     //Setters
     public void setCentreId(String centreId) {
@@ -105,21 +107,21 @@ public class Appointment implements File_Methods {
         this.appointmentTime = appointmentTime;
     }
 
-    public void setVaccineBatchNumber(String[] vaccineBatchNumber) {
-        this.vaccineBatchNumber = vaccineBatchNumber;
-    }
-
-    public void setCandidateId(String candidateId) {
-        this.candidateId = candidateId;
-    }
+//    public void setVaccineBatchNumber(String[] vaccineBatchNumber) {
+//        this.vaccineBatchNumber = vaccineBatchNumber;
+//    }
+//
+//    public void setCandidateId(String candidateId) {
+//        this.candidateId = candidateId;
+//    }
 
     public void setVaccineBrand(String vaccineBrand) {
         this.vaccineBrand = vaccineBrand;
     }
 
-    public void setAppointmentType(String appointmentType) {
-        this.appointmentType = appointmentType;
-    }
+//    public void setAppointmentType(String appointmentType) {
+//        this.appointmentType = appointmentType;
+//    }
 
     // Create new batch of appointments/updating appointments
     public static boolean updateAppointment(Appointment apt) {
@@ -227,11 +229,14 @@ public class Appointment implements File_Methods {
         }
     }
 
-    //Load candidate 
+    //Get potential candidates
     public static List<People> getAptCandidateList(Appointment appointment) {
 
         Appointment apt = (appointment != null)
                 ? appointment : new Appointment();
+
+        Vaccination_Centre vc = Vaccination_Centre.getCentre(appointment.getCentreId());
+        String state = (vc != null) ? vc.getLocation().getState() : "All";
 
         List<Candidate> candidateList = apt.getCandidateList();
         List<People> peopleList = People.getFolderData();
@@ -244,15 +249,52 @@ public class Appointment implements File_Methods {
             }
         }
 
-        potentialCandidateList.forEach(c -> {
+        for (People c : potentialCandidateList) {
             for (Candidate cd : candidateList) {
                 if (c.getUserId().equals(cd.findCandidate().getUserId())) {
                     removalList.add(c);
                 }
             }
-        });
 
-        potentialCandidateList.removeAll(removalList);
+            //Vaccination Centre should be in same state as candidate
+            if (!state.equals("All")) {
+
+                if (!c.getAddress().equals(state)) {
+                    removalList.add(c);
+                    continue;
+                }
+            }
+
+            // 2nd appointment, only if the wait time has been long enough
+            List<String> vaccinationHistory = c.getVaccinationHistory();
+            if (vaccinationHistory.isEmpty()) {
+                continue;
+            }
+            Appointment apt1 = Appointment.getAppointmentDetails(vaccinationHistory.get(0));
+            LocalDate vaccinationDate = apt1.getAppointmentDate();
+            Vaccine vaccine = Vaccine.generateVaccine(apt1.getVaccineBrand());
+            LocalDate apt2Date = vaccinationDate.plusWeeks(vaccine.getWaitTime());
+            LocalDate appointmentDate = (appointment.getAppointmentDate() == null) ? LocalDate.now() : appointment.getAppointmentDate();
+            if (appointmentDate.isBefore(apt2Date)) {
+                removalList.add(c);
+                continue;
+            }
+
+            //2nd appointment, should be in same vaccination centre
+            if (!appointment.getCentreId().equals(apt1.getCentreId())) {
+                removalList.add(c);
+                continue;
+            }
+
+            //2nd appointment, should be of same vaccine brand
+            if (!appointment.getVaccineBrand().equals(apt1.getVaccineBrand())) {
+                removalList.add(c);
+                continue;
+            }
+        }
+
+        potentialCandidateList.removeAll(removalList);              
+        
         return potentialCandidateList;
     }
 
@@ -322,7 +364,7 @@ class Appointment_TableModel extends AbstractTableModel {
             case 4 -> //Closing Time
                 temp = aptObj.getAppointmentTime();
             case 5 -> //Type
-                temp = aptObj.getAppointmentType();
+                temp = aptObj.getStatus();
             default ->
                 temp = null;
         }
