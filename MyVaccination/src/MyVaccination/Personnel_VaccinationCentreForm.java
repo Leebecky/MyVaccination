@@ -675,8 +675,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             this.dispose();
             Personnel_ManageVaccinationCentre vc = new Personnel_ManageVaccinationCentre(userId);
             vc.setVisible(true);
-        } else {
-            return;
         }
     }//GEN-LAST:event_btnVcCancelActionPerformed
 
@@ -696,8 +694,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
             diaResupply.setVisible(false);
             diaResupply.dispose();
-        } else {
-            return;
         }
     }//GEN-LAST:event_btnResupplyCancelActionPerformed
 
