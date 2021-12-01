@@ -25,7 +25,6 @@ public class Vaccination_Centre implements File_Methods {
     private String centreId;
     private String name;
     private Location location;
-    public List<String> servicesId;
     private List<Stock> stock;
     private LocalTime openingTime; //24 hour system
     private LocalTime closingTime; //24 hour system

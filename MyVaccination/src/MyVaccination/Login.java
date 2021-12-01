@@ -8,23 +8,14 @@ package MyVaccination;
 //import static MyVaccination.MyVaccination.parseGsonArray;
 import MyVaccination.Helper_Classes.File_Helper;
 import MyVaccination.Classes.*;
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.plaf.IconUIResource;
 
 /**
  *
@@ -50,6 +41,7 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
         diaChangePassword = new javax.swing.JDialog();
         btnPasswordShow_Old = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -83,6 +75,12 @@ public class Login extends javax.swing.JFrame {
         diaChangePassword.setMinimumSize(new java.awt.Dimension(690, 370));
         diaChangePassword.setResizable(false);
         diaChangePassword.setSize(new java.awt.Dimension(690, 370));
+        diaChangePassword.setIconImage(img.getImage());
+        diaChangePassword.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                diaChangePasswordWindowClosed(evt);
+            }
+        });
         diaChangePassword.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnPasswordShow_Old.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/PwOpen.png"))); // NOI18N
@@ -319,34 +317,34 @@ public class Login extends javax.swing.JFrame {
                     }
                 }
             }
-                
-            if(isValid){
-                if(userType.equals("Personnel")){
+
+            if (isValid) {
+                if (userType.equals("Personnel")) {
                     String personnelData = File_Helper.readFile("User_Account/" + userId + ".txt");
                     Personnel personnelFromFile = File_Helper.gsonWriter.fromJson(personnelData, Personnel.class);
 
-                    if(personnelFromFile.getStatus().equals("Active")){
+                    if (personnelFromFile.getStatus().equals("Active")) {
                         JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
                         Personnel_Home home = new Personnel_Home(userId);
                         home.setVisible(true);
                         this.setVisible(false);
-                    }else{
+                    } else {
                         JOptionPane.showMessageDialog(null, "The account is inactive!", "Error", JOptionPane.ERROR_MESSAGE);
                         txtUsername.setText("");
-                        txtPassword.setText("");  
-                    } 
-                }else{
+                        txtPassword.setText("");
+                    }
+                } else {
                     JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
                     User_Home home = new User_Home(userId);
                     home.setVisible(true);
                     this.setVisible(false);
                 }
-            }else{
-               JOptionPane.showMessageDialog(null, "Login information incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
-               txtUsername.setText("");
-               txtPassword.setText("");                
+            } else {
+                JOptionPane.showMessageDialog(null, "Login information incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+                txtUsername.setText("");
+                txtPassword.setText("");
             }
-            
+
         } else {
             JOptionPane.showMessageDialog(null, "Please input both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -459,7 +457,7 @@ public class Login extends javax.swing.JFrame {
             }
 
             if (resetSuccess) {
-                JOptionPane.showMessageDialog(this, "Password has been reset to the default configuration: " + config + ". Please check your email", "Password Reset", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Password has been reset to the default configuration: " + config + ". Please contact the administrator for any further enquiries", "Password Reset", JOptionPane.INFORMATION_MESSAGE);
             } else {
 
                 JOptionPane.showMessageDialog(this, "User not found. Please try again", "Password Reset", JOptionPane.INFORMATION_MESSAGE);
@@ -545,9 +543,17 @@ public class Login extends javax.swing.JFrame {
             diaChangePassword.setVisible(false);
             diaChangePassword.dispose();
         } else {
-                 JOptionPane.showMessageDialog(null, "Failed to update password!", "Password Reset", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Failed to update password!", "Password Reset", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmChangeActionPerformed
+
+    private void diaChangePasswordWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_diaChangePasswordWindowClosed
+        // Clear all fields
+        txtChangeUsername.setText("");
+        txtConfirmPassword.setText("");
+        txtNewPassword.setText("");
+        txtResetPassword.setText("");
+    }//GEN-LAST:event_diaChangePasswordWindowClosed
 
     /**
      * @param args the command line arguments

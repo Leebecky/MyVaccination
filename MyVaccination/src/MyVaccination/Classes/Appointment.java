@@ -16,7 +16,7 @@ import java.util.UUID;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
-
+    
 /**
  *
  * @author leebe
@@ -25,14 +25,14 @@ public class Appointment implements File_Methods {
 
     private String appointmentId;
     private String centreId;
-//    private String candidateId;
     private List<Candidate> candidateList;
-//    private String[] vaccineBatchNumber;
     private LocalDate appointmentDate;
     private LocalTime appointmentTime;
     private String status;
-//    private String appointmentType;
     private String vaccineBrand;
+//    private String appointmentType;
+//    private String candidateId;
+//    private String[] vaccineBatchNumber;
 
     //Constructors
     public Appointment() {
