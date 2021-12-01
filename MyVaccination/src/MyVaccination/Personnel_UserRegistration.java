@@ -690,7 +690,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             personnel.setEmail(txtPersonnelEmail.getText());
             personnel.setContactNumber(txtPersonnelContactNum.getText());
 
-            success = User.saveUser(personnel);
+            success = User.registerUser_Personnel(personnel);
         }
 
         if (!selectedUserId.equals("")) {

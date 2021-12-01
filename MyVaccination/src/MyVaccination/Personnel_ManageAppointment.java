@@ -292,7 +292,7 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
             return;
         }
         
-        if (tblObject.getCandidateList().isEmpty()) {
+        if (!tblObject.getCandidateList().isEmpty()) {
             
             JOptionPane.showMessageDialog(this, "There are people assigned to this appointment!", "Appointment", JOptionPane.ERROR_MESSAGE);
             return;

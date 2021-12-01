@@ -130,6 +130,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         List<String> vcNameList = new ArrayList<>();
         List<Vaccination_Centre> vcList = Vaccination_Centre.getVcFolderData();
+        vcList = vcList.stream().filter(vc -> (vc.getStatus().equals("Active"))).toList();
         cmbAptVc = new javax.swing.JComboBox<Vaccination_Centre>(vcList.toArray(new Vaccination_Centre[vcList.size()]));
         jLabel2 = new javax.swing.JLabel();
         cmbAptVaccine = new javax.swing.JComboBox<>();
@@ -217,7 +218,6 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
         lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -257,7 +257,6 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         btnVcSave.setText("Save");
         btnVcSave.setBackground(new java.awt.Color(0, 204, 51));
         btnVcSave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnVcSave.setForeground(new java.awt.Color(0, 0, 0));
         btnVcSave.setIconTextGap(10);
         btnVcSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,7 +269,6 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         btnVcCancel.setText("Cancel");
         btnVcCancel.setBackground(new java.awt.Color(204, 51, 0));
         btnVcCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnVcCancel.setForeground(new java.awt.Color(0, 0, 0));
         btnVcCancel.setIconTextGap(10);
         btnVcCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -429,7 +427,6 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -449,7 +446,6 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
