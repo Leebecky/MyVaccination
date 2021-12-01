@@ -1,1 +1,0 @@
-{"status":"Active","state":"Melaka","clearance":"Staff","userId":"US_fa40f3da-fe6e-459c-bfaf-c38c3e3308c6","username":"Staff","userType":"Personnel","email":"s@mail.com","contactNumber":"012-3212231"}

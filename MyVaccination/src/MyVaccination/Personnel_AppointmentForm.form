@@ -342,7 +342,7 @@
               </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JComboBox&lt;Vaccination_Centre&gt;(vcList.toArray(new Vaccination_Centre[vcList.size()]))"/>
-                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List&lt;String&gt; vcNameList = new ArrayList&lt;&gt;();&#xa;List&lt;Vaccination_Centre&gt; vcList = Vaccination_Centre.getVcFolderData();"/>
+                <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="List&lt;String&gt; vcNameList = new ArrayList&lt;&gt;();&#xa;List&lt;Vaccination_Centre&gt; vcList = Vaccination_Centre.getVcFolderData();&#xa;vcList = vcList.stream().filter(vc -&gt; (vc.getStatus().equals(&quot;Active&quot;))).toList();"/>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Vaccination_Centre&gt;"/>
               </AuxValues>
             </Component>
