@@ -324,29 +324,29 @@ public class Login extends javax.swing.JFrame {
                     Personnel personnelFromFile = File_Helper.gsonWriter.fromJson(personnelData, Personnel.class);
 
                     if (personnelFromFile.getStatus().equals("Active")) {
-                        JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
                         Personnel_Home home = new Personnel_Home(userId);
                         home.setVisible(true);
                         this.setVisible(false);
                     } else {
-                        JOptionPane.showMessageDialog(null, "The account is inactive!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "The account is inactive!", "Error", JOptionPane.ERROR_MESSAGE);
                         txtUsername.setText("");
                         txtPassword.setText("");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
                     User_Home home = new User_Home(userId);
                     home.setVisible(true);
                     this.setVisible(false);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Login information incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Login information incorrect!", "Error", JOptionPane.ERROR_MESSAGE);
                 txtUsername.setText("");
                 txtPassword.setText("");
             }
 
         } else {
-            JOptionPane.showMessageDialog(null, "Please input both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please input both username and password.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -433,7 +433,7 @@ public class Login extends javax.swing.JFrame {
         int resetDecision = JOptionPane.showConfirmDialog(this, "Are you sure you wish to reset your password to the default?", "Password Reset", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (resetDecision == JOptionPane.YES_OPTION) {
-            String username = JOptionPane.showInputDialog(this, "Please enter your username");
+            String username = JOptionPane.showInputDialog(this, "Please enter your username", "Password Reset", JOptionPane.QUESTION_MESSAGE);
             boolean resetSuccess = false;
             String config = "";
 //            List<People> peopleList = People.getFolderData();
@@ -508,29 +508,29 @@ public class Login extends javax.swing.JFrame {
         // Change Password
         String newPassword = txtNewPassword.getText();
         if (txtChangeUsername.getText().isBlank() || txtResetPassword.getText().isBlank() || newPassword.isBlank() || txtConfirmPassword.getText().isBlank()) {
-            JOptionPane.showMessageDialog(null, "Please fill in all fields!", "Password Reset", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please fill in all fields!", "Password Reset", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         User myUser = User.findUser(txtChangeUsername.getText());
 
         if (myUser == null) {
-            JOptionPane.showMessageDialog(null, "User not found!", "Password Reset", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "User not found!", "Password Reset", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         if (!myUser.getPassword().equals(txtResetPassword.getText())) {
-            JOptionPane.showMessageDialog(null, "Password is incorrect!", "Password Reset", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Password is incorrect!", "Password Reset", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         if (!newPassword.equals(txtConfirmPassword.getText())) {
-            JOptionPane.showMessageDialog(null, "New passwords do not match!", "Password Reset", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "New passwords do not match!", "Password Reset", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
         if (newPassword.length() < 8) {
-            JOptionPane.showMessageDialog(null, "Password is too short!", "Password Reset", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Password is too short!", "Password Reset", JOptionPane.WARNING_MESSAGE);
             return;
         }
 
@@ -539,11 +539,11 @@ public class Login extends javax.swing.JFrame {
         boolean changeSuccess = User.saveUser(myUser);
 
         if (changeSuccess) {
-            JOptionPane.showMessageDialog(null, "Password successfully changed!", "Password Reset", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Password successfully changed!", "Password Reset", JOptionPane.INFORMATION_MESSAGE);
             diaChangePassword.setVisible(false);
             diaChangePassword.dispose();
         } else {
-            JOptionPane.showMessageDialog(null, "Failed to update password!", "Password Reset", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Failed to update password!", "Password Reset", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnConfirmChangeActionPerformed
 

@@ -84,7 +84,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         LocalTime openingTime = selectedVc.getOpeningTime();
         LocalTime closingTime = selectedVc.getClosingTime();
         dtAptDateTime.timePicker.getSettings().setVetoPolicy(new LGoodTimePicker_TimeVeto(openingTime.getHour(), openingTime.getMinute(), closingTime.getHour(), closingTime.getMinute()));
-          dtAptDateTime.datePicker.getSettings().setDateRangeLimits(apt.getAppointmentDate(), LocalDate.now().plusYears(1));
+//          dtAptDateTime.datePicker.getSettings().setDateRangeLimits(apt.getAppointmentDate(), LocalDate.now().plusYears(1));
 
         List<String> vaccineListModel = new ArrayList<>();
         selectedVc.checkVcSupply().forEach((str, i) -> {
@@ -105,6 +105,14 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
+        
+        
+        //Disable appointment editing capabilities if there are any candidates
+        if (!apt.getCandidateList().isEmpty()) {
+            cmbAptVaccine.setEnabled(false);
+            cmbAptVc.setEnabled(false);
+            dtAptDateTime.setEnabled(false);
+        }
     }
 
     /**
@@ -572,6 +580,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
             LocalTime openingTime = selectedVc.getOpeningTime();
             LocalTime closingTime = selectedVc.getClosingTime();
             dtAptDateTime.timePicker.getSettings().setVetoPolicy(new LGoodTimePicker_TimeVeto(openingTime.getHour(), openingTime.getMinute(), closingTime.getHour(), closingTime.getMinute()));
+            dtAptDateTime.timePicker.setTime(null);
 
         }
     }//GEN-LAST:event_cmbAptVcItemStateChanged
@@ -597,6 +606,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
         diaCandidate.setLocationRelativeTo(this);
         diaCandidate.setVisible(true);
+        diaCandidate.setIconImage(this.getIconImage());
     }//GEN-LAST:event_btnCandidatesActionPerformed
 
     private void btnAddCandidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCandidateActionPerformed
@@ -611,7 +621,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         //Candidates exceed vaccination centre capacity
         if (total > selectedVc.getCapacity() ) {
             int difference = selectedVc.getCapacity() - candidateList.size();
-             JOptionPane.showMessageDialog(null, "Maximum number of candidates per appointment exceeded! "+ difference + " candidate(s) allowed to be added.", "Appointment", JOptionPane.ERROR_MESSAGE);
+             JOptionPane.showMessageDialog(this, "Maximum number of candidates per appointment exceeded! "+ difference + " candidate(s) allowed to be added.", "Appointment", JOptionPane.ERROR_MESSAGE);
             return;
         }
 

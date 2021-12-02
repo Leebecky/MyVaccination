@@ -94,14 +94,13 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         lblLogout = new javax.swing.JLabel();
 
         diaResupply.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        diaResupply.setTitle("Vaccination Centre");
+        diaResupply.setTitle("Vaccination Centre Resupply");
         diaResupply.setMinimumSize(new java.awt.Dimension(403, 382));
         diaResupply.setResizable(false);
         diaResupply.setSize(diaResupply.getPreferredSize());
 
         btnResupplyCancel.setBackground(new java.awt.Color(204, 51, 0));
         btnResupplyCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnResupplyCancel.setForeground(new java.awt.Color(0, 0, 0));
         btnResupplyCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
         btnResupplyCancel.setText("Cancel");
         btnResupplyCancel.setIconTextGap(10);
@@ -113,7 +112,6 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
 
         btnResupplySave.setBackground(new java.awt.Color(0, 204, 51));
         btnResupplySave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnResupplySave.setForeground(new java.awt.Color(0, 0, 0));
         btnResupplySave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Save.png"))); // NOI18N
         btnResupplySave.setText("Confirm");
         btnResupplySave.setIconTextGap(10);
@@ -227,7 +225,6 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         });
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -339,7 +336,6 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -359,7 +355,6 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
-        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
@@ -446,6 +441,7 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         // open resupply menu
         diaResupply.setLocationRelativeTo(this);
         diaResupply.setVisible(true);
+        diaResupply.setIconImage(this.getIconImage());
 
     }//GEN-LAST:event_btnVcSupplyActionPerformed
 

@@ -309,6 +309,8 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPeopleName.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtPeopleName.setInputVerifier(new Validator(this));
+        txtPeopleName.setName("Name"); // NOI18N
 
         dtDob.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -345,14 +347,14 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPeopleEmail.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPeopleEmail.setInputVerifier(new Validator());
+        txtPeopleEmail.setInputVerifier(new Validator(this));
         txtPeopleEmail.setName("Email"); // NOI18N
 
         jLabel13.setText("Contact Number :");
         jLabel13.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPeopleContactNum.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPeopleContactNum.setInputVerifier(new Validator());
+        txtPeopleContactNum.setInputVerifier(new Validator(this));
         txtPeopleContactNum.setName("Phone"); // NOI18N
 
         javax.swing.GroupLayout panelPeopleLayout = new javax.swing.GroupLayout(panelPeople);
@@ -450,7 +452,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         panelPersonnel.setPreferredSize(new java.awt.Dimension(659, 304));
 
         txtPersonnelName.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPersonnelName.setInputVerifier(new Validator());
+        txtPersonnelName.setInputVerifier(new Validator(this));
         txtPersonnelName.setName(""); // NOI18N
 
         jLabel7.setText("Name :");
@@ -475,14 +477,14 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         cmbPersonnelState.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPersonnelEmail.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPersonnelEmail.setInputVerifier(new Validator());
+        txtPersonnelEmail.setInputVerifier(new Validator(this));
         txtPersonnelEmail.setName("Email"); // NOI18N
 
         jLabel14.setText("Contact Number :");
         jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPersonnelContactNum.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPersonnelContactNum.setInputVerifier(new Validator());
+        txtPersonnelContactNum.setInputVerifier(new Validator(this));
         txtPersonnelContactNum.setName("Phone"); // NOI18N
 
         jLabel15.setText("Email :");

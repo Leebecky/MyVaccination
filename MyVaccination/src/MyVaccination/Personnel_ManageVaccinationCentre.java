@@ -73,7 +73,9 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manage Vaccination Centre");
+        setMinimumSize(new java.awt.Dimension(950, 508));
         setName("frmMngVc"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(950, 508));
         setSize(getPreferredSize());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {

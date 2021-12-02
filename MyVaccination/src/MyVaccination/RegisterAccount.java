@@ -75,9 +75,12 @@ public class RegisterAccount extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
         txtPhone = new javax.swing.JTextField();
+        btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        setMinimumSize(new java.awt.Dimension(875, 535));
+        setPreferredSize(new java.awt.Dimension(875, 535));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 153, 255));
@@ -117,7 +120,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 875, -1));
 
         txtFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtFullName.setInputVerifier(new Validator());
+        txtFullName.setInputVerifier(new Validator(this));
         txtFullName.setName("Name"); // NOI18N
         getContentPane().add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 218, 30));
 
@@ -184,7 +187,7 @@ public class RegisterAccount extends javax.swing.JFrame {
                 btnRegisterActionPerformed(evt);
             }
         });
-        getContentPane().add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 450, 120, 50));
+        getContentPane().add(btnRegister, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 440, 120, 40));
 
         cmbLocation.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selangor", "Kuala Lumpur", "Penang", "Johor", "Kedah", "Pahang" }));
         cmbLocation.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
@@ -204,14 +207,30 @@ public class RegisterAccount extends javax.swing.JFrame {
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, -1, -1));
 
         txtEmail.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtEmail.setInputVerifier(new Validator());
+        txtEmail.setInputVerifier(new Validator(this));
         txtEmail.setName("Email"); // NOI18N
         getContentPane().add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, 218, 30));
 
         txtPhone.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        txtPhone.setInputVerifier(new Validator());
+        txtPhone.setInputVerifier(new Validator(this));
         txtPhone.setName("Phone"); // NOI18N
         getContentPane().add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 380, 218, 30));
+
+        btnBack.setBackground(new java.awt.Color(204, 153, 255));
+        btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N
+        btnBack.setBorder(null);
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.setFocusPainted(false);
+        btnBack.setFocusable(false);
+        btnBack.setRequestFocusEnabled(false);
+        btnBack.setRolloverEnabled(false);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnBack, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 66, -1, 28));
 
         pack();
         setLocationRelativeTo(null);
@@ -243,13 +262,13 @@ public class RegisterAccount extends javax.swing.JFrame {
         }
         
         if(isBlank){
-            JOptionPane.showMessageDialog(null, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(dtInvalid){
-            JOptionPane.showMessageDialog(null, "User must be at least 18 years old to register an account.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "User must be at least 18 years old to register an account.", "Error", JOptionPane.ERROR_MESSAGE);
         } else if(password.length() < 8 || confirmpassword.length() < 8){
-            JOptionPane.showMessageDialog(null, "Passwords must be at least 8 characters.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Passwords must be at least 8 characters.", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(!password.equals(confirmpassword)){
-            JOptionPane.showMessageDialog(null, "Passwords are not same.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Passwords are not same.", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             String userType = "People";
             String id = UUID.randomUUID().toString();
@@ -262,7 +281,7 @@ public class RegisterAccount extends javax.swing.JFrame {
     
             File_Helper.saveData(ppl, "User_Account"); 
             
-            JOptionPane.showMessageDialog(null, "Account Registered!", "Registration Message", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Account Registered!", "Registration Message", JOptionPane.INFORMATION_MESSAGE);
 
             Login login = new Login();
             login.setVisible(true);
@@ -279,6 +298,14 @@ public class RegisterAccount extends javax.swing.JFrame {
         login.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_lblLogoMousePressed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // Return to Personnel Home page
+        Login page = new Login();
+        page.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,6 +343,7 @@ public class RegisterAccount extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
     private javax.swing.JButton btnRegister;
     private javax.swing.JComboBox<String> cmbGender;
     private javax.swing.JComboBox<String> cmbLocation;

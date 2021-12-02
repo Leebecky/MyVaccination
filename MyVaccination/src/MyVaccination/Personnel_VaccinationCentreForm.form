@@ -5,6 +5,7 @@
     <Container class="javax.swing.JDialog" name="diaResupply">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="2"/>
+        <Property name="title" type="java.lang.String" value="Vaccination Centre Resupply"/>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[403, 288]"/>
         </Property>

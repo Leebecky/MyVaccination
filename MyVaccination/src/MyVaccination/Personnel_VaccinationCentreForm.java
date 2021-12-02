@@ -154,6 +154,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         lblLogout = new javax.swing.JLabel();
 
         diaResupply.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        diaResupply.setTitle("Vaccination Centre Resupply");
         diaResupply.setMinimumSize(new java.awt.Dimension(403, 288));
 
         btnResupplyCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
@@ -679,6 +680,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         diaResupply.setLocationRelativeTo(this);
         diaResupply.setVisible(true);
+        diaResupply.setIconImage(this.getIconImage());
     }//GEN-LAST:event_btnVcSupplyActionPerformed
 
     private void btnResupplyCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResupplyCancelActionPerformed

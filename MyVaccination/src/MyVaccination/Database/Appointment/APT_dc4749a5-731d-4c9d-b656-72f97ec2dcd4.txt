@@ -1,1 +1,1 @@
-{"appointmentId":"APT_dc4749a5-731d-4c9d-b656-72f97ec2dcd4","centreId":"VC_f8952546-f334-4e4c-bcf4-ec1b58d4637a","candidateList":[],"appointmentDate":"2021-12-30","appointmentTime":"18:00","status":"Closed","vaccineBrand":"Pfizer"}
+{"appointmentId":"APT_dc4749a5-731d-4c9d-b656-72f97ec2dcd4","centreId":"VC_f8952546-f334-4e4c-bcf4-ec1b58d4637a","candidateList":[],"appointmentDate":"2021-12-30","appointmentTime":"18:00","status":"Active","vaccineBrand":"Pfizer"}

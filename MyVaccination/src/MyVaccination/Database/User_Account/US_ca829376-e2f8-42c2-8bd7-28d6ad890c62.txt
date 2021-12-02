@@ -1,0 +1,1 @@
+{"name":"a","dateOfBirth":"1990-12-13","identification":"1","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Johor","gender":"Male","vaccinationHistory":[],"userId":"US_ca829376-e2f8-42c2-8bd7-28d6ad890c62","username":"1","password":"character","userType":"People","email":"1@,","contactNumber":"012-3213211"}
