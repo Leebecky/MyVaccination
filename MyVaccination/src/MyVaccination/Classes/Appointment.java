@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
     
@@ -30,9 +29,6 @@ public class Appointment implements File_Methods {
     private LocalTime appointmentTime;
     private String status;
     private String vaccineBrand;
-//    private String appointmentType;
-//    private String candidateId;
-//    private String[] vaccineBatchNumber;
 
     //Constructors
     public Appointment() {
@@ -53,18 +49,11 @@ public class Appointment implements File_Methods {
         return centreId;
     }
 
-//    public String getCandidateId() {
-//        return candidateId;
-//    }
 
     public List<Candidate> getCandidateList() {
         return (candidateList == null) ? new ArrayList<>() : candidateList;
-//        return candidateList;
     }
 
-//    public String[] getVaccineBatchNumber() {
-//        return vaccineBatchNumber;
-//    }
 
     public LocalDate getAppointmentDate() {
         return appointmentDate;
@@ -107,21 +96,9 @@ public class Appointment implements File_Methods {
         this.appointmentTime = appointmentTime;
     }
 
-//    public void setVaccineBatchNumber(String[] vaccineBatchNumber) {
-//        this.vaccineBatchNumber = vaccineBatchNumber;
-//    }
-//
-//    public void setCandidateId(String candidateId) {
-//        this.candidateId = candidateId;
-//    }
-
     public void setVaccineBrand(String vaccineBrand) {
         this.vaccineBrand = vaccineBrand;
     }
-
-//    public void setAppointmentType(String appointmentType) {
-//        this.appointmentType = appointmentType;
-//    }
 
     // Create new batch of appointments/updating appointments
     public static boolean updateAppointment(Appointment apt) {
@@ -154,7 +131,6 @@ public class Appointment implements File_Methods {
                     String vStatus = (aptC.findCandidate().getStatus().contains("1")) ? "2nd Dose Appointment Pending" : "1st Dose Appointment Pending";
 
                     aptC.updateCandidateStatus(vStatus, "Pending", apt.getAppointmentId(), "Add");
-//                    aptC.findCandidate().updateVaccinationHistory(apt.getAppointmentId(), "Add");
                 }
             }
         } else { //If new appointment
@@ -166,7 +142,6 @@ public class Appointment implements File_Methods {
                 String vStatus = (aptC.findCandidate().getStatus().contains("1")) ? "2nd Dose Appointment Pending" : "1st Dose Appointment Pending";
 
                 aptC.updateCandidateStatus(vStatus, "Pending", apt.getAppointmentId(), "Add");
-//                aptC.findCandidate().updateVaccinationHistory(apt.getAppointmentId(), "Add");
             }
         }
 

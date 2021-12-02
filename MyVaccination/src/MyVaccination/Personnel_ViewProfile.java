@@ -6,7 +6,6 @@
 package MyVaccination;
 
 import MyVaccination.Classes.*;
-import MyVaccination.Helper_Classes.File_Helper;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
@@ -87,6 +86,7 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -243,7 +243,7 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, -1, -1));
 
         lblStatus.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 210, 30));
+        getContentPane().add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, 210, 30));
 
         btnBack.setBackground(new java.awt.Color(204, 153, 255));
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N

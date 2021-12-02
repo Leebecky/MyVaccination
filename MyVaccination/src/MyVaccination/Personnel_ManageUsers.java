@@ -65,6 +65,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         homePersonnelHeader = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         btnHome = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         btnAddEdi = new javax.swing.JButton();
@@ -82,6 +83,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
         setPreferredSize(new java.awt.Dimension(944, 539));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -103,6 +105,11 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
+        jLabel2.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Manage Users");
+
         btnHome.setBackground(new java.awt.Color(204, 153, 255));
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBorder(null);
@@ -119,6 +126,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         });
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -138,9 +146,11 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 633, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(lblUsername)
-                .addGap(27, 27, 27))
+                .addGap(44, 44, 44))
         );
         homePersonnelHeaderLayout.setVerticalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,7 +159,9 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
                 .addComponent(btnHome))
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addComponent(lblUsername)
+                .addGroup(homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblUsername))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -210,6 +222,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
@@ -225,7 +238,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
                 lblLogoutMousePressed(evt);
             }
         });
-        getContentPane().add(lblLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 90, 150, 40));
+        getContentPane().add(lblLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 90, 160, 40));
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 51));
         btnDelete.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
@@ -242,6 +255,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -257,7 +271,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
                 lblViewProfileMousePressed(evt);
             }
         });
-        getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 60, 150, 40));
+        getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 60, 160, 40));
 
         btnBack.setBackground(new java.awt.Color(204, 153, 255));
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N
@@ -341,7 +355,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         // Delete record in table
         int currentTab = panelTables.getSelectedIndex();
         int selectedRow = -1;
-        String userId = "";
+        String selectedUserId;
         User delObj;
 
         if (currentTab == 0) {
@@ -357,12 +371,13 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
         if (currentTab == 0) {
             int modelRowIndex = tblPeople.convertRowIndexToModel(selectedRow);
-            userId = tblPeople.getModel().getValueAt(modelRowIndex, 0).toString();
-            delObj = People.getPeople(userId);
+            selectedUserId = tblPeople.getModel().getValueAt(modelRowIndex, 0).toString();
+            delObj = People.getPeople(selectedUserId);
+      
         } else {
             int modelRowIndex = tblPersonnel.convertRowIndexToModel(selectedRow);
-            userId = tblPersonnel.getModel().getValueAt(modelRowIndex, 0).toString();
-            delObj = Personnel.getPersonnel(userId);
+            selectedUserId = tblPersonnel.getModel().getValueAt(modelRowIndex, 0).toString();
+            delObj = Personnel.getPersonnel(selectedUserId);
         }
 
         //Confirm request to delete data
@@ -534,6 +549,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
     private javax.swing.JButton btnHome;
     private javax.swing.JPanel homePersonnelHeader;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblLogout;

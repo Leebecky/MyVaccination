@@ -81,6 +81,7 @@ public class RegisterAccount extends javax.swing.JFrame {
         setTitle("MyVaccination");
         setMinimumSize(new java.awt.Dimension(875, 535));
         setPreferredSize(new java.awt.Dimension(875, 535));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 153, 255));
@@ -248,7 +249,6 @@ public class RegisterAccount extends javax.swing.JFrame {
         String location = String.valueOf(cmbLocation.getSelectedItem());
         String password = txtPassword.getText();
         String confirmpassword = txtConfirmPassword.getText();
-        String phoneNum = txtPhone.getText();
         
         boolean isBlank = false;
         boolean dtInvalid = false;

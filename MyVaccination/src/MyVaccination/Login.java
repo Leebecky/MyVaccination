@@ -10,6 +10,7 @@ import MyVaccination.Helper_Classes.File_Helper;
 import MyVaccination.Classes.*;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.event.KeyEvent;
 import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
         this.setIconImage(img.getImage());
+
     }
 
     /**
@@ -169,6 +171,7 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
         setBackground(new java.awt.Color(225, 226, 239));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(204, 153, 255));
@@ -205,6 +208,11 @@ public class Login extends javax.swing.JFrame {
         txtUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsernameActionPerformed(evt);
+            }
+        });
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyPressed(evt);
             }
         });
         getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 174, 325, 41));
@@ -253,6 +261,11 @@ public class Login extends javax.swing.JFrame {
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
+            }
+        });
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyPressed(evt);
             }
         });
         getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(371, 244, 325, 45));
@@ -436,19 +449,6 @@ public class Login extends javax.swing.JFrame {
             String username = JOptionPane.showInputDialog(this, "Please enter your username", "Password Reset", JOptionPane.QUESTION_MESSAGE);
             boolean resetSuccess = false;
             String config = "";
-//            List<People> peopleList = People.getFolderData();
-//            List<Personnel> personnelList = Personnel.getFolderData();
-//            List<User> userList = new ArrayList<>();
-//            userList.addAll(peopleList);
-//            userList.addAll(personnelList);
-//
-//            for (User u : userList) {
-//                if (u.getUsername().equals(username)) {
-//                    config = (u.getUserType().equals("Personnel")) ? "Username_(last 4 digits of your user id)" : "Username_DateOfBirth";
-//                    resetSuccess = User.registerUser_Personnel(u);
-//                    break;
-//                }
-//            }
 
             User myUser = User.findUser(username);
             if (myUser != null) {
@@ -554,6 +554,20 @@ public class Login extends javax.swing.JFrame {
         txtNewPassword.setText("");
         txtResetPassword.setText("");
     }//GEN-LAST:event_diaChangePasswordWindowClosed
+
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
+        // Click the login button if enter is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnLogin.doClick();
+        }
+    }//GEN-LAST:event_txtPasswordKeyPressed
+
+    private void txtUsernameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyPressed
+        // Click the login button if enter is pressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnLogin.doClick();
+        }
+    }//GEN-LAST:event_txtUsernameKeyPressed
 
     /**
      * @param args the command line arguments

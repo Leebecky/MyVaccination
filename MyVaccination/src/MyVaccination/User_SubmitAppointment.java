@@ -12,7 +12,6 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +102,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -339,7 +339,17 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             new String [] {
                 "ID", "Appointment Date", "Appointment Time", "Vaccine Type"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblAppointment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblAppointment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(tblAppointment);
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 220));
@@ -644,8 +654,6 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 // Get centre Name
                 List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
                 List<Vaccination_Centre> centreNameList = new ArrayList();
-                ArrayList<String> arrCentreName = new ArrayList<>();
-                ArrayList<String> showCentreName = new ArrayList<>();
 
                 centreDataArray.forEach(fileInFolder -> {
                     centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
@@ -667,7 +675,6 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 cmbCentre.setEnabled(false);
                 btnSearch.setEnabled(false);
 
-                List<String> vacHistory = userFromFile.getVaccinationHistory();
                 String apt = userFromFile.getVaccinationHistory().get(0);
 
                 String aptData = File_Helper.readFile("Appointment/" + apt + ".txt");
@@ -745,7 +752,6 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                     appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
                 });
 
-                String aptId = userFromFile.getVaccinationHistory().get(0);
                 List<Candidate> candidateList = aptFromFile.getCandidateList();
                 String batchNumber = "";
 

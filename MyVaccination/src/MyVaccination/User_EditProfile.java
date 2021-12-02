@@ -7,12 +7,10 @@ package MyVaccination;
 
 import MyVaccination.Classes.*;
 import MyVaccination.Helper_Classes.*;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -102,6 +100,7 @@ public class User_EditProfile extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);

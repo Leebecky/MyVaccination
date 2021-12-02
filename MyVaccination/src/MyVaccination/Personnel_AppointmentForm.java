@@ -84,7 +84,6 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         LocalTime openingTime = selectedVc.getOpeningTime();
         LocalTime closingTime = selectedVc.getClosingTime();
         dtAptDateTime.timePicker.getSettings().setVetoPolicy(new LGoodTimePicker_TimeVeto(openingTime.getHour(), openingTime.getMinute(), closingTime.getHour(), closingTime.getMinute()));
-//          dtAptDateTime.datePicker.getSettings().setDateRangeLimits(apt.getAppointmentDate(), LocalDate.now().plusYears(1));
 
         List<String> vaccineListModel = new ArrayList<>();
         selectedVc.checkVcSupply().forEach((str, i) -> {
@@ -129,6 +128,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         tblCandidate = new javax.swing.JTable();
         btnAddCandidate = new javax.swing.JButton();
         homePersonnelHeader = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         btnHome = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
         btnVcSave = new javax.swing.JButton();
@@ -199,6 +199,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
         setMinimumSize(new java.awt.Dimension(945, 523));
+        setResizable(false);
         setSize(getPreferredSize());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -208,6 +209,11 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
+
+        jLabel5.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Appointment registration");
 
         btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBackground(new java.awt.Color(204, 153, 255));
@@ -226,6 +232,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
         lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -244,7 +251,9 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 637, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                 .addComponent(lblUsername)
                 .addGap(23, 23, 23))
         );
@@ -255,8 +264,10 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
                 .addComponent(btnHome))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePersonnelHeaderLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblUsername)
-                .addGap(15, 15, 15))
+                .addGroup(homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsername)
+                    .addComponent(jLabel5))
+                .addGap(14, 14, 14))
         );
 
         getContentPane().add(homePersonnelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, -1));
@@ -433,12 +444,13 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
         getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 95, -1, 331));
 
-        lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
-        lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
-        lblViewProfile.setToolTipText("");
+        lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
+        lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setOpaque(true);
+        lblViewProfile.setToolTipText("");
         lblViewProfile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblViewProfileMouseEntered(evt);
@@ -452,12 +464,13 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         });
         getContentPane().add(lblViewProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 60, 150, 40));
 
-        lblLogout.setBackground(new java.awt.Color(204, 153, 255));
-        lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
-        lblLogout.setToolTipText("");
+        lblLogout.setBackground(new java.awt.Color(204, 153, 255));
+        lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setOpaque(true);
+        lblLogout.setToolTipText("");
         lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblLogoutMouseEntered(evt);
@@ -507,13 +520,6 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         //TODO: Need to process vaccine type for batch number
         apt.setVaccineBrand(vaccineBrand);
 
-//        List<Stock> selectedVcStock = selectedVc.getStock();
-//        List<Stock> vcFilteredStock = selectedVcStock.stream().filter(s -> s.getVaccine().getName().equals(vaccineBrand)).map(s -> (Stock) s).toList();
-//        selectedVc.updateVcSupply(vaccineBrand);
-//        for (var v : vcFilteredStock) {
-//            System.out.println(v.getVaccine().getName());
-//            System.out.println(v.getQuantity());
-//        }
         boolean success;
         String message = "";
 
@@ -837,6 +843,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;

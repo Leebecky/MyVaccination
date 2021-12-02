@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class Candidate {
 
-//    private People candidate;
     private String candidateId;
     private String apptStatus;
     private String vaccineBatchNumber;
@@ -29,17 +28,6 @@ public class Candidate {
         this.candidateId = candidateId;
     }
     
-//    public Candidate(String userId) {
-//        //retrieve people by user id
-//        List<People> peopleList = People.getFolderData();
-//        peopleList.forEach(p -> {
-//            if (p.getId().equals(userId)) {
-//                candidate = p;
-//            }
-//        });
-//                
-//        apptStatus = "Pending";
-//    }
     //Getter
 
     public People findCandidate() {

@@ -1,20 +1,14 @@
 package MyVaccination.Classes;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author leebe
  */
-
 public class Location {
 
     private String address1;
     private String address2;
     private String state;
-    private Double longitude;
-    private Double latitude;
 
     //Constructor
     public Location() {
@@ -38,7 +32,6 @@ public class Location {
     //Getters
     public String getAddress1() {
         return (this.address1 == null) ? "" : this.address1;
-
     }
 
     public String getAddress2() {
