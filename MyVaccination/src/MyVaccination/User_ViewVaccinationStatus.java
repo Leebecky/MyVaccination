@@ -1336,23 +1336,24 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             PageFormat preFormat = printJob.defaultPage();
             preFormat.setOrientation(PageFormat.PORTRAIT);
             PageFormat postFormat = printJob.pageDialog(preFormat);
-            if (preFormat != postFormat) {
+            
+            if(preFormat != postFormat){
                 //set print component
                 printJob.setPrintable(new Printable(){
                     public int print(Graphics pg, PageFormat pf, int pageNum){
                         if(pageNum > 0){
                             return Printable.NO_SUCH_PAGE;
                         }
-                        
+
                         Graphics2D g2 = (Graphics2D)pg;
-                        g2.translate(postFormat.getImageableX(), postFormat.getImageableY());
+                        g2.translate(pf.getImageableX(), pf.getImageableY());
                         g2.scale(0.8, 0.8);
-                        
+
                         jFrame1.paint(g2);
                         return Printable.PAGE_EXISTS;
                     }
                 });
-                
+
                 boolean ok = printJob.printDialog();
                 if(ok){
                     printJob.print();

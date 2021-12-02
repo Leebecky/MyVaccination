@@ -653,8 +653,10 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
                 for (String element : centreList) {
                     for (Vaccination_Centre centre : centreNameList) {
-                        if (centre.getCentreId().equals(element)) {
-                            cmbCentre.addItem(centre.getName());
+                        if (centre.getCentreId().equals(element) && centre.getStatus().equals("Active")) {
+                            if(centre.getLocation().getState().equals(userFromFile.getAddress())){
+                                cmbCentre.addItem(centre.getName());
+                            }
                         }
                     }
                 }
