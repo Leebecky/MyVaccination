@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.util.List;
 import java.util.Map;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,10 +26,14 @@ public class User_AppointmentDetails extends javax.swing.JFrame {
      */
     public User_AppointmentDetails() {
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
     }
     
     public User_AppointmentDetails(String id, String doseSeq){
         initComponents();
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        this.setIconImage(img.getImage());
         
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
@@ -42,9 +47,9 @@ public class User_AppointmentDetails extends javax.swing.JFrame {
         lblDoseSeq.setText("DOSE " + doseSeq);
         
         if(doseSeq.equals("1")){
-            aptId = userFromFile.getVacHistory().get(0);
+            aptId = userFromFile.getVaccinationHistory().get(0);
         }else{
-            aptId = userFromFile.getVacHistory().get(1);
+            aptId = userFromFile.getVaccinationHistory().get(1);
         }
         
         String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
@@ -119,6 +124,7 @@ public class User_AppointmentDetails extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);

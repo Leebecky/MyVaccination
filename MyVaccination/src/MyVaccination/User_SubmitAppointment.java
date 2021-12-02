@@ -12,7 +12,6 @@ import java.awt.Font;
 import java.awt.font.TextAttribute;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -103,6 +102,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -339,7 +339,17 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             new String [] {
                 "ID", "Appointment Date", "Appointment Time", "Vaccine Type"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblAppointment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblAppointment.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(tblAppointment);
 
         getContentPane().add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, -1, 220));
@@ -467,13 +477,13 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         boolean success = Appointment.updateAppointment(aptFromFile);
 
         if (success) {
-            JOptionPane.showMessageDialog(null, "Info Updated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Info Updated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
 
             User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
             viewStatus.setVisible(true);
             this.setVisible(false);
         } else {
-            JOptionPane.showMessageDialog(null, "Appointment submit failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Appointment submit failed.", "Appointment Message", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -493,7 +503,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         // Get centre ID
         List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
         List<Vaccination_Centre> centreList = new ArrayList();
-        ArrayList<String> selectedCentreId = new ArrayList<String>();
+        ArrayList<String> selectedCentreId = new ArrayList<>();
 
         centreDataArray.forEach(fileInFolder -> {
             centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
@@ -514,8 +524,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
         List<Stock> stockList = centreFromFile.getStock();
         Vaccine vaccine;
-        ArrayList<String> vaccineNames = new ArrayList<String>();
-        LinkedHashMap<String, Integer> vaccineSupply = new LinkedHashMap<String, Integer>();
+        ArrayList<String> vaccineNames = new ArrayList<>();
+        LinkedHashMap<String, Integer> vaccineSupply = new LinkedHashMap<>();
         String vacName;
         
         for(int i = 0; i < stockList.size(); i++) {
@@ -619,7 +629,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
                 List<String> appDataArray = File_Helper.readFolder("Appointment");
                 List<Appointment> appointmentList = new ArrayList();
-                ArrayList<String> arrApp = new ArrayList<String>();
+                ArrayList<String> arrApp = new ArrayList<>();
 
                 appDataArray.forEach(fileInFolder -> {
                     appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
@@ -633,7 +643,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 });
 
                 // Remove duplicate centre ID
-                ArrayList<String> centreList = new ArrayList<String>();
+                ArrayList<String> centreList = new ArrayList<>();
 
                 for (String element : arrApp) {
                     if (!centreList.contains(element)) {
@@ -644,8 +654,6 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 // Get centre Name
                 List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
                 List<Vaccination_Centre> centreNameList = new ArrayList();
-                ArrayList<String> arrCentreName = new ArrayList<String>();
-                ArrayList<String> showCentreName = new ArrayList<String>();
 
                 centreDataArray.forEach(fileInFolder -> {
                     centreNameList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
@@ -667,8 +675,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 cmbCentre.setEnabled(false);
                 btnSearch.setEnabled(false);
 
-                List<String> vacHistory = userFromFile.getVacHistory();
-                String apt = userFromFile.getVacHistory().get(0);
+                String apt = userFromFile.getVaccinationHistory().get(0);
 
                 String aptData = File_Helper.readFile("Appointment/" + apt + ".txt");
                 Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
@@ -685,7 +692,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 // Get centre ID
                 List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
                 List<Vaccination_Centre> centreList = new ArrayList();
-                ArrayList<String> selectedCentreId = new ArrayList<String>();
+                ArrayList<String> selectedCentreId = new ArrayList<>();
 
                 centreDataArray.forEach(fileInFolder -> {
                     centreList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Vaccination_Centre.class));
@@ -700,8 +707,8 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 
                 List<Stock> stockList = centreFromFile.getStock();
                 Vaccine vaccine;
-                ArrayList<String> vaccineNames = new ArrayList<String>();
-                LinkedHashMap<String, Integer> vaccineSupply = new LinkedHashMap<String, Integer>();
+                ArrayList<String> vaccineNames = new ArrayList<>();
+                LinkedHashMap<String, Integer> vaccineSupply = new LinkedHashMap<>();
                 String vacName;
 
                 for(int i = 0; i < stockList.size(); i++) {
@@ -745,7 +752,6 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                     appointmentList.add(File_Helper.gsonWriter.fromJson(fileInFolder, Appointment.class));
                 });
 
-                String aptId = userFromFile.getVacHistory().get(0);
                 List<Candidate> candidateList = aptFromFile.getCandidateList();
                 String batchNumber = "";
 
@@ -804,7 +810,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 }
 
                 if (model.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(null, "The centre currently does not open appointment for your dose 2.\nPlease check again after a few days.", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "There are no appointments currently available in your vaccination centre for your 2nd dose.\nPlease check again after a few days.", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
 
                     User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
                     viewStatus.setVisible(true);
@@ -815,20 +821,20 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 lblLocation.setText(centreState);
 
             } else if (userFromFile.getStatus().equals("Fully Vaccinated")) {
-                JOptionPane.showMessageDialog(null, "You have fully vaccinated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "You are already fully vaccinated!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
 
                 User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
                 viewStatus.setVisible(true);
                 this.setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(null, "You have ongoing appointment!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "You have an ongoing appointment!", "Appointment Message", JOptionPane.INFORMATION_MESSAGE);
 
                 User_ViewVaccinationStatus viewStatus = new User_ViewVaccinationStatus(id);
                 viewStatus.setVisible(true);
                 this.setVisible(false);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
             Login login = new Login();
             login.setVisible(true);
             this.setVisible(false);

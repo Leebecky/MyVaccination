@@ -7,22 +7,18 @@ package MyVaccination;
 
 import MyVaccination.Classes.*;
 import MyVaccination.Helper_Classes.File_Helper;
-import MyVaccination.Helper_Classes.Printer;
 import java.awt.Color;
 import java.awt.Cursor;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.HeadlessException;
-import java.awt.Toolkit;
 import java.awt.font.TextAttribute;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -64,9 +60,9 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         String aptDate2 = "";
         int doseRequired = 0;
         
-        if(userFromFile.getVacHistory().size() > 0){
-            vacHistory = userFromFile.getVacHistory();
-            apt1 = userFromFile.getVacHistory().get(0);
+        if(userFromFile.getVaccinationHistory().size() > 0){
+            vacHistory = userFromFile.getVaccinationHistory();
+            apt1 = userFromFile.getVaccinationHistory().get(0);
             
             apt1Data = File_Helper.readFile("Appointment/" + apt1 + ".txt");
             apt1FromFile = File_Helper.gsonWriter.fromJson(apt1Data, Appointment.class);
@@ -91,7 +87,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             aptLocalDate1 = apt1FromFile.getAppointmentDate();
             
             if(vacHistory.size() == 2){
-                apt2 = userFromFile.getVacHistory().get(1);
+                apt2 = userFromFile.getVaccinationHistory().get(1);
                 
                 apt2Data = File_Helper.readFile("Appointment/" + apt2 + ".txt");
                 apt2FromFile = File_Helper.gsonWriter.fromJson(apt2Data, Appointment.class);
@@ -565,6 +561,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -1031,7 +1028,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             String id = lblId.getText();
             String userData = File_Helper.readFile("User_Account/" + id + ".txt");
             People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-            String aptId = userFromFile.getVacHistory().get(1);
+            String aptId = userFromFile.getVaccinationHistory().get(1);
             String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
             Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
             String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
@@ -1077,7 +1074,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             submitAppointment.setVisible(true);
             this.setVisible(false);
         }else if(btnCompleteDose2.getText().equals("Confirm")){
-            String aptId = userFromFile.getVacHistory().get(1);
+            String aptId = userFromFile.getVaccinationHistory().get(1);
             String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
             Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
             Candidate aptCandidate = new Candidate(id, "");
@@ -1098,7 +1095,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             viewStatus.setVisible(true);
             this.setVisible(false);
         }else{
-            String aptId = userFromFile.getVacHistory().get(1);
+            String aptId = userFromFile.getVaccinationHistory().get(1);
             String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
             Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
             Candidate aptCandidate = new Candidate(id, "");
@@ -1128,7 +1125,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             String id = lblId.getText();
             String userData = File_Helper.readFile("User_Account/" + id + ".txt");
             People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-            String aptId = userFromFile.getVacHistory().get(0);
+            String aptId = userFromFile.getVaccinationHistory().get(0);
             String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
             Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
             String centreData = File_Helper.readFile("Vaccination_Centre/" + aptFromFile.getCentreId() + ".txt");
@@ -1169,7 +1166,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
         String id = lblId.getText();
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-        String aptId = userFromFile.getVacHistory().get(0);
+        String aptId = userFromFile.getVaccinationHistory().get(0);
         String aptData = File_Helper.readFile("Appointment/" + aptId + ".txt");
         Appointment aptFromFile = File_Helper.gsonWriter.fromJson(aptData, Appointment.class);
         Candidate aptCandidate = new Candidate(id, "");
@@ -1251,13 +1248,14 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             jFrame1.setLocation(550, 200);
             jFrame1.setSize(525, 560);
             jFrame1.setVisible(true);
+            jFrame1.setIconImage(this.getIconImage());
             
             String userData = File_Helper.readFile("User_Account/" + id + ".txt");
             People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
             String name = userFromFile.getName();
             lblName.setText(name);
             
-            String apt1 = userFromFile.getVacHistory().get(0);
+            String apt1 = userFromFile.getVaccinationHistory().get(0);
             String aptData1 = File_Helper.readFile("Appointment/" + apt1 + ".txt");
             Appointment aptFromFile1 = File_Helper.gsonWriter.fromJson(aptData1, Appointment.class);
             String centreData1 = File_Helper.readFile("Vaccination_Centre/" + aptFromFile1.getCentreId() + ".txt");
@@ -1285,7 +1283,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             lblManufacturer1.setText(manufacturer1);
             
             if(doseRequired == 2){
-                String apt2 = userFromFile.getVacHistory().get(1);
+                String apt2 = userFromFile.getVaccinationHistory().get(1);
                 String aptData2 = File_Helper.readFile("Appointment/" + apt2 + ".txt");
                 Appointment aptFromFile2 = File_Helper.gsonWriter.fromJson(aptData2, Appointment.class);
                 String centreData2 = File_Helper.readFile("Vaccination_Centre/" + aptFromFile2.getCentreId() + ".txt");

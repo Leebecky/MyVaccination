@@ -60,6 +60,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblVc = new javax.swing.JTable();
         btnAddNewVc = new javax.swing.JButton();
@@ -73,7 +74,10 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Manage Vaccination Centre");
+        setMinimumSize(new java.awt.Dimension(950, 508));
         setName("frmMngVc"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(950, 508));
+        setResizable(false);
         setSize(getPreferredSize());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -100,6 +104,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         });
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -113,13 +118,20 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Manage Vaccination Centres");
+
         javax.swing.GroupLayout homePersonnelHeaderLayout = new javax.swing.GroupLayout(homePersonnelHeader);
         homePersonnelHeader.setLayout(homePersonnelHeaderLayout);
         homePersonnelHeaderLayout.setHorizontalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 630, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
                 .addComponent(lblUsername)
                 .addGap(30, 30, 30))
         );
@@ -130,8 +142,10 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
                 .addComponent(btnHome))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homePersonnelHeaderLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblUsername)
-                .addGap(16, 16, 16))
+                .addGroup(homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsername)
+                    .addComponent(jLabel5))
+                .addGap(15, 15, 15))
         );
 
         getContentPane().add(homePersonnelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, -1));
@@ -201,6 +215,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -220,6 +235,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
@@ -453,6 +469,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
     private javax.swing.JButton btnHome;
     private javax.swing.JPanel homePersonnelHeader;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblUsername;

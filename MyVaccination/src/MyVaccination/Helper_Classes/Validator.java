@@ -5,7 +5,17 @@ import java.util.regex.*;
 import javax.swing.*;
 
 public class Validator extends InputVerifier {
-//Class for validating input gained from user for Booking forms
+//Class for validating input fields
+    JFrame mainComponent;
+    
+  public  Validator() {
+        this.mainComponent = null;
+    }
+    
+  public  Validator(JFrame mainComponent) {
+        this.mainComponent = mainComponent;
+    }
+    
 
     @Override
     public boolean verify(JComponent input) {
@@ -15,7 +25,7 @@ public class Validator extends InputVerifier {
         Matcher regexMatcher;
         try {
             if (text.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Please do not leave this textfield empty", "Invalid Format", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(mainComponent, "Please do not leave this textfield empty", "Invalid Format", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
             //Validating input...
@@ -26,7 +36,7 @@ public class Validator extends InputVerifier {
                     if (regexMatcher.matches()) {
                         return true;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Invalid format. Please ensure that your email address is of a valid format", "Invalid Format", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(mainComponent, "Invalid format. Please ensure that your email address is of a valid format", "Invalid Format", JOptionPane.ERROR_MESSAGE);
                         return false;
                     }
                 }
@@ -36,7 +46,7 @@ public class Validator extends InputVerifier {
                     if (regexMatcher.matches()) {
                         return true;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Invalid format. Please ensure that your input does not have numbers.", "Invalid Format", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(mainComponent, "Invalid format. Please ensure that your input does not have numbers.", "Invalid Format", JOptionPane.ERROR_MESSAGE);
                         return false;
                     }
                 }
@@ -46,7 +56,7 @@ public class Validator extends InputVerifier {
                     if (regexMatcher.matches()) {
                         return true;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Invalid format. Please ensure that your phone number follows this format: 999-9999999", "Invalid Format", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(mainComponent, "Invalid format. Please ensure that your phone number follows this format: 999-9999999", "Invalid Format", JOptionPane.ERROR_MESSAGE);
                         return false;
                     }
                 }

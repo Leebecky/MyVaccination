@@ -62,6 +62,7 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblApt = new javax.swing.JTable();
         btnAddNewApt = new javax.swing.JButton();
@@ -77,6 +78,7 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
         setTitle("MyVaccination");
         setMinimumSize(new java.awt.Dimension(944, 539));
         setName("frmMngApt"); // NOI18N
+        setResizable(false);
         setSize(getPreferredSize());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -103,6 +105,7 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
         });
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -116,13 +119,20 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Manage appointments");
+
         javax.swing.GroupLayout homePersonnelHeaderLayout = new javax.swing.GroupLayout(homePersonnelHeader);
         homePersonnelHeader.setLayout(homePersonnelHeaderLayout);
         homePersonnelHeaderLayout.setHorizontalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                 .addComponent(lblUsername)
                 .addGap(19, 19, 19))
         );
@@ -133,7 +143,9 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
                 .addComponent(btnHome))
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(lblUsername)
+                .addGroup(homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(lblUsername))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -220,6 +232,7 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -239,6 +252,7 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
@@ -473,6 +487,7 @@ public class Personnel_ManageAppointment extends javax.swing.JFrame {
     private javax.swing.JButton btnHome;
     private javax.swing.JPanel homePersonnelHeader;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogout;
     private javax.swing.JLabel lblUsername;

@@ -83,10 +83,6 @@ public class People extends User {
     public String getPhone() {
         return this.contactNumber;
     }
-    
-    public List<String> getVacHistory(){
-        return this.vaccinationHistory;
-    }
 
     public List<String> getVaccinationHistory() {
         if (this.vaccinationHistory == null) {
@@ -122,11 +118,7 @@ public class People extends User {
     public void setGender(String g) {
         this.gender = g;
     }
-    
-    public void setEmail(String e) {
-        this.email = e;
-    }
-
+   
     public void setPhone(String p) {
         this.contactNumber = p;
     }

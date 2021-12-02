@@ -139,6 +139,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         btnVcCancel = new javax.swing.JButton();
         lblViewProfile = new javax.swing.JLabel();
         btnVcSave = new javax.swing.JButton();
@@ -180,6 +181,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
         setMinimumSize(new java.awt.Dimension(945, 520));
+        setResizable(false);
         setSize(new java.awt.Dimension(945, 520));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -220,6 +222,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
 
         lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -232,13 +235,20 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             }
         });
 
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("user registration");
+        jLabel16.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout homePersonnelHeaderLayout = new javax.swing.GroupLayout(homePersonnelHeader);
         homePersonnelHeader.setLayout(homePersonnelHeaderLayout);
         homePersonnelHeaderLayout.setHorizontalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 630, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(lblUsername)
                 .addGap(30, 30, 30))
         );
@@ -250,7 +260,9 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(lblUsername)
+                .addGroup(homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel16)
+                    .addComponent(lblUsername))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -272,6 +284,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         lblViewProfile.setText("View Profile");
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setOpaque(true);
         lblViewProfile.setToolTipText("");
         lblViewProfile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -299,8 +312,8 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         });
         getContentPane().add(btnVcSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(501, 437, 105, 39));
 
-        scrollPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         scrollPanel.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         panelPeople.setMinimumSize(new java.awt.Dimension(659, 344));
         panelPeople.setName(""); // NOI18N
@@ -309,6 +322,8 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPeopleName.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        txtPeopleName.setInputVerifier(new Validator(this));
+        txtPeopleName.setName("Name"); // NOI18N
 
         dtDob.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -345,14 +360,14 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPeopleEmail.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPeopleEmail.setInputVerifier(new Validator());
+        txtPeopleEmail.setInputVerifier(new Validator(this));
         txtPeopleEmail.setName("Email"); // NOI18N
 
         jLabel13.setText("Contact Number :");
         jLabel13.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPeopleContactNum.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPeopleContactNum.setInputVerifier(new Validator());
+        txtPeopleContactNum.setInputVerifier(new Validator(this));
         txtPeopleContactNum.setName("Phone"); // NOI18N
 
         javax.swing.GroupLayout panelPeopleLayout = new javax.swing.GroupLayout(panelPeople);
@@ -450,7 +465,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         panelPersonnel.setPreferredSize(new java.awt.Dimension(659, 304));
 
         txtPersonnelName.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPersonnelName.setInputVerifier(new Validator());
+        txtPersonnelName.setInputVerifier(new Validator(this));
         txtPersonnelName.setName(""); // NOI18N
 
         jLabel7.setText("Name :");
@@ -475,14 +490,14 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         cmbPersonnelState.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPersonnelEmail.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPersonnelEmail.setInputVerifier(new Validator());
+        txtPersonnelEmail.setInputVerifier(new Validator(this));
         txtPersonnelEmail.setName("Email"); // NOI18N
 
         jLabel14.setText("Contact Number :");
         jLabel14.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
         txtPersonnelContactNum.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
-        txtPersonnelContactNum.setInputVerifier(new Validator());
+        txtPersonnelContactNum.setInputVerifier(new Validator(this));
         txtPersonnelContactNum.setName("Phone"); // NOI18N
 
         jLabel15.setText("Email :");
@@ -584,6 +599,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         lblLogout.setText("Log Out");
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setOpaque(true);
         lblLogout.setToolTipText("");
         lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -871,6 +887,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

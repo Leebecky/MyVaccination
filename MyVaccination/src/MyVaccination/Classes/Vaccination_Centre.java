@@ -36,33 +36,13 @@ public class Vaccination_Centre implements File_Methods {
         centreId = "VC_" + UUID.randomUUID();
     }
 
-    public Vaccination_Centre(String name, LocalTime openingTime, LocalTime closingTime, String status, Location location, int capacity) {
-        centreId = "VC_" + UUID.randomUUID();
-        this.name = name;
-        this.openingTime = openingTime;
-        this.closingTime = closingTime;
-        this.status = status;
-        this.location = location;
-        this.capacity = capacity;
-    }
-
-    public Vaccination_Centre(String centreId, String name, LocalTime openingTime, LocalTime closingTime, String status, Location location, int capacity) {
-        this.centreId = centreId;
-        this.name = name;
-        this.openingTime = openingTime;
-        this.closingTime = closingTime;
-        this.status = status;
-        this.location = location;
-        this.capacity = capacity;
-    }
-
     public Vaccination_Centre(String centreId) {
         this.centreId = centreId;
     }
 
     //Getters & Setters
-    public String getCentreId() {
-        return centreId;
+    public String getCentreId() { 
+       return centreId;
     }
 
     public String getName() {
@@ -316,21 +296,6 @@ public class Vaccination_Centre implements File_Methods {
         return null;
 
     }
-    
-    //Find vaccine from stock
-//    public Vaccine findVaccine(String vaccineBatchNumber) {
-//        if (this.stock == null) {
-//            return null;
-//        }
-//        
-//        for (Stock s : this.stock) {
-//            if (s.getVaccine().getBatchNumber().equals(vaccineBatchNumber)) {
-//                return s.getVaccine();
-//            }
-//        }
-//        
-//        return null;
-//    }
 
     //Interface implementation
     @Override
@@ -354,10 +319,9 @@ class VaccinationCentre_TableModel extends AbstractTableModel {
 
     private final List<Vaccination_Centre> vcList = Vaccination_Centre.getVcFolderData();
     private final String[] vcColumnList = {"CentreId", "Name", "Capacity", "Opening Time", "Closing Time", "Status"};
-
+    
     @Override
     public int getRowCount() {
-
         return vcList.size();
     }
 

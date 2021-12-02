@@ -125,8 +125,8 @@ public class User implements File_Methods {
     public String getDefaultPassword(User obj) {
         String defaultPassword = "";
         if (obj.userType.equals("Personnel")) {
-            String username = obj.getUsername().replace(" ", "");
-            defaultPassword = username.concat("_" + obj.getUserId().substring(obj.getUserId().length() - 4));
+            String userName = obj.getUsername().replace(" ", "");
+            defaultPassword = userName.concat("_" + obj.getUserId().substring(obj.getUserId().length() - 4));
         } else {
             People p = (People) obj;
             String dob = p.getDob().toString().replace("-", "");

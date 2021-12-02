@@ -5,9 +5,7 @@
  */
 package MyVaccination.Classes;
 
-import MyVaccination.Helper_Classes.File_Methods;
-
-public class Vaccine implements File_Methods {
+public class Vaccine {
 
     protected String name;
     protected String manufacturer;
@@ -43,16 +41,6 @@ public class Vaccine implements File_Methods {
 
     public int getDosesRequired() {
         return dosesRequired;
-    }
-
-    @Override
-    public String setFileName() {
-        return batchNumber;
-    }
-
-    @Override
-    public String getFileName() {
-        return "Vaccine/" + batchNumber + ".txt";
     }
 
     public static String[] getListOfVaccines() {

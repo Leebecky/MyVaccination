@@ -120,6 +120,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         homePersonnelHeader = new javax.swing.JPanel();
         btnHome = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         btnVcSave = new javax.swing.JButton();
         btnVcCancel = new javax.swing.JButton();
         panelTabbedVc = new javax.swing.JTabbedPane();
@@ -154,6 +155,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         lblLogout = new javax.swing.JLabel();
 
         diaResupply.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        diaResupply.setTitle("Vaccination Centre Resupply");
         diaResupply.setMinimumSize(new java.awt.Dimension(403, 288));
 
         btnResupplyCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
@@ -235,6 +237,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(950, 520));
         setName("frmVc"); // NOI18N
         setPreferredSize(new java.awt.Dimension(950, 520));
+        setResizable(false);
         setSize(getPreferredSize());
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -262,6 +265,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
         lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -274,13 +278,20 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("vaccination centre registration");
+        jLabel11.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+
         javax.swing.GroupLayout homePersonnelHeaderLayout = new javax.swing.GroupLayout(homePersonnelHeader);
         homePersonnelHeader.setLayout(homePersonnelHeaderLayout);
         homePersonnelHeaderLayout.setHorizontalGroup(
             homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 628, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 540, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(lblUsername)
                 .addGap(32, 32, 32))
         );
@@ -291,7 +302,9 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
                 .addComponent(btnHome))
             .addGroup(homePersonnelHeaderLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(lblUsername)
+                .addGroup(homePersonnelHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(lblUsername))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -551,6 +564,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         lblViewProfile.setText("View Profile");
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setOpaque(true);
         lblViewProfile.setToolTipText("");
         lblViewProfile.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -570,6 +584,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         lblLogout.setText("Log Out");
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setOpaque(true);
         lblLogout.setToolTipText("");
         lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -604,7 +619,6 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     private void btnVcSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcSaveActionPerformed
         // Data Validation
 
-
         //Location Data
         String vcState = cmbVcState.getModel().getSelectedItem().toString();
         Location vcLocation = new Location(txtVcAddr1.getText(), txtVcAddr2.getText(), vcState);
@@ -620,8 +634,8 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please fill in all fields!", "Vaccination Centre", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
-          //Opening after closing hours
+
+        //Opening after closing hours
         if (dtVcOpeningTime.getTime().isAfter(dtVcClosingTime.getTime())) {
             JOptionPane.showMessageDialog(this, "Invalid opening and closing hours!", "Vaccination Centre", JOptionPane.ERROR_MESSAGE);
             return;
@@ -640,7 +654,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
         success = Vaccination_Centre.updateCentre(vc);
 
-        if (id != "") {
+        if (!id.equals("")) {
             //Edit
             message = "Failed to update record for " + txtVcName.getText() + "!";
         } else {
@@ -679,6 +693,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         diaResupply.setLocationRelativeTo(this);
         diaResupply.setVisible(true);
+        diaResupply.setIconImage(this.getIconImage());
     }//GEN-LAST:event_btnVcSupplyActionPerformed
 
     private void btnResupplyCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResupplyCancelActionPerformed
@@ -726,12 +741,12 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResupplySaveActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(userId.equals("")){
+        if (userId.equals("")) {
             JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
             Login login = new Login();
             login.setVisible(true);
             this.setVisible(false);
-        }        
+        }
 
         //Generate supply chart
         String chartTitle = (vc.getName() == null) ? "Vaccination Centre" : vc.getName();
@@ -871,6 +886,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     private javax.swing.JPanel homePersonnelHeader;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

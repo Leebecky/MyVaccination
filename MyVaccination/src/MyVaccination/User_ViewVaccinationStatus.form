@@ -89,29 +89,29 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="digital certificate"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Algerian" size="18" style="1"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="digital certificate"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="For Covid-19 Vaccination"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="18" style="0"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="For Covid-19 Vaccination"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblName">
               <Properties>
+                <Property name="horizontalAlignment" type="int" value="0"/>
+                <Property name="text" type="java.lang.String" value="NAME"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Calibri" size="18" style="1"/>
                 </Property>
-                <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="NAME"/>
               </Properties>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel7">
@@ -186,74 +186,74 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lblDose1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Dose 1:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Dose 1:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Centre:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Centre:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel10">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Date:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Date:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel11">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Manufacturer:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Manufacturer:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel12">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Batch:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Batch:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblDate1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="2020-01-01"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="2020-01-01"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCentre1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="ABC Hospital"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="ABC Hospital"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblBatch1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="AZ_0123"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="AZ_0123"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblManufacturer1">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="AstraZeneca"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="AstraZeneca"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -330,74 +330,74 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="lblDose2">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Dose 2:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="1"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Dose 2:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel14">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Centre:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Centre:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel15">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Date:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Date:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Manufacturer:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Manufacturer:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel17">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="Batch:"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Batch:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblDate2">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="2020-01-01"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="2020-01-01"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblCentre2">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="ABC Hospital"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="ABC Hospital"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblBatch2">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="AZ_0123"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="AZ_0123"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblManufacturer2">
                   <Properties>
+                    <Property name="text" type="java.lang.String" value="AstraZeneca"/>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Calibri" size="14" style="0"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="AstraZeneca"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -447,6 +447,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="MyVaccination"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -520,10 +521,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblUsername">
           <Properties>
+            <Property name="text" type="java.lang.String" value="User Name"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="20" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="User Name"/>
           </Properties>
           <Events>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblUsernameMouseEntered"/>
@@ -753,10 +754,10 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="btnPrint">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Print Certificate"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Print Certificate"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnPrintMouseClicked"/>
@@ -781,18 +782,18 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Digital Certificate Issued"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Digital Certificate Issued"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCompleteDose2">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Complete"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Complete"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCompleteDose2ActionPerformed"/>
@@ -800,10 +801,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblViewDose2">
           <Properties>
+            <Property name="text" type="java.lang.String" value="View Appointment"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="View Appointment"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblViewDose2MouseClicked"/>
@@ -813,18 +814,18 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
+            <Property name="text" type="java.lang.String" value="2nd Dose Appointment"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="2nd Dose Appointment"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelDose2">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelDose2ActionPerformed"/>
@@ -832,10 +833,10 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblViewDose1">
           <Properties>
+            <Property name="text" type="java.lang.String" value="View Appointment"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="View Appointment"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblViewDose1MouseClicked"/>
@@ -845,18 +846,18 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
+            <Property name="text" type="java.lang.String" value="1st Dose Appointment"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="1st Dose Appointment"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelDose1">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Cancel"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cancel"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelDose1ActionPerformed"/>
@@ -884,10 +885,10 @@
         </Container>
         <Component class="javax.swing.JButton" name="btnCompleteDose1">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Complete"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Complete"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCompleteDose1ActionPerformed"/>
@@ -895,10 +896,10 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnSubmitApp">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Submit"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Submit"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSubmitAppActionPerformed"/>
@@ -926,18 +927,18 @@
         </Container>
         <Component class="javax.swing.JLabel" name="lblAppointDesc">
           <Properties>
+            <Property name="text" type="java.lang.String" value="No appointment submitted."/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="14" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="No appointment submitted."/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
+            <Property name="text" type="java.lang.String" value="Vaccination Appointment"/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Calibri" size="16" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Vaccination Appointment"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel4">

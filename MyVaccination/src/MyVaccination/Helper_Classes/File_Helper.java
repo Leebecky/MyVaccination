@@ -34,7 +34,7 @@ final public class File_Helper {
             }
 
         } catch (Exception e) {
-            System.out.println("Error at Save_Helper: " + e.getMessage());
+            System.out.println("Error at checkPathExistance: " + e.getMessage());
         }
     }
 
@@ -63,11 +63,10 @@ final public class File_Helper {
 
             return true;
         } catch (IOException e) {
-            //TODO proper exception handling implementation needed
-            System.out.println("File_Helper, saveData: " + e.getMessage());
-        }
 
-        return false;
+            System.out.println("File_Helper, saveData: " + e.getMessage());
+            return false;
+        }
     }
 
     //To read from the given file (singular)
@@ -90,7 +89,7 @@ final public class File_Helper {
             }
 
         } catch (FileNotFoundException e) {
-            //TODO proper exception handling implementation needed
+
             System.out.println("File_Helper, readFile: " + e.getMessage());
         }
         return null;
@@ -119,7 +118,7 @@ final public class File_Helper {
             }
             return data;
         } catch (FileNotFoundException e) {
-            //TODO proper exception handling implementation needed
+
             System.out.println("File_Helper, readFolder: " + e.getMessage());
         }
         return null;
@@ -127,7 +126,7 @@ final public class File_Helper {
 
     //Method for deleting the given file
     public static boolean deleteFile(String fileName) {
-        //TODO proper exception handling implementation needed
+
         String filePath = defaultFilePath + fileName;
         File file = new File(filePath);
         if (!file.exists()) {
@@ -138,5 +137,5 @@ final public class File_Helper {
         return file.delete();
     }
 
-    //end Save_Helpers
+    //end File_Helper
 }
