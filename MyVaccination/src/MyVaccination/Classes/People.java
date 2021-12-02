@@ -84,9 +84,9 @@ public class People extends User {
         return this.contactNumber;
     }
     
-    public List<String> getVacHistory(){
-        return this.vaccinationHistory;
-    }
+//    public List<String> getVaccinationHistory(){
+//        return this.vaccinationHistory;
+//    }
 
     public List<String> getVaccinationHistory() {
         if (this.vaccinationHistory == null) {
