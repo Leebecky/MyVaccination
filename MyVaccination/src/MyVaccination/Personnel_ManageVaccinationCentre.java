@@ -9,6 +9,7 @@ package MyVaccination;
  *
  * @author leebe
  */
+import MyVaccination.Classes.Appointment;
 import MyVaccination.Classes.Personnel;
 import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Helper_Classes.File_Helper;
@@ -16,28 +17,31 @@ import MyVaccination.Helper_Classes.MyVaccination_GeneralFunctions;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
-  String userId = "";
+
+    String userId = "";
+
     /**
      * Creates new form Personnel_ManageVaccinationCentre
      */
     public Personnel_ManageVaccinationCentre() {
         initComponents();
-           ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
+        ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
         this.setIconImage(img.getImage());
-        
-        
+
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
     }
 
-        public Personnel_ManageVaccinationCentre(String userId) {
+    public Personnel_ManageVaccinationCentre(String userId) {
         initComponents();
-          this.userId = userId;
+        this.userId = userId;
         ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
         this.setIconImage(img.getImage());
 
@@ -48,6 +52,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,8 +93,8 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
-        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBackground(new java.awt.Color(204, 153, 255));
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBorder(null);
         btnHome.setBorderPainted(false);
         btnHome.setContentAreaFilled(false);
@@ -103,9 +108,9 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(0, 0, 0));
+        lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -118,10 +123,10 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Manage Vaccination Centres");
         jLabel5.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Manage Vaccination Centres");
 
         javax.swing.GroupLayout homePersonnelHeaderLayout = new javax.swing.GroupLayout(homePersonnelHeader);
         homePersonnelHeader.setLayout(homePersonnelHeaderLayout);
@@ -295,6 +300,14 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
         String vcId = tblVc.getModel().getValueAt(modelRowIndex, 0).toString();
         Vaccination_Centre vcObject = Vaccination_Centre.getCentre(vcId);
 
+        //Vaccination Centre cannot be deleted if they have appointments
+        List<Appointment> aptList = Appointment.getAptFolderData();
+        Optional<Appointment> appt = aptList.stream().filter(apt -> (apt.getCentreId().equals(vcId))).findFirst();
+        if (appt.isPresent()) {
+            JOptionPane.showMessageDialog(this, "This vaccination centre is in use! It cannot be deleted.", "Vaccination Centre", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         //Confirm request to delete data
         int decision = JOptionPane.showConfirmDialog(this, "Please confirm the deletion of " + vcObject.getName(), "Vaccination Centre", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
@@ -339,8 +352,8 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
     }//GEN-LAST:event_txtVcSearchKeyTyped
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-      // Return to Personnel Home page
-         Personnel_Home home = new Personnel_Home(userId);
+        // Return to Personnel Home page
+        Personnel_Home home = new Personnel_Home(userId);
         home.setVisible(true);
         this.setVisible(false);
         this.dispose();
@@ -416,7 +429,7 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMousePressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(userId.equals("")){
+        if (userId.equals("")) {
             JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
             Login login = new Login();
             login.setVisible(true);
@@ -475,4 +488,5 @@ public class Personnel_ManageVaccinationCentre extends javax.swing.JFrame {
     private javax.swing.JTable tblVc;
     private javax.swing.JTextField txtVcSearch;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -58,3 +58,10 @@
 2021-12-03 - 19:24:37.399265: Login.java - People AA12345 logged in
 2021-12-03 - 19:27:08.603280600: Login.java - People AA12345 logged in
 2021-12-03 - 19:27:12.964508100: User_EditProfile.java - Username updated from AA12345 to AA12341
+2021-12-04 - 00:56:13.604720300: Login.java - Personnel Lim logged in
+2021-12-04 - 00:58:51.733140: Login.java - Personnel Lim logged in
+2021-12-04 - 01:01:00.225924900: Login.java - Personnel Lim logged in
+2021-12-04 - 01:02:22.446404300: Login.java - Personnel Lim logged in
+2021-12-04 - 01:04:47.328055800: Login.java - Personnel Lim logged in
+2021-12-04 - 01:05:51.255701600: Login.java - Personnel Lim logged in
+2021-12-04 - 01:07:02.174835900: Login.java - Personnel Lim logged in
