@@ -382,16 +382,23 @@ public class User_EditProfile extends javax.swing.JFrame {
         String nationality = String.valueOf(cmbNationality.getSelectedItem());
         String location = String.valueOf(cmbLocation.getSelectedItem());
         String id = lblId.getText();
-
         boolean isBlank = false;
-        String todaydt = java.time.LocalDate.now().toString();
+        boolean dtInvalid = false;
+        LocalDate todaydt = java.time.LocalDate.now();
+        
         if (fullname.equals("") || ic.equals("") || email.equals("") || phone.equals("")) {
             isBlank = true;
+        }
+        
+        if(dob.isAfter(todaydt.minusYears(18))){
+            dtInvalid = true;
         }
 
         if (isBlank) {
             JOptionPane.showMessageDialog(this, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
+        }else if(dtInvalid){
+            JOptionPane.showMessageDialog(this, "User must be at least 18 years old to register an account.", "Error", JOptionPane.ERROR_MESSAGE);
+        }else {
             String userData = File_Helper.readFile("User_Account/" + id + ".txt");
             People userInfo = File_Helper.gsonWriter.fromJson(userData, People.class);
 
