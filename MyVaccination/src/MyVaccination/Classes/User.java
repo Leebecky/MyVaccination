@@ -137,9 +137,12 @@ public class User implements File_Methods {
     }
 
     //Registering new User by Personnel
-    public static boolean registerUser_Personnel(User obj) {
-        String defaultPassword = obj.getDefaultPassword(obj);
-        obj.setPassword(defaultPassword);
+    public static boolean registerUser_Personnel(User obj, String mode) {
+        if (mode.equals("New")) {
+
+            String defaultPassword = obj.getDefaultPassword(obj);
+            obj.setPassword(defaultPassword);
+        }
 
         return saveUser(obj);
 
