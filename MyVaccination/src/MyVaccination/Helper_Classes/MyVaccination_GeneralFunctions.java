@@ -5,6 +5,7 @@
  */
 package MyVaccination.Helper_Classes;
 
+import MyVaccination.Classes.People;
 import MyVaccination.Classes.User;
 import static MyVaccination.Helper_Classes.File_Helper.logToFile;
 import MyVaccination.Login;
@@ -22,15 +23,26 @@ import javax.swing.table.TableRowSorter;
  * @author leebe
  */
 public class MyVaccination_GeneralFunctions {
+
     //Logout 
     public static void logout(JFrame form, String userId) {
-         Login login = new Login();
+        Login login = new Login();
         login.setVisible(true);
         form.setVisible(false);
         form.dispose();
-        
-        User user  = User.findUser(userId);
-         logToFile(user.getUserType() + " " + user.username + " has logged out",  "Logout");
+
+        User user = User.findUser(userId);
+        logToFile(user.getUserType() + " " + user.username + " has logged out", "Logout");
+    }
+
+    public static void logout(JFrame form, String userId, String people) {
+        Login login = new Login();
+        login.setVisible(true);
+        form.setVisible(false);
+        form.dispose();
+
+        User user = People.getPeople(userId);
+        logToFile(user.getUserType() + " " + user.username + " has logged out", "Logout");
     }
 
     //Searches the given JTable based on the value in the given JTextField

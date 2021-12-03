@@ -271,7 +271,7 @@ public class User_Home extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseExited
 
     private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
-         MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
+       MyVaccination_GeneralFunctions.logout(this, lblId.getText(), "people");
     }//GEN-LAST:event_lblLogoutMousePressed
 
     private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed

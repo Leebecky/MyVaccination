@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
 
@@ -236,8 +233,9 @@ public class Appointment implements File_Methods {
         List<People> potentialCandidateList = new ArrayList<>();
         List<People> removalList = new ArrayList<>();
 
+        //Only Not Vaccinated / Completed Appointment statuses accepted
         for (People user : peopleList) {
-            if (!user.getStatus().equals("Fully Vaccinated") && (!user.getStatus().contains("Pending"))) {
+            if (!user.getStatus().equals("Fully Vaccinated") && (!user.getStatus().contains("Pending")) && (!user.getStatus().contains("Confirmed"))) {
                 potentialCandidateList.add(user);
             }
         }
