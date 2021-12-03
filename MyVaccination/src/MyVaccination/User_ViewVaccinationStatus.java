@@ -1101,6 +1101,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             Candidate aptCandidate = new Candidate(id, "");
             boolean success;
             
+            Vaccination_Centre.getCentre(aptFromFile.getCentreId()).updateVaccinationCount();
             success = aptFromFile.updateAptStatus(aptCandidate, "Completed");
 
             if(success){
@@ -1195,6 +1196,7 @@ public class User_ViewVaccinationStatus extends javax.swing.JFrame {
             aptVaccine = aptVaccine.getVaccine(batchNumber);
             int doseRequired = aptVaccine.getDosesRequired();
             
+            centreFromFile.updateVaccinationCount();
             success = aptFromFile.updateAptStatus(aptCandidate, "Completed");
 
             if(success){

@@ -12,6 +12,7 @@ import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.font.TextAttribute;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -338,6 +339,7 @@ public class Login extends javax.swing.JFrame {
 
                     if (personnelFromFile.getStatus().equals("Active")) {
                         JOptionPane.showMessageDialog(this, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
+                        File_Helper.logToFile("Personnel " + username + " logged in", "Login.java");
                         Personnel_Home home = new Personnel_Home(userId);
                         home.setVisible(true);
                         this.setVisible(false);
@@ -348,6 +350,7 @@ public class Login extends javax.swing.JFrame {
                     }
                 } else {
                     JOptionPane.showMessageDialog(this, "Login successfully!", "Login Message", JOptionPane.INFORMATION_MESSAGE);
+                    File_Helper.logToFile("People " + username + " logged in", "Login.java");
                     User_Home home = new User_Home(userId);
                     home.setVisible(true);
                     this.setVisible(false);

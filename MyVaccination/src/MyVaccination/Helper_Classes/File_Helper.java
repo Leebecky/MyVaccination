@@ -63,8 +63,7 @@ final public class File_Helper {
 
             return true;
         } catch (IOException e) {
-
-            System.out.println("File_Helper, saveData: " + e.getMessage());
+            logToFile(e.getMessage(), "File_Helper, saveData: ");
             return false;
         }
     }
@@ -90,7 +89,7 @@ final public class File_Helper {
 
         } catch (FileNotFoundException e) {
 
-            System.out.println("File_Helper, readFile: " + e.getMessage());
+            logToFile(e.getMessage(), "File_Helper, saveData: ");
         }
         return null;
     }
@@ -119,7 +118,7 @@ final public class File_Helper {
             return data;
         } catch (FileNotFoundException e) {
 
-            System.out.println("File_Helper, readFolder: " + e.getMessage());
+            logToFile(e.getMessage(), "File_Helper, saveData: ");
         }
         return null;
     }
@@ -135,6 +134,28 @@ final public class File_Helper {
 
         // Try to delete the file
         return file.delete();
+    }
+
+    public static void logToFile(String message, String origin) {
+        try {
+
+            //Path and filename to be saved
+            String fileName = "MyVaccination_Log.txt";
+
+            File pathToFile = new File(fileName);
+            if (!pathToFile.exists()) {
+                pathToFile.createNewFile();
+            }
+
+            try ( FileWriter fileWriter = new FileWriter(fileName, true)) {
+                String msg = LocalDate.now().toString() + " - " + LocalTime.now().toString() + ": " + origin + " - " + message;
+                fileWriter.write(msg + "\n");
+            }
+
+        } catch (IOException e) {
+
+            System.out.println("File_Helper, saveData: " + e.getMessage());
+        }
     }
 
     //end File_Helper

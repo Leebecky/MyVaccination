@@ -13,9 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
-    
+
 /**
  *
  * @author leebe
@@ -49,11 +52,9 @@ public class Appointment implements File_Methods {
         return centreId;
     }
 
-
     public List<Candidate> getCandidateList() {
         return (candidateList == null) ? new ArrayList<>() : candidateList;
     }
-
 
     public LocalDate getAppointmentDate() {
         return appointmentDate;
@@ -74,7 +75,6 @@ public class Appointment implements File_Methods {
 //    public String getAppointmentType() {
 //        return appointmentType;
 //    }
-
     //Setters
     public void setCentreId(String centreId) {
         this.centreId = centreId;
@@ -203,15 +203,15 @@ public class Appointment implements File_Methods {
             }
         }
     }
-    
+
     // Update appointment status (Pending -> Rejected/Confirmed)
-    public boolean updateAptStatus(Candidate candidate, String status){
+    public boolean updateAptStatus(Candidate candidate, String status) {
         for (int i = 0; i < candidateList.size(); i++) {
             if (candidateList.get(i).getCandidateId().equals(candidate.getCandidateId())) {
                 candidateList.get(i).setApptStatus(status);
             }
         }
-        
+
         boolean saveSuccess = File_Helper.saveData(this, "Appointment");
 
         //Check if save successful
@@ -244,8 +244,12 @@ public class Appointment implements File_Methods {
 
         for (People c : potentialCandidateList) {
             for (Candidate cd : candidateList) {
-                if (c.getUserId().equals(cd.findCandidate().getUserId())) {
-                    removalList.add(c);
+                People person = cd.findCandidate();
+                if (person != null) {
+
+                    if (c.getUserId().equals(person.getUserId())) {
+                        removalList.add(c);
+                    }
                 }
             }
 
@@ -286,8 +290,8 @@ public class Appointment implements File_Methods {
             }
         }
 
-        potentialCandidateList.removeAll(removalList);              
-        
+        potentialCandidateList.removeAll(removalList);
+
         return potentialCandidateList;
     }
 
@@ -434,20 +438,28 @@ class AppointmentCandidate_TableModel extends AbstractTableModel {
             }
         } else {
             Candidate obj = candidateList.get(rowIndex);
-
-            switch (colIndex) {
-
-                case 0 -> //User Id
-                    temp = obj.findCandidate().getUserId();
-                case 1 -> //Name
-                    temp = obj.findCandidate().getName();
-                case 2 -> //Appointment Status
-                    temp = obj.getApptStatus();
-                default ->
+            try {
+                People person = obj.findCandidate();
+                if (person == null) {
                     temp = null;
+                } else {
+
+                    switch (colIndex) {
+
+                        case 0 -> //User Id
+                            temp = person.getUserId();
+                        case 1 -> //Name
+                            temp = person.getName();
+                        case 2 -> //Appointment Status
+                            temp = obj.getApptStatus();
+                        default ->
+                            temp = null;
+                    }
+                }
+            } catch (Exception ex) {
+                File_Helper.logToFile(ex.getMessage(), "AppointmentCandidate_TableModel: getValueAt()");
             }
         }
-
         return temp;
     }
 
@@ -458,6 +470,11 @@ class AppointmentCandidate_TableModel extends AbstractTableModel {
 
     @Override
     public Class getColumnClass(int c) {
-        return getValueAt(0, c).getClass();
+        try {
+            return getValueAt(0, c).getClass();
+        } catch (Exception ex) {
+            File_Helper.logToFile(ex.getMessage(), "AppointmentCandidate_TableModel: getColumnClass()");
+        }
+        return String.class;
     }
 }

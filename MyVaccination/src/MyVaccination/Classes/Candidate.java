@@ -5,6 +5,7 @@
  */
 package MyVaccination.Classes;
 
+import MyVaccination.Helper_Classes.File_Helper;
 import java.util.List;
 
 /**
@@ -23,13 +24,12 @@ public class Candidate {
         this.vaccineBatchNumber = vaccineBatchNumber;
         apptStatus = "Pending";
     }
-    
+
     public Candidate(String candidateId) {
         this.candidateId = candidateId;
     }
-    
-    //Getter
 
+    //Getter
     public People findCandidate() {
         People candidate = null;
 
@@ -49,14 +49,15 @@ public class Candidate {
         People myCandidate = this.findCandidate();
         if (myCandidate != null) {
             myCandidate.setStatus(candidateStatus);
-            
+
             myCandidate.updateVaccinationHistory(aptId, updateType);
-            
+
             User.saveUser(myCandidate);
             this.apptStatus = apptStatus;
         }
 
     }
+
     public String getCandidateId() {
         return candidateId;
     }
@@ -72,8 +73,8 @@ public class Candidate {
     public void setVaccineBatchNumber(String vaccineBatchNumber) {
         this.vaccineBatchNumber = vaccineBatchNumber;
     }
-    
-    public void setApptStatus(String status){
+
+    public void setApptStatus(String status) {
         this.apptStatus = status;
     }
 }
