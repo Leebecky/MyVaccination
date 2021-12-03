@@ -456,9 +456,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseExited
 
     private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
-        Login login = new Login();
-        login.setVisible(true);
-        this.setVisible(false);
+       MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
     }//GEN-LAST:event_lblLogoutMousePressed
 
     private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered

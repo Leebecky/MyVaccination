@@ -9,6 +9,7 @@ import MyVaccination.Classes.Personnel;
 import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccination_Centre;
 import MyVaccination.Classes.Vaccine;
+import MyVaccination.Helper_Classes.MyVaccination_GeneralFunctions;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.font.TextAttribute;
@@ -100,10 +101,10 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
         diaResupply.setResizable(false);
         diaResupply.setSize(diaResupply.getPreferredSize());
 
-        btnResupplyCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
-        btnResupplyCancel.setText("Cancel");
         btnResupplyCancel.setBackground(new java.awt.Color(204, 51, 0));
         btnResupplyCancel.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnResupplyCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
+        btnResupplyCancel.setText("Cancel");
         btnResupplyCancel.setIconTextGap(10);
         btnResupplyCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -111,10 +112,10 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
             }
         });
 
-        btnResupplySave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Save.png"))); // NOI18N
-        btnResupplySave.setText("Confirm");
         btnResupplySave.setBackground(new java.awt.Color(0, 204, 51));
         btnResupplySave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnResupplySave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Save.png"))); // NOI18N
+        btnResupplySave.setText("Confirm");
         btnResupplySave.setIconTextGap(10);
         btnResupplySave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,8 +130,8 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
             }
         });
 
-        spinResupply.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         spinResupply.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
+        spinResupply.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         cmbResupplyVaccine.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
@@ -213,8 +214,8 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
 
         homePersonnelHeader.setBackground(new java.awt.Color(204, 153, 255));
 
-        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBackground(new java.awt.Color(204, 153, 255));
+        btnHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Logo_200.png"))); // NOI18N
         btnHome.setBorder(null);
         btnHome.setBorderPainted(false);
         btnHome.setContentAreaFilled(false);
@@ -228,9 +229,9 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
             }
         });
 
-        lblUsername.setText("User Name");
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         lblUsername.setForeground(new java.awt.Color(0, 0, 0));
+        lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblUsernameMouseEntered(evt);
@@ -243,10 +244,10 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("manage vaccine supply");
         jLabel5.setFont(new java.awt.Font("Algerian", 1, 24)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("manage vaccine supply");
 
         javax.swing.GroupLayout homePersonnelHeaderLayout = new javax.swing.GroupLayout(homePersonnelHeader);
         homePersonnelHeader.setLayout(homePersonnelHeaderLayout);
@@ -592,9 +593,7 @@ public class Personnel_ManageVaccineSupply extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseExited
 
     private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
-        Login login = new Login();
-        login.setVisible(true);
-        this.setVisible(false);
+    MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
     }//GEN-LAST:event_lblLogoutMousePressed
 
     /**
