@@ -1,0 +1,1 @@
+{"appointmentId":"APT_2e7817da-5329-45e9-9254-c6dafdc530ed","centreId":"VC_5ddb6329-aac2-46a9-8256-a1b66b8dab74","candidateList":[],"appointmentDate":"2021-12-28","appointmentTime":"11:00","status":"Active","vaccineBrand":"Pfizer"}

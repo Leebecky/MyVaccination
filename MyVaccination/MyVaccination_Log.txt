@@ -26,3 +26,11 @@
 2021-12-03 - 17:25:46.239846200: Login.java - Personnel Lim logged in
 2021-12-03 - 17:28:20.711760200: Login.java - People 990311023214 logged in
 2021-12-03 - 18:21:47.936741500: Login.java - People AA12341 logged in
+2021-12-03 - 18:26:00.612753800: Login.java - People AA12341 logged in
+2021-12-03 - 18:26:24.045536200: User_EditProfile.java - Username updated from AA12341 to AA12345
+2021-12-03 - 18:28:30.663950200: Login.java - Personnel Staff logged in
+2021-12-03 - 18:29:02.068193400: Personnel_UserRegistration.java - Username updated from Staff to Mr Staff
+2021-12-03 - 18:29:36.611782300: Personnel_UserRegistration.java - Username updated from Mr Staff to Staff
+2021-12-03 - 18:30:37.721234700: Logout - Personnel Staff has logged out
+2021-12-03 - 18:33:00.735457600: Login.java - People AA12345 logged in
+2021-12-03 - 18:44:07.885596700: Login.java - Personnel Staff logged in
