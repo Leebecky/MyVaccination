@@ -1,1 +1,0 @@
-{"status":"Active","state":"Kelantan","clearance":"Staff","userId":"US_6c63bf0d-b327-4c8c-beaa-1f19155b258b","username":"Staff","password":"Staff_258b","userType":"Personnel","email":"staff@mail.com","contactNumber":"012-3212123"}

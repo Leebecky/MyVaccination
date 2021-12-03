@@ -52,7 +52,7 @@ public class Vaccination_Centre implements File_Methods {
     }
 
     public List<Stock> getStock() {
-        return stock;
+         return (this.stock == null) ? new ArrayList<>() : this.stock;
     }
 
     public LocalTime getOpeningTime() {
