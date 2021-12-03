@@ -29,29 +29,29 @@ public class User_EditProfile extends javax.swing.JFrame {
         ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
         this.setIconImage(img.getImage());
     }
-    
+
     public User_EditProfile(String id) {
         initComponents();
         ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
         this.setIconImage(img.getImage());
-        
+
         String userData = File_Helper.readFile("User_Account/" + id + ".txt");
         People userFromFile = File_Helper.gsonWriter.fromJson(userData, People.class);
-        
+
         Location location = new Location();
         String[] states = location.getStateList();
-        
+
         cmbLocation.removeAllItems();
-        for(String state: states){
+        for (String state : states) {
             cmbLocation.addItem(state);
         }
-        
+
         lblUsername.setText(userFromFile.getName());
         lblId.setText(id);
         lblId.setVisible(false);
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
-        
+
         txtFullName.setText(userFromFile.getName());
         txtIcPassport.setText(userFromFile.getId());
         dtDoB.setDate(userFromFile.getDob());
@@ -319,11 +319,10 @@ public class User_EditProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUsernameMouseExited
 
     private void lblUsernameMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMousePressed
-        if(lblLogout.isVisible()){
+        if (lblLogout.isVisible()) {
             lblViewProfile.setVisible(false);
             lblLogout.setVisible(false);
-        }
-        else{
+        } else {
             lblViewProfile.setVisible(true);
             lblLogout.setVisible(true);
         }
@@ -346,9 +345,7 @@ public class User_EditProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseExited
 
     private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
-        Login login = new Login();
-        login.setVisible(true);
-        this.setVisible(false);
+        MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
     }//GEN-LAST:event_lblLogoutMousePressed
 
     private void lblViewProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseEntered
@@ -369,7 +366,7 @@ public class User_EditProfile extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         String id = lblId.getText();
-        
+
         User_ViewProfile viewProfile = new User_ViewProfile(id);
         viewProfile.setVisible(true);
         this.setVisible(false);
@@ -385,19 +382,19 @@ public class User_EditProfile extends javax.swing.JFrame {
         String nationality = String.valueOf(cmbNationality.getSelectedItem());
         String location = String.valueOf(cmbLocation.getSelectedItem());
         String id = lblId.getText();
-        
+
         boolean isBlank = false;
         String todaydt = java.time.LocalDate.now().toString();
-        if(fullname.equals("") || ic.equals("") || email.equals("") || phone.equals("")){
+        if (fullname.equals("") || ic.equals("") || email.equals("") || phone.equals("")) {
             isBlank = true;
         }
-        
-        if(isBlank){
-            JOptionPane.showMessageDialog(null, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
+
+        if (isBlank) {
+            JOptionPane.showMessageDialog(this, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
             String userData = File_Helper.readFile("User_Account/" + id + ".txt");
             People userInfo = File_Helper.gsonWriter.fromJson(userData, People.class);
-            
+
             userInfo.setName(fullname);
             userInfo.setId(ic);
             userInfo.setUsername(ic);
@@ -407,11 +404,18 @@ public class User_EditProfile extends javax.swing.JFrame {
             userInfo.setGender(gender);
             userInfo.setNation(nationality);
             userInfo.setAddress(location);
+
+            
+            //Logging changed username
+            User currentUser = People.getPeople(lblId.getText());
+            if (!currentUser.getUsername().equals(ic)) {
+                File_Helper.logToFile("Username updated from " + currentUser.getUsername() + " to " + ic, "User_EditProfile.java");
+            }
             
             File_Helper.saveData(userInfo, "User_Account");
-            
-            JOptionPane.showMessageDialog(null, "Info Updated!", "Registration Message", JOptionPane.INFORMATION_MESSAGE);
-            
+
+            JOptionPane.showMessageDialog(this, "Info Updated!", "Registration Message", JOptionPane.INFORMATION_MESSAGE);
+
             User_ViewProfile viewProfile = new User_ViewProfile(id);
             viewProfile.setVisible(true);
             this.setVisible(false);
@@ -420,7 +424,7 @@ public class User_EditProfile extends javax.swing.JFrame {
 
     private void lblViewProfileMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMousePressed
         String id = lblId.getText();
-        
+
         User_ViewProfile viewProfile = new User_ViewProfile(id);
         viewProfile.setVisible(true);
         this.setVisible(false);
@@ -428,7 +432,7 @@ public class User_EditProfile extends javax.swing.JFrame {
 
     private void lblLogoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMousePressed
         String id = lblId.getText();
-        
+
         User_Home userHome = new User_Home(id);
         userHome.setVisible(true);
         this.setVisible(false);
@@ -439,7 +443,7 @@ public class User_EditProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoMouseEntered
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(lblId.getText().equals("userIc")){
+        if (lblId.getText().equals("userIc")) {
             JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
             Login login = new Login();
             login.setVisible(true);

@@ -9,6 +9,8 @@ import MyVaccination.Classes.Location;
 import MyVaccination.Classes.People;
 import MyVaccination.Classes.Personnel;
 import MyVaccination.Classes.User;
+import MyVaccination.Helper_Classes.File_Helper;
+import MyVaccination.Helper_Classes.MyVaccination_GeneralFunctions;
 import MyVaccination.Helper_Classes.Validator;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -53,17 +55,17 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         cmbUserType.setSelectedItem(userType);
 
         if (userType.equals("People")) {
-             panelPeople.setVisible(true);        
+            panelPeople.setVisible(true);
             panelPersonnel.setVisible(false);
         } else {
-             panelPeople.setVisible(false);        
+            panelPeople.setVisible(false);
             panelPersonnel.setVisible(true);
-            
+
         }
 
         ImageIcon img = new ImageIcon("src/MyVaccination/Images/Logo_Background1024.jpg");
         this.setIconImage(img.getImage());
-        
+
         Personnel user = Personnel.getPersonnel(userId);
         lblUsername.setText(user.getUsername());
         lblViewProfile.setVisible(false);
@@ -658,6 +660,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         boolean success = false;
         String message = "";
         String name = "";
+        String logMsg = "";
 
         //Data Validation
         if (userType.equals("People")) {
@@ -719,11 +722,15 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
 
         //Verify success of registration
         if (!success) {
+            File_Helper.logToFile(logMsg, "Personnel_UserRegistration.java");
             JOptionPane.showMessageDialog(this, message, "User", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         if (userId.equals(selectedUserId)) {
+            if (!lblUsername.getText().equals(name)) {
+                File_Helper.logToFile("Username updated from " + lblUsername.getText() + " to " + name, "Personnel_UserRegistration.java");
+            }
             Personnel_ViewProfile home = new Personnel_ViewProfile(userId);
             home.setVisible(true);
 
@@ -769,9 +776,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseExited
 
     private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
-        Login login = new Login();
-        login.setVisible(true);
-        this.setVisible(false);
+        MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
     }//GEN-LAST:event_lblLogoutMousePressed
 
     private void lblViewProfileMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblViewProfileMouseEntered
@@ -824,7 +829,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
     }//GEN-LAST:event_lblUsernameMousePressed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(userId.equals("")){
+        if (userId.equals("")) {
             JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
             Login login = new Login();
             login.setVisible(true);
