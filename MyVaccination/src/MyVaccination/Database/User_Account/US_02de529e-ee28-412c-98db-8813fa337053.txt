@@ -1,0 +1,1 @@
+{"name":"Siti Nadhirah","dateOfBirth":"1999-03-11","identification":"990311023214","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Selangor","gender":"Female","userId":"US_02de529e-ee28-412c-98db-8813fa337053","username":"990311023214","password":"990311023214_19990311","userType":"People","email":"siti@gmail.com","contactNumber":"012-8976565"}

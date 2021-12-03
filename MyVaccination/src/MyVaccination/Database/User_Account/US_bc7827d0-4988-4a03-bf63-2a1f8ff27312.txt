@@ -1,0 +1,1 @@
+{"name":"Adam Warlock","dateOfBirth":"1992-04-18","identification":"AA12341","nationality":"Non Malaysian","vaccinationStatus":"Not Vaccinated","address":"Selangor","gender":"Male","userId":"US_bc7827d0-4988-4a03-bf63-2a1f8ff27312","username":"AA12341","password":"AA12341_19920418","userType":"People","email":"adam@gmail,com","contactNumber":"012-65358345"}

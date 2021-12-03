@@ -8,8 +8,11 @@ package MyVaccination;
 import MyVaccination.Classes.Appointment;
 import MyVaccination.Classes.Candidate;
 import MyVaccination.Classes.Personnel;
+import MyVaccination.Classes.User;
 import MyVaccination.Classes.Vaccination_Centre;
+import static MyVaccination.Helper_Classes.File_Helper.logToFile;
 import MyVaccination.Helper_Classes.LGoodTimePicker_TimeVeto;
+import MyVaccination.Helper_Classes.MyVaccination_GeneralFunctions;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 import java.awt.Cursor;
@@ -606,7 +609,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         tblCandidate.removeColumn(tblCandidate.getColumnModel().getColumn(0));
 
         if (Appointment.getAptCandidateList(apt).isEmpty()) {
-            JOptionPane.showMessageDialog(null, "No potential candidates found!", "Appointment", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No potential candidates found!", "Appointment", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -674,12 +677,12 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // Initialising the Vaccine Type combo box values
         if(userId.equals("")){
-            JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
             Login login = new Login();
             login.setVisible(true);
             this.setVisible(false);
         }
-
+        
         if (id.equals("")) {
             Vaccination_Centre selectedVc = (Vaccination_Centre) cmbAptVc.getSelectedItem();
 
@@ -786,9 +789,12 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseExited
 
     private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
-        Login login = new Login();
-        login.setVisible(true);
-        this.setVisible(false);
+//        Login login = new Login();
+//        login.setVisible(true);
+//        this.setVisible(false);
+//        User user  = User.findUser(userId);
+//         logToFile(user.getUserType() + " " + user.username + " has logged out",  "Logout");
+    MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
     }//GEN-LAST:event_lblLogoutMousePressed
 
     /**

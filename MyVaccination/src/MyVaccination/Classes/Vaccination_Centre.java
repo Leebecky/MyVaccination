@@ -30,10 +30,12 @@ public class Vaccination_Centre implements File_Methods {
     private LocalTime closingTime; //24 hour system
     private String status;
     private int capacity; //number of people per appointment
+    private int totalVaccinationsGiven; 
 
     //Constructor
     public Vaccination_Centre() {
         centreId = "VC_" + UUID.randomUUID();
+        totalVaccinationsGiven = 0;
     }
 
     public Vaccination_Centre(String centreId) {
@@ -72,6 +74,10 @@ public class Vaccination_Centre implements File_Methods {
     public int getCapacity() {
         return capacity;
     }
+    
+     public int getTotalVaccinationsGiven() {
+        return totalVaccinationsGiven;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -99,6 +105,12 @@ public class Vaccination_Centre implements File_Methods {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+    
+      public void updateVaccinationCount() {
+        this.totalVaccinationsGiven += 1;
+        
+        Vaccination_Centre.updateCentre(this);
     }
 
     public void resupply(Stock stockItem) {
