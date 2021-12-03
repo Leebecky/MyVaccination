@@ -34,7 +34,7 @@ final public class File_Helper {
             }
 
         } catch (Exception e) {
-            System.out.println("Error at checkPathExistance: " + e.getMessage());
+          logToFile(e.getMessage(), "File_Helper, checkPathExistance: ");
         }
     }
 

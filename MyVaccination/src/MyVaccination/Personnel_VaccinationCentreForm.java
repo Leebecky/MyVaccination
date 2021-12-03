@@ -11,6 +11,7 @@ import MyVaccination.Classes.Location;
 import MyVaccination.Classes.Personnel;
 import MyVaccination.Classes.Stock;
 import MyVaccination.Classes.Vaccine;
+import MyVaccination.Helper_Classes.MyVaccination_GeneralFunctions;
 import com.github.lgooddatepicker.components.TimePickerSettings;
 import java.awt.Cursor;
 import java.awt.Font;
@@ -826,9 +827,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseExited
 
     private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
-        Login login = new Login();
-        login.setVisible(true);
-        this.setVisible(false);
+       MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
     }//GEN-LAST:event_lblLogoutMousePressed
 
     private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered
