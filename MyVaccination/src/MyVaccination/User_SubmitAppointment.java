@@ -43,6 +43,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         txtVaccineList.setText("");
         txtDose.setText("");
         txtDoseStr.setText("");
+        txtVaccineList.setEditable(false);
+        txtDose.setEditable(false);
+        txtDoseStr.setEditable(false);
     }
 
     public User_SubmitAppointment(String id) {
@@ -61,7 +64,9 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
 
         ((JLabel) cmbCentre.getRenderer()).setHorizontalAlignment(JLabel.CENTER);
         tblAppointment.removeColumn(tblAppointment.getColumnModel().getColumn(0));
-
+        txtVaccineList.setEditable(false);
+        txtDose.setEditable(false);
+        txtDoseStr.setEditable(false);
     }
 
     /**

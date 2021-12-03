@@ -19,3 +19,9 @@
 2021-12-03 - 17:00:38.141505800: Login.java - Personnel Lim logged in
 2021-12-03 - 17:02:30.467709300: Login.java - People 990311023214 logged in
 2021-12-03 - 17:04:28.364288200: Login.java - People 990311023214 logged in
+2021-12-03 - 17:10:14.626973500: Login.java - Personnel Lim logged in
+2021-12-03 - 17:15:02.799531200: Logout - Personnel Lim has logged out
+2021-12-03 - 17:20:09.780793600: Login.java - People 990311023214 logged in
+2021-12-03 - 17:23:23.297518700: Login.java - People 990311023214 logged in
+2021-12-03 - 17:25:46.239846200: Login.java - Personnel Lim logged in
+2021-12-03 - 17:28:20.711760200: Login.java - People 990311023214 logged in

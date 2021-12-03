@@ -1,0 +1,1 @@
+{"appointmentId":"APT_bf5da07b-9a20-4562-b8ca-df0135fe0a30","centreId":"VC_5ddb6329-aac2-46a9-8256-a1b66b8dab74","candidateList":[{"candidateId":"US_02de529e-ee28-412c-98db-8813fa337053","apptStatus":"Rejected","vaccineBatchNumber":"PF_044a927c-f8dc-4b43-8812-7ff38d615905"}],"appointmentDate":"2021-12-05","appointmentTime":"12:00","status":"Active","vaccineBrand":"Pfizer"}
