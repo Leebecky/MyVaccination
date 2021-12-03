@@ -456,7 +456,7 @@ public class Login extends javax.swing.JFrame {
             User myUser = User.findUser(username);
             if (myUser != null) {
                 config = (myUser.getUserType().equals("Personnel")) ? "Username_(last 4 digits of your user id)" : "Username_DateOfBirth";
-                resetSuccess = User.registerUser_Personnel(myUser);
+                resetSuccess = User.registerUser_Personnel(myUser, "New");
             }
 
             if (resetSuccess) {

@@ -661,6 +661,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
         String message = "";
         String name = "";
         String logMsg = "";
+        String mode = (selectedUserId.equals("")) ? "New" : "Edit" ;
 
         //Data Validation
         if (userType.equals("People")) {
@@ -691,7 +692,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             people.setEmail(txtPeopleEmail.getText());
             people.setContactNumber(txtPeopleContactNum.getText());
 
-            success = User.registerUser_Personnel(people);
+            success = User.registerUser_Personnel(people, mode);
 
         } else {
             if (txtPersonnelName.getText().isBlank() || txtPersonnelEmail.getText().isBlank() || txtPersonnelContactNum.getText().isBlank()) {
@@ -709,7 +710,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
             personnel.setEmail(txtPersonnelEmail.getText());
             personnel.setContactNumber(txtPersonnelContactNum.getText());
 
-            success = User.registerUser_Personnel(personnel);
+            success = User.registerUser_Personnel(personnel, mode);
         }
 
         if (!selectedUserId.equals("")) {
