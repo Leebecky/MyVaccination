@@ -44,6 +44,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
         txtVaccineList.setText("");
         txtDose.setText("");
         txtDoseStr.setText("");
+        lblTotalVaccinations.setText("");
         txtVaccineList.setEditable(false);
         txtDose.setEditable(false);
         txtDoseStr.setEditable(false);
@@ -644,6 +645,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
             txtVaccineList.setText("");
             txtDose.setText("");
             txtDoseStr.setText("");
+            lblTotalVaccinations.setText("");
 
             if (userFromFile.getStatus().equals("Not Vaccinated")) {
                 cmbCentre.removeAllItems();
@@ -710,6 +712,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                 Location centreLocation = centreFromFile.getLocation();
                 String centreState = centreLocation.getState();
                 lblLocation.setText(centreState);
+                lblTotalVaccinations.setText(String.valueOf(centreFromFile.getTotalVaccinationsGiven()));
 
                 // Get centre ID
                 List<String> centreDataArray = File_Helper.readFolder("Vaccination_Centre");
