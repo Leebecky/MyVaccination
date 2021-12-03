@@ -1,25 +1,3 @@
-2021-12-03: Login.java - Personnel Lim logged in
-2021-12-03: Logout - Personnel Lim has logged out
-2021-12-03 - 11:48:22.927621700: Login.java - Personnel Lim logged in
-2021-12-03 - 11:48:33.313782: Logout - Personnel Lim has logged out
-2021-12-03 - 11:49:50.187220400: Login.java - Personnel Lim logged in
-2021-12-03 - 11:54:37.010073500: Login.java - Personnel Lim logged in
-2021-12-03 - 11:54:43.971162600: Candidate: findCandidate() - Cannot invoke "MyVaccination.Classes.People.getName()" because the return value of "MyVaccination.Classes.Candidate.findCandidate()" is null
-2021-12-03 - 11:56:41.760438: Login.java - Personnel Lim logged in
-2021-12-03 - 11:58:17.751870700: Login.java - Personnel Lim logged in
-2021-12-03 - 11:58:23.597041200: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-03 - 11:58:51.617193900: Login.java - Personnel Lim logged in
-2021-12-03 - 11:58:58.267468300: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-03 - 11:58:58.282451100: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-03 - 12:02:23.514758: Login.java - Personnel Lim logged in
-2021-12-03 - 12:04:13.505996200: Login.java - Personnel Lim logged in
-2021-12-03 - 12:04:24.013878600: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-03 - 12:04:25.306113800: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-03 - 12:04:25.832794600: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-03 - 12:04:26.248995800: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-03 - 12:05:36.651243100: Login.java - Personnel Lim logged in
-2021-12-03 - 12:05:42.918256: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-03 - 12:05:43.503069: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
 2021-12-03 - 12:07:26.212715300: Login.java - People 011103075678 logged in
 2021-12-03 - 12:08:06.939738800: Login.java - People 001122070990 logged in
 2021-12-03 - 12:08:24.764934600: Login.java - People AA12341 logged in
@@ -30,3 +8,14 @@
 2021-12-03 - 12:22:51.071925700: Login.java - Personnel Lim logged in
 2021-12-03 - 12:23:01.454062500: Login.java - People 301102032121 logged in
 2021-12-03 - 12:23:25.556188100: Login.java - People AA12341 logged in
+2021-12-03 - 15:22:32.079840800: Login.java - People 990311023214 logged in
+2021-12-03 - 15:29:55.220711: Login.java - Personnel Lim logged in
+2021-12-03 - 15:33:52.593627: Login.java - Personnel Lim logged in
+2021-12-03 - 15:34:19.632856: Login.java - People 990311023214 logged in
+2021-12-03 - 15:51:47.938488400: Login.java - People 001122070990 logged in
+2021-12-03 - 15:58:48.245558300: Login.java - People 001122070991 logged in
+2021-12-03 - 16:00:23.995210800: Login.java - People 001122070991 logged in
+2021-12-03 - 16:34:21.576497100: Login.java - People 990311023214 logged in
+2021-12-03 - 17:00:38.141505800: Login.java - Personnel Lim logged in
+2021-12-03 - 17:02:30.467709300: Login.java - People 990311023214 logged in
+2021-12-03 - 17:04:28.364288200: Login.java - People 990311023214 logged in
