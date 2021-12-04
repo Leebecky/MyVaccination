@@ -1,0 +1,1 @@
+{"status":"Active","state":"Johor","clearance":"Staff","userId":"US_5968b41b-66ad-4298-95cc-db2466e480d0","username":"Staff","password":"Staff_80d0","userType":"Personnel","email":"staff@staffmail.com","contactNumber":"012-5967544"}

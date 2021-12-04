@@ -1,0 +1,1 @@
+{"appointmentId":"APT_133b73e6-2282-405b-8bf8-493e4c0b4ca5","centreId":"VC_f8952546-f334-4e4c-bcf4-ec1b58d4637a","candidateList":[],"appointmentDate":"2021-12-08","appointmentTime":"10:30","status":"Active","vaccineBrand":"CanSino"}
