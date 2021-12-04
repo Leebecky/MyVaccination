@@ -1,0 +1,1 @@
+{"name":"Abu Bakar","dateOfBirth":"1999-12-01","identification":"991201041999","nationality":"Malaysian","vaccinationStatus":"Not Vaccinated","address":"Negeri Sembilan","gender":"Male","userId":"US_d74df12b-5fc5-421c-abfd-2fd79c70a435","username":"991201041999","password":"991201070110_19991201","userType":"People","email":"abubakar@gmail.com","contactNumber":"012-99119999"}
