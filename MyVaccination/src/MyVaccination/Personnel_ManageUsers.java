@@ -220,13 +220,13 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
 
         getContentPane().add(panelTables, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 147, 870, 320));
 
+        lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblLogout.setText("Log Out");
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
         lblLogout.setForeground(new java.awt.Color(0, 0, 0));
-        lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblLogout.setText("Log Out");
-        lblLogout.setToolTipText("");
         lblLogout.setOpaque(true);
+        lblLogout.setToolTipText("");
         lblLogout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lblLogoutMouseEntered(evt);
@@ -240,11 +240,11 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
         });
         getContentPane().add(lblLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 90, 160, 40));
 
-        btnDelete.setBackground(new java.awt.Color(255, 51, 51));
-        btnDelete.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Delete.png"))); // NOI18N
         btnDelete.setText("Delete");
         btnDelete.setAlignmentY(0.0F);
+        btnDelete.setBackground(new java.awt.Color(255, 51, 51));
+        btnDelete.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
         btnDelete.setIconTextGap(10);
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -385,6 +385,11 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
             int modelRowIndex = tblPersonnel.convertRowIndexToModel(selectedRow);
             selectedUserId = tblPersonnel.getModel().getValueAt(modelRowIndex, 0).toString();
             delObj = Personnel.getPersonnel(selectedUserId);
+            
+            if (selectedUserId.equals(userId)) {
+                  JOptionPane.showMessageDialog(this, "You cannot delete your own account!", "User", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             //Must have at least 1 Personnel record in the database
             if (tblPersonnel.getRowCount() == 1) {

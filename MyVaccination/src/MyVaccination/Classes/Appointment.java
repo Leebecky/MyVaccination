@@ -259,24 +259,30 @@ public class Appointment implements File_Methods {
                     continue;
                 }
             }
-
-            // 2nd appointment, only if the wait time has been long enough
+            
+            //If candidate has no recorded vaccinations, no need for further evaluation
             List<String> vaccinationHistory = c.getVaccinationHistory();
             if (vaccinationHistory.isEmpty()) {
                 continue;
             }
+            
+            //Potential Candidate details
             Appointment apt1 = Appointment.getAppointmentDetails(vaccinationHistory.get(0));
             LocalDate vaccinationDate = apt1.getAppointmentDate();
             Vaccine vaccine = Vaccine.generateVaccine(apt1.getVaccineBrand());
             LocalDate apt2Date = vaccinationDate.plusWeeks(vaccine.getWaitTime());
             LocalDate appointmentDate = (appointment.getAppointmentDate() == null) ? LocalDate.now() : appointment.getAppointmentDate();
+            Vaccination_Centre aptVc = Vaccination_Centre.getCentre(apt1.getCentreId());
+            boolean isVcOpen = (aptVc.getStatus().equals("Active")); 
+            
+            // 2nd appointment, only if the wait time has been long enough
             if (appointmentDate.isBefore(apt2Date)) {
                 removalList.add(c);
                 continue;
             }
 
-            //2nd appointment, should be in same vaccination centre
-            if (!appointment.getCentreId().equals(apt1.getCentreId())) {
+            //2nd appointment, should be in same vaccination centre if its still open
+            if (isVcOpen && !appointment.getCentreId().equals(apt1.getCentreId())) {
                 removalList.add(c);
                 continue;
             }

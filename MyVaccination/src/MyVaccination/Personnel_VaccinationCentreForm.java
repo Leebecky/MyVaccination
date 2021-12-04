@@ -649,6 +649,7 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         if (txtVcAddr1.getText().length() == 0 || txtVcAddr1.getText() == null) {
 
             panelTabbedVc.setSelectedIndex(1);
+             JOptionPane.showMessageDialog(this, "Address Line 1 must be provided!", "Vaccination Centre", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
