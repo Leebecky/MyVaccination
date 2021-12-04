@@ -87,7 +87,11 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyVaccination");
+        setMaximumSize(new java.awt.Dimension(880, 500));
+        setMinimumSize(new java.awt.Dimension(880, 500));
+        setPreferredSize(new java.awt.Dimension(880, 500));
         setResizable(false);
+        setSize(new java.awt.Dimension(880, 500));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -98,6 +102,7 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
         userHeader.setBackground(new java.awt.Color(204, 153, 255));
 
         lblUsername.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
+        lblUsername.setForeground(new java.awt.Color(0, 0, 0));
         lblUsername.setText("User Name");
         lblUsername.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -132,22 +137,20 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
             userHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(userHeaderLayout.createSequentialGroup()
                 .addComponent(btnHome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 569, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 557, Short.MAX_VALUE)
                 .addComponent(lblUsername)
-                .addGap(21, 21, 21))
+                .addGap(53, 53, 53))
         );
         userHeaderLayout.setVerticalGroup(
             userHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, userHeaderLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(userHeaderLayout.createSequentialGroup()
-                .addComponent(btnHome)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(userHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnHome))
+                .addGap(0, 8, Short.MAX_VALUE))
         );
 
-        getContentPane().add(userHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 880, -1));
+        getContentPane().add(userHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, -1));
 
         jLabel1.setFont(new java.awt.Font("Algerian", 1, 36)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -156,6 +159,7 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
 
         lblLogout.setBackground(new java.awt.Color(204, 153, 255));
         lblLogout.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblLogout.setForeground(new java.awt.Color(0, 0, 0));
         lblLogout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblLogout.setText("Log Out");
         lblLogout.setToolTipText("");
@@ -175,6 +179,7 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
 
         lblViewProfile.setBackground(new java.awt.Color(204, 153, 255));
         lblViewProfile.setFont(new java.awt.Font("Calibri Light", 1, 18)); // NOI18N
+        lblViewProfile.setForeground(new java.awt.Color(0, 0, 0));
         lblViewProfile.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblViewProfile.setText("View Profile");
         lblViewProfile.setToolTipText("");
@@ -194,11 +199,11 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel3.setText("Username : ");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 172, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel7.setText("Current Location :");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, -1, -1));
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 172, -1, -1));
 
         btnEdit.setBackground(new java.awt.Color(204, 153, 255));
         btnEdit.setFont(new java.awt.Font("Calibri", 0, 24)); // NOI18N
@@ -210,7 +215,7 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
                 btnEditActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 390, 120, 50));
+        getContentPane().add(btnEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 395, 120, 50));
 
         lblFullName.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         getContentPane().add(lblFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 220, 30));
@@ -220,31 +225,32 @@ public class Personnel_ViewProfile extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel8.setText("Email :");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 222, -1, -1));
 
         lblEmail.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         getContentPane().add(lblEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 220, 30));
 
         jLabel10.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel10.setText("Contact Number :");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 222, -1, -1));
 
         lblContactNum.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         getContentPane().add(lblContactNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, 210, 30));
 
         jLabel9.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
         jLabel9.setText("Clearance: ");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, 20));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 275, -1, 20));
 
         lblClearance.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblClearance, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 220, 30));
+        getContentPane().add(lblClearance, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 220, 30));
 
         jLabel11.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        jLabel11.setText("Status");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, -1, -1));
+        jLabel11.setText("Status :");
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 272, -1, -1));
 
         lblStatus.setFont(new java.awt.Font("Calibri", 0, 20)); // NOI18N
-        getContentPane().add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 260, 210, 30));
+        lblStatus.setText("Status");
+        getContentPane().add(lblStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 210, 30));
 
         btnBack.setBackground(new java.awt.Color(204, 153, 255));
         btnBack.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Back.png"))); // NOI18N

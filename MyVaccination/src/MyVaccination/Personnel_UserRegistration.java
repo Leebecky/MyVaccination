@@ -468,7 +468,7 @@ public class Personnel_UserRegistration extends javax.swing.JFrame {
 
         txtPersonnelName.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         txtPersonnelName.setInputVerifier(new Validator(this));
-        txtPersonnelName.setName(""); // NOI18N
+        txtPersonnelName.setName("Name"); // NOI18N
 
         jLabel7.setText("Name :");
         jLabel7.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N

@@ -657,7 +657,7 @@
                     <Property name="inputVerifier" type="javax.swing.InputVerifier" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="new Validator(this)" type="code"/>
                     </Property>
-                    <Property name="name" type="java.lang.String" value="" noResource="true"/>
+                    <Property name="name" type="java.lang.String" value="Name" noResource="true"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel7">
