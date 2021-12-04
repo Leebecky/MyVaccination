@@ -92,6 +92,14 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
                 vaccineListModel.add(str);
             }
         });
+        
+         if (vaccineListModel.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "This vaccination centre needs to be resupplied!", "Appointment", JOptionPane.ERROR_MESSAGE);
+                btnSave.setEnabled(false);
+            } else {
+                btnSave.setEnabled(true);
+            }
+        
         DefaultComboBoxModel cmbModel = new DefaultComboBoxModel(vaccineListModel.toArray());
         cmbAptVaccine.setModel(cmbModel);
         cmbAptVaccine.getModel().setSelectedItem(apt.getVaccineBrand());
@@ -105,8 +113,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
         lblViewProfile.setVisible(false);
         lblLogout.setVisible(false);
-        
-        
+
         //Disable appointment editing capabilities if there are any candidates
         if (!apt.getCandidateList().isEmpty()) {
             cmbAptVaccine.setEnabled(false);
@@ -132,7 +139,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnHome = new javax.swing.JButton();
         lblUsername = new javax.swing.JLabel();
-        btnVcSave = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         btnVcCancel = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
@@ -273,17 +280,17 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
         getContentPane().add(homePersonnelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, -1));
 
-        btnVcSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Save.png"))); // NOI18N
-        btnVcSave.setText("Save");
-        btnVcSave.setBackground(new java.awt.Color(0, 204, 51));
-        btnVcSave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
-        btnVcSave.setIconTextGap(10);
-        btnVcSave.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Save.png"))); // NOI18N
+        btnSave.setText("Save");
+        btnSave.setBackground(new java.awt.Color(0, 204, 51));
+        btnSave.setFont(new java.awt.Font("Calibri", 0, 18)); // NOI18N
+        btnSave.setIconTextGap(10);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVcSaveActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVcSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 430, 105, 39));
+        getContentPane().add(btnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 430, 105, 39));
 
         btnVcCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/MyVaccination/Images/Icons/Cancel.png"))); // NOI18N
         btnVcCancel.setText("Cancel");
@@ -501,7 +508,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnHomeActionPerformed
 
-    private void btnVcSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcSaveActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         //Data Validation
         if (dtAptDateTime.datePicker.getDate() == null || dtAptDateTime.timePicker.getTime() == null) {
             JOptionPane.showMessageDialog(this, "Please select the appointment date and time!", "Appointment", JOptionPane.ERROR_MESSAGE);
@@ -543,7 +550,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
         aptHome.setVisible(true);
         this.setVisible(false);
         this.dispose();
-    }//GEN-LAST:event_btnVcSaveActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnVcCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVcCancelActionPerformed
 
@@ -577,7 +584,13 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
                 }
 
                 vaccineListModel.add(vaccineList[i].toString());
+            }
 
+            if (vaccineListModel.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "This vaccination centre needs to be resupplied!", "Appointment", JOptionPane.ERROR_MESSAGE);
+                btnSave.setEnabled(false);
+            } else {
+                btnSave.setEnabled(true);
             }
 
             DefaultComboBoxModel cmbModel = new DefaultComboBoxModel(vaccineListModel.toArray());
@@ -593,6 +606,11 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbAptVcItemStateChanged
 
     private void btnCandidatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCandidatesActionPerformed
+        if (!btnSave.isEnabled()) {
+            JOptionPane.showMessageDialog(this, "No vaccine brand selected!", "Appointment", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         // Open Potential Candidate dialog
 
         //Refresh appointment details
@@ -618,17 +636,17 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
     private void btnAddCandidateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCandidateActionPerformed
         // Add selected candidates to appointment candidate list
-        List<Candidate> candidateList = apt.getCandidateList();              
-         Vaccination_Centre selectedVc = (Vaccination_Centre) cmbAptVc.getSelectedItem();
+        List<Candidate> candidateList = apt.getCandidateList();
+        Vaccination_Centre selectedVc = (Vaccination_Centre) cmbAptVc.getSelectedItem();
         int[] selectedRows = tblCandidate.getSelectedRows();
-        
+
         candidateList = candidateList.stream().filter(c -> (!(c.getApptStatus().equals("Rejected") || c.getApptStatus().equals("Removed")))).toList();
         int total = candidateList.size() + selectedRows.length;
-        
+
         //Candidates exceed vaccination centre capacity
-        if (total > selectedVc.getCapacity() ) {
+        if (total > selectedVc.getCapacity()) {
             int difference = selectedVc.getCapacity() - candidateList.size();
-             JOptionPane.showMessageDialog(this, "Maximum number of candidates per appointment exceeded! "+ difference + " candidate(s) allowed to be added.", "Appointment", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Maximum number of candidates per appointment exceeded! " + difference + " candidate(s) allowed to be added.", "Appointment", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -674,13 +692,13 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // Initialising the Vaccine Type combo box values
-        if(userId.equals("")){
+        if (userId.equals("")) {
             JOptionPane.showMessageDialog(this, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
             Login login = new Login();
             login.setVisible(true);
             this.setVisible(false);
         }
-        
+
         if (id.equals("")) {
             Vaccination_Centre selectedVc = (Vaccination_Centre) cmbAptVc.getSelectedItem();
 
@@ -699,6 +717,13 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 
             }
 
+             if (vaccineListModel.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "This vaccination centre needs to be resupplied!", "Appointment", JOptionPane.ERROR_MESSAGE);
+                btnSave.setEnabled(false);
+            } else {
+                btnSave.setEnabled(true);
+            }
+            
             DefaultComboBoxModel cmbModel = new DefaultComboBoxModel(vaccineListModel.toArray());
             cmbAptVaccine.setModel(cmbModel);
             cmbAptVaccine.setEnabled(true);
@@ -792,7 +817,7 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
 //        this.setVisible(false);
 //        User user  = User.findUser(userId);
 //         logToFile(user.getUserType() + " " + user.username + " has logged out",  "Logout");
-    MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
+        MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
     }//GEN-LAST:event_lblLogoutMousePressed
 
     /**
@@ -835,8 +860,8 @@ public class Personnel_AppointmentForm extends javax.swing.JFrame {
     private javax.swing.JButton btnCandidates;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnRemoveCandidate;
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton btnVcCancel;
-    private javax.swing.JButton btnVcSave;
     private javax.swing.JComboBox<String> cmbAptType;
     private javax.swing.JComboBox<String> cmbAptVaccine;
     private javax.swing.JComboBox<Vaccination_Centre> cmbAptVc;

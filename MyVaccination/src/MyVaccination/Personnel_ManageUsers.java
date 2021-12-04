@@ -373,11 +373,24 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
             int modelRowIndex = tblPeople.convertRowIndexToModel(selectedRow);
             selectedUserId = tblPeople.getModel().getValueAt(modelRowIndex, 0).toString();
             delObj = People.getPeople(selectedUserId);
-      
+            People selectedUser = People.getPeople(selectedUserId);
+
+            //People cannot be deleted if they have appointment
+            if (!selectedUser.getVaccinationHistory().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "This user has an appointment and cannot be deleted!", "User", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
         } else {
             int modelRowIndex = tblPersonnel.convertRowIndexToModel(selectedRow);
             selectedUserId = tblPersonnel.getModel().getValueAt(modelRowIndex, 0).toString();
             delObj = Personnel.getPersonnel(selectedUserId);
+
+            //Must have at least 1 Personnel record in the database
+            if (tblPersonnel.getRowCount() == 1) {
+                JOptionPane.showMessageDialog(this, "There must be at least 1 Personnel account!", "User", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
 
         //Confirm request to delete data
@@ -456,7 +469,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_lblLogoutMouseExited
 
     private void lblLogoutMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoutMousePressed
-       MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
+        MyVaccination_GeneralFunctions.logout(this, lblUsername.getText());
     }//GEN-LAST:event_lblLogoutMousePressed
 
     private void lblUsernameMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsernameMouseEntered
@@ -496,7 +509,7 @@ public class Personnel_ManageUsers extends javax.swing.JFrame {
     }//GEN-LAST:event_panelTablesStateChanged
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        if(userId.equals("")){
+        if (userId.equals("")) {
             JOptionPane.showMessageDialog(null, "Please login into the system.", "Error", JOptionPane.ERROR_MESSAGE);
             Login login = new Login();
             login.setVisible(true);

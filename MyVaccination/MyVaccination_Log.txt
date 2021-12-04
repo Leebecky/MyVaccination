@@ -98,28 +98,10 @@
 2021-12-04 - 00:15:31.973645800: Logout - Personnel Staff has logged out
 2021-12-04 - 00:15:52.730816500: Login.java - People 011103075678 logged in
 2021-12-04 - 00:18:19.000912200: Logout - People 011103075678 has logged out
-2021-12-04 - 00:18:28.445606: Login.java - Personnel Staff logged in
-2021-12-04 - 00:24:15.292446: Login.java - Personnel Staff logged in
-2021-12-04 - 00:31:38.771619200: Login.java - Personnel Staff logged in
-2021-12-04 - 00:31:52.607721100: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:52.618849400: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:52.622838: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:52.634808800: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:52.710523100: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:52.718501800: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:52.722491200: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:52.730500800: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:53.269628700: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:53.277607400: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:53.282594300: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:53.290572800: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:53.615681: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:53.623658900: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:53.627648600: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:31:53.635658200: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:37:32.311403100: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:37:32.319392700: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:37:32.327386100: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:37:32.335404800: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:37:32.343359600: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
-2021-12-04 - 00:37:32.351382200: AppointmentCandidate_TableModel: getColumnClass() - Cannot invoke "Object.getClass()" because the return value of "MyVaccination.Classes.AppointmentCandidate_TableModel.getValueAt(int, int)" is null
+2021-12-04 - 00:56:13.604720300: Login.java - Personnel Lim logged in
+2021-12-04 - 00:58:51.733140: Login.java - Personnel Lim logged in
+2021-12-04 - 01:01:00.225924900: Login.java - Personnel Lim logged in
+2021-12-04 - 01:02:22.446404300: Login.java - Personnel Lim logged in
+2021-12-04 - 01:04:47.328055800: Login.java - Personnel Lim logged in
+2021-12-04 - 01:05:51.255701600: Login.java - Personnel Lim logged in
+2021-12-04 - 01:07:02.174835900: Login.java - Personnel Lim logged in

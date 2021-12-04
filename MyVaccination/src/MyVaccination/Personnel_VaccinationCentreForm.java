@@ -372,13 +372,13 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
 
         spinVcCapacity.setModel(new javax.swing.SpinnerNumberModel(10, 10, null, 5));
 
-        jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         jLabel12.setLabelFor(dtVcClosingTime);
         jLabel12.setText("Total Vaccinations Provided :");
+        jLabel12.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
 
-        lblTotalVaccinations.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblTotalVaccinations.setLabelFor(dtVcClosingTime);
         lblTotalVaccinations.setText("0");
+        lblTotalVaccinations.setFont(new java.awt.Font("Calibri", 0, 14)); // NOI18N
         lblTotalVaccinations.setMinimumSize(new java.awt.Dimension(64, 24));
         lblTotalVaccinations.setName(""); // NOI18N
         lblTotalVaccinations.setPreferredSize(new java.awt.Dimension(64, 24));
@@ -662,6 +662,13 @@ public class Personnel_VaccinationCentreForm extends javax.swing.JFrame {
         if (dtVcOpeningTime.getTime().isAfter(dtVcClosingTime.getTime())) {
             JOptionPane.showMessageDialog(this, "Invalid opening and closing hours!", "Vaccination Centre", JOptionPane.ERROR_MESSAGE);
             return;
+        }
+        
+        //No Vaccine Supply
+        if (vc.getStock().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please supply at least 1 vaccine to the centre!", "Vaccination Centre", JOptionPane.ERROR_MESSAGE);
+            return;
+            
         }
 
         //Set values
