@@ -800,6 +800,7 @@ public class User_SubmitAppointment extends javax.swing.JFrame {
                         vaccineBrand = appointment.getVaccineBrand();
                         aptDate = appointment.getAppointmentDate();
                         earliestDate = aptFromFile.getAppointmentDate().plusWeeks(waitTime);
+                        earliestDate = earliestDate.minusDays(1);
                         apptStatus = appointment.getStatus();
                         List<Candidate> candidates = appointment.getCandidateList();
                         List<Candidate> pendingCandidate = new ArrayList();

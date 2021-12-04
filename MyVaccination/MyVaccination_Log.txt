@@ -58,6 +58,46 @@
 2021-12-03 - 19:24:37.399265: Login.java - People AA12345 logged in
 2021-12-03 - 19:27:08.603280600: Login.java - People AA12345 logged in
 2021-12-03 - 19:27:12.964508100: User_EditProfile.java - Username updated from AA12345 to AA12341
+2021-12-03 - 19:32:36.387252600: Login.java - People AA01213 logged in
+2021-12-03 - 19:44:28.036557400: Logout - People AA01213 has logged out
+2021-12-03 - 19:47:27.461602: Login.java - People 31195855 logged in
+2021-12-03 - 19:47:32.811919400: Logout - People 31195855 has logged out
+2021-12-03 - 19:47:50.587051400: Login.java - People 31195855 logged in
+2021-12-03 - 19:47:54.321380: Logout - People 31195855 has logged out
+2021-12-03 - 19:48:15.189403100: Login.java - People 31195855 logged in
+2021-12-03 - 19:48:18.248837200: Logout - People 31195855 has logged out
+2021-12-03 - 19:48:40.700453900: Login.java - People 31195855 logged in
+2021-12-03 - 19:48:46.119913600: Logout - People 31195855 has logged out
+2021-12-03 - 19:49:18.166795700: Login.java - Personnel Staff logged in
+2021-12-03 - 19:49:22.266739800: Logout - Personnel Staff has logged out
+2021-12-03 - 19:49:41.532330600: Login.java - Personnel Staff logged in
+2021-12-03 - 19:49:47.430468100: Logout - Personnel Staff has logged out
+2021-12-03 - 19:50:01.196360900: Login.java - Personnel Staff logged in
+2021-12-03 - 19:50:03.377346200: Logout - Personnel Staff has logged out
+2021-12-03 - 19:50:20.915969500: Login.java - Personnel Staff logged in
+2021-12-03 - 19:50:22.698403100: Logout - Personnel Staff has logged out
+2021-12-03 - 19:50:49.131792300: Login.java - Personnel Staff logged in
+2021-12-03 - 19:50:52.096498500: Logout - Personnel Staff has logged out
+2021-12-03 - 19:51:05.532740200: Login.java - Personnel Staff logged in
+2021-12-03 - 19:51:10.048645300: Logout - Personnel Staff has logged out
+2021-12-03 - 19:51:24.716315400: Login.java - Personnel Staff logged in
+2021-12-03 - 19:51:28.775486900: Logout - Personnel Staff has logged out
+2021-12-03 - 19:51:43.627747500: Login.java - Personnel Staff logged in
+2021-12-03 - 19:51:47.257370100: Logout - Personnel Staff has logged out
+2021-12-03 - 21:27:23.505241200: Login.java - Personnel Staff logged in
+2021-12-03 - 21:31:16.079040500: Login.java - Personnel Staff logged in
+2021-12-03 - 21:33:22.302238400: Login.java - People 991201070110 logged in
+2021-12-03 - 21:33:29.822140800: Logout - People 991201070110 has logged out
+2021-12-03 - 23:00:03.667676600: Login.java - Personnel Staff logged in
+2021-12-03 - 23:24:52.396305300: Logout - Personnel Staff has logged out
+2021-12-03 - 23:25:52.880875500: Login.java - Personnel Staff logged in
+2021-12-03 - 23:31:53.050743100: Login.java - People 991201041999 logged in
+2021-12-03 - 23:32:32.138270800: Logout - People 991201041999 has logged out
+2021-12-03 - 23:33:52.075537400: Login.java - Personnel Staff logged in
+2021-12-03 - 23:37:56.123333700: Login.java - Personnel Staff logged in
+2021-12-04 - 00:15:31.973645800: Logout - Personnel Staff has logged out
+2021-12-04 - 00:15:52.730816500: Login.java - People 011103075678 logged in
+2021-12-04 - 00:18:19.000912200: Logout - People 011103075678 has logged out
 2021-12-04 - 00:56:13.604720300: Login.java - Personnel Lim logged in
 2021-12-04 - 00:58:51.733140: Login.java - Personnel Lim logged in
 2021-12-04 - 01:01:00.225924900: Login.java - Personnel Lim logged in
